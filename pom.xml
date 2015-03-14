@@ -31,8 +31,10 @@
     <dependencies>
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.3</version>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.1.0.5.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/ojdbc14_g.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>ognl</groupId>
