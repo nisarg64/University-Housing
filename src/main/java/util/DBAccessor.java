@@ -1,4 +1,4 @@
-package util;
+package main.java.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,8 +13,8 @@ import java.sql.Statement;
 public class DBAccessor {
 
     private static final String jdbcURL = "jdbc:oracle:thin:@ora.csc.ncsu.edu:1521:orcl";
-    private static final String username = "akagrawa";      //unity id
-    private static final String password = "200061445";      //9 digit student id
+    private static final String username = "ndgandh2";      //unity id
+    private static final String password = "200062400";      //9 digit student id
 
     private Connection getConnection() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");
