@@ -1,4 +1,4 @@
-package action;
+package main.java.action;
 
 /**
  * Author : abhishek
