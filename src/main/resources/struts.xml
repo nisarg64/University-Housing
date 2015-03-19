@@ -5,18 +5,29 @@
 
 <struts>
 
-    <package name="user" namespace="/User" extends="struts-default">
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+    <constant name="struts.ui.theme" value="simple"/>
 
-        <action name="Login">
-            <result>login.jsp</result>
+    <package name="default" namespace="/" extends="struts-default">
+
+        <action name="" class="action.UHAction">
+            <result>/WEB-INF/login.jsp</result>
         </action>
 
-        <action name="Welcome" class="action.WelcomeUserAction">
-            <result name="SUCCESS">welcome_user.jsp</result>
-            <result name="FAILURE">login.jsp</result>
+        <action name="login" class="action.LoginAction">
+            <result name="student">/WEB-INF/user/student_home.jsp</result>
+            <result name="guest">/WEB-INF/user/guest_home.jsp</result>
+            <result name="staff">/WEB-INF/user/staff_home.jsp</result>
+            <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
+        <action name="logout" class="action.LoginAction" method="logout">
+            <result name="success">/WEB-INF/login.jsp</result>
+        </action>
 
     </package>
+
 
 </struts>

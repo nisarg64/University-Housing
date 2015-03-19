@@ -9,8 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>University Housing</title>
-    <link href="../css/housing.css" rel="stylesheet">
-
+    <link href="/<s:property value='appName'/>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/<s:property value='appName'/>/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/<s:property value='appName'/>/css/housing.css" rel="stylesheet">
+    <script type="text/javascript" src="/<s:property value='appName'/>/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="/<s:property value='appName'/>/js/bootstrap.min.js"></script>
     <decorator:head/>
 </head>
 
