@@ -43,3 +43,119 @@
     left:0;
 }
 
+.myTbl{
+    margin:auto;
+    height:22px;
+    border:0px;
+}
+
+.myTblHd{
+    background: url('../img/ui-bg_gloss-wave.png') repeat-x scroll 50% 50% #2191C0;
+    border: 1px solid #4297D7;
+    /*background:#dcddc0 url('../img/blue-gradient-bg.gif');*/
+    vertical-align:middle;
+    /*background-color:#6495ED;*/
+    background-color: #0033CC;
+    color: #EAF5F7;
+    font-weight:bolder;
+    max-height:22px;
+    margin-top:1%;
+}
+
+.ui-widget .ui-widget {
+    font-size: 1em;
+}
+
+.ui-widget-content {
+    color: #222222;
+}
+
+.ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 12px !important;
+}
+
+.ui-corner-all {
+    border-radius: 5px;
+}
+
+.ui-panel .ui-panel-titlebar {
+    padding: 0.5em 1em 0.3em;
+}
+
+.big_button{
+    display: block;
+    width: 100%;
+    -moz-border-radius: 30px;
+    -khtml-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background: url("../img/bg.jpg") repeat-x scroll 90% 90% #ffffff;
+    max-width: 120px !important;
+    max-height: 80px;
+    height: 40%;
+    padding: 30px;
+    text-align: center;
+    vertical-align: middle !important;
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid #5b7193
+}
+
+.top_margin{
+    margin-top: 5% !important;
+}
+.top_margin_small{
+    margin-top: 3% !important;
+}
+.right_margin_small{
+    margin-right: 3% !important;
+}
+.left_margin_small{
+    margin-left: 3% !important;
+}
+
+.box_width{
+    width: 80% !important;
+}
+.half_width{
+    width: 50% !important;
+}
+.box_width_full{
+    left: 0% !important;
+    width: 100% !important;
+}
+.box_padding{
+    padding: 3% !important;
+}
+.outer_box_align{
+    display: table;
+}
+.inner_box_align{
+    margin: auto;
+    width: 40%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.logout{
+    float:right;
+}
+
+.upper{
+    background-color: #d5d5d5;
+    padding: 3%;
+}
+
+.upper-text{
+    text-align: center;
+    font-weight: bold;
+    margin-left: 25%;
+}
+
+.user{
+    color: #1b2877;
+    text-decoration: underline;
+}

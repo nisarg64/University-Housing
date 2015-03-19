@@ -1,13 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<html>
-<head>
-<script type="text/javascript">
-
-</script>
-
-</head>
-<body>
 <div class="container">
 
     <s:form action="login" cssClass="form-signin" theme="simple">
@@ -26,5 +17,3 @@
     </s:form>
 
 </div>
-</body>
-</html>
