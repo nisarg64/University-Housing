@@ -2,12 +2,10 @@
 <div class="container">
 
     <div class="upper">
-        <button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button>
-            <span class="upper-text">Welcome <s:property value="role" /> <span class="user"><s:property value="username" /></span></span>
-        <a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a>
+        <span><button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
+        <span class="upper-text">Welcome <s:property value="role" /> <span class="user"><s:property value="username" /></span></span>
+        <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
-
-    </h4>
 
     <p class="myTblHd ui-corner-all"><label class="left_margin_small contentHeader">Click one of the choices to proceed:</label></p>
     <div class="ui-widget ui-widget-content ui-corner-all top_margin_small top_bottom_padding add_gradient add_shadow">

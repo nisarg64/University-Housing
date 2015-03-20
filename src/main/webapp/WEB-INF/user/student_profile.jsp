@@ -2,10 +2,11 @@
 <div class="container">
 
     <div class="upper">
-        <button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button>
-        <span class="upper-text">Profile Page</span>
-        <a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a>
+        <span><button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
+        <span class="upper-text" style="margin-left:32%">Profile Page</span>
+        <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
+
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
         <tr>
