@@ -1,9 +1,6 @@
 package util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * User: Nikhil
@@ -13,10 +10,11 @@ import java.sql.Statement;
 public class DBAccessor {
 
     private static final String jdbcURL = "jdbc:oracle:thin:@ora.csc.ncsu.edu:1521:orcl";
-    private static final String username = "ndgandh2";      //unity id
-    private static final String password = "200062400";      //9 digit student id
 
-    private Connection getConnection() throws Exception {
+    private static final String username = "";      //unity id
+    private static final String password = "";      //9 digit student id
+
+    public Connection getConnection() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         return DriverManager.getConnection(jdbcURL, username, password);
     }
@@ -31,9 +29,9 @@ public class DBAccessor {
         Statement statement = getConnection().createStatement();
         ResultSet rs = statement.executeQuery(sql);
         while (rs.next()) {
-            String s = rs.getString("COF_NAME");
-            float n = rs.getFloat("PRICE");
-            System.out.println(s + "   " + n);
+            String f = rs.getString("fname");
+            String l = rs.getString("lname");
+            System.out.println(f + "   " + l);
         }
         statement.close();
     }
@@ -48,5 +46,6 @@ public class DBAccessor {
 
         dbAccessor.executeQuery("SELECT COF_NAME, PRICE FROM COFFEES");
         dbAccessor.executeUpdateSQL("DROP TABLE COFFEES");
+
     }
 }

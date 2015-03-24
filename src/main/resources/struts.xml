@@ -27,6 +27,10 @@
             <result name="success">/WEB-INF/login.jsp</result>
         </action>
 
+        <action name="profile" class="action.UHAction">
+            <result name="success">/WEB-INF/user/student_profile.jsp</result>
+        </action>
+
     </package>
 
 
