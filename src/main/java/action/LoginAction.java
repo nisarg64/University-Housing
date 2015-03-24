@@ -10,7 +10,7 @@ import java.util.Date;
  * Author : abhishek
  * Created on 3/15/15.
  */
-public class LoginAction extends UHAction {
+public class LoginAction extends action.UHAction {
 
     private String username;
     private String password;
