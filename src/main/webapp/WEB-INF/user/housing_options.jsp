@@ -3,7 +3,7 @@
 
     <div class="upper">
         <span><button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
-        <span class="upper-text">Welcome <s:property value="role" /> <span class="user"><s:property value="username" /></span></span>
+        <span class="upper-text">Housing Options</span>
         <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
 
@@ -14,28 +14,34 @@
                 <tr>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/housingOption.action" id="housingNavigator" class="big_button top_margin">Housing Options</a>
+                            <a href="#" id="housingNavigator" class="big_button top_margin">View Invoices</a>
                         </div>
                     </td>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="parkingNavigator" class="big_button top_margin">Parking Option</a>
+                            <a href="#" id="parkingNavigator" class="big_button top_margin">View leases</a>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">Maintenance</a>
+                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">New request</a>
                         </div>
                     </td>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/profile.action" id="profileNavigator" class="big_button top_margin">Profile</a>
+                            <a href="/<s:property value='appName'/>/xxx.action" id="viewCancelRequestsNavigator" class="big_button top_margin">View/Cancel requests</a>
                         </div>
                     </td>
                 </tr>
-
+                <tr>
+                    <td  width="50%">
+                        <div style="height:100px;">
+                            <a href="#" id="vacancyNavigator" class="big_button top_margin">View vacancy</a>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
