@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="uhousing" default="tomcatStart" basedir=".">
+    <property file="build.properties" />
+
+    <target name="tomcatStart" depends="tomcatStop, deployProject" description="Starts tomcat">
+        <echo>Starting Tomcat</echo>
+        <exec executable="${tomcat.home}/bin/startup.bat" dir="${tomcat.home}/bin" />
+    </target>
+
+    <target name="tomcatStop" description="Stops tomcat" depends="tomcatStatus" if="tomcat.started">
+        <echo>Stopping Tomcat</echo>
+        <exec executable="${tomcat.home}/bin/shutdown.bat" dir="${tomcat.home}/bin" />
+    </target>
+
+    <target name="tomcatStatus" description="Check tomcat status">
+        <condition property="tomcat.started">
+            <socket server="localhost" port="8080"/>
+        </condition>
+    </target>
+
+    <target name="deployProject" description="Deploys project to tomcat" depends="buildProject,tomcatClean">
+        <mkdir dir="${tomcat.home}/webapps/uhousing"/>
+        <copy todir="${tomcat.home}/webapps/uhousing">
+            <fileset dir="${project.dir}/target/uhousing-1.0"/>
+        </copy>
+        <copy file="${project.dir}/target/uhousing-1.0.war" todir="${tomcat.home}/webapps" />
+    </target>
+
+    <target name="buildProject" description="Builds the project using maven">
+        <exec dir="${project.dir}" executable="cmd">
+            <arg line="/c mvn package" />
+        </exec>
+    </target>
+
+    <target name="tomcatClean" description="Clean up" >
+        <delete dir="${tomcat.home}/webapps/${ant.project.name}"/>
+        <delete file="${tomcat.home}/webapps/uhousing-1.0.war"/>
+    </target>
+
+</project>

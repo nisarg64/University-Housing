@@ -10,8 +10,9 @@ import java.sql.*;
 public class DBAccessor {
 
     private static final String jdbcURL = "jdbc:oracle:thin:@ora.csc.ncsu.edu:1521:orcl";
-    private static final String username = "akagrawa";      //unity id
-    private static final String password = "200061445";      //9 digit student id
+
+    private static final String username = "";      //unity id
+    private static final String password = "";      //9 digit student id
 
     public Connection getConnection() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");
