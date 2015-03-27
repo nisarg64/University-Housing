@@ -1,6 +1,7 @@
 package util;
 
 import java.sql.*;
+import java.util.List;
 
 /**
  * User: Nikhil
@@ -10,42 +11,38 @@ import java.sql.*;
 public class DBAccessor {
 
     private static final String jdbcURL = "jdbc:oracle:thin:@ora.csc.ncsu.edu:1521:orcl";
-
     private static final String username = "";      //unity id
     private static final String password = "";      //9 digit student id
 
-    public Connection getConnection() throws Exception {
+    public static Connection getConnection() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");
         return DriverManager.getConnection(jdbcURL, username, password);
     }
 
-    public void executeUpdateSQL(String sql) throws Exception {
-        Statement statement = getConnection().createStatement();
+    public static void executeUpdateSQL(Connection conn, String sql) throws Exception {
+        Statement statement = conn.createStatement();
         statement.executeUpdate(sql);
         statement.close();
     }
 
-    public void executeQuery(String sql) throws Exception {
-        Statement statement = getConnection().createStatement();
-        ResultSet rs = statement.executeQuery(sql);
-        while (rs.next()) {
-            String f = rs.getString("fname");
-            String l = rs.getString("lname");
-            System.out.println(f + "   " + l);
-        }
+    public static void executeQuery(Connection conn, String query) throws SQLException{
+        Statement statement = conn.createStatement();
+        statement.executeQuery(query);
         statement.close();
     }
 
-    public static void main(String[] args) throws Exception {
-        DBAccessor dbAccessor = new DBAccessor();
+    public static void executeBatchQuery(Connection conn, List<String> queries) throws SQLException{
 
-        dbAccessor.executeUpdateSQL("CREATE TABLE COFFEES (COF_NAME VARCHAR(32), SUP_ID INTEGER, " +
-                "PRICE FLOAT, SALES INTEGER, TOTAL INTEGER)");
-        dbAccessor.executeUpdateSQL("INSERT INTO COFFEES VALUES ('Colombian', 101, 7.99, 0, 0)");
-        dbAccessor.executeUpdateSQL("INSERT INTO COFFEES VALUES ('French_Roast', 49, 8.99, 0, 0)");
+        Statement statement = conn.createStatement();
+        for(String query : queries){
+            statement.addBatch(query);
+        }
+        statement.executeBatch();
+        statement.close();
+    }
 
-        dbAccessor.executeQuery("SELECT COF_NAME, PRICE FROM COFFEES");
-        dbAccessor.executeUpdateSQL("DROP TABLE COFFEES");
-
+    public static ResultSet selectQuery(Connection conn, String query) throws SQLException{
+        Statement statement = conn.createStatement();
+        return statement.executeQuery(query);
     }
 }

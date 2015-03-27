@@ -25,12 +25,21 @@ public class BootstrapQuery {
             conn = dbAccessor.getConnection();
             dropAllTables(conn);
 
-        //    createLoginTable(conn);
-            createResidentTable(conn);
+        // Login Table
+          createLoginTable(conn);
+
+        /*
+            Student Related Tables
+        */
+        //      createResidentTable(conn);
         //    createStudentTable(conn);
         //    createGuestTable(conn);
         //    createFamilyTable(conn);
         //    createKinTable(conn);
+
+        /*
+              Housing Queries
+        */
 
             insertIntoTables(conn);
 
@@ -48,19 +57,12 @@ public class BootstrapQuery {
 
     public void insertIntoTables(Connection conn) throws SQLException{
 
-        insertIntoResidentTable(conn);
+       // insertIntoResidentTable(conn);
 
-    }
-
-    private void executeQuery(Connection conn, String query) throws SQLException{
-        Statement statement = conn.createStatement();
-        statement.executeQuery(query);
-        statement.close();
     }
 
     private void dropAllTables(Connection conn) throws SQLException{
-        String query = "DROP TABLE RESIDENT";
-        executeQuery(conn, query);
+
     }
 
     private void createLoginTable(Connection conn) throws Exception{
@@ -68,7 +70,7 @@ public class BootstrapQuery {
                        " username VARCHAR(32), " +
                        " password VARCHAR(32), " +
                        " role VARCHAR(10) ";
-        executeQuery(conn, query);
+        DBAccessor.executeQuery(conn, query);
     }
 
     private void createResidentTable(Connection conn) throws SQLException{
@@ -90,7 +92,7 @@ public class BootstrapQuery {
                 " spl_needs VARCHAR(32), " +
                 " PRIMARY KEY (res_id) " +
                 ")";
-        executeQuery(conn, query);
+        DBAccessor.executeQuery(conn, query);
     }
 
     private void insertIntoResidentTable(Connection conn) throws SQLException{
@@ -100,8 +102,8 @@ public class BootstrapQuery {
         String query2 = "INSERT INTO RESIDENT VALUES('abora', 'Anand', 'Bora', 'M', '07-Jul-1990','1234 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
-        executeQuery(conn,query1);
-        executeQuery(conn,query2);
+        DBAccessor.executeQuery(conn,query1);
+        DBAccessor.executeQuery(conn,query2);
     }
 
     private void createStudentTable(Connection conn) throws SQLException {
@@ -113,7 +115,7 @@ public class BootstrapQuery {
                 " course VARCHAR(32) " +
                 " PRIMARY KEY (student_id) " +
                 ")";
-        executeQuery(conn,query);
+        DBAccessor.executeQuery(conn,query);
     }
 
     private void createGuestTable(Connection conn) throws SQLException{
@@ -123,7 +125,7 @@ public class BootstrapQuery {
                 " status VARCHAR(10), " +
                 " PRIMARY KEY (approval_id) " +
                 ")";
-        executeQuery(conn, query);
+        DBAccessor.executeQuery(conn, query);
     }
 
 
@@ -138,7 +140,7 @@ public class BootstrapQuery {
                 " FOREIGN KEY (student_id) REFERENCES STUDENT " +
                 " ON DELETE CASCADE " +
                 ")";
-        executeQuery(conn, query);
+        DBAccessor.executeQuery(conn, query);
     }
 
     private void createKinTable(Connection conn) throws SQLException{
@@ -155,14 +157,12 @@ public class BootstrapQuery {
                 " FOREIGN KEY (student_id) REFERENCES STUDENT " +
                 " ON DELETE CASCADE " +
                 ")";
-        executeQuery(conn, query);
+        DBAccessor.executeQuery(conn, query);
     }
 
     public static void main(String[] args) throws Exception{
         BootstrapQuery bootstrapQuery = new BootstrapQuery();
         bootstrapQuery.createAllTables();
-
-        bootstrapQuery.dbAccessor.executeQuery("SELECT fname, lname FROM RESIDENT ");
     }
 
 }
