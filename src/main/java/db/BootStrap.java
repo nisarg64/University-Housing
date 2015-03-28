@@ -1,6 +1,5 @@
 package db;
 
-
 import db.table.*;
 import pojo.Login;
 import util.DBAccessor;
@@ -27,7 +26,17 @@ public class BootStrap {
         database.addTable(new ParkingPermitTable());
         database.addTable(new ParkingRequestTable());
 
+        database.addTable(new RoomTable());
+        database.addTable(new ResidentHallTable());
+        database.addTable(new ResidentHallProvides());
+        database.addTable(new ApartmentTable());
+        database.addTable(new GeneralAptTable());
+        database.addTable(new GeneralAptProvides());
+        database.addTable(new FamilyAptTable());
+        database.addTable(new PrivateAccoTable());
+
         database.makeAll();
+        System.out.println("Done!");
     }
 
     public static void generalQuery(){
@@ -35,8 +44,8 @@ public class BootStrap {
         try{
             conn = DBAccessor.getConnection();
 
-            //ResidentTable residentTable = new ResidentTable();
-            //residentTable.selectAll(conn);
+            ResidentTable residentTable = new ResidentTable();
+            residentTable.selectAll(conn);
             LoginTable loginTable = new LoginTable();
             Login login = new Login();
             login.setUsername("akagrawa");
@@ -59,7 +68,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-     //   bootStrap();
-        generalQuery();
+//        generalQuery();
+        bootStrap();
     }
 }
