@@ -122,7 +122,7 @@ public class BootstrapQuery {
         String query = " CREATE TABLE LOGIN (" +
                        " username VARCHAR(32), " +
                        " password VARCHAR(32), " +
-                       " role VARCHAR(10) ";
+                       " role VARCHAR(10)) ";
         executeQuery(conn, query);
     }
 
