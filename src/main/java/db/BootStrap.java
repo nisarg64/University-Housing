@@ -1,9 +1,6 @@
 package db;
 
-import db.table.GuestTable;
-import db.table.LoginTable;
-import db.table.ResidentTable;
-import db.table.StudentTable;
+import db.table.*;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -22,6 +19,11 @@ public class BootStrap {
         database.addTable(new ResidentTable());
         database.addTable(new StudentTable());
         database.addTable(new GuestTable());
+        database.addTable(new HousingOptionsTable());
+        database.addTable(new ParkingLotTable());
+        database.addTable(new ParkingSpotTable());
+        database.addTable(new ParkingPermitTable());
+        database.addTable(new ParkingRequestTable());
 
         database.makeAll();
     }

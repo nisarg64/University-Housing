@@ -11,6 +11,6 @@ public interface Table {
 
       public void createTable(Connection conn) throws SQLException;
       public void insertIntoTable(Connection conn) throws SQLException;
-      public void dropTable(Connection conn);
+      public void dropTable(Connection conn) throws SQLException;
 
 }

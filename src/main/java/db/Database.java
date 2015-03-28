@@ -18,7 +18,6 @@ public class Database {
 
     private void make(Table table, Connection conn) throws SQLException {
 
-        table.dropTable(conn);
         table.createTable(conn);
         table.insertIntoTable(conn);
     }
@@ -30,9 +29,14 @@ public class Database {
     public void makeAll(){
 
         Connection conn = null;
-        try{
+        try {
             conn = DBAccessor.getConnection();
-            for(Table table : tables){
+
+            for (int i = tables.size()-1; i >= 0; --i) {
+                tables.get(i).dropTable(conn);
+            }
+
+            for (Table table : tables) {
                 make(table, conn);
             }
             conn.commit();
