@@ -159,3 +159,8 @@
     color: #1b2877;
     text-decoration: underline;
 }
+
+.errorLabel{
+    text-align: center;
+    color: #CC0000;
+}

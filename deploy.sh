@@ -55,10 +55,12 @@ echo "[INFO] TOMCAT NEW INSTANCE STARTED .... "
 echo "[INFO] -------------------------------"
 cd $TOMCAT/bin
 ./startup.sh
-sleep 2
+sleep 5
 
 cd $TOMCAT/webapps
 mv uhousing-1.0 uhousing
+cp $PROJ/lib/* $TOMCAT/webapps/uhousing/WEB-INF/lib/
+
 echo "[INFO] -------------------------------"
 echo "[INFO] APP DEPLOYED SUCCESSFULLY .... "
 echo "[INFO] -------------------------------"

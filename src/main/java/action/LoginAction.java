@@ -1,7 +1,7 @@
 package action;
 
 import org.apache.struts2.ServletActionContext;
-import pojo.UserInfo;
+import pojo.Login;
 
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -15,6 +15,7 @@ public class LoginAction extends action.UHAction {
     private String username;
     private String password;
     private String role;
+    private String errorMsg = "Invalid Username or Password";
 
     public String execute() throws Exception {
 
@@ -23,30 +24,25 @@ public class LoginAction extends action.UHAction {
             session.setAttribute("logined","true");
             session.setAttribute("context", new Date());
 
-            UserInfo userInfo = new UserInfo();
-            userInfo.setUsername(username);
-            userInfo.setRole(role);
-            super.setUserInfo(userInfo);
+            Login login = new Login();
+            login.setUsername(username);
+            login.setPassword(password);
+            login.setRole(role);
 
-            if(role.equalsIgnoreCase("student")){
-                return "student";
+            boolean valid = login.checkLogin(conn);
+            if(valid){
+                return login.getRole();
+            }else{
+                return ERROR;
             }
-
-            if(role.equalsIgnoreCase("guest")){
-                return "guest";
-            }
-
-            if(role.equalsIgnoreCase("staff")){
-                return "staff";
-            }
-
-        return ERROR;
     }
 
     public String logout() throws Exception {
         HttpSession session = ServletActionContext.getRequest().getSession();
         session.removeAttribute("logined");
         session.removeAttribute("context");
+        errorMsg = "";
+        conn.close();
         return SUCCESS;
     }
 
@@ -72,5 +68,13 @@ public class LoginAction extends action.UHAction {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
     }
 }

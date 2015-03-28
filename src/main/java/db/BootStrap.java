@@ -1,6 +1,8 @@
 package db;
 
+
 import db.table.*;
+import pojo.Login;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -33,8 +35,14 @@ public class BootStrap {
         try{
             conn = DBAccessor.getConnection();
 
-            ResidentTable residentTable = new ResidentTable();
-            residentTable.selectAll(conn);
+            //ResidentTable residentTable = new ResidentTable();
+            //residentTable.selectAll(conn);
+            LoginTable loginTable = new LoginTable();
+            Login login = new Login();
+            login.setUsername("akagrawa");
+            login.setPassword("abc123");
+            login.setRole("student");
+            System.out.println(loginTable.checkLogin(login, conn));
 
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -51,7 +59,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-        bootStrap();
+     //   bootStrap();
         generalQuery();
     }
 }

@@ -1,7 +1,11 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import pojo.UserInfo;
+import db.table.ResidentTable;
+import util.DBAccessor;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Author : abhishek
@@ -10,7 +14,17 @@ import pojo.UserInfo;
 public class UHAction extends ActionSupport{
 
     private String appName = "uhousing";
-    private UserInfo userInfo;
+    Connection conn = null;
+
+    public UHAction(){
+        try{
+            conn = DBAccessor.getConnection();
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
 
     public String getAppName() {
         return appName;
@@ -20,11 +34,4 @@ public class UHAction extends ActionSupport{
         this.appName = appName;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
 }
