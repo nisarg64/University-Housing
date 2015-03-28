@@ -26,13 +26,17 @@ public class BootstrapQuery {
             dropAllTables(conn);
 
         //    createLoginTable(conn);
-            createResidentTable(conn);
+        //    createResidentTable(conn);
+            createHousingOptions(conn);
+            createParkingLotTable(conn);
+            createParkingSpotTable(conn);
+
         //    createStudentTable(conn);
         //    createGuestTable(conn);
         //    createFamilyTable(conn);
         //    createKinTable(conn);
 
-            insertIntoTables(conn);
+         //   insertIntoTables(conn);
 
             conn.commit();
         }catch (Exception ex){
@@ -44,6 +48,37 @@ public class BootstrapQuery {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private void createHousingOptions(Connection conn) throws SQLException {
+        String query = "CREATE TABLE HOUSING_OPTIONS ("+
+                        "housing_id varchar(32), "+
+                        "housing_name varchar(75), "+
+                        "housing_address varchar(100), "+
+                        "PRIMARY KEY (housing_id))";
+        executeQuery(conn, query);
+    }
+
+    private void createParkingSpotTable(Connection conn) throws SQLException {
+        String query = "CREATE TABLE PARKINGSPOT ("+
+                        "spot_id varchar(32), "+
+                        "lot_id varchar(32), "+
+                        "spot_type varchar(32), "+
+                        "availability char(1), " +
+                        "rental_fee float(6), "+
+                        "PRIMARY KEY (spot_id), "+
+                        "FOREIGN KEY (lot_id) REFERENCES PARKINGLOT(lot_id) )";
+        executeQuery(conn, query);
+    }
+
+    private void createParkingLotTable(Connection conn) throws SQLException {
+        String query =  "CREATE TABLE PARKINGLOT ("+
+                        "lot_id varchar(32), "+
+                        "lot_type varchar(32), "+
+                        "nearby_housing_id varchar(32), "+
+                        "PRIMARY KEY (lot_id), "+
+                        "FOREIGN KEY (nearby_housing_id) REFERENCES HOUSING_OPTIONS(housing_id) )";
+        executeQuery(conn, query);
     }
 
     public void insertIntoTables(Connection conn) throws SQLException{
@@ -59,7 +94,12 @@ public class BootstrapQuery {
     }
 
     private void dropAllTables(Connection conn) throws SQLException{
-        String query = "DROP TABLE RESIDENT";
+        //String query = "DROP TABLE RESIDENT";
+        String query = "DROP TABLE PARKINGSPOT";
+        executeQuery(conn, query);
+        query = "DROP TABLE PARKINGLOT";
+        executeQuery(conn, query);
+        query = "DROP TABLE HOUSING_OPTIONS";
         executeQuery(conn, query);
     }
 
@@ -161,8 +201,9 @@ public class BootstrapQuery {
     public static void main(String[] args) throws Exception{
         BootstrapQuery bootstrapQuery = new BootstrapQuery();
         bootstrapQuery.createAllTables();
+        //bootstrapQuery.dbAccessor.executeQuery("select table_name from user_tables");
 
-        bootstrapQuery.dbAccessor.executeQuery("SELECT fname, lname FROM RESIDENT ");
+        //bootstrapQuery.dbAccessor.executeQuery("SELECT fname, lname FROM RESIDENT ");
     }
 
 }

@@ -18,7 +18,7 @@ public class LoginAction extends action.UHAction {
 
     public String execute() throws Exception {
 
-            System.out.println(username + "   ====   " + password);
+            System.out.println(username + "   ====   " +  password);
             HttpSession session = ServletActionContext.getRequest().getSession();
             session.setAttribute("logined","true");
             session.setAttribute("context", new Date());
