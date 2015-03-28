@@ -18,7 +18,6 @@
 </head>
 
 <body>
-<input type="hidden" value="<s:property value='accordion'/>"/>
 <div id="allContainer">
     <!-- Header -->
         <div id="top-header">
