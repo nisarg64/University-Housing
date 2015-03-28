@@ -13,12 +13,17 @@ import java.util.List;
  * Author : abhishek
  * Created on 3/26/15.
  */
-public class ResidentTable implements Table {
+public class ResidentTable extends Table {
+
+    @Override
+    public String getTableName() {
+        return "RESIDENT";
+    }
 
     @Override
     public void createTable(Connection conn) throws SQLException{
 
-        String query = " CREATE TABLE RESIDENT (" +
+        String query = " CREATE TABLE " + getTableName() + " (" +
                 " res_id CHAR(10), " +
                 " fname VARCHAR(32), " +
                 " lname VARCHAR(32) NOT NULL, " +
@@ -42,10 +47,10 @@ public class ResidentTable implements Table {
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<String>();
-        String query1 = "INSERT INTO RESIDENT VALUES('akagrawa', 'Abhishek', 'Agrawal', 'M', '02-Jul-1990','1234 avent ferry'," +
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('akagrawa', 'Abhishek', 'Agrawal', 'M', '02-Jul-1990','1234 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
-        String query2 = "INSERT INTO RESIDENT VALUES('abora', 'Anand', 'Bora', 'M', '07-Jul-1990','1234 avent ferry'," +
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('abora', 'Anand', 'Bora', 'M', '07-Jul-1990','1234 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
         queries.add(query1);
@@ -54,21 +59,9 @@ public class ResidentTable implements Table {
         DBAccessor.executeBatchQuery(conn, queries);
     }
 
-    @Override
-    public void dropTable(Connection conn){
-
-        try {
-            String query = "DROP TABLE RESIDENT";
-            DBAccessor.executeQuery(conn, query);
-
-        }catch (SQLException ex){
-            System.err.println( " Table  RESIDENT : " + ex.getMessage());
-        }
-    }
-
     public List<Resident> selectAll(Connection conn) throws SQLException{
 
-        String query = "SELECT * from RESIDENT";
+        String query = "SELECT * from " + getTableName();
         List<Resident> residents = new LinkedList<Resident>();
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
