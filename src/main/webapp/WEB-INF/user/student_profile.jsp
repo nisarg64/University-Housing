@@ -2,6 +2,7 @@
     <div class="container">
 
     <div class="upper">
+        <span></span><a id="back" class="btn btn-primary navbar-btn" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
         <span><button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
         <span class="upper-text" style="margin-left:32%">Profile Page</span>
         <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
