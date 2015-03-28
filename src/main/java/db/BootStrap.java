@@ -1,5 +1,6 @@
 package db;
 
+import db.table.GuestTable;
 import db.table.LoginTable;
 import db.table.ResidentTable;
 import db.table.StudentTable;
@@ -20,6 +21,7 @@ public class BootStrap {
         database.addTable(new LoginTable());
         database.addTable(new ResidentTable());
         database.addTable(new StudentTable());
+        database.addTable(new GuestTable());
 
         database.makeAll();
     }

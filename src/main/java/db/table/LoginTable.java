@@ -4,6 +4,8 @@ import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Author : abhishek
@@ -24,6 +26,20 @@ public class LoginTable implements Table{
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
+        List<String> queries = new LinkedList<>();
+        String query1 = "INSERT INTO LOGIN VALUES('akagrawa', 'abc123', 'student')";
+        String query2 = "INSERT INTO LOGIN VALUES('abora', 'abc123', 'student')";
+        String query3 = "INSERT INTO LOGIN VALUES('kogan', 'xyz123', 'staff')";
+        String query4 = "INSERT INTO LOGIN VALUES('nkgandh', 'xyz123', 'guest')";
+        String query5 = "INSERT INTO LOGIN VALUES('nkdalmia', 'abc123', 'guest')";
+
+        queries.add(query1);
+        queries.add(query2);
+        queries.add(query3);
+        queries.add(query4);
+        queries.add(query5);
+
+        DBAccessor.executeBatchQuery(conn, queries);
     }
 
     @Override

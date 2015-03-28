@@ -17,7 +17,6 @@ public class HousingQuery {
                 " student_category VARCHAR(6), " +
                 " PRIMARY KEY (hall_id) " +
                 ")";
-
     }
 
     public void createHallRoomTable(){
