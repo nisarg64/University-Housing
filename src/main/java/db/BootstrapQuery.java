@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static util.DBAccessor.executeQuery;
+
 /**
  * Author : abhishek
  * Created on 3/19/15.
@@ -25,18 +27,36 @@ public class BootstrapQuery {
             conn = dbAccessor.getConnection();
             dropAllTables(conn);
 
+
         //    createLoginTable(conn);
         //    createResidentTable(conn);
             createHousingOptions(conn);
             createParkingLotTable(conn);
             createParkingSpotTable(conn);
 
+
+        // Login Table
+          createLoginTable(conn);
+
+        /*
+            Student Related Tables
+        */
+        //      createResidentTable(conn);
+
         //    createStudentTable(conn);
         //    createGuestTable(conn);
         //    createFamilyTable(conn);
         //    createKinTable(conn);
 
+
          //   insertIntoTables(conn);
+
+        /*
+              Housing Queries
+        */
+
+            insertIntoTables(conn);
+
 
             conn.commit();
         }catch (Exception ex){
@@ -83,17 +103,12 @@ public class BootstrapQuery {
 
     public void insertIntoTables(Connection conn) throws SQLException{
 
-        insertIntoResidentTable(conn);
+       // insertIntoResidentTable(conn);
 
-    }
-
-    private void executeQuery(Connection conn, String query) throws SQLException{
-        Statement statement = conn.createStatement();
-        statement.executeQuery(query);
-        statement.close();
     }
 
     private void dropAllTables(Connection conn) throws SQLException{
+
         //String query = "DROP TABLE RESIDENT";
         String query = "DROP TABLE PARKINGSPOT";
         executeQuery(conn, query);
@@ -140,8 +155,8 @@ public class BootstrapQuery {
         String query2 = "INSERT INTO RESIDENT VALUES('abora', 'Anand', 'Bora', 'M', '07-Jul-1990','1234 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
-        executeQuery(conn,query1);
-        executeQuery(conn,query2);
+        executeQuery(conn, query1);
+        executeQuery(conn, query2);
     }
 
     private void createStudentTable(Connection conn) throws SQLException {
@@ -153,7 +168,7 @@ public class BootstrapQuery {
                 " course VARCHAR(32) " +
                 " PRIMARY KEY (student_id) " +
                 ")";
-        executeQuery(conn,query);
+        executeQuery(conn, query);
     }
 
     private void createGuestTable(Connection conn) throws SQLException{
@@ -201,9 +216,11 @@ public class BootstrapQuery {
     public static void main(String[] args) throws Exception{
         BootstrapQuery bootstrapQuery = new BootstrapQuery();
         bootstrapQuery.createAllTables();
+
         //bootstrapQuery.dbAccessor.executeQuery("select table_name from user_tables");
 
         //bootstrapQuery.dbAccessor.executeQuery("SELECT fname, lname FROM RESIDENT ");
+
     }
 
 }

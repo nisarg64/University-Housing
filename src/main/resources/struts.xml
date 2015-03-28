@@ -28,7 +28,12 @@
         </action>
 
         <action name="profile" class="action.UHAction">
-            <result name="success">/WEB-INF/user/student_profile.jsp</result>
+            <!-- <result name="success">/WEB-INF/user/student_profile.jsp</result> -->
+            <result name="success">/WEB-INF/user/housing_options.jsp</result>
+        </action>
+
+        <action name="housingOption" class="action.UHAction">
+            <result name="success">/WEB-INF/user/housing_options.jsp</result>
         </action>
 
     </package>

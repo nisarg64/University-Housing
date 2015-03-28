@@ -1,5 +1,5 @@
-<%@ taglib prefix="s" uri="/struts-tags"%>
-<div class="container">
+                <%@ taglib prefix="s" uri="/struts-tags"%>
+    <div class="container">
 
     <div class="upper">
         <span><button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
