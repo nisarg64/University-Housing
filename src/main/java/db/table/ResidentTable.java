@@ -1,6 +1,5 @@
 package db.table;
 
-import db.table.Table;
 import pojo.Resident;
 import util.DBAccessor;
 
