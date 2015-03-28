@@ -8,10 +8,16 @@ import static util.DBAccessor.executeQuery;
 /**
  * Created by Nisarg on 28-Mar-15.
  */
-public class HousingOptionsTable implements Table {
+public class HousingOptionsTable extends Table {
+
+    @Override
+    public String getTableName() {
+        return "HOUSING_OPTIONS";
+    }
+
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = "CREATE TABLE HOUSING_OPTIONS ("+
+        String query = "CREATE TABLE " + getTableName() + " ("+
                 "housing_id varchar(32), "+
                 "housing_name varchar(75), "+
                 "housing_address varchar(100), "+
@@ -22,16 +28,5 @@ public class HousingOptionsTable implements Table {
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
-    }
-
-    @Override
-    public void dropTable(Connection conn) {
-
-       String  query = "DROP TABLE HOUSING_OPTIONS";
-        try {
-            executeQuery(conn, query);
-        } catch (SQLException e) {
-            System.err.println(" Table  HOUSING_OPTIONS : " + e.getMessage());
-        }
     }
 }

@@ -8,10 +8,16 @@ import static util.DBAccessor.executeQuery;
 /**
  * Created by Nisarg on 28-Mar-15.
  */
-public class ParkingPermitTable implements Table {
+public class ParkingPermitTable extends Table {
+
+    @Override
+    public String getTableName() {
+        return "PARKINGPERMIT";
+    }
+
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = "CREATE TABLE PARKINGPERMIT ("+
+        String query = "CREATE TABLE " + getTableName() + " ("+
                 "permit_id varchar(32), " +
                 "spot_id varchar(32), "+
                 "lot_id varchar(32), "+
@@ -26,16 +32,5 @@ public class ParkingPermitTable implements Table {
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
-    }
-
-    @Override
-    public void dropTable(Connection conn) {
-
-        String query = "DROP TABLE PARKINGPERMIT";
-        try {
-            executeQuery(conn, query);
-        } catch (SQLException e) {
-            System.err.println(" Table  PARKINGPERMIT : " + e.getMessage());
-        }
     }
 }
