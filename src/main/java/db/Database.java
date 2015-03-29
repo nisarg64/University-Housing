@@ -14,12 +14,15 @@ import java.util.List;
  */
 public class Database {
 
-    private List<Table> tables = new LinkedList<Table>();
+    private List<Table> tables = new LinkedList<>();
 
     private void make(Table table, Connection conn) throws SQLException {
 
         table.createTable(conn);
+        System.out.println("TABLE CREATED SUCCESSFULLY [" +  table.getTableName() + "] ");
         table.insertIntoTable(conn);
+        System.out.println("DATA INSERTED SUCCESSFULLY [" +  table.getTableName() + "] ");
+        System.out.println("-------------------------------------------------------------");
     }
 
     public void addTable(Table table){

@@ -1,7 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import db.table.ResidentTable;
+import pojo.Login;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -14,6 +14,7 @@ import java.sql.SQLException;
 public class UHAction extends ActionSupport{
 
     private String appName = "uhousing";
+    public Login login;
     Connection conn = null;
 
     public UHAction(){
@@ -34,4 +35,11 @@ public class UHAction extends ActionSupport{
         this.appName = appName;
     }
 
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
 }
