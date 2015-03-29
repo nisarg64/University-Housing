@@ -26,6 +26,8 @@ public class BootStrap {
         database.addTable(new ParkingSpotTable());
         database.addTable(new ParkingPermitTable());
         database.addTable(new ParkingRequestTable());
+        database.addTable(new InvoicePaymentTable());
+        database.addTable(new InvoiceTable());
 
         database.makeAll();
     }
@@ -59,7 +61,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-     //   bootStrap();
-        generalQuery();
+        bootStrap();
+     //   generalQuery();
     }
 }
