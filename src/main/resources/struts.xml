@@ -27,8 +27,10 @@
             <result name="success">/WEB-INF/login.jsp</result>
         </action>
 
-        <action name="profile" class="action.UHAction">
-             <result name="success">/WEB-INF/user/student_profile.jsp</result>
+        <action name="profile" class="action.ProfileAction">
+             <result name="student">/WEB-INF/user/student_profile.jsp</result>
+             <result name="guest">/WEB-INF/user/guest_profile.jsp</result>
+            <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
         <action name="housingOption" class="action.UHAction">
