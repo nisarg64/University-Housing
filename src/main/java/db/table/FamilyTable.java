@@ -1,7 +1,5 @@
 package db.table;
 
-import util.DBAccessor;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 

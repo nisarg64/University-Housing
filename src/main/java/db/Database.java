@@ -1,6 +1,7 @@
 package db;
 
 import db.table.Table;
+import db.view.View;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.util.List;
 public class Database {
 
     private List<Table> tables = new LinkedList<>();
+    private List<View> views = new LinkedList<>();
 
     private void make(Table table, Connection conn) throws SQLException {
 
@@ -25,8 +27,18 @@ public class Database {
         System.out.println("-------------------------------------------------------------");
     }
 
+    private void make(View view, Connection conn) throws SQLException{
+        view.createView(conn);
+        System.out.println("VIEW CREATED SUCCESSFULLY [" +  view.getViewName() + "] ");
+        System.out.println("-------------------------------------------------------------");
+    }
+
     public void addTable(Table table){
         tables.add(table);
+    }
+
+    public void addView(View view){
+        views.add(view);
     }
 
     public void makeAll(){
@@ -35,12 +47,20 @@ public class Database {
         try {
             conn = DBAccessor.getConnection();
 
+            for (int i = views.size()-1; i >= 0; --i) {
+                views.get(i).dropView(conn);
+            }
+
             for (int i = tables.size()-1; i >= 0; --i) {
                 tables.get(i).dropTable(conn);
             }
 
             for (Table table : tables) {
                 make(table, conn);
+            }
+
+            for (View view : views) {
+                make(view, conn);
             }
             conn.commit();
 
@@ -56,4 +76,5 @@ public class Database {
             }
         }
     }
+
 }

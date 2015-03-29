@@ -1,9 +1,5 @@
 package pojo;
 
-import db.table.LoginTable;
-
-import java.sql.Connection;
-
 /**
  * Author : abhishek
  * Created on 3/28/15.
@@ -38,15 +34,12 @@ public class Login {
         this.password = password;
     }
 
-    public boolean checkLogin(Connection conn) {
-
-        try{
-            LoginTable loginTable = new LoginTable();
-            return loginTable.checkLogin(this, conn);
-
-        }catch (Exception ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
-        }
-        return false;
+    @Override
+    public String toString() {
+        return "Login{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

@@ -46,7 +46,7 @@ public class ResidentTable extends Table {
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
-        List<String> queries = new LinkedList<String>();
+        List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() + " VALUES('akagrawa', 'Abhishek', 'Agrawal', 'M', '02-Jul-1990','1234 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
@@ -62,7 +62,7 @@ public class ResidentTable extends Table {
     public List<Resident> selectAll(Connection conn) throws SQLException{
 
         String query = "SELECT * from " + getTableName();
-        List<Resident> residents = new LinkedList<Resident>();
+        List<Resident> residents = new LinkedList<>();
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 Resident resident = new Resident();

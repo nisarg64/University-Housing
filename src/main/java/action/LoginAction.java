@@ -1,5 +1,6 @@
 package action;
 
+import db.table.LoginTable;
 import org.apache.struts2.ServletActionContext;
 import pojo.Login;
 
@@ -17,30 +18,36 @@ public class LoginAction extends UHAction {
     private String role;
     private String errorMsg = "Invalid Username or Password";
 
-    public String execute() throws Exception {
+    public String execute(){
 
-            System.out.println(username + "   ====   " +  password);
-            HttpSession session = ServletActionContext.getRequest().getSession();
-            session.setAttribute("logined","true");
-            session.setAttribute("context", new Date());
+        System.out.println(username + " ------- " + password);
+        // check if the userName is already stored in the session
+        if (sessionMap.containsKey("username")) {
+            return (String) sessionMap.get("role");
+        }
 
-            super.login = new Login();
-            super.login.setUsername(username);
-            super.login.setPassword(password);
-            super.login.setRole(role);
+        if (username != null && role != null){
+            login.setUsername(username);
+            login.setPassword(password);
+            login.setRole(role);
 
-            boolean valid = login.checkLogin(conn);
+            LoginTable loginTable = new LoginTable();
+            boolean valid = loginTable.checkLogin(conn, login);
             if(valid){
+                sessionMap.put("username", login.getUsername());
+                sessionMap.put("role", login.getRole());
                 return login.getRole();
-            }else{
-                return ERROR;
             }
+        }
+        return ERROR;
     }
 
     public String logout() throws Exception {
-        HttpSession session = ServletActionContext.getRequest().getSession();
-        session.removeAttribute("logined");
-        session.removeAttribute("context");
+
+        if(sessionMap.containsKey("username")){
+            sessionMap.remove("username");
+            sessionMap.remove("role");
+        }
         errorMsg = "";
         conn.close();
         return SUCCESS;

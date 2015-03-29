@@ -1,6 +1,7 @@
 package db;
 
 import db.table.*;
+import db.view.StudentView;
 import pojo.Login;
 import util.DBAccessor;
 
@@ -26,14 +27,16 @@ public class BootStrap {
         database.addTable(new ParkingPermitTable());
         database.addTable(new ParkingRequestTable());
 
-        database.addTable(new RoomTable());
+        database.addView(new StudentView());
+
+        /*database.addTable(new RoomTable());
         database.addTable(new ResidentHallTable());
         database.addTable(new ResidentHallProvides());
         database.addTable(new ApartmentTable());
         database.addTable(new GeneralAptTable());
         database.addTable(new GeneralAptProvides());
         database.addTable(new FamilyAptTable());
-        database.addTable(new PrivateAccoTable());
+        database.addTable(new PrivateAccoTable());*/
 
         database.makeAll();
         System.out.println("Done!");
@@ -44,7 +47,7 @@ public class BootStrap {
         try{
             conn = DBAccessor.getConnection();
 
-            ResidentTable residentTable = new ResidentTable();
+            /*ResidentTable residentTable = new ResidentTable();
             residentTable.selectAll(conn);
             LoginTable loginTable = new LoginTable();
             Login login = new Login();
@@ -52,6 +55,12 @@ public class BootStrap {
             login.setPassword("abc123");
             login.setRole("student");
             System.out.println(loginTable.checkLogin(login, conn));
+*/
+
+            StudentView studentView = new StudentView();
+            studentView.dropView(conn);
+            studentView.createView(conn);
+            System.out.println(studentView.selectOne(conn, "akagrawa"));
 
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -68,7 +77,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-//        generalQuery();
-        bootStrap();
+        generalQuery();
+     //   bootStrap();
     }
 }

@@ -48,16 +48,20 @@ public class LoginTable extends Table{
         DBAccessor.executeBatchQuery(conn, queries);
     }
 
-    public boolean checkLogin(Login login, Connection conn) throws SQLException{
+    public boolean checkLogin(Connection conn, Login login){
 
-        String query = "select COUNT(*) as count from " + getTableName() + " where username = '" + login.getUsername() + "' and " +
-                "password = '" + login.getPassword() + "' and role = '" + login.getRole() + "'";
+        try{
+            String query = "select COUNT(*) as count from " + getTableName() + " where username = '" + login.getUsername() + "' and " +
+                    "password = '" + login.getPassword() + "' and role = '" + login.getRole() + "'";
 
-        ResultSet rs = DBAccessor.selectQuery(conn, query);
-        while(rs.next()){
-            if(rs.getInt("count") > 0 ){
-                   return true;
+            ResultSet rs = DBAccessor.selectQuery(conn, query);
+            while(rs.next()){
+                if(rs.getInt("count") > 0 ){
+                    return true;
+                }
             }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During Login " + ex.getMessage());
         }
         return false;
     }
