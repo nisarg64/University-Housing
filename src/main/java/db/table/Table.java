@@ -19,6 +19,8 @@ public abstract class Table {
             try {
                   String query = "DROP TABLE " + getTableName();
                   DBAccessor.executeQuery(conn, query);
+                  System.out.println("TABLE DROPPED SUCCESSFULLY [" +  getTableName() + "] ");
+                  System.out.println("--------------------------------------------------------");
 
             }catch (SQLException ex){
                   System.err.println( " Table " + getTableName() + ": " + ex.getMessage());

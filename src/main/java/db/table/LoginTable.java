@@ -33,7 +33,7 @@ public class LoginTable extends Table{
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
-        List<String> queries = new LinkedList<String>();
+        List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() + " VALUES('akagrawa', 'abc123', 'student')";
         String query2 = "INSERT INTO " + getTableName() + " VALUES('abora', 'abc123', 'student')";
         String query3 = "INSERT INTO " + getTableName() + " VALUES('kogan', 'xyz123', 'staff')";
@@ -45,8 +45,6 @@ public class LoginTable extends Table{
         queries.add(query3);
         queries.add(query4);
         queries.add(query5);
-
-
         DBAccessor.executeBatchQuery(conn, queries);
     }
 
@@ -54,10 +52,9 @@ public class LoginTable extends Table{
 
         String query = "select COUNT(*) as count from " + getTableName() + " where username = '" + login.getUsername() + "' and " +
                 "password = '" + login.getPassword() + "' and role = '" + login.getRole() + "'";
-        System.out.println(query);
+
         ResultSet rs = DBAccessor.selectQuery(conn, query);
         while(rs.next()){
-            System.out.println(rs.getString("count"));
             if(rs.getInt("count") > 0 ){
                    return true;
             }
@@ -65,11 +62,4 @@ public class LoginTable extends Table{
         return false;
     }
 
-    public boolean checkGuestLogin(String username, String password, Connection conn) {
-        return false;
-    }
-
-    public boolean checkStaffLogin(String username, String password, Connection conn) {
-        return false;
-    }
 }

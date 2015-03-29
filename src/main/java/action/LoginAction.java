@@ -10,7 +10,7 @@ import java.util.Date;
  * Author : abhishek
  * Created on 3/15/15.
  */
-public class LoginAction extends action.UHAction {
+public class LoginAction extends UHAction {
 
     private String username;
     private String password;
@@ -24,10 +24,10 @@ public class LoginAction extends action.UHAction {
             session.setAttribute("logined","true");
             session.setAttribute("context", new Date());
 
-            Login login = new Login();
-            login.setUsername(username);
-            login.setPassword(password);
-            login.setRole(role);
+            super.login = new Login();
+            super.login.setUsername(username);
+            super.login.setPassword(password);
+            super.login.setRole(role);
 
             boolean valid = login.checkLogin(conn);
             if(valid){
