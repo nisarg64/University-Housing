@@ -8,10 +8,15 @@ import java.sql.SQLException;
 /**
  * Created by Nisarg on 28-Mar-15.
  */
-public class InvoiceTable implements Table {
+public class InvoiceTable extends Table {
+    @Override
+    public String getTableName() {
+        return "INVOICE";
+    }
+
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = "CREATE TABLE INVOICE ("+
+        String query = "CREATE TABLE " + getTableName() + " ( "+
                         "invoice_id varchar2(32), "+
                         "resident_id varchar2(10), "+
                         "housing_rent INTEGER, "+
@@ -33,14 +38,4 @@ public class InvoiceTable implements Table {
 
     }
 
-    @Override
-    public void dropTable(Connection conn) throws SQLException {
-        try {
-            String query = "DROP TABLE INVOICE";
-            DBAccessor.executeQuery(conn, query);
-
-        }catch (SQLException e){
-            System.err.println( " Table INVOICE : " + e.getMessage());
-        }
-    }
 }

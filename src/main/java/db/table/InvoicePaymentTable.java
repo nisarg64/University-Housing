@@ -8,10 +8,15 @@ import java.sql.SQLException;
 /**
  * Created by Nisarg on 28-Mar-15.
  */
-public class InvoicePaymentTable implements Table {
+public class InvoicePaymentTable extends Table {
+    @Override
+    public String getTableName() {
+        return "INVOICEPAYMENT";
+    }
+
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = "CREATE TABLE INVOICEPAYMENT ("+
+        String query = "CREATE TABLE " + getTableName() +" ("+
                         "invoice_payment_id varchar2(20), "+
                         "payment_date timestamp, "+
                         "amount_paid float(10), "+
@@ -25,14 +30,5 @@ public class InvoicePaymentTable implements Table {
 
     }
 
-    @Override
-    public void dropTable(Connection conn) throws SQLException {
-        try {
-            String query = "DROP TABLE INVOICEPAYMENT";
-            DBAccessor.executeQuery(conn, query);
 
-        }catch (SQLException e){
-            System.err.println( " Table INVOICEPAYMENT : " + e.getMessage());
-        }
-    }
 }
