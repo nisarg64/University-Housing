@@ -22,7 +22,7 @@ public class ParkingSpotTable extends Table {
                 "lot_id varchar(32), "+
                 "spot_type varchar(32), "+
                 "availability char(1), " +
-                "rental_fee float(6), "+
+                "rental_fee INTEGER, "+
                 "PRIMARY KEY (spot_id), "+
                 "FOREIGN KEY (lot_id) REFERENCES PARKINGLOT(lot_id) )";
         executeQuery(conn, query);
