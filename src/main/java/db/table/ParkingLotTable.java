@@ -12,7 +12,7 @@ public class ParkingLotTable extends Table {
 
     @Override
     public String getTableName() {
-        return "PARKINGLOT";
+        return "PARKING_LOT";
     }
 
     @Override

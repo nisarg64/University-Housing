@@ -12,7 +12,7 @@ public class ParkingRequestTable extends Table {
 
     @Override
     public String getTableName() {
-        return "PARKINGREQUEST";
+        return "PARKING_REQUEST";
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ParkingRequestTable extends Table {
                 "permit_id varchar(32), " +
                 "PRIMARY KEY (request_id, resident_id), "+
                 "FOREIGN KEY (resident_id) REFERENCES RESIDENT(res_id), "+
-                "FOREIGN KEY (permit_id) REFERENCES PARKINGPERMIT(permit_id) )";
+                "FOREIGN KEY (permit_id) REFERENCES PARKING_PERMIT(permit_id) )";
         executeQuery(conn, query);
     }
 

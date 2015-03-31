@@ -12,7 +12,7 @@ public class ParkingSpotTable extends Table {
 
     @Override
     public String getTableName() {
-        return "PARKINGSPOT";
+        return "PARKING_SPOT";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ParkingSpotTable extends Table {
                 "availability char(1), " +
                 "rental_fee INTEGER, "+
                 "PRIMARY KEY (spot_id), "+
-                "FOREIGN KEY (lot_id) REFERENCES PARKINGLOT(lot_id) )";
+                "FOREIGN KEY (lot_id) REFERENCES PARKING_LOT(lot_id) )";
         executeQuery(conn, query);
     }
 

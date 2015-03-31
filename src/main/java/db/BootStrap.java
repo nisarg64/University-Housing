@@ -31,14 +31,14 @@ public class BootStrap {
         database.addView(new StudentView());
         database.addView(new GuestView());
 
-        /*database.addTable(new RoomTable());
+        database.addTable(new RoomTable());
         database.addTable(new ResidentHallTable());
         database.addTable(new ResidentHallProvides());
         database.addTable(new ApartmentTable());
         database.addTable(new GeneralAptTable());
         database.addTable(new GeneralAptProvides());
         database.addTable(new FamilyAptTable());
-        database.addTable(new PrivateAccoTable());*/
+        database.addTable(new PrivateAccoTable());
 
         database.makeAll();
         System.out.println("Done!");
@@ -48,8 +48,8 @@ public class BootStrap {
         Connection conn = null;
         try{
             conn = DBAccessor.getConnection();
-
-            /*ResidentTable residentTable = new ResidentTable();
+/*
+            ResidentTable residentTable = new ResidentTable();
             residentTable.selectAll(conn);
             LoginTable loginTable = new LoginTable();
             Login login = new Login();

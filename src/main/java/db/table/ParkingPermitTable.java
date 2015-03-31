@@ -12,7 +12,7 @@ public class ParkingPermitTable extends Table {
 
     @Override
     public String getTableName() {
-        return "PARKINGPERMIT";
+        return "PARKING_PERMIT";
     }
 
     @Override
@@ -24,8 +24,8 @@ public class ParkingPermitTable extends Table {
                 "permit_start_date timestamp, "+
                 "permit_end_date timestamp, "+
                 "PRIMARY KEY (permit_id), "+
-                "FOREIGN KEY (lot_id) REFERENCES PARKINGLOT(lot_id), "+
-                "FOREIGN KEY (spot_id) REFERENCES PARKINGSPOT(spot_id))";
+                "FOREIGN KEY (lot_id) REFERENCES PARKING_LOT(lot_id), "+
+                "FOREIGN KEY (spot_id) REFERENCES PARKING_SPOT(spot_id))";
         executeQuery(conn, query);
     }
 
