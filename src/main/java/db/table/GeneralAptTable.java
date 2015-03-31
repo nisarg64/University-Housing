@@ -20,7 +20,7 @@ public class GeneralAptTable extends Table{
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = " CREATE TABLE GENERAL_APT(" +
+        String query = " CREATE TABLE " + getTableName() + "(" +
                 " g_apartment_no VARCHAR(20), " +
                 " num_of_bedrooms INTEGER, " +
                 " num_of_bathrooms INTEGER, " +
@@ -34,12 +34,12 @@ public class GeneralAptTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO GENERAL_APT VALUES('G1', 2, 2)";
-        String query2 = "INSERT INTO GENERAL_APT VALUES('G2', 2, 1)";
-        String query3 = "INSERT INTO GENERAL_APT VALUES('G3', 3, 2)";
-        String query4 = "INSERT INTO GENERAL_APT VALUES('G4', 3, 3)";
-        String query5 = "INSERT INTO GENERAL_APT VALUES('G5', 4, 4)";
-        String query6 = "INSERT INTO GENERAL_APT VALUES('G6', 4, 3)";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('G1', 2, 2)";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('G2', 2, 1)";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('G3', 3, 2)";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('G4', 3, 3)";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('G5', 4, 4)";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('G6', 4, 3)";
 
         queries.add(query1);
         queries.add(query2);
@@ -49,17 +49,5 @@ public class GeneralAptTable extends Table{
         queries.add(query6);
 
         DBAccessor.executeBatchQuery(conn, queries);
-    }
-
-    @Override
-    public void dropTable(Connection conn){
-
-        try {
-            String query = "DROP TABLE GENERAL_APT";
-            DBAccessor.executeQuery(conn, query);
-
-        }catch (SQLException ex){
-            System.err.println( " Table  GENERAL_APT : " + ex.getMessage());
-        }
     }
 }
