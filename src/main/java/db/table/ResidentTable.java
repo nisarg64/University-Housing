@@ -53,8 +53,21 @@ public class ResidentTable extends Table {
         String query2 = "INSERT INTO " + getTableName() + " VALUES('abora', 'Anand', 'Bora', 'M', '07-Jul-1990','1234 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('approval1', 'Nikhil', 'Dalmia', 'M', '07-Aug-1990','431 avent ferry'," +
+                "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
+
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('approval2', 'Nisarg', 'Gandhi', 'M', '07-Aug-1991','4231 avent ferry'," +
+                "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
+
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('kogan', 'Kemafor', 'Ogan', 'F', '07-Aug-1981','4231 avent ferry'," +
+                "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
+
+
         queries.add(query1);
         queries.add(query2);
+        queries.add(query3);
+        queries.add(query4);
+        queries.add(query5);
 
         DBAccessor.executeBatchQuery(conn, queries);
     }

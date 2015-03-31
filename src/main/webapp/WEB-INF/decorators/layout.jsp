@@ -14,6 +14,7 @@
     <link href="/<s:property value='appName'/>/css/housing.css" rel="stylesheet">
     <script type="text/javascript" src="/<s:property value='appName'/>/js/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="/<s:property value='appName'/>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/<s:property value='appName'/>/js/housing.js"></script>
     <decorator:head/>
 </head>
 

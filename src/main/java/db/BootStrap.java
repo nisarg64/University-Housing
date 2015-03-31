@@ -1,6 +1,7 @@
 package db;
 
 import db.table.*;
+import db.view.GuestView;
 import db.view.StudentView;
 import pojo.Login;
 import util.DBAccessor;
@@ -28,6 +29,7 @@ public class BootStrap {
         database.addTable(new ParkingRequestTable());
 
         database.addView(new StudentView());
+        database.addView(new GuestView());
 
         /*database.addTable(new RoomTable());
         database.addTable(new ResidentHallTable());
@@ -77,7 +79,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-        generalQuery();
-     //   bootStrap();
+      //  generalQuery();
+        bootStrap();
     }
 }
