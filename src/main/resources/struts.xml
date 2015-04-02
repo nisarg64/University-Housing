@@ -37,7 +37,16 @@
             <result name="success">/WEB-INF/user/housing_options.jsp</result>
         </action>
 
+        <action name="parkingOption" class="action.ParkingAction">
+            <result name="success">/WEB-INF/user/parking_options.jsp</result>
+        </action>
+
+        <action name="requestParking" class="action.RequestParkingAction">
+            <result name="success">/WEB-INF/user/request_parking.jsp</result>
+        </action>
+
+        <!--<action name="requestParkingFormAction" class="action.RequestParkingFormAction">-->
+            <!--<result name="success">/WEB-INF/user/request_parking_form.jsp</result>-->
+        <!--</action>-->
     </package>
-
-
 </struts>

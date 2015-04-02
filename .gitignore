@@ -33,3 +33,6 @@ local.properties
 *.*~
 *.swp
 *.bak
+
+# Deploy file
+deploy.sh
