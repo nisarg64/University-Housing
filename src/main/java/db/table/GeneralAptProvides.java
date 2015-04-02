@@ -20,7 +20,7 @@ public class GeneralAptProvides extends Table{
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = " CREATE TABLE GENERAL_APT_PROVIDES (" +
+        String query = " CREATE TABLE " + getTableName() + " (" +
                 " g_apartment_no VARCHAR(20), " +
                 " place_num VARCHAR(20), " +
                 " PRIMARY KEY (g_apartment_no, place_num), " +
@@ -34,17 +34,17 @@ public class GeneralAptProvides extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G1', 'G1_O1')";
-        String query2 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G1', 'G1_O2')";
-        String query3 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G1', 'G1_O3')";
-        String query4 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G1', 'G1_O4')";
-        String query5 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G1', 'G1_O5')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('G1', 'G1_O1')";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('G1', 'G1_O2')";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('G1', 'G1_O3')";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('G1', 'G1_O4')";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('G1', 'G1_O5')";
 
-        String query6 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G2', 'G2_02')";
-        String query7 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G3', 'G3_03')";
-        String query8 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G4', 'G4_04')";
-        String query9 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G5', 'G5_05')";
-        String query10 = "INSERT INTO GENERAL_APT_PROVIDES VALUES('G6', 'G6_06')";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('G2', 'G2_02')";
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('G3', 'G3_03')";
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('G4', 'G4_04')";
+        String query9 = "INSERT INTO " + getTableName() + " VALUES('G5', 'G5_05')";
+        String query10 = "INSERT INTO " + getTableName() + " VALUES('G6', 'G6_06')";
 
         queries.add(query1);
         queries.add(query2);
@@ -58,17 +58,5 @@ public class GeneralAptProvides extends Table{
         queries.add(query10);
 
         DBAccessor.executeBatchQuery(conn, queries);
-    }
-
-    @Override
-    public void dropTable(Connection conn){
-
-        try {
-            String query = "DROP TABLE RESIDENT_HALL";
-            DBAccessor.executeQuery(conn, query);
-
-        }catch (SQLException ex){
-            System.err.println( " Table  RESIDENT_HALL : " + ex.getMessage());
-        }
     }
 }

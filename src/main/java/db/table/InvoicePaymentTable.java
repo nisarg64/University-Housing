@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class InvoicePaymentTable extends Table {
     @Override
     public String getTableName() {
-        return "INVOICEPAYMENT";
+        return "INVOICE_PAYMENT";
     }
 
     @Override

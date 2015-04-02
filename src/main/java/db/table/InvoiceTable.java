@@ -29,7 +29,7 @@ public class InvoiceTable extends Table {
                         "payment_status varchar2(10), "+
                         "invoice_payment_id varchar(32), "+
                         "PRIMARY KEY (invoice_id), "+
-                        "FOREIGN KEY (invoice_payment_id) REFERENCES INVOICEPAYMENT (invoice_payment_id) )";
+                        "FOREIGN KEY (invoice_payment_id) REFERENCES INVOICE_PAYMENT (invoice_payment_id) )";
         DBAccessor.executeQuery(conn, query);
     }
 

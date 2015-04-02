@@ -23,8 +23,8 @@ public class GuestView  extends View{
 
         String query = "CREATE VIEW " + getViewName() + " as " +
                 " SELECT  " +
-                " g.student_id, g.status, " +
-                " r.fname, r.lname, r.dob, r.gender, r.address_street," +
+                " g.approval_id, g.status, " +
+                " r.fname, r.lname, r.dob, r.sex, r.address_street," +
                 " r.address_city, r.address_postcode, " +
                 " r.primary_phone, r.spl_needs "+
                 " FROM   RESIDENT r " +
@@ -47,7 +47,7 @@ public class GuestView  extends View{
                 guest.setAddrCity(resultSet.getString("address_city"));
                 guest.setPostalCode(resultSet.getString("address_postcode"));
                 guest.setStatus(resultSet.getString("status"));
-                guest.setGender(resultSet.getString("gender"));
+                guest.setGender(resultSet.getString("sex"));
                 guest.setPrimaryPhone(resultSet.getString("primary_phone"));
                 guest.setSpclNeeds(resultSet.getString("spl_needs"));
 

@@ -20,7 +20,7 @@ public class ResidentHallProvides extends Table {
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = " CREATE TABLE RESIDENT_HALL_PROVIDES (" +
+        String query = " CREATE TABLE " + getTableName() + " (" +
                 " hall_id VARCHAR(20), " +
                 " place_num VARCHAR(20), " +
                 " PRIMARY KEY (hall_id, place_num), " +
@@ -34,16 +34,16 @@ public class ResidentHallProvides extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID1', 'HID1_O1')";
-        String query2 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID1', 'HID1_O2')";
-        String query3 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID1', 'HID1_O3')";
-        String query4 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID1', 'HID1_O4')";
-        String query5 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID1', 'HID1_O5')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('HID1', 'HID1_O1')";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('HID1', 'HID1_O2')";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('HID1', 'HID1_O3')";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('HID1', 'HID1_O4')";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('HID1', 'HID1_O5')";
 
-        String query6 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID2', 'HID2_02')";
-        String query7 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID3', 'HID3_03')";
-        String query8 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID4', 'HID4_04')";
-        String query9 = "INSERT INTO RESIDENT_HALL_PROVIDES VALUES('HID5', 'HID5_05')";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('HID2', 'HID2_02')";
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('HID3', 'HID3_03')";
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('HID4', 'HID4_04')";
+        String query9 = "INSERT INTO " + getTableName() + " VALUES('HID5', 'HID5_05')";
 
         queries.add(query1);
         queries.add(query2);

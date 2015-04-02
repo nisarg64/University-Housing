@@ -2,7 +2,7 @@
 <div class="container">
 
     <div class="upper">
-        <span><button type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
+        <span><button id="backButton" type="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
         <span class="upper-text">Welcome <s:property value="login.role" />&nbsp;<span class="user"><s:property value="login.username" /></span></span>
         <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
