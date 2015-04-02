@@ -42,7 +42,8 @@ public class StudentView extends View{
             while(resultSet.next()){
                 student = new Student();
                 student.setStudentId(resultSet.getString("student_id"));
-                student.setName(resultSet.getString("fname") + " " + resultSet.getString("lname"));
+                student.setFname(resultSet.getString("fname"));
+                student.setLname(resultSet.getString("lname"));
                 student.setAddrStreet(resultSet.getString("address_street"));
                 student.setAddrCity(resultSet.getString("address_city"));
                 student.setPostalCode(resultSet.getString("address_postcode"));
@@ -63,4 +64,30 @@ public class StudentView extends View{
     }
 
 
+    public void update(Connection conn, Student student) {
+
+        String query1 = "UPDATE RESIDENT SET " +
+                        "fname = '" + student.getFname()+ "', " +
+                        "lname = '" + student.getLname() + "', " +
+                        "SEX = '" + student.getGender() + "', " +
+                        "ADDRESS_STREET = '" + student.getAddrStreet() + "', " +
+                        "ADDRESS_CITY = '" + student.getAddrCity() + "', " +
+                        "ADDRESS_POSTCODE = '" + student.getPostalCode() + "', " +
+                        "PRIMARY_PHONE = '" + student.getPrimaryPhone() + "', " +
+                        "SPL_NEEDS = '" + student.getSpclNeeds() + "' " +
+                        "WHERE RES_ID = '" + student.getStudentId() + "'";
+
+        String query2 = "UPDATE STUDENT SET " +
+                        " category = '" + student.getCategory() +"', " +
+                        " course = '" + student.getCourse() + "' " +
+                        " WHERE STUDENT_ID = '" + student.getStudentId() + "'";
+
+        try{
+             DBAccessor.executeQuery(conn, query1);
+             DBAccessor.executeQuery(conn, query2);
+        }catch (SQLException ex){
+             System.err.println("Error Occurred During  profile Update :    " + student + ex.getMessage());
+             ex.printStackTrace();
+        }
+    }
 }

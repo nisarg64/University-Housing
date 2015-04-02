@@ -59,4 +59,28 @@ public class GuestView  extends View{
         }
         return guest;
     }
+
+    public void update(Connection conn, Guest guest) {
+
+        String query = "";//"SELECT * FROM " + getViewName() + " where approval_id = " + approvalId;
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+                guest = new Guest();
+                guest.setApprovalId(resultSet.getString("approval_id"));
+                guest.setName(resultSet.getString("fname") + " " + resultSet.getString("lname"));
+                guest.setAddrStreet(resultSet.getString("address_street"));
+                guest.setAddrCity(resultSet.getString("address_city"));
+                guest.setPostalCode(resultSet.getString("address_postcode"));
+                guest.setStatus(resultSet.getString("status"));
+                guest.setGender(resultSet.getString("sex"));
+                guest.setPrimaryPhone(resultSet.getString("primary_phone"));
+                guest.setSpclNeeds(resultSet.getString("spl_needs"));
+
+                System.out.println(guest);
+
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During Login " + ex.getMessage());
+        }
+    }
 }

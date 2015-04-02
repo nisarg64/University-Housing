@@ -42,6 +42,7 @@ public class ParkingRequestTable extends Table {
     }
 
     public void insertRequest(Connection conn, String resident_id, ParkingRequest parkingRequest) throws SQLException {
+
         String query = "INSERT INTO "+ getTableName() + "(request_id,resident_id, vehicle_type, isHandicapped, " +
                 "nearby_spot_preference, " + "request_status, permit_id) values(pr_sequence.NEXTVAL,'"+
                 resident_id +"','"+ parkingRequest.getVehicle()+"','"+

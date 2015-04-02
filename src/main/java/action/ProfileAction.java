@@ -13,6 +13,7 @@ public class ProfileAction extends UHAction {
 
     private Student student;
     private Guest guest;
+    private String message;
 
     public String execute(){
 
@@ -37,6 +38,32 @@ public class ProfileAction extends UHAction {
         return "student";
     }
 
+    public String updateProfile(){
+
+        String username = (String) sessionMap.get("username");
+        username = username.trim();
+        String role = (String) sessionMap.get("role");
+        if(username == null || role == null){
+            return ERROR;
+        }
+        role = role.trim();
+
+        message = "Profile Updated Successfully !!";
+        if(role.equalsIgnoreCase("student")){
+            StudentView studentView = new StudentView();
+            student.setStudentId(username);
+            studentView.update(conn, student);
+            return "student";
+        }
+
+        if(role == "guest"){
+            GuestView guestView = new GuestView();
+            guestView.update(conn, guest);
+            return "guest";
+        }
+        return "student";
+    }
+
     public Student getStudent() {
         return student;
     }
@@ -51,5 +78,22 @@ public class ProfileAction extends UHAction {
 
     public void setGuest(Guest guest) {
         this.guest = guest;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "ProfileAction{" +
+                "student=" + student +
+                ", guest=" + guest +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

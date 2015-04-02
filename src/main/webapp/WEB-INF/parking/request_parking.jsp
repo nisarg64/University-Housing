@@ -26,7 +26,7 @@
     </tbody>
 
   </table>
-    <s:submit value="submit" name="submit" />
+    <s:submit cssClass="btn btn-primary btn-large" value="submit" name="submit" />
 
   </s:form>
 

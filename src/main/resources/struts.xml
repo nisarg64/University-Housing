@@ -27,26 +27,40 @@
             <result name="success">/WEB-INF/login.jsp</result>
         </action>
 
+        <!-- User Profile -->
         <action name="profile" class="action.ProfileAction">
              <result name="student">/WEB-INF/user/student_profile.jsp</result>
              <result name="guest">/WEB-INF/user/guest_profile.jsp</result>
             <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
+        <action name="updateProfile" class="action.ProfileAction" method="updateProfile">
+            <result name="student">/WEB-INF/user/student_profile.jsp</result>
+            <result name="guest">/WEB-INF/user/guest_profile.jsp</result>
+            <result name="error">/WEB-INF/login.jsp</result>
+        </action>
+
+
+        <!-- Housing Profile -->
         <action name="housingOption" class="action.UHAction">
             <result name="success">/WEB-INF/user/housing_options.jsp</result>
         </action>
 
+
+        <!-- Parking Option -->
         <action name="parkingOption" class="action.ParkingAction">
-            <result name="success">/WEB-INF/user/parking_options.jsp</result>
+            <result name="success">/WEB-INF/parking/parking_options.jsp</result>
         </action>
 
         <action name="requestParking" class="action.RequestParkingAction">
-            <result name="success">/WEB-INF/user/request_parking.jsp</result>
+            <result name="success">/WEB-INF/parking/request_parking.jsp</result>
         </action>
 
         <action name="submitParkingRequest" class="action.RequestParkingAction" method="submit">
-            <result name="success">/WEB-INF/user/request_parking.jsp</result>
+            <result name="success">/WEB-INF/parking/request_parking.jsp</result>
         </action>
+
+        <!-- Lease Option -->
+
     </package>
 </struts>
