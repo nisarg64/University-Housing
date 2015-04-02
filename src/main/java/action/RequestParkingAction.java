@@ -1,8 +1,11 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import db.table.ParkingRequestTable;
 import org.apache.struts2.interceptor.SessionAware;
+import pojo.ParkingRequest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,25 +17,30 @@ public class RequestParkingAction extends UHAction {
     private List<String> vehicleType;
     private List<String> isHandicapped;
     private List<String> nearbySpot;
-    private String vehicle;
-    private String handicapped;
-    private String nearSpot;
+    private String message = "";
 
-    public String getHandicapped() {
-        return handicapped;
+
+
+    public String getMessage() {
+        return message;
     }
 
-    public void setHandicapped(String handicapped) {
-        this.handicapped = handicapped;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getNearSpot() {
-        return nearSpot;
+    public ParkingRequest getParkingRequest() {
+        return parkingRequest;
     }
 
-    public void setNearSpot(String nearSpot) {
-        this.nearSpot = nearSpot;
+    public void setParkingRequest(ParkingRequest parkingRequest) {
+        this.parkingRequest = parkingRequest;
     }
+
+    private ParkingRequest parkingRequest;
+
+
+
 
     public List<String> getNearbySpot() {
         return nearbySpot;
@@ -58,13 +66,6 @@ public class RequestParkingAction extends UHAction {
         this.vehicleType = vehicleType;
     }
 
-    public String getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(String vehicle) {
-        this.vehicle = vehicle;
-    }
 
     public RequestParkingAction(){
         vehicleType = new ArrayList<String>();
@@ -82,12 +83,35 @@ public class RequestParkingAction extends UHAction {
         nearbySpot.add("No");
     }
 
+    public String submit() throws SQLException {
+        //Updating DB
+        String resident_id = (String) sessionMap.get("username");
+        ParkingRequestTable prTable = new ParkingRequestTable();
+        prTable.insertRequest(conn, resident_id, parkingRequest);
+
+        //Reset parking request form
+        parkingRequest = new ParkingRequest();
+        message = "Submitted Successfully";
+        return SUCCESS;
+    }
 
     public String execute() {
+        message = "";
         return SUCCESS;
     }
 
     public String display() {
         return NONE;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestParkingAction{" +
+                "vehicleType=" + vehicleType +
+                ", isHandicapped=" + isHandicapped +
+                ", nearbySpot=" + nearbySpot +
+                ", message='" + message + '\'' +
+                ", parkingRequest=" + parkingRequest +
+                '}';
     }
 }

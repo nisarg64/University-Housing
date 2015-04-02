@@ -45,8 +45,8 @@
             <result name="success">/WEB-INF/user/request_parking.jsp</result>
         </action>
 
-        <!--<action name="requestParkingFormAction" class="action.RequestParkingFormAction">-->
-            <!--<result name="success">/WEB-INF/user/request_parking_form.jsp</result>-->
-        <!--</action>-->
+        <action name="submitParkingRequest" class="action.RequestParkingAction" method="submit">
+            <result name="success">/WEB-INF/user/request_parking.jsp</result>
+        </action>
     </package>
 </struts>

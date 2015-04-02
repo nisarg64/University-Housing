@@ -163,3 +163,8 @@
     text-align: center;
     color: #CC0000;
 }
+
+.statusMessage{
+    text-align: center;
+    color:red;
+}
