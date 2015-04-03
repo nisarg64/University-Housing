@@ -81,11 +81,18 @@ public class Database {
         }
     }
 
-    private void dropSequences(Connection conn) throws SQLException{
-        String query = "DROP SEQUENCE pr_sequence";
-        DBAccessor.executeQuery(conn,query);
-        System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
-        System.out.println("-------------------------------------------------------------");
+    private void dropSequences(Connection conn){
+        try{
+
+            String query = "DROP SEQUENCE pr_sequence";
+            DBAccessor.executeQuery(conn,query);
+            System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
+            System.out.println("-------------------------------------------------------------");
+
+        }catch (SQLException ex){
+            System.err.println("SEQUENCE NOT PRESENT " + ex.getMessage());
+        }
+
     }
 
     private void createSequences(Connection conn) throws SQLException{
