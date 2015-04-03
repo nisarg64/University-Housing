@@ -1,14 +1,11 @@
 package action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import db.table.ParkingRequestTable;
-import org.apache.struts2.interceptor.SessionAware;
 import pojo.ParkingRequest;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by nisarg on 3/31/15.

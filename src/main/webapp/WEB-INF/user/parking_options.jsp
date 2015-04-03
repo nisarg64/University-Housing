@@ -43,7 +43,7 @@
           </td>
           <td  width="50%">
             <div style="height:100px;">
-              <a href="#" id="requestStatusNavigator" class="big_button top_margin">View Request Status</a>
+              <a href="/<s:property value='appName'/>/parkingRequestStatus.action" id="requestStatusNavigator" class="big_button top_margin">View Request Status</a>
             </div>
           </td>
         </tr>

@@ -10,6 +10,15 @@ public class ParkingRequest {
     private String vehicle;
     private String handicapped;
     private String nearSpot;
+    private String requestStatus;
+
+    public String getRequestStatus() {
+        return requestStatus;
+    }
+
+    public void setRequestStatus(String requestStatus) {
+        this.requestStatus = requestStatus;
+    }
 
     public String getVehicle() {
         return vehicle;

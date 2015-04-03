@@ -1,8 +1,11 @@
 package db.table;
 
 import pojo.ParkingRequest;
+import pojo.Student;
+import util.DBAccessor;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static util.DBAccessor.executeQuery;
@@ -48,5 +51,30 @@ public class ParkingRequestTable extends Table {
                 parkingRequest.getHandicapped()+"','"+ parkingRequest.getNearSpot()+
                 "','pending',NULL)";
         executeQuery(conn,query);
+    }
+
+    public ParkingRequest getParkingRequest(Connection conn, String username) {
+
+        String query = "SELECT vehicle_type, isHandicapped, nearby_spot_preference, request_status" +
+                " FROM "+ getTableName()+" where resident_id = '"+username+"' " +
+                "AND request_id = (SELECT max(request_id) FROM "+getTableName()+")";
+
+        ParkingRequest parkingRequest = null;
+
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+                parkingRequest = new ParkingRequest();
+                parkingRequest.setRequestStatus(resultSet.getString("request_status"));
+                parkingRequest.setVehicle(resultSet.getString("vehicle_type"));
+                parkingRequest.setHandicapped(resultSet.getString("isHandicapped"));
+                parkingRequest.setNearSpot(resultSet.getString("nearby_spot_preference"));
+
+                System.out.println(parkingRequest);
+
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During Login " + ex.getMessage());
+        }
+        return parkingRequest;
     }
 }

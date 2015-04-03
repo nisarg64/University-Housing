@@ -48,5 +48,9 @@
         <action name="submitParkingRequest" class="action.RequestParkingAction" method="submit">
             <result name="success">/WEB-INF/user/request_parking.jsp</result>
         </action>
+
+        <action name="parkingRequestStatus" class="action.ParkingStatusAction">
+            <result name="success">/WEB-INF/user/parking_status.jsp</result>
+        </action>
     </package>
 </struts>
