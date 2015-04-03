@@ -1,11 +1,6 @@
 package action;
 
 import db.table.LoginTable;
-import org.apache.struts2.ServletActionContext;
-import pojo.Login;
-
-import javax.servlet.http.HttpSession;
-import java.util.Date;
 
 /**
  * Author : abhishek

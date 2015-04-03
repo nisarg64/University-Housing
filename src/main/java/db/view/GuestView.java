@@ -1,9 +1,9 @@
 package db.view;
 
 import pojo.Guest;
-import pojo.Student;
 import util.DBAccessor;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,12 +37,14 @@ public class GuestView  extends View{
     public Guest selectOne(Connection conn, String approvalId)  {
 
         Guest guest = null;
-        String query = "SELECT * FROM " + getViewName() + " where approval_id = " + approvalId;
+        String query = "SELECT * FROM " + getViewName() + " where approval_id = '" + approvalId + "'";
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 guest = new Guest();
                 guest.setApprovalId(resultSet.getString("approval_id"));
-                guest.setName(resultSet.getString("fname") + " " + resultSet.getString("lname"));
+                guest.setFname(resultSet.getString("fname"));
+                guest.setLname(resultSet.getString("lname"));
+                guest.setDob(resultSet.getDate("dob").toString());
                 guest.setAddrStreet(resultSet.getString("address_street"));
                 guest.setAddrCity(resultSet.getString("address_city"));
                 guest.setPostalCode(resultSet.getString("address_postcode"));
@@ -55,32 +57,29 @@ public class GuestView  extends View{
 
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
+            System.err.println("Error Occurred During Guest Profile Access  " + ex.getMessage());
         }
         return guest;
     }
 
     public void update(Connection conn, Guest guest) {
 
-        String query = "";//"SELECT * FROM " + getViewName() + " where approval_id = " + approvalId;
-        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
-            while(resultSet.next()){
-                guest = new Guest();
-                guest.setApprovalId(resultSet.getString("approval_id"));
-                guest.setName(resultSet.getString("fname") + " " + resultSet.getString("lname"));
-                guest.setAddrStreet(resultSet.getString("address_street"));
-                guest.setAddrCity(resultSet.getString("address_city"));
-                guest.setPostalCode(resultSet.getString("address_postcode"));
-                guest.setStatus(resultSet.getString("status"));
-                guest.setGender(resultSet.getString("sex"));
-                guest.setPrimaryPhone(resultSet.getString("primary_phone"));
-                guest.setSpclNeeds(resultSet.getString("spl_needs"));
-
-                System.out.println(guest);
-
-            }
+        String query1 = "UPDATE RESIDENT SET " +
+                "fname = '" + guest.getFname()+ "', " +
+                "lname = '" + guest.getLname() + "', " +
+                "SEX = '" + guest.getGender() + "', " +
+                "ADDRESS_STREET = '" + guest.getAddrStreet() + "', " +
+                "ADDRESS_CITY = '" + guest.getAddrCity() + "', " +
+                "ADDRESS_POSTCODE = '" + guest.getPostalCode() + "', " +
+                "PRIMARY_PHONE = '" + guest.getPrimaryPhone() + "', " +
+                "SPL_NEEDS = '" + guest.getSpclNeeds() + "' " +
+                "WHERE RES_ID = '" + guest.getApprovalId() + "'";
+        
+        try{
+            DBAccessor.executeQuery(conn, query1);
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
+            System.err.println("Error Occurred During  profile Update :    " + guest + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

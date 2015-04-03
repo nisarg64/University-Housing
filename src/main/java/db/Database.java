@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+
 /**
  * Author : abhishek
  * Created on 3/26/15.
@@ -55,6 +56,9 @@ public class Database {
                 tables.get(i).dropTable(conn);
             }
 
+            dropSequences(conn);
+            createSequences(conn);
+
             for (Table table : tables) {
                 make(table, conn);
             }
@@ -75,6 +79,21 @@ public class Database {
                 ex.printStackTrace();
             }
         }
+    }
+
+    private void dropSequences(Connection conn) throws SQLException{
+        String query = "DROP SEQUENCE pr_sequence";
+        DBAccessor.executeQuery(conn,query);
+        System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
+        System.out.println("-------------------------------------------------------------");
+    }
+
+    private void createSequences(Connection conn) throws SQLException{
+
+        String query = "CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
+        DBAccessor.executeQuery(conn,query);
+        System.out.println("DB SEQUENCES CREATED SUCCESSFULLY ");
+        System.out.println("-------------------------------------------------------------");
     }
 
 }

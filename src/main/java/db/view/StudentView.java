@@ -58,7 +58,7 @@ public class StudentView extends View{
 
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
+            System.err.println("Error Occurred During Student Profile View " + ex.getMessage());
         }
         return student;
     }

@@ -19,10 +19,9 @@ public class ParkingRequestTable extends Table {
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = "CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
-        executeQuery(conn,query);
-        conn.commit();
-        query = "CREATE TABLE " + getTableName() + " ("+
+
+
+        String query = "CREATE TABLE " + getTableName() + " ("+
                 "request_id NUMBER, "+
                 "resident_id char(10), "+
                 "vehicle_type varchar2(32), "+

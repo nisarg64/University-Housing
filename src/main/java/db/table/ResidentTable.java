@@ -60,7 +60,16 @@ public class ResidentTable extends Table {
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
         String query5 = "INSERT INTO " + getTableName() + " VALUES('kogan', 'Kemafor', 'Ogan', 'F', '07-Aug-1981','4231 avent ferry'," +
+                "'Raleigh','27606','American','9190000000','9190000000','NO','XYZ','ABC')";
+
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('tomhanks', 'Tom', 'Hanks', 'M', '07-Aug-1970','4231 avent ferry'," +
+                "'Raleigh','27606','American','9190000000','9190000000','NO','XYZ','ABC')";
+
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('rdravid', 'Rahul', 'Dravid', 'M', '07-May-1987','4231 avent ferry'," +
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
+
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('bpitt', 'Brad', 'Pitt', 'M', '07-Jul-1981','4231 avent ferry'," +
+                "'Raleigh','27606','American','9190000000','9190000000','NO','XYZ','ABC')";
 
 
         queries.add(query1);
@@ -68,7 +77,9 @@ public class ResidentTable extends Table {
         queries.add(query3);
         queries.add(query4);
         queries.add(query5);
-
+        queries.add(query6);
+        queries.add(query7);
+        queries.add(query8);
         DBAccessor.executeBatchQuery(conn, queries);
     }
 

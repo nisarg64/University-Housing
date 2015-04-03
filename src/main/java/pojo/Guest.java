@@ -7,7 +7,8 @@ package pojo;
 public class Guest {
 
     private String approvalId;
-    private String name;
+    private String fname;
+    private String lname;
     private String status;
     private String addrStreet;
     private String addrCity;
@@ -25,12 +26,20 @@ public class Guest {
         this.approvalId = approvalId;
     }
 
-    public String getName() {
-        return name;
+    public String getFname() {
+        return fname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getStatus() {
@@ -101,6 +110,8 @@ public class Guest {
     public String toString() {
         return "Guest{" +
                 "approvalId='" + approvalId + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
                 ", status='" + status + '\'' +
                 ", addrStreet='" + addrStreet + '\'' +
                 ", addrCity='" + addrCity + '\'' +

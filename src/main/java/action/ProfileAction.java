@@ -30,7 +30,7 @@ public class ProfileAction extends UHAction {
             return "student";
         }
 
-        if(role == "guest"){
+        if(role.equalsIgnoreCase("guest")){
             GuestView guestView = new GuestView();
             guest = guestView.selectOne(conn, username);
             return "guest";
@@ -56,8 +56,9 @@ public class ProfileAction extends UHAction {
             return "student";
         }
 
-        if(role == "guest"){
+        if(role.equalsIgnoreCase("guest")){
             GuestView guestView = new GuestView();
+            guest.setApprovalId(username);
             guestView.update(conn, guest);
             return "guest";
         }
