@@ -19,14 +19,14 @@
           </td>
           <td  width="50%">
             <div style="height:100px;">
-              <a href="#" id="viewParkingLotNavigator" class="big_button top_margin">View Parking Lot Information</a>
+              <a href="/<s:property value='appName'/>/viewParkingLot.action" id="viewParkingLotNavigator" class="big_button top_margin">View Parking Lot Information</a>
             </div>
           </td>
         </tr>
         <tr>
           <td width="50%">
             <div style="height:100px;">
-              <a href="#" id="viewParkingSpotNavigator" class="big_button top_margin">View Current Parking Spot Information</a>
+              <a href="/<s:property value='appName'/>/viewParkingSpot.action" id="viewParkingSpotNavigator" class="big_button top_margin">View Current Parking Spot Information</a>
             </div>
           </td>
           <td width="50%">

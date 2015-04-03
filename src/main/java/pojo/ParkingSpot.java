@@ -1,5 +1,7 @@
 package pojo;
 
+import oracle.sql.NUMBER;
+
 /**
  * Created by nisarg on 4/3/15.
  */
@@ -9,6 +11,15 @@ public class ParkingSpot {
     private String spotType;
     private Integer availability;
     private Float rentalFee;
+    private String permit_id;
+
+    public String getPermit_id() {
+        return permit_id;
+    }
+
+    public void setPermit_id(String permit_id) {
+        this.permit_id = permit_id;
+    }
 
     public String getSpotId() {
         return spotId;

@@ -62,6 +62,14 @@
             <result name="success">/WEB-INF/parking/parking_status.jsp</result>
         </action>
 
+        <action name="viewParkingSpot" class="action.ViewParkingSpotAction">
+            <result name="success">/WEB-INF/parking/parking_spot.jsp</result>
+        </action>
+
+        <action name="viewParkingLot" class="action.ViewParkingLotAction">
+            <result name="success">/WEB-INF/parking/parking_lot.jsp</result>
+        </action>
+
         <action name="renewParking" class="action.RenewParkingAction">
             <result name="success">/WEB-INF/parking/renew_parking.jsp</result>
         </action>

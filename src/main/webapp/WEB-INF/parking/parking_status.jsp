@@ -12,8 +12,8 @@
 
       <tbody>
       <tr>
-        <th>Vehicle Type:</th>
-        <td data-field = "requestStatus"><s:textfield name="parkingRequest.requestStatus" readonly="true"/></td>
+        <th>Request Status:</th>
+        <td><s:textfield name="parkingRequest.requestStatus" readonly="true"/></td>
       </tr>
       <tr>
         <th>Vehicle Type:</th>

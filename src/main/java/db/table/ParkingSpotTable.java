@@ -87,4 +87,5 @@ public class ParkingSpotTable extends Table {
 
         return "SUCCESS";
     }
+
 }
