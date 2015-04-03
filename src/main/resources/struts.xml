@@ -65,6 +65,22 @@
             <result name="success">/WEB-INF/parking/parking_status.jsp</result>
         </action>
 
+        <action name="renewParking" class="action.RenewParkingAction">
+            <result name="success">/WEB-INF/parking/renew_parking.jsp</result>
+        </action>
+
+        <action name="submitParkingRenewalRequest" class="action.RenewParkingAction" method="submit">
+            <result name="success">/WEB-INF/parking/renew_parking.jsp</result>
+        </action>
+
+        <action name="returnParking" class="action.ReturnParkingAction">
+            <result name="success">/WEB-INF/parking/return_parking.jsp</result>
+        </action>
+
+        <action name="submitParkingReturnRequest" class="action.ReturnParkingAction" method="submit">
+            <result name="success">/WEB-INF/parking/return_parking.jsp</result>
+        </action>
+
         <!-- Lease Option -->
 
     </package>

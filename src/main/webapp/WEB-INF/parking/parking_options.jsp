@@ -31,14 +31,14 @@
           </td>
           <td width="50%">
             <div style="height:100px;">
-              <a href="#" id="renewParkingNavigator" class="big_button top_margin">Renew Parking Spot</a>
+              <a href="/<s:property value='appName'/>/renewParking.action" id="renewParkingNavigator" class="big_button top_margin">Renew Parking Spot</a>
             </div>
           </td>
         </tr>
         <tr>
           <td  width="50%">
             <div style="height:100px;">
-              <a href="#" id="returnParkingNavigator" class="big_button top_margin">Return Parking Spot</a>
+              <a href="/<s:property value='appName'/>/returnParking.action" id="returnParkingNavigator" class="big_button top_margin">Return Parking Spot</a>
             </div>
           </td>
           <td  width="50%">

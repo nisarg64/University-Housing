@@ -30,7 +30,7 @@ public class ParkingRequestTable extends Table {
                 "vehicle_type varchar2(32), "+
                 "isHandicapped varchar2(3), "+
                 "nearby_spot_preference varchar2(3), "+
-                 "request_status varchar(32), "+
+                "request_status varchar(32), "+
                 "permit_id varchar(32), " +
                 "PRIMARY KEY (request_id, resident_id), "+
                 "FOREIGN KEY (resident_id) REFERENCES RESIDENT(res_id), "+
