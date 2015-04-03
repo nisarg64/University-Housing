@@ -1,7 +1,5 @@
 package pojo;
 
-import java.sql.Connection;
-
 /**
  * Created by nisarg on 4/2/15.
  */

@@ -7,7 +7,8 @@ package pojo;
 public class Student {
 
     private String studentId;
-    private String name;
+    private String fname;
+    private String lname;
     private String category;
     private String addrStreet;
     private String addrCity;
@@ -26,12 +27,20 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String getName() {
-        return name;
+    public String getFname() {
+        return fname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getCategory() {
@@ -110,7 +119,8 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "studentId='" + studentId + '\'' +
-                ", name='" + name + '\'' +
+                ", fname='" + fname + '\'' +
+                ", lname='" + lname + '\'' +
                 ", category='" + category + '\'' +
                 ", addrStreet='" + addrStreet + '\'' +
                 ", addrCity='" + addrCity + '\'' +

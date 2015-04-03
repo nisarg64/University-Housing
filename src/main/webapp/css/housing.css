@@ -165,6 +165,7 @@
 }
 
 .statusMessage{
+    padding: 1%;
     text-align: center;
-    color:red;
+    color: #CC0000;
 }
