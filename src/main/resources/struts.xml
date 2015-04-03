@@ -40,12 +40,10 @@
             <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
-
         <!-- Housing Profile -->
         <action name="housingOption" class="action.UHAction">
             <result name="success">/WEB-INF/user/housing_options.jsp</result>
         </action>
-
 
         <!-- Parking Option -->
         <action name="parkingOption" class="action.ParkingAction">
@@ -60,12 +58,40 @@
             <result name="success">/WEB-INF/parking/request_parking.jsp</result>
         </action>
 
-
         <action name="parkingRequestStatus" class="action.ParkingStatusAction">
             <result name="success">/WEB-INF/parking/parking_status.jsp</result>
         </action>
 
         <!-- Lease Option -->
+        <action name="viewLeasesMenu" class="action.UHAction">
+            <result name="success">/WEB-INF/lease/view_leases_menu.jsp</result>
+        </action>
+        <action name="viewLease" class="action.LeaseAction">
+            <result name="success">/WEB-INF/lease/view_lease.jsp</result>
+        </action>
+        <action name="viewLeases" class="action.LeaseAction">
+            <result name="success">/WEB-INF/lease/view_leases.jsp</result>
+        </action>
+
+        <action name="newRequestsMenu" class="action.UHAction">
+            <result name="success">/WEB-INF/lease/new_requests_menu.jsp</result>
+        </action>
+        <action name="newLease" class="action.LeaseAction">
+            <result name="success">/WEB-INF/lease/new_lease.jsp</result>
+        </action>
+        <action name="terminateLease" class="action.LeaseAction">
+            <result name="success">/WEB-INF/lease/terminate_lease.jsp</result>
+        </action>
+
+        <action name="viewCancelRequestsMenu" class="action.UHAction">
+            <result name="success">/WEB-INF/lease/view_cancel_requests_menu.jsp</result>
+        </action>
+        <action name="viewRequest" class="action.UHAction">
+            <result name="success">/WEB-INF/lease/view_request.jsp</result>
+        </action>
+        <action name="cancelRequest" class="action.UHAction">
+            <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
+        </action>
 
     </package>
 </struts>

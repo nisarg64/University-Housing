@@ -19,19 +19,19 @@
                     </td>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="parkingNavigator" class="big_button top_margin">View leases</a>
+                            <a href="/<s:property value='appName'/>/viewLeasesMenu.action" id="viewLeasesMenuNavigator" class="big_button top_margin">View leases</a>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">New request</a>
+                            <a href="/<s:property value='appName'/>/newRequestsMenu.action" id="newRequestsMenuNavigator" class="big_button top_margin">New request</a>
                         </div>
                     </td>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/xxx.action" id="viewCancelRequestsNavigator" class="big_button top_margin">View/Cancel requests</a>
+                            <a href="/<s:property value='appName'/>/viewCancelRequestsMenu.action" id="viewCancelRequestsMenuNavigator" class="big_button top_margin">View/Cancel requests</a>
                         </div>
                     </td>
                 </tr>
