@@ -62,10 +62,10 @@
 
 
         <action name="parkingRequestStatus" class="action.ParkingStatusAction">
-            <result name="success">/WEB-INF/user/parking_status.jsp</result>
+            <result name="success">/WEB-INF/parking/parking_status.jsp</result>
         </action>
 
         <!-- Lease Option -->
-        
+
     </package>
 </struts>
