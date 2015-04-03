@@ -31,7 +31,8 @@
         <action name="profile" class="action.ProfileAction">
              <result name="student">/WEB-INF/user/student_profile.jsp</result>
              <result name="guest">/WEB-INF/user/guest_profile.jsp</result>
-            <result name="error">/WEB-INF/login.jsp</result>
+             <result name="guest">/WEB-INF/user/staff_profile.jsp</result>
+             <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
         <action name="updateProfile" class="action.ProfileAction" method="updateProfile">
@@ -43,6 +44,11 @@
         <!-- Housing Profile -->
         <action name="housingOption" class="action.UHAction">
             <result name="success">/WEB-INF/user/housing_options.jsp</result>
+        </action>
+
+        <!-- Invoice Option -->
+        <action name="viewInvoiceMenu" class="action.UHAction">
+            <result name="success">/WEB-INF/invoice/view_invoices_menu.jsp</result>
         </action>
 
         <!-- Parking Option -->

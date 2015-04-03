@@ -18,12 +18,16 @@ public class UHAction extends ActionSupport implements SessionAware{
     private String appName = "uhousing";
     Map<String, Object> sessionMap;
     Login login;
-    Connection conn = null;
+    static Connection conn = null;
 
     public UHAction(){
         try{
-            conn = DBAccessor.getConnection();
-            login = new Login();
+            if(conn == null){
+                conn = DBAccessor.getConnection();
+            }
+            if(login == null){
+                login = new Login();
+            }
 
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -59,5 +63,9 @@ public class UHAction extends ActionSupport implements SessionAware{
 
     public void setLogin(Login login) {
         this.login = login;
+    }
+
+    public String execute(){
+        return SUCCESS;
     }
 }

@@ -14,21 +14,27 @@
                 <tr>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/housingOption.action" id="housingNavigator" class="big_button top_margin">Housing Options</a>
+                            <a href="#" id="newLeaseNavigator" class="big_button top_margin">View New Lease Requests</a>
                         </div>
                     </td>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="parkingNavigator" class="big_button top_margin">Parking Option</a>
+                            <a href="#" id="leaseNavigator" class="big_button top_margin">View Terminate Lease Requests</a>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">Maintenance</a>
+                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">View Maintenance Tickets</a>
                         </div>
                     </td>
+                    <td width="50%">
+                        <div style="height:100px;">
+                            <a href="#" id="parkingNavigator" class="big_button top_margin">View Parking Requests</a>
+                        </div>
+                    </td>
+
                     <td width="50%">
                         <div style="height:100px;">
                             <a href="/<s:property value='appName'/>/profile.action" id="profileNavigator" class="big_button top_margin">Profile</a>

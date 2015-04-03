@@ -23,9 +23,9 @@ public class LeaseAction extends UHAction {
     }
 
     @Override
-    public String execute() throws Exception {
-        LeaseView view = new LeaseView();
+    public String execute(){
 
+        LeaseView view = new LeaseView();
         String username = (String) sessionMap.get("username");
         if (username == null) {
             return ERROR;

@@ -3,6 +3,7 @@ package action;
 import db.view.GuestView;
 import db.view.StudentView;
 import pojo.Guest;
+import pojo.Staff;
 import pojo.Student;
 
 /**
@@ -13,6 +14,7 @@ public class ProfileAction extends UHAction {
 
     private Student student;
     private Guest guest;
+    private Staff staff;
     private String message;
 
     public String execute(){
@@ -62,6 +64,12 @@ public class ProfileAction extends UHAction {
             guestView.update(conn, guest);
             return "guest";
         }
+
+        if(role.equalsIgnoreCase("staff")){
+            staff.setStaffId(username);
+            return "staff";
+        }
+
         return "student";
     }
 
@@ -87,6 +95,14 @@ public class ProfileAction extends UHAction {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
     @Override
