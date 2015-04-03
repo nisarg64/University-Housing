@@ -3,7 +3,6 @@ package db;
 import db.table.*;
 import db.view.GuestView;
 import db.view.StudentView;
-import pojo.Login;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -39,6 +38,8 @@ public class BootStrap {
         database.addTable(new GeneralAptProvides());
         database.addTable(new FamilyAptTable());
         database.addTable(new PrivateAccoTable());
+        database.addTable(new LeaseTable());
+        database.addTable(new LeaseTerminationRequest());
 
         database.makeAll();
         System.out.println("Done!");

@@ -4,6 +4,8 @@ import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +36,14 @@ public class LeaseTerminationRequest extends Table {
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
+        List<String> queries = new LinkedList<>();
+        String query1 = "INSERT INTO " + getTableName() + " VALUES(1, 1, sysdate + 15," +
+                "'Pending', sysdate + 13)";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES(2, 2, sysdate + 10," +
+                "'Processed', sysdate + 13)";
 
+        queries.add(query1);
+        queries.add(query2);
+        DBAccessor.executeBatchQuery(conn, queries);
     }
 }
