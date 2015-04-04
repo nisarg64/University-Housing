@@ -42,6 +42,7 @@ public class RequestParkingAction extends UHAction {
     public String submit() {
         //Updating DB
         String resident_id = (String) sessionMap.get("username");
+        System.out.println("Resident Id" + resident_id);
         resident_id = resident_id.trim();
         ParkingRequestTable prTable = new ParkingRequestTable();
         try {
