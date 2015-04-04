@@ -31,7 +31,7 @@
         <action name="profile" class="action.ProfileAction">
              <result name="student">/WEB-INF/user/student_profile.jsp</result>
              <result name="guest">/WEB-INF/user/guest_profile.jsp</result>
-             <result name="guest">/WEB-INF/user/staff_profile.jsp</result>
+             <result name="staff">/WEB-INF/user/staff_profile.jsp</result>
              <result name="error">/WEB-INF/login.jsp</result>
         </action>
 

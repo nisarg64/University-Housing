@@ -2,6 +2,7 @@ package db;
 
 import db.table.*;
 import db.view.GuestView;
+import db.view.StaffView;
 import db.view.StudentView;
 import util.DBAccessor;
 
@@ -21,6 +22,7 @@ public class BootStrap {
         database.addTable(new ResidentTable());
         database.addTable(new StudentTable());
         database.addTable(new GuestTable());
+        database.addTable(new StaffTable());
         database.addTable(new HousingOptionsTable());
         database.addTable(new ParkingLotTable());
         database.addTable(new ParkingSpotTable());
@@ -29,6 +31,7 @@ public class BootStrap {
 
         database.addView(new StudentView());
         database.addView(new GuestView());
+        database.addView(new StaffView());
 
         database.addTable(new RoomTable());
         database.addTable(new ResidentHallTable());
@@ -60,11 +63,14 @@ public class BootStrap {
             System.out.println(loginTable.checkLogin(login, conn));
 */
 
-            StudentView studentView = new StudentView();
+            StaffView staffView = new StaffView();
+            System.out.println(staffView.selectOne(conn, "kogan"));
+            //staffView.createView(conn);
+            /*StudentView studentView = new StudentView();
             studentView.dropView(conn);
             studentView.createView(conn);
             System.out.println(studentView.selectOne(conn, "akagrawa"));
-
+*/
         }catch (SQLException ex){
             ex.printStackTrace();
         }catch (Exception ex){
@@ -80,7 +86,8 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-      //  generalQuery();
+     //
         bootStrap();
+        generalQuery();
     }
 }

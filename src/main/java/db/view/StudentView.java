@@ -54,8 +54,6 @@ public class StudentView extends View{
                 student.setPrimaryPhone(resultSet.getString("primary_phone"));
                 student.setSpclNeeds(resultSet.getString("spl_needs"));
 
-                System.out.println(student);
-
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During Student Profile View " + ex.getMessage());

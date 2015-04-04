@@ -24,7 +24,7 @@ public class UHAction extends ActionSupport implements SessionAware{
         try{
             conn = DBAccessor.getConnection();
             login = new Login();
-    
+
         }catch (SQLException ex){
             ex.printStackTrace();
         }catch (Exception ex){

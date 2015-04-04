@@ -60,7 +60,7 @@ public class ResidentTable extends Table {
                 "'Raleigh','27606','Indian','9190000000','9190000000','NO','XYZ','ABC')";
 
         String query5 = "INSERT INTO " + getTableName() + " VALUES('kogan', 'Kemafor', 'Ogan', 'F', '07-Aug-1981','4231 avent ferry'," +
-                "'Raleigh','27606','American','9190000000','9190000000','NO','XYZ','ABC')";
+                "'Raleigh','27606','American','9190000000','9190000000','NO',null,null)";
 
         String query6 = "INSERT INTO " + getTableName() + " VALUES('tomhanks', 'Tom', 'Hanks', 'M', '07-Aug-1970','4231 avent ferry'," +
                 "'Raleigh','27606','American','9190000000','9190000000','NO','XYZ','ABC')";
