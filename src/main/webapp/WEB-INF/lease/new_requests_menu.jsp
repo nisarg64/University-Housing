@@ -14,12 +14,12 @@
                 <tr>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/newLease.action" id="newLeaseNavigator" class="big_button top_margin">New Lease Request</a>
+                            <a href="/<s:property value='appName'/>/newLeaseRequest.action" id="newLeaseRequestNavigator" class="big_button top_margin">New Lease Request</a>
                         </div>
                     </td>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/terminateLease.action" id="terminateLeasesNavigator" class="big_button top_margin">Terminate Lease Request</a>
+                            <a href="/<s:property value='appName'/>/terminateLeaseRequest.action" id="terminateLeaseRequestNavigator" class="big_button top_margin">Terminate Lease</a>
                         </div>
                     </td>
                 </tr>

@@ -34,6 +34,8 @@ public class ParkingApprovalAction extends UHAction {
             e.printStackTrace();
         }
         message = "Request Approved ";
+        ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
+        parkingRequests = parkingRequestTable.selectAll(conn);
         return SUCCESS;
     }
 

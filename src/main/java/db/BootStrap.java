@@ -3,6 +3,7 @@ package db;
 import db.table.*;
 import db.view.GuestView;
 import db.view.StaffView;
+import db.view.LeaseView;
 import db.view.StudentView;
 import util.DBAccessor;
 
@@ -43,6 +44,7 @@ public class BootStrap {
         database.addTable(new PrivateAccoTable());
         database.addTable(new LeaseTable());
         database.addTable(new LeaseTerminationRequest());
+        database.addView(new LeaseView());
 
         database.addTable(new TicketSeverityTable());
         database.addTable(new MaintenanceTicketTable());

@@ -1,5 +1,6 @@
 package db;
 
+import db.table.LeaseTable;
 import db.table.Table;
 import db.view.View;
 import util.DBAccessor;
@@ -84,7 +85,7 @@ public class Database {
     private void dropSequences(Connection conn){
         try{
             List<String> queries = new LinkedList<>();
-
+            
             String query = "DROP SEQUENCE pr_sequence";
             String query1 = "DROP SEQUENCE ticket_sequence";
             String query2 = "DROP SEQUENCE permit_sequence";
@@ -93,8 +94,12 @@ public class Database {
             queries.add(query1);
             queries.add(query2);
 
-            DBAccessor.executeBatchQuery(conn, queries);
+            queries.add("DROP SEQUENCE pr_sequence");
+            queries.add("DROP SEQUENCE ticket_sequence");
+            queries.add("DROP SEQUENCE " + LeaseTable.LEASE_SEQUENCE);
 
+
+            DBAccessor.executeBatchQuery(conn, queries);
             System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
             System.out.println("-------------------------------------------------------------");
 
@@ -107,6 +112,7 @@ public class Database {
     private void createSequences(Connection conn) throws SQLException{
         List<String> queries = new LinkedList<>();
 
+
         String query = "CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
         String query1 = "CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
         String query2 = "CREATE SEQUENCE permit_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
@@ -114,9 +120,12 @@ public class Database {
         queries.add(query);
         queries.add(query1);
         queries.add(query2);
+        queries.add("CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE " + LeaseTable.LEASE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+
 
         DBAccessor.executeBatchQuery(conn, queries);
-
         System.out.println("DB SEQUENCES CREATED SUCCESSFULLY ");
         System.out.println("-------------------------------------------------------------");
     }

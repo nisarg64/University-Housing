@@ -1,6 +1,8 @@
 <decorators defaultdir="/WEB-INF/decorators">
     <excludes>
         <pattern>/styles/*</pattern>
+        <pattern>/ajax.*</pattern>
+
     </excludes>
 
     <decorator name="layout" page="layout.jsp">

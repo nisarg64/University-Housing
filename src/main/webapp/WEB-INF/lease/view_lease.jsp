@@ -8,16 +8,27 @@
     </div>
 
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
-            <tbody>
+        <tbody>
             <tr>
                 <th>Lease Number:</th>
-                <td data-field="name"><s:textfield name="lease.leaseNumber"/></td>
+                <td><s:text name="lease.leaseNumber"/></td>
             </tr>
             <tr>
-                <th>Resident Id:</th>
-                <td data-field="dob"><s:textfield name="lease.residentId"/></td>
+                <th>Enter Date</th>
+                <td><s:date name="lease.enterDate" format="MM/dd/yy"/></td>
             </tr>
-
-            </tbody>
+            <tr>
+                <th>Leave Date</th>
+                <td><s:date name="lease.leaveDate" format="MM/dd/yy"/></td>
+            </tr>
+            <tr>
+                <th>Payment Option:</th>
+                <td><s:text name="lease.paymentOption"/></td>
+            </tr>
+            <tr>
+                <th>Lease Duration:</th>
+                <td><s:text name="lease.duration"/></td>
+            </tr>
+        </tbody>
         </table>
 </div>

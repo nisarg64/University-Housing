@@ -1,6 +1,11 @@
 package pojo;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * User: Nikhil
@@ -17,6 +22,7 @@ public class Lease {
     private String paymentOption;
     private int securityDeposit;
     private Date cutoffDate;
+    private List<LeasePreference> leasePreferences;
 
     public int getLeaseNumber() {
         return leaseNumber;
@@ -50,6 +56,10 @@ public class Lease {
         this.enterDate = enterDate;
     }
 
+    public void setEnterDate(String enterDateStr) {
+        this.enterDate = getDate(enterDateStr);
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -64,6 +74,10 @@ public class Lease {
 
     public void setLeaveDate(Date leaveDate) {
         this.leaveDate = leaveDate;
+    }
+
+    public void setLeaveDate(String leaveDateStr) {
+        this.leaveDate = getDate(leaveDateStr);
     }
 
     public String getPaymentOption() {
@@ -88,6 +102,34 @@ public class Lease {
 
     public void setCutoffDate(Date cutoffDate) {
         this.cutoffDate = cutoffDate;
+    }
+
+    public List<LeasePreference> getLeasePreferences() {
+        return leasePreferences;
+    }
+
+    public void setLeasePreferences(List<LeasePreference> leasePreferences) {
+        this.leasePreferences = leasePreferences;
+    }
+
+    public Date getDate(String dateStr) {
+        if (dateStr == null) {
+            return null;
+        }
+        DateFormat format = new SimpleDateFormat("MM/DD/yy", Locale.ENGLISH);
+        Date date = null;
+        try {
+            date = format.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+
+    }
+
+    public static void main(String[] args) {
+        Lease lease = new Lease();
+        System.out.println(lease.getDate("10-15-1987"));
     }
 
     @Override
