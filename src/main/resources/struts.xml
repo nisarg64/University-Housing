@@ -104,10 +104,13 @@
             <result name="success">/WEB-INF/parking/return_parking.jsp</result>
         </action>
 
-        <action name="parkingRequests" class="action.ParkingApprovalAction">
-            <result name="success">/WEB-INF/parking/return_parking.jsp</result>
+        <action name="parkingRequests" class="action.ParkingApprovalAction"  method="fetch">
+            <result name="success">/WEB-INF/parking/staff_parking_requests.jsp</result>
         </action>
 
+        <action name="approveParkingRequest" class="action.ParkingApprovalAction" method="approve">
+            <result name="success">/WEB-INF/parking/staff_parking_requests.jsp</result>
+        </action>
         <!-- Lease Option -->
         <action name="viewLeasesMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/view_leases_menu.jsp</result>

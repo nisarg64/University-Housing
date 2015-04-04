@@ -20,13 +20,13 @@
             </tr>
             <s:iterator value="parkingRequests" status="stat">
                 <tr>
-                    <td><s:property value="parkingRequests[%{#stat.index}].requestID" /></td>
-                    <td><s:property value="parkingRequests[%{#stat.index}].residentID" /></td>
-                    <td><s:property value="parkingRequests[%{#stat.index}].vehicle" /></td>
-                    <td><s:property value="parkingRequests[%{#stat.index}].handicapped" /></td>
-                    <td><s:property value="parkingRequests[%{#stat.index}].nearSpot" /></td>
-                    <td class="info"><s:property value="parkingRequests[%{#stat.index}].requestStatus" /></td>
-                    <td><s:submit value="submit" cssClass="btn btn-info" name="submit" /></td>
+                    <td><s:property value="requestID" /></td>
+                    <td><s:property value="residentID" /></td>
+                    <td><s:property value="vehicle" /></td>
+                    <td><s:property value="handicapped" /></td>
+                    <td><s:property value="nearSpot" /></td>
+                    <td class="info"><s:property value="requestStatus" /></td>
+                    <td><s:submit value="Approve" cssClass="btn btn-info" name="submit" /></td>
                 </tr>
             </s:iterator>
         </table>

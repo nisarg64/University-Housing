@@ -63,8 +63,9 @@ public class BootStrap {
             System.out.println(loginTable.checkLogin(login, conn));
 */
 
-            StaffView staffView = new StaffView();
-            System.out.println(staffView.selectOne(conn, "kogan"));
+            ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
+            System.out.println(parkingRequestTable.selectAll(conn));
+
             //staffView.createView(conn);
             /*StudentView studentView = new StudentView();
             studentView.dropView(conn);
@@ -87,7 +88,7 @@ public class BootStrap {
 
     public static void main(String[] args) {
      //
-        bootStrap();
+       // bootStrap();
         generalQuery();
     }
 }

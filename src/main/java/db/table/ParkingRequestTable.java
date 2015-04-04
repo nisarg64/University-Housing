@@ -92,9 +92,9 @@ public class ParkingRequestTable extends Table {
                 parkingRequest.setRequestID(String.valueOf(resultSet.getInt("request_id")));
                 parkingRequest.setResidentID(resultSet.getString("resident_id"));
                 parkingRequest.setVehicle(resultSet.getString("vehicle_type"));
-                parkingRequest.setVehicle(resultSet.getString("ishandicapped"));
-                parkingRequest.setVehicle(resultSet.getString("nearby_spot_preference"));
-                parkingRequest.setVehicle(resultSet.getString("request_status"));
+                parkingRequest.setHandicapped(resultSet.getString("ishandicapped"));
+                parkingRequest.setNearSpot(resultSet.getString("nearby_spot_preference"));
+                parkingRequest.setRequestStatus(resultSet.getString("request_status"));
 
                 parkingRequests.add(parkingRequest);
             }

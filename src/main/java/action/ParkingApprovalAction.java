@@ -15,7 +15,11 @@ public class ParkingApprovalAction extends UHAction {
     private String requestId;
     private String message;
 
-    public String execute(){
+    public ParkingApprovalAction(){
+
+    }
+
+    public String fetch(){
 
         ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
         parkingRequests = parkingRequestTable.selectAll(conn);
