@@ -26,7 +26,7 @@
                 <tr>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">Maintenance</a>
+                            <a href="/<s:property value='appName'/>/maintenance.action" id="maintenanceNavigator" class="big_button top_margin">Maintenance</a>
                         </div>
                     </td>
                     <td width="50%">

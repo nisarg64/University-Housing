@@ -44,6 +44,9 @@ public class BootStrap {
         database.addTable(new LeaseTable());
         database.addTable(new LeaseTerminationRequest());
 
+        database.addTable(new TicketSeverityTable());
+        database.addTable(new MaintenanceTicketTable());
+
         database.makeAll();
         System.out.println("Done!");
     }
@@ -52,16 +55,6 @@ public class BootStrap {
         Connection conn = null;
         try{
             conn = DBAccessor.getConnection();
-/*
-            ResidentTable residentTable = new ResidentTable();
-            residentTable.selectAll(conn);
-            LoginTable loginTable = new LoginTable();
-            Login login = new Login();
-            login.setUsername("akagrawa");
-            login.setPassword("abc123");
-            login.setRole("student");
-            System.out.println(loginTable.checkLogin(login, conn));
-*/
 
             ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
             System.out.println(parkingRequestTable.selectAll(conn));
@@ -87,8 +80,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-     //
-       // bootStrap();
         generalQuery();
+       bootStrap();
     }
 }

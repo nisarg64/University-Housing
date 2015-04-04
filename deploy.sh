@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # author: Abhishek Agrawal
 
-export TOMCAT=$HOME/apache-tomcat-7.0.47
-export PROJ=$HOME/myPrograms/university-housing
+export TOMCAT=$HOME/apache-tomcat-7.0.59
+export PROJ=$HOME/DBProject/university-housing
 
 # To check if project directory exist
 if ! [ -e $PROJ ] ; then
