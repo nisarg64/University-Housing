@@ -7,6 +7,8 @@ import util.DBAccessor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static util.DBAccessor.executeQuery;
 
@@ -26,7 +28,6 @@ public class ParkingSpotTable extends Table {
                 "spot_id varchar(32), "+
                 "lot_id varchar(32), "+
                 "spot_type varchar(32), "+
-                "availability INTEGER, " +
                 "rental_fee float(6), "+
                 "PRIMARY KEY (spot_id), "+
                 "FOREIGN KEY (lot_id) REFERENCES PARKING_LOT(lot_id) )";
@@ -35,7 +36,33 @@ public class ParkingSpotTable extends Table {
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
+        List<String> queries = new ArrayList<String>();
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('CEN1','CENTENNIAL', 'Bike', 400)";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('CEN2','CENTENNIAL', 'Small', 500)";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('CEN3','CENTENNIAL', 'Large', 600)";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('CEN4','CENTENNIAL', 'Handicap', 300)";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('NC1','NORTHCAMPUS', 'Small', 500)";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('NC2','NORTHCAMPUS', 'Large', 600)";
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('NC3','NORTHCAMPUS', 'Handicap', 300)";
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('MC1','MAINCAMPUS', 'Small', 500)";
+        String query9 = "INSERT INTO " + getTableName() + " VALUES('MC2','MAINCAMPUS', 'Bike', 400)";
+        String query10 = "INSERT INTO " + getTableName() + " VALUES('MC3','MAINCAMPUS', 'Large', 600)";
+        String query11 = "INSERT INTO " + getTableName() + " VALUES('MC4','MAINCAMPUS', 'Handicap', 300)";
 
+
+        queries.add(query1);
+        queries.add(query2);
+        queries.add(query3);
+        queries.add(query4);
+        queries.add(query5);
+        queries.add(query6);
+        queries.add(query7);
+        queries.add(query8);
+        queries.add(query9);
+        queries.add(query10);
+        queries.add(query11);
+
+        DBAccessor.executeBatchQuery(conn, queries);
     }
 
     public String renewSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot)  {
