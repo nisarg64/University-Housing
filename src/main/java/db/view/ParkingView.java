@@ -70,7 +70,7 @@ public class ParkingView extends View{
                 parkingLot.setNearbyHousing(resultSet.getString("nearby_housing_id"));
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Student Profile View " + ex.getMessage());
+            System.err.println("Error Occurred During Parking View " + ex.getMessage());
         }
 
         return parkingLot;

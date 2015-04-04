@@ -7,13 +7,6 @@ import pojo.ParkingSpot;
  * Created by nisarg on 4/3/15.
  */
 public class ViewParkingSpotAction extends UHAction {
-    public ParkingSpot getParkingSpot() {
-        return parkingSpot;
-    }
-
-    public void setParkingSpot(ParkingSpot parkingSpot) {
-        this.parkingSpot = parkingSpot;
-    }
 
     private ParkingSpot parkingSpot;
 
@@ -23,5 +16,14 @@ public class ViewParkingSpotAction extends UHAction {
         ParkingView psView = new ParkingView();
         parkingSpot = psView.getParkinSpot(conn, username);
         return SUCCESS;
+    }
+
+    
+    public ParkingSpot getParkingSpot() {
+        return parkingSpot;
+    }
+
+    public void setParkingSpot(ParkingSpot parkingSpot) {
+        this.parkingSpot = parkingSpot;
     }
 }

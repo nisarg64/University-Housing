@@ -51,8 +51,20 @@
             <result name="success">/WEB-INF/invoice/view_invoices_menu.jsp</result>
         </action>
 
+        <action name="viewCurrentInvoice" class="action.ViewCurrentInvoiceAction">
+            <result name="success">/WEB-INF/invoice/view_current_invoice.jsp</result>
+        </action>
+
+        <action name="viewFormerInvoice" class="action.ViewFormerInvoiceAction">
+            <result name="success">/WEB-INF/invoice/view_former_invoice.jsp</result>
+        </action>
+
+        <action name="submitFormerInvoice" class="action.ViewFormerInvoiceAction" method = "submit">
+            <result name="success">/WEB-INF/invoice/view_former_invoice_details.jsp</result>
+        </action>
+
         <!-- Parking Option -->
-        <action name="parkingOption" class="action.ParkingAction">
+        <action name="parkingOption" class="action.UHAction">
             <result name="success">/WEB-INF/parking/parking_options.jsp</result>
         </action>
 

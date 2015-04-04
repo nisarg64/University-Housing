@@ -14,7 +14,7 @@
                 <tr>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/viewCurrInvoice.action" id="viewCurrInvNavigator" class="big_button top_margin">View Current Invoice</a>
+                            <a href="/<s:property value='appName'/>/viewCurrentInvoice.action" id="viewCurrInvNavigator" class="big_button top_margin">View Current Invoice</a>
                         </div>
                     </td>
                     <td  width="50%">

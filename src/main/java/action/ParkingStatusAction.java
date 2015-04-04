@@ -8,14 +8,6 @@ import pojo.ParkingRequest;
  */
 public class ParkingStatusAction extends UHAction {
 
-    public ParkingRequest getParkingRequest() {
-        return parkingRequest;
-    }
-
-    public void setParkingRequest(ParkingRequest parkingRequest) {
-        this.parkingRequest = parkingRequest;
-    }
-
     private ParkingRequest parkingRequest;
 
     public String execute(){
@@ -24,4 +16,13 @@ public class ParkingStatusAction extends UHAction {
         parkingRequest = prTable.getParkingRequest(conn,username);
         return SUCCESS;
     }
+
+    public ParkingRequest getParkingRequest() {
+        return parkingRequest;
+    }
+
+    public void setParkingRequest(ParkingRequest parkingRequest) {
+        this.parkingRequest = parkingRequest;
+    }
+
 }

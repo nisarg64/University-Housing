@@ -57,7 +57,7 @@ public class ParkingRequestTable extends Table {
 
         String query = "SELECT vehicle_type, isHandicapped, nearby_spot_preference, request_status" +
                 " FROM "+ getTableName()+" where resident_id = '"+username+"' " +
-                "AND request_id = (SELECT max(request_id) FROM "+getTableName()+" where resident_id ='"+getTableName()+"' )";
+                "AND request_id = (SELECT max(request_id) FROM "+getTableName()+" where resident_id ='"+username+"' )";
 
         ParkingRequest parkingRequest = null;
 

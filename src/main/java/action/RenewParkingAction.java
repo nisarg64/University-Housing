@@ -19,24 +19,6 @@ public class RenewParkingAction extends UHAction {
     ParkingSpot parkingSpot;
 
 
-    public void setParkingSpot(ParkingSpot parkingSpot) {
-        this.parkingSpot = parkingSpot;
-    }
-
-    public String getMessage() {
-
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-
-    public ParkingSpot getParkingSpot() {
-        return parkingSpot;
-    }
-
     public String execute() {
         message = "";
         return SUCCESS;
@@ -57,4 +39,24 @@ public class RenewParkingAction extends UHAction {
             message = "Invalid Parking Spot ID";
         return SUCCESS;
     }
+
+    public void setParkingSpot(ParkingSpot parkingSpot) {
+        this.parkingSpot = parkingSpot;
+    }
+
+    public String getMessage() {
+
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+
+    public ParkingSpot getParkingSpot() {
+        return parkingSpot;
+    }
+
+
 }
