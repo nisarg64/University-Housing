@@ -139,5 +139,23 @@
             <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
         </action>
 
+        <!-- maintenance -->
+        <action name="maintenance" class="action.UHAction">
+            <result name="success">/WEB-INF/maintenance/maintenance.jsp</result>
+        </action>
+
+        <action name="newTicket" class="action.RequestTicketAction">
+            <result name="success">/WEB-INF/maintenance/new_ticket.jsp</result>
+        </action>
+
+        <action name="submitMaintenanceTicket" class="action.RequestTicketAction" method="submit">
+            <result name="success">/WEB-INF/maintenance/new_ticket.jsp</result>
+        </action>
+
+        <action name="viewTicketStatus" class="action.RequestTicketAction" method="getTickets">
+            <result name="success">/WEB-INF/maintenance/new_ticket.jsp</result>
+        </action>
+
+
     </package>
 </struts>

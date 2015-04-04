@@ -12,8 +12,8 @@ public class DBAccessor {
 
     private static final String jdbcURL = "jdbc:oracle:thin:@ora.csc.ncsu.edu:1521:orcl";
 
-    private static final String username = "";      //unity id
-    private static final String password = "";      //9 digit student id
+    private static final String username = "abora";      //unity id
+    private static final String password = "200045256";      //9 digit student id
 
     public static Connection getConnection() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");

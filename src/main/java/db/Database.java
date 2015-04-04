@@ -83,9 +83,16 @@ public class Database {
 
     private void dropSequences(Connection conn){
         try{
+            List<String> queries = new LinkedList<>();
 
             String query = "DROP SEQUENCE pr_sequence";
-            DBAccessor.executeQuery(conn,query);
+            String query1 = "DROP SEQUENCE ticket_sequence";
+
+            queries.add(query);
+            queries.add(query1);
+
+            DBAccessor.executeBatchQuery(conn, queries);
+
             System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
             System.out.println("-------------------------------------------------------------");
 
@@ -96,9 +103,16 @@ public class Database {
     }
 
     private void createSequences(Connection conn) throws SQLException{
+        List<String> queries = new LinkedList<>();
 
         String query = "CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
-        DBAccessor.executeQuery(conn,query);
+        String query1 = "CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
+
+        queries.add(query);
+        queries.add(query1);
+
+        DBAccessor.executeBatchQuery(conn, queries);
+
         System.out.println("DB SEQUENCES CREATED SUCCESSFULLY ");
         System.out.println("-------------------------------------------------------------");
     }

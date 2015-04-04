@@ -4,6 +4,7 @@ import db.table.*;
 import db.view.GuestView;
 import db.view.StaffView;
 import db.view.StudentView;
+import pojo.TicketRequest;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -44,6 +45,9 @@ public class BootStrap {
         database.addTable(new LeaseTable());
         database.addTable(new LeaseTerminationRequest());
 
+        database.addTable(new TicketSeverityTable());
+        database.addTable(new MaintenanceTicketTable());
+
         database.makeAll();
         System.out.println("Done!");
     }
@@ -52,25 +56,7 @@ public class BootStrap {
         Connection conn = null;
         try{
             conn = DBAccessor.getConnection();
-/*
-            ResidentTable residentTable = new ResidentTable();
-            residentTable.selectAll(conn);
-            LoginTable loginTable = new LoginTable();
-            Login login = new Login();
-            login.setUsername("akagrawa");
-            login.setPassword("abc123");
-            login.setRole("student");
-            System.out.println(loginTable.checkLogin(login, conn));
-*/
 
-            StaffView staffView = new StaffView();
-            System.out.println(staffView.selectOne(conn, "kogan"));
-            //staffView.createView(conn);
-            /*StudentView studentView = new StudentView();
-            studentView.dropView(conn);
-            studentView.createView(conn);
-            System.out.println(studentView.selectOne(conn, "akagrawa"));
-*/
         }catch (SQLException ex){
             ex.printStackTrace();
         }catch (Exception ex){
@@ -86,8 +72,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-     //
-        bootStrap();
-        generalQuery();
+        //generalQuery();
+       bootStrap();
     }
 }
