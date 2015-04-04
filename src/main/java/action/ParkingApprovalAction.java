@@ -26,8 +26,8 @@ public class ParkingApprovalAction extends UHAction {
 
         System.out.println(requestId);
         message = "Request Approved ";
-        System.out.println(parkingRequests);
-        System.out.println(message);
+        ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
+        parkingRequests = parkingRequestTable.selectAll(conn);
         return SUCCESS;
     }
 

@@ -6,9 +6,14 @@
             event.preventDefault();
             var value = $(this).attr('rowid');
             var url = "/uhousing/ajax.approveParkingRequest.action?requestId="+value;
+            $(".container").load(url);
+
+/*
+
             $.post( url, function( data ) {
                 $( ".statusMessage" ).html( data );
             });
+*/
 
         });
 
