@@ -73,7 +73,9 @@ public class LoginTable extends Table{
                 }
             }
         }catch (SQLException ex){
+
             System.err.println("Error Occurred During Login " + ex.getMessage());
+            ex.printStackTrace();
         }
         return false;
     }
