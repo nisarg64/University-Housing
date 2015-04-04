@@ -37,14 +37,18 @@ public class LoginAction extends UHAction {
         return ERROR;
     }
 
-    public String logout() throws Exception {
+    public String logout() {
 
         if(sessionMap.containsKey("username")){
             sessionMap.remove("username");
             sessionMap.remove("role");
         }
         errorMsg = "";
-        conn.close();
+        try{
+            conn.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
         return SUCCESS;
     }
 

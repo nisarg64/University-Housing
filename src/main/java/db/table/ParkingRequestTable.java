@@ -1,12 +1,16 @@
 package db.table;
 
 import pojo.ParkingRequest;
+import pojo.Resident;
 import pojo.Student;
 import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static util.DBAccessor.executeQuery;
 
@@ -76,5 +80,27 @@ public class ParkingRequestTable extends Table {
             System.err.println("Error Occurred During Login " + ex.getMessage());
         }
         return parkingRequest;
+    }
+
+    public List<ParkingRequest> selectAll(Connection conn) {
+
+        List<ParkingRequest> parkingRequests = new ArrayList<>() ;
+        String query = "SELECT * from " + getTableName();
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+                ParkingRequest parkingRequest = new ParkingRequest();
+                parkingRequest.setRequestID(String.valueOf(resultSet.getInt("request_id")));
+                parkingRequest.setResidentID(resultSet.getString("resident_id"));
+                parkingRequest.setVehicle(resultSet.getString("vehicle_type"));
+                parkingRequest.setVehicle(resultSet.getString("ishandicapped"));
+                parkingRequest.setVehicle(resultSet.getString("nearby_spot_preference"));
+                parkingRequest.setVehicle(resultSet.getString("request_status"));
+
+                parkingRequests.add(parkingRequest);
+            }
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+        return parkingRequests;
     }
 }

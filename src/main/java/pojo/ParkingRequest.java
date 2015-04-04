@@ -5,6 +5,8 @@ package pojo;
  */
 public class ParkingRequest {
 
+    private String requestID;
+    private String residentID;
     private String vehicle;
     private String handicapped;
     private String nearSpot;
@@ -42,12 +44,31 @@ public class ParkingRequest {
         this.nearSpot = nearSpot;
     }
 
+    public String getRequestID() {
+        return requestID;
+    }
+
+    public void setRequestID(String requestID) {
+        this.requestID = requestID;
+    }
+
+    public String getResidentID() {
+        return residentID;
+    }
+
+    public void setResidentID(String residentID) {
+        this.residentID = residentID;
+    }
+
     @Override
     public String toString() {
         return "ParkingRequest{" +
-                "vehicle='" + vehicle + '\'' +
+                "requestID='" + requestID + '\'' +
+                ", residentID='" + residentID + '\'' +
+                ", vehicle='" + vehicle + '\'' +
                 ", handicapped='" + handicapped + '\'' +
                 ", nearSpot='" + nearSpot + '\'' +
+                ", requestStatus='" + requestStatus + '\'' +
                 '}';
     }
 }
