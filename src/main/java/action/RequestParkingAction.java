@@ -39,12 +39,16 @@ public class RequestParkingAction extends UHAction {
         return SUCCESS;
     }
 
-    public String submit() throws SQLException {
+    public String submit() {
         //Updating DB
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();
         ParkingRequestTable prTable = new ParkingRequestTable();
-        prTable.insertRequest(conn, resident_id, parkingRequest);
+        try {
+            prTable.insertRequest(conn, resident_id, parkingRequest);
+        } catch (SQLException e) {
+            System.err.println("Error Occurred During Parking Spot Request Insert " + e.getMessage());
+        }
 
         //Reset parking request form
         parkingRequest = new ParkingRequest();

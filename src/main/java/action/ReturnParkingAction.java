@@ -37,7 +37,7 @@ public class ReturnParkingAction extends UHAction {
         return SUCCESS;
     }
 
-    public String submit() throws SQLException {
+    public String submit() {
         //Updating DB
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();

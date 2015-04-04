@@ -38,7 +38,7 @@ public class ParkingSpotTable extends Table {
 
     }
 
-    public String renewSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot) throws SQLException {
+    public String renewSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot)  {
         String query = "SELECT count(*) FROM PARKING_PERMIT " +
                 "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"' AND PERMIT_ID IN " +
                 "(SELECT permit_id FROM PARKING_REQUEST " +
@@ -50,7 +50,7 @@ public class ParkingSpotTable extends Table {
                     return "NULL";
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
+            System.err.println("Error Occurred During Parking Spot Renew Request " + ex.getMessage());
         }
 
         query = "UPDATE PARKING_REQUEST SET request_status = 'renew request'" +
@@ -58,12 +58,16 @@ public class ParkingSpotTable extends Table {
                 "(SELECT permit_id from PARKING_PERMIT" +
                 "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"')";
 
-        executeQuery(conn,query);
+        try {
+            executeQuery(conn,query);
+        } catch (SQLException e) {
+            System.err.println("Error Occurred During Parking Spot Renew Request Update " + e.getMessage());
+        }
 
         return "SUCCESS";
     }
 
-    public String returnSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot) throws SQLException {
+    public String returnSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot) {
         String query = "SELECT count(*) FROM PARKING_PERMIT " +
                 "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"' AND PERMIT_ID IN " +
                 "(SELECT permit_id FROM PARKING_REQUEST " +
@@ -75,7 +79,7 @@ public class ParkingSpotTable extends Table {
                     return "NULL";
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
+            System.err.println("Error Occurred During Parking Spot Return Request " + ex.getMessage());
         }
 
         query = "UPDATE PARKING_REQUEST SET request_status = 'return request'" +
@@ -83,7 +87,11 @@ public class ParkingSpotTable extends Table {
                 "(SELECT permit_id from PARKING_PERMIT" +
                 "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"')";
 
-        executeQuery(conn,query);
+        try {
+            executeQuery(conn,query);
+        } catch (SQLException e) {
+            System.err.println("Error Occurred During Parking Spot Return Request status update " + e.getMessage());
+        }
 
         return "SUCCESS";
     }
