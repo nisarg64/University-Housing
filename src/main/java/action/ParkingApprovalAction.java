@@ -3,6 +3,7 @@ package action;
 import db.table.ParkingRequestTable;
 import pojo.ParkingRequest;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,6 +26,13 @@ public class ParkingApprovalAction extends UHAction {
     public String approve(){
 
         System.out.println(requestId);
+        ParkingRequestTable prTable = new ParkingRequestTable();
+        String isApproved = null;
+        try {
+            isApproved = prTable.checkParkingAvailability(conn, requestId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         message = "Request Approved ";
         return SUCCESS;
     }

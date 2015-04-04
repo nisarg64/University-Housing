@@ -47,7 +47,7 @@ public class ParkingView extends View{
                 parkingSpot.setLotId(resultSet.getString("lot_id"));
                 parkingSpot.setPermit_id(resultSet.getString("permit_id"));
                 parkingSpot.setSpotType(resultSet.getString("spot_type"));
-                parkingSpot.setAvailability(resultSet.getInt("availability"));
+                parkingSpot.setAvailability(resultSet.getString("availability"));
                 parkingSpot.setRentalFee(resultSet.getFloat("rental_fee"));
             }
         }catch (SQLException ex){

@@ -19,7 +19,7 @@
                     </td>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="parkingNavigator" class="big_button top_margin">Parking Option</a>
+                            <a href="/<s:property value='appName'/>/parkingOption.action" id="parkingNavigator" class="big_button top_margin">Parking Option</a>
                         </div>
                     </td>
                 </tr>

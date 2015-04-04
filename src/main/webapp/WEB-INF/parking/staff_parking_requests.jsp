@@ -44,7 +44,7 @@
                     <td><s:property value="handicapped" /></td>
                     <td><s:property value="nearSpot" /></td>
                     <td class="info"><s:property value="requestStatus" /></td>
-                    <td><span><a id="approveBtn" class="btn btn-info" rowid="<s:property value="requestID" />" href="#"> Approve</a></span></td>
+                    <td><span><a id="approveBtn" class="btn btn-info" rowid="<s:property value="requestID" />" href="/<s:property value='appName'/>/approveParkingRequest.action"> Approve</a></span></td>
                 </tr>
             </s:iterator>
         </table>
