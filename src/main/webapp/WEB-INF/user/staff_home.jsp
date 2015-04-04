@@ -34,14 +34,14 @@
                             <a href="#" id="parkingNavigator" class="big_button top_margin">View Parking Requests</a>
                         </div>
                     </td>
-
+                </tr>
+                <tr>
                     <td width="50%">
                         <div style="height:100px;">
                             <a href="/<s:property value='appName'/>/profile.action" id="profileNavigator" class="big_button top_margin">Profile</a>
                         </div>
                     </td>
                 </tr>
-
             </table>
         </div>
     </div>

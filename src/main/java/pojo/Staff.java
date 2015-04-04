@@ -6,7 +6,7 @@ package pojo;
  */
 public class Staff {
 
-    private String staffId;
+    private String staffNum;
     private String fname;
     private String lname;
     private String status;
@@ -16,15 +16,9 @@ public class Staff {
     private String gender;
     private String dob;
     private String primaryPhone;
-    private String spclNeeds;
+    private String position;
+    private String location;
 
-    public String getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
-    }
 
     public String getFname() {
         return fname;
@@ -98,18 +92,34 @@ public class Staff {
         this.primaryPhone = primaryPhone;
     }
 
-    public String getSpclNeeds() {
-        return spclNeeds;
+    public String getStaffNum() {
+        return staffNum;
     }
 
-    public void setSpclNeeds(String spclNeeds) {
-        this.spclNeeds = spclNeeds;
+    public void setStaffNum(String staffNum) {
+        this.staffNum = staffNum;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
     public String toString() {
         return "Staff{" +
-                "staffId='" + staffId + '\'' +
+                "staffNum='" + staffNum + '\'' +
                 ", fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", status='" + status + '\'' +
@@ -119,7 +129,8 @@ public class Staff {
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
                 ", primaryPhone='" + primaryPhone + '\'' +
-                ", spclNeeds='" + spclNeeds + '\'' +
+                ", position='" + position + '\'' +
+                ", location='" + location + '\'' +
                 '}';
     }
 }

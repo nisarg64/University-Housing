@@ -1,6 +1,7 @@
 package action;
 
 import db.view.GuestView;
+import db.view.StaffView;
 import db.view.StudentView;
 import pojo.Guest;
 import pojo.Staff;
@@ -37,6 +38,12 @@ public class ProfileAction extends UHAction {
             guest = guestView.selectOne(conn, username);
             return "guest";
         }
+
+        if(role.equalsIgnoreCase("staff")){
+            StaffView staffView = new StaffView();
+            staff = staffView.selectOne(conn, username);
+            return "staff";
+        }
         return "student";
     }
 
@@ -66,7 +73,8 @@ public class ProfileAction extends UHAction {
         }
 
         if(role.equalsIgnoreCase("staff")){
-            staff.setStaffId(username);
+            StaffView staffView = new StaffView();
+            staff.setStaffNum(username);
             return "staff";
         }
 

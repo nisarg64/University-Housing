@@ -17,6 +17,14 @@
                 <td data-field="lname"><input type="text" name="staff.lname" value="<s:property value="staff.lname"/>" readonly autofocus/></td>
             </tr>
             <tr>
+                <th>Position:</th>
+                <td data-field="position"><input type="text" name="staff.position" value="<s:property value="staff.position"/>" readonly autofocus/></td>
+            </tr>
+            <tr>
+                <th>Location:</th>
+                <td data-field="location"><input type="text" name="staff.location" value="<s:property value="staff.location"/>" readonly autofocus/></td>
+            </tr>
+            <tr>
                 <th>Date of Birth:</th>
                 <td data-field="dob"><input type="text" name="staff.dob" value="<s:property value="staff.dob"/>" readonly autofocus/></td>
             </tr>
@@ -39,10 +47,6 @@
             <tr>
                 <th>Phone number:</th>
                 <td data-field="p_phone"><input type="text" name="staff.primaryPhone" value="<s:property value="staff.primaryPhone"/>" readonly autofocus/></td>
-            </tr>
-            <tr>
-                <th>Special Needs:</th>
-                <td data-field="splNeed"><input type="text" name="staff.spclNeeds" value="<s:property value="staff.spclNeeds"/>" readonly autofocus/></td>
             </tr>
             </tbody>
         </table>
