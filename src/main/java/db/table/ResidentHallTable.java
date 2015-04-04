@@ -13,21 +13,24 @@ import java.util.List;
  */
 public class ResidentHallTable extends Table{
 
+    public static final String HALL_ID = "hall_id";
+    public static final String TABLE_NAME = "RESIDENT_HALL";
+
     @Override
     public String getTableName() {
-        return "RESIDENT_HALL";
+        return TABLE_NAME;
     }
 
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() +" (" +
-                " hall_id VARCHAR(20), " +
+                " " + HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
                 " name VARCHAR(32), " +
                 " address VARCHAR(100), " +
                 " manager VARCHAR(32), " +
                 " tel_number VARCHAR(12), " +
                 " student_category VARCHAR(6), " +
-                " PRIMARY KEY (hall_id) " +
+                " PRIMARY KEY (" + HALL_ID + ") " +
                 ")";
         DBAccessor.executeQuery(conn, query);
     }

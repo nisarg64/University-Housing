@@ -24,7 +24,7 @@ public class LeaseView extends View {
         String query = "CREATE VIEW " + getViewName() + " as " +
                 " SELECT l.lease_number, l.res_id, l.status, l.enter_date, l.duration, l.leave_date, " +
                 "l.payment_option, l.security_deposit, l.cutoff_date" +
-                " FROM LEASE l ";
+                " FROM LEASE l";
         DBAccessor.executeQuery(conn, query);
     }
 

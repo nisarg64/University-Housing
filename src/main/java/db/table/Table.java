@@ -26,4 +26,30 @@ public abstract class Table {
                   System.err.println( " Table " + getTableName() + ": " + ex.getMessage());
             }
       }
+
+      public final String createInsertSql(String tableName, int valuesCount, String... columns) {
+            StringBuilder str = new StringBuilder();
+            str.append("INSERT INTO ").append(tableName);
+            if (columns != null) {
+                  str.append("(");
+                  valuesCount = columns.length;
+                  for (int i = 1; i <= valuesCount; ++i) {
+                        str.append(columns[i - 1]);
+                        if (i < valuesCount) {
+                              str.append(", ");
+                        }
+                  }
+                  str.append(")");
+            }
+
+            str.append(" VALUES(");
+            for (int i = 1; i <= valuesCount; ++i) {
+                  str.append("?");
+                  if (i < valuesCount) {
+                        str.append(", ");
+                  }
+            }
+            str.append(")");
+            return str.toString();
+      }
 }

@@ -1,5 +1,6 @@
 package db;
 
+import db.table.LeaseTable;
 import db.table.Table;
 import db.view.View;
 import util.DBAccessor;
@@ -85,14 +86,11 @@ public class Database {
         try{
             List<String> queries = new LinkedList<>();
 
-            String query = "DROP SEQUENCE pr_sequence";
-            String query1 = "DROP SEQUENCE ticket_sequence";
-
-            queries.add(query);
-            queries.add(query1);
+            queries.add("DROP SEQUENCE pr_sequence");
+            queries.add("DROP SEQUENCE ticket_sequence");
+            queries.add("DROP SEQUENCE " + LeaseTable.LEASE_SEQUENCE);
 
             DBAccessor.executeBatchQuery(conn, queries);
-
             System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
             System.out.println("-------------------------------------------------------------");
 
@@ -105,14 +103,11 @@ public class Database {
     private void createSequences(Connection conn) throws SQLException{
         List<String> queries = new LinkedList<>();
 
-        String query = "CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
-        String query1 = "CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE";
-
-        queries.add(query);
-        queries.add(query1);
+        queries.add("CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE " + LeaseTable.LEASE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
 
         DBAccessor.executeBatchQuery(conn, queries);
-
         System.out.println("DB SEQUENCES CREATED SUCCESSFULLY ");
         System.out.println("-------------------------------------------------------------");
     }

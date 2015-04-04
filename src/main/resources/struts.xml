@@ -115,18 +115,23 @@
         <action name="viewLeasesMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/view_leases_menu.jsp</result>
         </action>
-        <action name="viewLease" class="action.LeaseAction">
+        <action name="viewLease" class="action.LeaseAction" method="viewCurrentLease">
             <result name="success">/WEB-INF/lease/view_lease.jsp</result>
+            <result name="error">/WEB-INF/login.jsp</result>
         </action>
-        <action name="viewLeases" class="action.LeaseAction">
+        <action name="viewLeases" class="action.LeaseAction" method="viewPreviousLeases">
             <result name="success">/WEB-INF/lease/view_leases.jsp</result>
+            <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
         <action name="newRequestsMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/new_requests_menu.jsp</result>
         </action>
-        <action name="newLease" class="action.LeaseAction">
-            <result name="success">/WEB-INF/lease/new_lease.jsp</result>
+        <action name="newLeaseRequest" class="action.LeaseAction" method="newLeaseRequest">
+            <result name="success">/WEB-INF/lease/new_lease_request.jsp</result>
+        </action>
+        <action name="createLeaseRequest" class="action.LeaseAction" method="createLeaseRequest">
+            <result name="success">/WEB-INF/lease/view_lease.jsp</result>
         </action>
         <action name="terminateLease" class="action.LeaseAction">
             <result name="success">/WEB-INF/lease/terminate_lease.jsp</result>
