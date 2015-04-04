@@ -18,7 +18,7 @@ public class ViewParkingSpotAction extends UHAction {
         return SUCCESS;
     }
 
-    
+
     public ParkingSpot getParkingSpot() {
         return parkingSpot;
     }
