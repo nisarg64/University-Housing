@@ -108,8 +108,8 @@
             <result name="success">/WEB-INF/parking/staff_parking_requests.jsp</result>
         </action>
 
-        <action name="approveParkingRequest" class="action.ParkingApprovalAction" method="approve">
-            <result name="success">/WEB-INF/parking/staff_parking_requests.jsp</result>
+        <action name="ajax.approveParkingRequest" class="action.ParkingApprovalAction" method="approve">
+            <result name="success">/WEB-INF/ajax/parking_approve_status.jsp</result>
         </action>
         <!-- Lease Option -->
         <action name="viewLeasesMenu" class="action.UHAction">

@@ -2,12 +2,12 @@
 <script>
     $( document ).ready(function() {
 
-        $('#approveBtn').click(function(event){
+        $('.approveBtn').click(function(event){
             event.preventDefault();
             var value = $(this).attr('rowid');
-            var url = "/uhousing/approveParkingRequest.action?requestId="+value;
+            var url = "/uhousing/ajax.approveParkingRequest.action?requestId="+value;
             $.post( url, function( data ) {
-                $( "#container" ).html( data );
+                $( ".statusMessage" ).html( data );
             });
 
         });
@@ -25,7 +25,7 @@
         <span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
 
-    <label class="statusMessage"><strong><s:property value="message" /></strong></label>
+    <label class="statusMessage" style="text-decoration:solid"><s:property value="message" /></label>
         <table class="table table-bordered" data-toggle="table"  data-cache="false" data-height="299">
             <tr>
                 <td><b>Request ID</b></td>
@@ -44,7 +44,7 @@
                     <td><s:property value="handicapped" /></td>
                     <td><s:property value="nearSpot" /></td>
                     <td class="info"><s:property value="requestStatus" /></td>
-                    <td><span><a id="approveBtn" class="btn btn-info" rowid="<s:property value="requestID" />" href="#"> Approve</a></span></td>
+                    <td><span><a class="approveBtn btn btn-info" rowid="<s:property value="requestID" />" href="#"> Approve</a></span></td>
                 </tr>
             </s:iterator>
         </table>
