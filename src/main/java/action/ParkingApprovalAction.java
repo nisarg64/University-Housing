@@ -15,10 +15,6 @@ public class ParkingApprovalAction extends UHAction {
     private String requestId;
     private String message;
 
-    public ParkingApprovalAction(){
-
-    }
-
     public String fetch(){
 
         ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
@@ -27,6 +23,9 @@ public class ParkingApprovalAction extends UHAction {
     }
 
     public String approve(){
+
+        System.out.println(requestId);
+        message = "Request Approved ";
         return SUCCESS;
     }
 

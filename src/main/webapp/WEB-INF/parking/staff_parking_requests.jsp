@@ -1,13 +1,31 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<script>
+    $( document ).ready(function() {
+
+        $('#approveBtn').click(function(event){
+            event.preventDefault();
+            var value = $(this).attr('rowid');
+            var url = "/uhousing/approveParkingRequest.action?requestId="+value;
+            $.post( url, function( data ) {
+                $( "#container" ).html( data );
+            });
+
+        });
+
+        //Write the functions here
+
+    });
+</script>
+
 <div class="container">
 
     <div class="upper">
         <span><button type="button" id="backButton" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">Back</span></button></span>
         <span class="upper-text" style="margin-left:32%">Parking Requests</span>
-        <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
+        <span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
 
-    <s:form action="approveParkingRequest">
+    <label class="statusMessage"><strong><s:property value="message" /></strong></label>
         <table class="table table-bordered" data-toggle="table"  data-cache="false" data-height="299">
             <tr>
                 <td><b>Request ID</b></td>
@@ -26,9 +44,8 @@
                     <td><s:property value="handicapped" /></td>
                     <td><s:property value="nearSpot" /></td>
                     <td class="info"><s:property value="requestStatus" /></td>
-                    <td><s:submit value="Approve" cssClass="btn btn-info" name="submit" /></td>
+                    <td><span><a id="approveBtn" class="btn btn-info" rowid="<s:property value="requestID" />" href="#"> Approve</a></span></td>
                 </tr>
             </s:iterator>
         </table>
-    </s:form>
-</div>
+    </div>
