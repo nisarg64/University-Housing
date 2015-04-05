@@ -3,10 +3,9 @@ package db.table;
 import oracle.sql.NUMBER;
 import pojo.ParkingRequest;
 import util.DBAccessor;
+import util.Utils;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -112,7 +111,7 @@ public class ParkingRequestTable extends Table {
         String spotId = null;
         String lotId = null;
         NUMBER permitId = null;
-
+        String requestStatus = null;
 
         String query = "Select * from PARKING_REQUEST where request_id = "+ requestId.trim();
         System.out.println(query);
@@ -126,10 +125,40 @@ public class ParkingRequestTable extends Table {
                 vehicle = "Large";
             else if(vehicle.equals("Compact Cars") || vehicle.equals("Standard Cars"))
                 vehicle = "Small";
+            requestStatus = resultset.getString("request_status");
         }
         System.out.println(username);
         System.out.println(isHandicapped);
         System.out.println(vehicle);
+
+
+        Timestamp permitEndDate = null;
+        if("renew request".equals(requestStatus)){
+            /*query = "SELECT permit_end_date from PARKING_PERMIT where permit_id = (SELECT permit_id from PARKING_REQUEST where request_id = "+ requestId.trim()+")";
+            System.out.println(query);
+            ResultSet result = DBAccessor.selectQuery(conn, query);
+            while(result.next())
+                permitEndDate = result.getTimestamp("permit_end_date");
+
+            query = "UPDATE PARKING_PERMIT SET permit_end_date = "+Utils.getRenewdTimestamp(permitEndDate)+" WHERE permit_id = " +
+                    "(SELECT permit_id from PARKING_REQUEST WHERE request_id = "+requestId.trim()+")";
+
+            System.out.println(query);
+            executeQuery(conn, query);*/
+
+            query = "UPDATE PARKING_REQUEST SET request_status = 'renewed' where request_id = "+requestId.trim();
+            System.out.println(query);
+            executeQuery(conn,query);
+            return "APPROVE";
+        } else if("return request".equals(requestStatus)) {
+            query = "UPDATE PARKING_SPOT SET availability = 'Yes' WHERE spot_id = " +
+                    "(SELECT spot_id from PARKING_PERMIT where permit_id = " +
+                    "(SELECT permit_id from PARKING_REQUEST where request_id = "+requestId.trim()+"))" ;
+            executeQuery(conn,query);
+            query = "UPDATE PARKING_REQUEST SET request_status = 'returned' where request_id = "+requestId.trim();
+            executeQuery(conn,query);
+            return "APPROVE";
+        }
 
         query = "Select role from LOGIN where username = '" + username.trim()+"'";
 
