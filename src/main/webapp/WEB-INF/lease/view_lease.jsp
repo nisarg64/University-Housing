@@ -6,7 +6,7 @@
         <span class="upper-text">View Leases</span>
         <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
-
+    <label class="statusMessage"><strong><s:property value="message" /></strong></label>
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
             <tr>

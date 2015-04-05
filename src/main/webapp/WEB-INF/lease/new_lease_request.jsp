@@ -1,4 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
     <div class="container">
 
     <div class="upper">
@@ -13,12 +14,12 @@
         <tr>
             <th>Enter Date:</th>
             <s:date name="lease.enterDate" var="enterDateId" format="MM/dd/yy"/>
-            <td><s:textfield name="lease.enterDate" value="%{enterDateId}" /></td>
+            <td><s:textfield name="lease.enterDate" value="%{enterDateId}" placeholder="MM/DD/YY"/></td>
         </tr>
         <tr>
             <th>Leave Date:</th>
             <s:date name="lease.leaveDate" var="leaveDateId" format="MM/dd/yy"/>
-            <td><s:textfield name="lease.leaveDate" value="%{leaveDateId}" /></td>
+            <td><s:textfield name="lease.leaveDate" value="%{leaveDateId}" placeholder="MM/DD/YY" /></td>
         </tr>
         <tr>
             <th>Payment Option:</th>
