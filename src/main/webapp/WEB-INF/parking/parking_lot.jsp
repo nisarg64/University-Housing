@@ -23,10 +23,6 @@
       <th>Parking Lot Type:</th>
       <td><s:textfield name="parkingLot.LotType" readonly="true"/></td>
     </tr>
-    <tr>
-      <th>Nearby Housing:</th>
-      <td><s:textfield name="parkingLot.nearbyHousing" readonly="true"/></td>
-    </tr>
     </tbody>
 
   </table>

@@ -33,7 +33,10 @@ public class ParkingApprovalAction extends UHAction {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        message = "Request Approved ";
+        if(isApproved.equals("REJECT"))
+            message = "Request Rejected";
+        else
+            message = "Request Approved ";
         ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
         parkingRequests = parkingRequestTable.selectAll(conn);
         return SUCCESS;

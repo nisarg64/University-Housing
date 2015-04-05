@@ -25,19 +25,17 @@ public class ParkingLotTable extends Table {
         String query =  "CREATE TABLE " + getTableName() + " ("+
                 "lot_id varchar(32), "+
                 "lot_type varchar(32), "+
-                "nearby_housing_id varchar(32), "+
-                "PRIMARY KEY (lot_id), "+
-                "FOREIGN KEY (nearby_housing_id) REFERENCES HOUSING_OPTIONS(housing_id) )";
+                "PRIMARY KEY (lot_id)) ";
         executeQuery(conn, query);
     }
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new ArrayList<String>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('CENTENNIAL', 'General Lot', null)";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('NORTHCAMPUS', 'Campus Lot', 'CH1')";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('MAINCAMPUS', 'Campus Lot', 'CH2')";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('SOUTHCAMPUS', 'Campus Lot', 'CH3')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('CENTENNIAL', 'General Lot')";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('NORTHCAMPUS', 'Campus Lot')";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('MAINCAMPUS', 'Campus Lot')";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('SOUTHCAMPUS', 'Campus Lot')";
 
 
         queries.add(query1);

@@ -24,8 +24,8 @@ public class BootStrap {
         database.addTable(new StudentTable());
         database.addTable(new GuestTable());
         database.addTable(new StaffTable());
-        database.addTable(new HousingOptionsTable());
         database.addTable(new ParkingLotTable());
+
         database.addTable(new ParkingSpotTable());
         database.addTable(new ParkingPermitTable());
         database.addTable(new ParkingRequestTable());
@@ -46,6 +46,7 @@ public class BootStrap {
         database.addTable(new LeaseTerminationRequest());
         database.addView(new LeaseView());
 
+        database.addTable(new ParkingResidentHallMapTable());
         database.addTable(new TicketSeverityTable());
         database.addTable(new MaintenanceTicketTable());
 
@@ -82,7 +83,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-        generalQuery();
+        //generalQuery();
        bootStrap();
     }
 }

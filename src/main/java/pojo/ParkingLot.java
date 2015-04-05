@@ -8,7 +8,6 @@ public class ParkingLot {
     private String lotId;
     private String permitId;
     private String lotType;
-    private String nearbyHousing;
 
     public String getLotId() {
         return lotId;
@@ -34,11 +33,4 @@ public class ParkingLot {
         this.lotType = lotType;
     }
 
-    public String getNearbyHousing() {
-        return nearbyHousing;
-    }
-
-    public void setNearbyHousing(String nearbyHousing) {
-        this.nearbyHousing = nearbyHousing;
-    }
 }

@@ -11,14 +11,14 @@ public class ParkingSpot {
     private String spotType;
     private String availability;
     private Float rentalFee;
-    private String permit_id;
+    private Integer permitId;
 
-    public String getPermit_id() {
-        return permit_id;
+    public Integer getPermitId() {
+        return permitId;
     }
 
-    public void setPermit_id(String permit_id) {
-        this.permit_id = permit_id;
+    public void setPermitId(Integer permitId) {
+        this.permitId = permitId;
     }
 
     public String getSpotId() {

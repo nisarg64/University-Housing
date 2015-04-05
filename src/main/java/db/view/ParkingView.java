@@ -22,7 +22,7 @@ public class ParkingView extends View{
     public void createView(Connection conn) throws SQLException {
         String query = "CREATE VIEW " + getViewName() + " as " +
                 " SELECT  " +
-                " PR.resident_id, PP.permit_id, PL.lot_id, PL.lot_type, PL.nearby_housing_id" +
+                " PR.resident_id, PP.permit_id, PL.lot_id, PL.lot_type" +
                 " PS.spot_id, PS.spot_type, PS.availability, PS.rental_fee" +
                 " FROM   PARKING_SPOT PS " +
                 " join " +
@@ -45,7 +45,7 @@ public class ParkingView extends View{
                 parkingSpot = new ParkingSpot();
                 parkingSpot.setSpotId(resultSet.getString("spot_id"));
                 parkingSpot.setLotId(resultSet.getString("lot_id"));
-                parkingSpot.setPermit_id(resultSet.getString("permit_id"));
+                parkingSpot.setPermitId(resultSet.getInt("permit_id"));
                 parkingSpot.setSpotType(resultSet.getString("spot_type"));
                 parkingSpot.setAvailability(resultSet.getString("availability"));
                 parkingSpot.setRentalFee(resultSet.getFloat("rental_fee"));
@@ -67,7 +67,6 @@ public class ParkingView extends View{
                 parkingLot.setLotId(resultSet.getString("lot_id"));
                 parkingLot.setPermitId(resultSet.getString("permit_id"));
                 parkingLot.setLotType(resultSet.getString("lot_type"));
-                parkingLot.setNearbyHousing(resultSet.getString("nearby_housing_id"));
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During Parking View " + ex.getMessage());

@@ -146,7 +146,7 @@ public class ParkingRequestTable extends Table {
             if (isHandicapped.equals("No"))
                 query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
             else
-                query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'handicap' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
+                query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'Handicap' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
 
             System.out.println(query);
             ResultSet resultset2 = DBAccessor.selectQuery(conn, query);
@@ -156,14 +156,18 @@ public class ParkingRequestTable extends Table {
 
             System.out.println(spotCount);
 
-            if (spotCount <= 0)
+            if (spotCount <= 0) {
+                query = "UPDATE " + getTableName() + " SET request_status = 'rejected' where request_id = " + requestId;
+                System.out.println(query);
+                executeQuery(conn, query);
                 return "REJECT";
+            }
             else {
 
                 if (isHandicapped.equals("No"))
                     query = "SELECT spot_id, lot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
                 else
-                    query = "SELECT spot_id, lot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'handicap' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
+                    query = "SELECT spot_id, lot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'Handicap' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
 
                 ResultSet resultset3 = DBAccessor.selectQuery(conn, query);
                 while(resultset3.next()) {
@@ -181,11 +185,9 @@ public class ParkingRequestTable extends Table {
                 System.out.println(query);
                 executeQuery(conn, query);
 
-                query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL where request_id = " + requestId;
+                query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL, request_status = 'approved' where request_id = " + requestId;
                 System.out.println(query);
                 executeQuery(conn, query);
-
-
 
                 return "APPROVE";
             }
