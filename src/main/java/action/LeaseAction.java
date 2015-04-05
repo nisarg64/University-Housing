@@ -26,7 +26,7 @@ public class LeaseAction extends UHAction {
     private List<String> paymentOptions;
     private List<String> preferenceTypes;
     private Map<String, String> halls;
-    List<Lease> leases;
+    private List<Lease> leases;
 
     public LeaseAction() {}
 
@@ -37,6 +37,7 @@ public class LeaseAction extends UHAction {
         }
         LeaseView view = new LeaseView();
         leases = view.viewFormerLeases(conn, username);
+
         return SUCCESS;
     }
 
@@ -156,5 +157,13 @@ public class LeaseAction extends UHAction {
 
     public void setHalls(Map<String, String> halls) {
         this.halls = halls;
+    }
+
+    public List<Lease> getLeases() {
+        return leases;
+    }
+
+    public void setLeases(List<Lease> leases) {
+        this.leases = leases;
     }
 }

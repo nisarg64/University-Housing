@@ -1,4 +1,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<script>
+    $( document ).ready(function() {
+        $('.upper').hide();
+    });
+
+
+</script>
+
 <div class="container">
 
     <label class="errorLabel"><strong><s:property value="errorMsg" /></strong></label>

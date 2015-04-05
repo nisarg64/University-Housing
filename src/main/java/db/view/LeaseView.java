@@ -68,6 +68,7 @@ public class LeaseView extends View {
                 lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
                 lease.setCutoffDate(rs.getDate(LeaseTable.CUTOFF_DATE));
                 leases.add(lease);
+                System.out.println("Leases Option " + lease);
             }
         } catch (SQLException ex) {
             System.err.println("Error Occurred During View Lease " + ex.getMessage());

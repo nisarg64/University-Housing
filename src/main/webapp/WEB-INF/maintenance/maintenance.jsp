@@ -1,10 +1,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <div class="container">
 
-  <div class="upper">
-    <span><button type="button" id="backButton" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
+  <div class="upperText">
     <span class="upper-text">Maintenance</span>
-    <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
   </div>
 
   <p class="myTblHd ui-corner-all"><label class="left_margin_small contentHeader">Click one of the choices to proceed:</label></p>
