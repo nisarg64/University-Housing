@@ -1,5 +1,6 @@
 package db;
 
+import db.table.InvoiceTable;
 import db.table.LeaseTable;
 import db.table.Table;
 import db.view.View;
@@ -90,7 +91,7 @@ public class Database {
             queries.add("DROP SEQUENCE pr_sequence");
             queries.add("DROP SEQUENCE ticket_sequence");
             queries.add("DROP SEQUENCE " + LeaseTable.LEASE_SEQUENCE);
-
+            queries.add("DROP SEQUENCE " + InvoiceTable.INVOICE_SEQUENCE);
 
             DBAccessor.executeBatchQuery(conn, queries);
             System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
@@ -109,6 +110,7 @@ public class Database {
         queries.add("CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE " + LeaseTable.LEASE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE " + InvoiceTable.INVOICE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
 
 
         DBAccessor.executeBatchQuery(conn, queries);

@@ -7,12 +7,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by Nisarg on 28-Mar-15.
  */
 public class InvoiceTable extends Table {
+    public static final String INVOICE_SEQUENCE = "INVOICE_SEQUENCE";
+
     @Override
     public String getTableName() {
         return "INVOICE";
@@ -22,7 +25,7 @@ public class InvoiceTable extends Table {
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + getTableName() + " ( "+
                         "invoice_id varchar2(32), "+
-                        "resident_id varchar2(10), "+
+                        "resident_id char(10), "+
                         "housing_rent INTEGER, "+
                         "parking_rent INTEGER, "+
                         "lease_no varchar2(32), "+
@@ -33,13 +36,26 @@ public class InvoiceTable extends Table {
                         "payment_status varchar2(10), "+
                         "invoice_payment_id varchar(32), "+
                         "PRIMARY KEY (invoice_id), "+
-                        "FOREIGN KEY (invoice_payment_id) REFERENCES INVOICE_PAYMENT (invoice_payment_id) )";
+                "FOREIGN KEY (invoice_payment_id) REFERENCES INVOICE_PAYMENT (invoice_payment_id), " +
+                " FOREIGN KEY (resident_id) REFERENCES RESIDENT " +
+                ")";
         DBAccessor.executeQuery(conn, query);
     }
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-
+//        List<String> queries = new LinkedList<>();
+//        String query1 = "INSERT INTO " + getTableName()
+//                + " VALUES(" +
+//                INVOICE_SEQUENCE + ".NEXTVAL" +
+//                ", 'abora'," +
+//                " 500," +
+//                " 'abora', 'HID1_O1', 'Room', 'InProgress', 'Water leakage')"; // HID1_O1 from Room table.
+//
+//
+//        queries.add(query1);
+//        // queries.add(query2);
+//        DBAccessor.executeBatchQuery(conn, queries);
     }
 
     public Invoice getCurrentInvoiceDetails(Connection conn, String username) {

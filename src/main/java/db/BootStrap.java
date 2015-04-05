@@ -1,10 +1,7 @@
 package db;
 
 import db.table.*;
-import db.view.GuestView;
-import db.view.StaffView;
-import db.view.LeaseView;
-import db.view.StudentView;
+import db.view.*;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -50,6 +47,10 @@ public class BootStrap {
         database.addTable(new ParkingResidentHallMapTable());
         database.addTable(new TicketSeverityTable());
         database.addTable(new MaintenanceTicketTable());
+
+        database.addTable(new InvoicePaymentTable());
+        database.addTable(new InvoiceTable());
+        database.addView(new InvoiceView());
 
         database.makeAll();
         System.out.println("Done!");
