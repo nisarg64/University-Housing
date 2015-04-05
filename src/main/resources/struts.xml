@@ -111,6 +111,7 @@
         <action name="ajax.approveParkingRequest" class="action.ParkingApprovalAction" method="approve">
             <result name="success">/WEB-INF/parking/staff_parking_requests.jsp</result>
         </action>
+
         <!-- Lease Option -->
         <action name="viewLeasesMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/view_leases_menu.jsp</result>
@@ -140,9 +141,11 @@
         <action name="viewCancelRequestsMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/view_cancel_requests_menu.jsp</result>
         </action>
-        <action name="viewRequest" class="action.UHAction">
-            <result name="success">/WEB-INF/lease/view_request.jsp</result>
+
+        <action name="viewRequest" class="action.LeaseAction" method="getAllLeases">
+            <result name="success">/WEB-INF/lease/view_all_request.jsp</result>
         </action>
+
         <action name="cancelRequest" class="action.UHAction">
             <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
         </action>
