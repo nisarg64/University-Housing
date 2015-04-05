@@ -81,11 +81,12 @@ public class ParkingSpotTable extends Table {
             System.err.println("Error Occurred During Parking Spot Renew Request " + ex.getMessage());
         }
 
-        query = "UPDATE PARKING_REQUEST SET request_status = 'renew request'" +
+        query = "UPDATE PARKING_REQUEST SET request_status = 'renew request' " +
                 "WHERE resident_id = '"+resident_id+"' AND permit_id = " +
-                "(SELECT permit_id from PARKING_PERMIT" +
+                "(SELECT permit_id from PARKING_PERMIT " +
                 "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"')";
 
+        System.out.println(query);
         try {
             executeQuery(conn,query);
         } catch (SQLException e) {
@@ -110,9 +111,9 @@ public class ParkingSpotTable extends Table {
             System.err.println("Error Occurred During Parking Spot Return Request " + ex.getMessage());
         }
 
-        query = "UPDATE PARKING_REQUEST SET request_status = 'return request'" +
+        query = "UPDATE PARKING_REQUEST SET request_status = 'return request' " +
                 "WHERE resident_id = '"+resident_id+"' AND permit_id = " +
-                "(SELECT permit_id from PARKING_PERMIT" +
+                "(SELECT permit_id from PARKING_PERMIT " +
                 "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"')";
 
         try {

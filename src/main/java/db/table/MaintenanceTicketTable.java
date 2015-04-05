@@ -105,7 +105,7 @@ public class MaintenanceTicketTable extends Table{
                 ticketRequest.setTicket(resultSet.getString("ticket_type"));
                 ticketRequest.setStatus(resultSet.getString("status"));
                 ticketRequest.setDescription(resultSet.getString("description"));
-                ticketRequest.setDate(resultSet.getDate("ticket_date"));
+                ticketRequest.setDate(resultSet.getTimestamp("ticket_date"));
 
                 tickets.add(ticketRequest);
 //                System.out.println(ticketRequest);

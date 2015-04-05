@@ -1,6 +1,8 @@
 package db;
 
+import db.table.InvoiceTable;
 import db.table.LeaseTable;
+import db.table.LeaseTerminationRequestTable;
 import db.table.Table;
 import db.view.View;
 import util.DBAccessor;
@@ -82,20 +84,21 @@ public class Database {
         }
     }
 
-    private void dropSequences(Connection conn){
-        try{
-            List<String> queries = new LinkedList<>();
+    private void dropSequences(Connection conn) {
+        dropSequence(conn, "permit_sequence");
+        dropSequence(conn, "pr_sequence");
+        dropSequence(conn, "ticket_sequence");
+        dropSequence(conn, LeaseTable.LEASE_SEQUENCE);
+        dropSequence(conn, LeaseTerminationRequestTable.LEASE_TERMINATION_REQUEST_SEQUENCE);
+        dropSequence(conn, InvoiceTable.INVOICE_SEQUENCE);
+    }
 
-            queries.add("DROP SEQUENCE permit_sequence");
-            queries.add("DROP SEQUENCE pr_sequence");
-            queries.add("DROP SEQUENCE ticket_sequence");
-            queries.add("DROP SEQUENCE " + LeaseTable.LEASE_SEQUENCE);
-
-
-            DBAccessor.executeBatchQuery(conn, queries);
+    private void dropSequence(Connection conn, String sequenceName){
+        try {
+            String query = "DROP SEQUENCE " + sequenceName;
+            DBAccessor.executeQuery(conn, query);
             System.out.println("DB SEQUENCES DROPPED SUCCESSFULLY ");
             System.out.println("-------------------------------------------------------------");
-
         }catch (SQLException ex){
             System.err.println("SEQUENCE NOT PRESENT " + ex.getMessage());
         }
@@ -109,7 +112,9 @@ public class Database {
         queries.add("CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE " + LeaseTable.LEASE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
-
+        queries.add("CREATE SEQUENCE " + InvoiceTable.INVOICE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE " + LeaseTerminationRequestTable.LEASE_TERMINATION_REQUEST_SEQUENCE
+                + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
 
         DBAccessor.executeBatchQuery(conn, queries);
         System.out.println("DB SEQUENCES CREATED SUCCESSFULLY ");
