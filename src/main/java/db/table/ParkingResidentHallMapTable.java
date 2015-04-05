@@ -16,7 +16,7 @@ public class ParkingResidentHallMapTable extends Table {
 
     @Override
     public String getTableName() {
-        return "PARKING_RESEDENT_HALL_MAP";
+        return "PARKING_RESIDENT_HALL_MAP";
     }
 
     @Override
