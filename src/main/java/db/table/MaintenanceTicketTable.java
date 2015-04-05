@@ -34,13 +34,13 @@ public class MaintenanceTicketTable extends Table{
                 " ticket_no NUMBER, " +
                 " ticket_type VARCHAR(20), " +
                 " ticket_date timestamp, " +
-                " student_id VARCHAR2(20), " +
+                " student_id char(10), " +
                 " location_id VARCHAR(20), " + // room_id or family_apt_id
                 " location_type VARCHAR(20), " + // Room or Apt
                 " status VARCHAR(20), " + // status - InProgress, Resolved
                 " description VARCHAR(1000), " + // status - InProgress, Resolved
                 " PRIMARY KEY (ticket_no), " +
-                " FOREIGN KEY (ticket_type) REFERENCES TICKET_SEVERITY, " +
+                " FOREIGN KEY (ticket_type) REFERENCES TICKET_SEVERITY  , " +
                 " FOREIGN KEY (student_id) REFERENCES RESIDENT " +
                 ")";
         executeQuery(conn, query);
@@ -49,10 +49,10 @@ public class MaintenanceTicketTable extends Table{
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water',  CURRENT_TIMESTAMP, '200045256', 'HID1_O1', 'Room', 'InProgress', 'Water leakage')"; // HID1_O1 from Room table.
-        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Electricity', CURRENT_TIMESTAMP - 10, '200045251', 'HID1_O2', 'Room', 'InProgress' , 'Shot circuit')"; // HID1_O1 from Room table.
-        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Appliances', CURRENT_TIMESTAMP - 1, '200045253', 'F1', 'Apt', 'InProgress', 'Oven freezing stuff')"; // F1 from family apt table.
-        String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet',  CURRENT_TIMESTAMP - 20, '200045254', 'F2', 'Apt', 'InProgress', 'Internet gets hacked')"; // F2 from family apt table.
+        String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water',  CURRENT_TIMESTAMP, 'abora', 'HID1_O1', 'Room', 'InProgress', 'Water leakage')"; // HID1_O1 from Room table.
+        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Electricity', CURRENT_TIMESTAMP - 10, 'akagrawa', 'HID1_O2', 'Room', 'InProgress' , 'Shot circuit')"; // HID1_O1 from Room table.
+        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Appliances', CURRENT_TIMESTAMP - 1, 'abora', 'F1', 'Apt', 'InProgress', 'Oven freezing stuff')"; // F1 from family apt table.
+        String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet',  CURRENT_TIMESTAMP - 20, 'abora', 'F2', 'Apt', 'InProgress', 'Internet gets hacked')"; // F2 from family apt table.
 
         queries.add(query1);
         queries.add(query2);

@@ -24,7 +24,7 @@ public class ResidentTable extends Table {
     public void createTable(Connection conn) throws SQLException{
 
         String query = " CREATE TABLE " + getTableName() + " (" +
-                " res_id VARCHAR2(20), " +
+                " res_id char(10), " +
                 " fname VARCHAR(32), " +
                 " lname VARCHAR(32) NOT NULL, " +
                 " sex CHAR(1), " +
