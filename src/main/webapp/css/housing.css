@@ -149,9 +149,7 @@
 }
 
 .upper-text{
-    text-align: center;
     font-weight: bold;
-    margin-left: 25%;
 }
 
 .user{
@@ -171,5 +169,7 @@
 }
 
 .upperText{
-   padding: 1%;
+    background-color: #d5d5d5;
+    padding: 1%;
+    text-align: center;
 }

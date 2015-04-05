@@ -146,6 +146,9 @@
         <action name="cancelRequest" class="action.UHAction">
             <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
         </action>
+        <action name="viewLease" class="action.LeaseAction" method="getLeaseDetail">
+            <result name="success">/WEB-INF/lease/view_lease.jsp</result>
+        </action>
 
         <!-- maintenance -->
         <action name="maintenance" class="action.UHAction">

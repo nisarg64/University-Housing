@@ -22,6 +22,7 @@ import java.util.Map;
 public class LeaseAction extends UHAction {
 
     private Lease lease;
+    private String leaseNumber;
     private List<Integer> leaseDurations;
     private List<String> paymentOptions;
     private List<String> preferenceTypes;
@@ -109,6 +110,9 @@ public class LeaseAction extends UHAction {
         return SUCCESS;
     }
 
+    public String getLeaseDetail(){
+        return SUCCESS;
+    }
     /*public Lease getLease() throws Exception {
         *//*System.out.println(lease);
         String username = (String) sessionMap.get("username");
@@ -165,5 +169,13 @@ public class LeaseAction extends UHAction {
 
     public void setLeases(List<Lease> leases) {
         this.leases = leases;
+    }
+
+    public String getLeaseNumber() {
+        return leaseNumber;
+    }
+
+    public void setLeaseNumber(String leaseNumber) {
+        this.leaseNumber = leaseNumber;
     }
 }

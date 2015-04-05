@@ -23,7 +23,7 @@
         </tr>
         <s:iterator value="leases" status="stat">
             <tr>
-                <td><s:property value="leaseNumber" /></td>
+                <td><a href="/<s:property value='appName'/>/viewCurrentLease.action">?<s:property value="leaseNumber" /></a></td>
                 <td><s:property value="residentId" /></td>
                 <td><s:property value="enterDate" /></td>
                 <td><s:property value="leaveDate" /></td>
