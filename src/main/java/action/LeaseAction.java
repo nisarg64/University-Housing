@@ -31,14 +31,18 @@ public class LeaseAction extends UHAction {
     public LeaseAction() {}
 
     public String viewFormerLeases() {
-        leases = new ArrayList<Lease>();
+        String username = (String) sessionMap.get("username");
+        if (username == null) {
+            return ERROR;
+        }
+        LeaseView view = new LeaseView();
+        leases = view.viewFormerLeases(conn, username);
         return SUCCESS;
     }
 
     public String viewCurrentLease() {
         LeaseView view = new LeaseView();
         String username = (String) sessionMap.get("username");
-        System.out.println("Resident Id" + username);
         if (username == null) {
             return ERROR;
         }
