@@ -7,7 +7,7 @@
             var value = $(this).attr('rowid');
             var url = "/uhousing/ajax.resolveTicket.action?ticket_no="+value;
             $.post( url, function( data ) {
-                $( ".statusMessage" ).html( data );
+                $( ".container" ).html( data );
             });
 
         });

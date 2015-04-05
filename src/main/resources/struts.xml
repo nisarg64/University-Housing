@@ -168,8 +168,11 @@
             <result name="success">/WEB-INF/maintenance/ticket_resolve.jsp</result>
         </action>
 
+        <!--<action name="ajax.resolveTicket" class="action.RequestTicketAction" method="resolve">-->
+            <!--<result name="success">/WEB-INF/ajax/ticket_resolve_status.jsp</result>-->
+        <!--</action>-->
         <action name="ajax.resolveTicket" class="action.RequestTicketAction" method="resolve">
-            <result name="success">/WEB-INF/ajax/ticket_resolve_status.jsp</result>
+            <result name="success">/WEB-INF/maintenance/ticket_resolve.jsp</result>
         </action>
 
         <!---->
