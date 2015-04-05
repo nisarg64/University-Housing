@@ -2,7 +2,7 @@
 <div class="container">
 
   <div class="upperText">
-    <span class="upper-text" style="margin-left:32%">View Former Invoice Details Page</span>
+    <span class="upper-text">View Former Invoice Details Page</span>
   </div>
   <label class="statusMessage"><strong><s:property value="message" /></strong></label>
 

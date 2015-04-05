@@ -36,7 +36,7 @@
             <td><b>Security Deposit</b></td>
             <td><b>Cut Off Date</b></td>
             <td><b>Status</b></td>
-            <td><b>Action</b>/td>
+            <td><b>Action</b></td>
         </tr>
         <s:iterator value="allLeases" status="stat">
             <tr>

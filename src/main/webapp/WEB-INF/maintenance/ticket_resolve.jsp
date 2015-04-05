@@ -20,7 +20,7 @@
 <div class="container">
 
   <div class="upperText">
-    <span class="upper-text" style="margin-left:32%">Ticket status</span>
+    <span class="upper-text">Ticket status</span>
   </div>
   <label class="statusMessage"><strong><s:property value="message" /></strong></label>
 

@@ -2,7 +2,7 @@
 <div class="container">
 
   <div class="upperText">
-    <span class="upper-text" style="margin-left:32%">View Parking Lot Page</span>
+    <span class="upper-text">View Parking Lot Page</span>
   </div>
   <label class="statusMessage"><strong><s:property value="message" /></strong></label>
 

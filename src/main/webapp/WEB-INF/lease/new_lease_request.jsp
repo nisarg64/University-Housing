@@ -3,7 +3,7 @@
     <div class="container">
 
     <div class="upperText">
-        <span class="upper-text" style="margin-left:32%">New Lease Request</span>
+        <span class="upper-text">New Lease Request</span>
     </div>
     <s:form action="createLeaseRequest" namespace="/" >
 
