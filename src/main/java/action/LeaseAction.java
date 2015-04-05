@@ -111,6 +111,7 @@ public class LeaseAction extends UHAction {
     }
 
     public String getLeaseDetail(){
+        System.out.println(leaseNumber);
         return SUCCESS;
     }
     /*public Lease getLease() throws Exception {
