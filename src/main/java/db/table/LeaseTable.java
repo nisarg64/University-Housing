@@ -5,6 +5,7 @@ import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
@@ -114,7 +115,7 @@ public class LeaseTable extends Table {
 
 
 
-    public void insert(Connection conn, Lease lease) throws SQLException {
+    public int insert(Connection conn, Lease lease) throws SQLException {
         String sql = createInsertSql(TABLE_NAME, 0, LEASE_NUMBER, RES_ID, STATUS, ENTER_DATE,
                 DURATION, LEAVE_DATE, PAYMMENT_OPTION ,SECURITY_DEPOSIT);
         sql = sql.replaceFirst("\\?", LEASE_SEQUENCE + ".nextval");
@@ -131,6 +132,11 @@ public class LeaseTable extends Table {
         stmt.setInt(7, lease.getSecurityDeposit());
         System.out.println(stmt);
         stmt.executeUpdate();
+        String query = "SELECT " + LeaseTable.LEASE_SEQUENCE + ".CURRVAL FROM DUAL";
+        stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
 
     public static void main(String[] args) throws Exception {

@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -22,7 +21,10 @@ public class Lease {
     private String paymentOption;
     private int securityDeposit;
     private Date cutoffDate;
-    private List<LeasePreference> leasePreferences;
+
+    private LeasePreference preference1;
+    private LeasePreference preference2;
+    private LeasePreference preference3;
 
     public int getLeaseNumber() {
         return leaseNumber;
@@ -104,14 +106,6 @@ public class Lease {
         this.cutoffDate = cutoffDate;
     }
 
-    public List<LeasePreference> getLeasePreferences() {
-        return leasePreferences;
-    }
-
-    public void setLeasePreferences(List<LeasePreference> leasePreferences) {
-        this.leasePreferences = leasePreferences;
-    }
-
     public Date getDate(String dateStr) {
         if (dateStr == null) {
             return null;
@@ -125,6 +119,30 @@ public class Lease {
         }
         return date;
 
+    }
+
+    public LeasePreference getPreference1() {
+        return preference1;
+    }
+
+    public void setPreference1(LeasePreference preference1) {
+        this.preference1 = preference1;
+    }
+
+    public LeasePreference getPreference2() {
+        return preference2;
+    }
+
+    public void setPreference2(LeasePreference preference2) {
+        this.preference2 = preference2;
+    }
+
+    public LeasePreference getPreference3() {
+        return preference3;
+    }
+
+    public void setPreference3(LeasePreference preference3) {
+        this.preference3 = preference3;
     }
 
     public static void main(String[] args) {

@@ -7,17 +7,34 @@
         <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
 
-    <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
-            <tbody>
+    <label class="statusMessage" style="text-decoration:solid"><s:property value="message" /></label>
+    <table class="table table-bordered" data-toggle="table"  data-cache="false" data-height="299">
+        <tbody>
+        <tr>
+            <td><b>Lease Number</b></td>
+            <td><b>Resident ID</b></td>
+            <td><b>Enter Date</b></td>
+            <td><b>Leave Date</b></td>
+            <td><b>Duration</b></td>
+            <td><b>Payment Option</b></td>
+            <td><b>Security Deposit</b></td>
+            <td><b>Cut Off Date</b></td>
+            <td><b>Status</b></td>
+        </tr>
+        <s:iterator value="leases" status="stat">
             <tr>
-                <th>Lease Number:</th>
-                <td data-field="name"><s:textfield name="lease.leaseNumber"/></td>
-            </tr>
-            <tr>
-                <th>Resident Id:</th>
-                <td data-field="dob"><s:textfield name="lease.residentId"/></td>
-            </tr>
+                <td><s:property value="leaseNumber" /></td>
+                <td><s:property value="residentId" /></td>
+                <td><s:property value="enterDate" /></td>
+                <td><s:property value="leaveDate" /></td>
+                <td><s:property value="duration" /></td>
+                <td><s:property value="paymentOption" /></td>
+                <td><s:property value="securityDeposit" /></td>
+                <td><s:property value="cutoffDate" /></td>
+                <td class="info"><s:property value="status" /></td>
 
-            </tbody>
-        </table>
+            </tr>
+        </s:iterator>
+        </tbody>
+    </table>
 </div>

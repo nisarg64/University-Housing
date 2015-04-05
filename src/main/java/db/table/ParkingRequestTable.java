@@ -25,7 +25,6 @@ public class ParkingRequestTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
 
-
         String query = "CREATE TABLE " + getTableName() + " (" +
                 "request_id NUMBER, " +
                 "resident_id char(10), " +

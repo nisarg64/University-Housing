@@ -1,4 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
     <div class="container">
 
     <div class="upper">
@@ -13,12 +14,12 @@
         <tr>
             <th>Enter Date:</th>
             <s:date name="lease.enterDate" var="enterDateId" format="MM/dd/yy"/>
-            <td><s:textfield name="lease.enterDate" value="%{enterDateId}" /></td>
+            <td><s:textfield name="lease.enterDate" value="%{enterDateId}" placeholder="MM/DD/YY"/></td>
         </tr>
         <tr>
             <th>Leave Date:</th>
             <s:date name="lease.leaveDate" var="leaveDateId" format="MM/dd/yy"/>
-            <td><s:textfield name="lease.leaveDate" value="%{leaveDateId}" /></td>
+            <td><s:textfield name="lease.leaveDate" value="%{leaveDateId}" placeholder="MM/DD/YY" /></td>
         </tr>
         <tr>
             <th>Payment Option:</th>
@@ -29,6 +30,36 @@
             <th>Lease Duration:</th>
             <td><s:select name="lease.duration" headerKey="-1" headerValue="Select Lease Duration"
             list="leaseDurations" value="lease.duration"/></td>
+        </tr>
+        <tr>
+            <th>Preference 1:</th>
+            <td><s:select name="lease.preference1.type" headerKey="-1" headerValue="Select Preference 1"
+            list="preferenceTypes"/></td>
+        </tr>
+        <tr>
+            <th>Preferred Hall:</th>
+            <td><s:select name="lease.preference1.hallId" headerKey="-1" headerValue="Select Hall"
+            list="halls" listKey="key" listValue="value"/></td>
+        </tr>
+        <tr>
+            <th>Preference 2:</th>
+            <td><s:select name="lease.preference2.type" headerKey="-1" headerValue="Select Preference 2"
+            list="preferenceTypes"/></td>
+        </tr>
+        <tr>
+            <th>Preferred Hall:</th>
+            <td><s:select name="lease.preference2.hallId" headerKey="-1" headerValue="Select Hall"
+            list="halls" listKey="key" listValue="value"/></td>
+        </tr>
+        <tr>
+            <th>Preference 3:</th>
+            <td><s:select name="lease.preference3.type" headerKey="-1" headerValue="Select Preference 3"
+            list="preferenceTypes"/></td>
+        </tr>
+        <tr>
+            <th>Preferred Hall:</th>
+            <td><s:select name="lease.preference3.hallId" headerKey="-1" headerValue="Select Hall"
+            list="halls" listKey="key" listValue="value"/></td>
         </tr>
         </tbody>
     </table>

@@ -6,7 +6,7 @@
         <span class="upper-text">View Leases</span>
         <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
-
+    <label class="statusMessage"><strong><s:property value="message" /></strong></label>
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
             <tr>
@@ -28,6 +28,30 @@
             <tr>
                 <th>Lease Duration:</th>
                 <td><s:text name="lease.duration"/></td>
+            </tr>
+            <tr>
+                <th>Preference 1:</th>
+                <td><s:text name="lease.preference1.type"/></td>
+            </tr>
+            <tr>
+                <th>Hall Name:</th>
+                <td><s:text name="lease.preference1.hallName"/></td>
+            </tr>
+            <tr>
+                <th>Preference 2:</th>
+                <td><s:text name="lease.preference2.type"/></td>
+            </tr>
+            <tr>
+                <th>Hall Name:</th>
+                <td><s:text name="lease.preference2.hallName"/></td>
+            </tr>
+            <tr>
+                <th>Preference 3:</th>
+                <td><s:text name="lease.preference3.type"/></td>
+            </tr>
+            <tr>
+                <th>Hall Name:</th>
+                <td><s:text name="lease.preference3.hallName"/></td>
             </tr>
         </tbody>
         </table>

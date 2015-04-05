@@ -1,8 +1,10 @@
 package db.table;
 
+import pojo.LeasePreference;
 import util.DBAccessor;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -43,7 +45,7 @@ public class LeasePreferenceTable extends Table {
         String query = "CREATE TABLE " + TABLE_NAME + " (" +
                 LeaseTable.LEASE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
                 SEQUENCE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
-                TYPE + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
+                TYPE + " " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + ", " +
                 ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
                 LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + "," + SEQUENCE_NUMBER + "), " +
                 LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + ") " +
@@ -59,4 +61,23 @@ public class LeasePreferenceTable extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
 
     }
+
+    public void insert(Connection conn, LeasePreference preference) throws SQLException {
+        String sql = createInsertSql(TABLE_NAME, 0, LeaseTable.LEASE_NUMBER , SEQUENCE_NUMBER, TYPE,
+                ResidentHallTable.HALL_ID);
+        System.out.println(sql);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, preference.getLeaseNumber());
+        stmt.setInt(2, preference.getSequenceNumber());
+        stmt.setString(3, preference.getType());
+        if (preference.getType().equalsIgnoreCase(PreferenceType.Hall.name())) {
+            stmt.setString(4, preference.getHallId());
+        } else {
+            stmt.setString(4, null);
+        }
+
+        System.out.println(stmt);
+        stmt.executeUpdate();
+    }
+
 }

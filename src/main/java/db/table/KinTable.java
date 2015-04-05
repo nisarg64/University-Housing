@@ -28,7 +28,7 @@ public class KinTable extends Table {
                 " address_city VARCHAR(32), " +
                 " address_postcode VARCHAR(10), " +
                 " contact_no VARCHAR(12), " +
-                " student_id CHAR(10), " +
+                " student_id VARCHAR2(20), " +
                 " PRIMARY KEY (name, student_id), " +
                 " FOREIGN KEY (student_id) REFERENCES STUDENT " +
                 " ON DELETE CASCADE " +

@@ -19,7 +19,7 @@
           </td>
           <td  width="50%">
             <div style="height:100px;">
-              <a href="/<s:property value='appName'/>/viewTicketStatus.action" id="viewTicketStatusNavigator" class="big_button top_margin">View Ticket Status</a>
+              <a href="/<s:property value='appName'/>/viewTicketStatus.action" id=" viewTicketStatusNavigator" class="big_button top_margin">View Ticket Status</a>
             </div>
           </td>
         </tr>

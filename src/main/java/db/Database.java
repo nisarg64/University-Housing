@@ -87,7 +87,6 @@ public class Database {
             List<String> queries = new LinkedList<>();
 
             queries.add("DROP SEQUENCE permit_sequence");
-
             queries.add("DROP SEQUENCE pr_sequence");
             queries.add("DROP SEQUENCE ticket_sequence");
             queries.add("DROP SEQUENCE " + LeaseTable.LEASE_SEQUENCE);
@@ -105,7 +104,7 @@ public class Database {
 
     private void createSequences(Connection conn) throws SQLException{
         List<String> queries = new LinkedList<>();
-
+        
         queries.add("CREATE SEQUENCE permit_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");

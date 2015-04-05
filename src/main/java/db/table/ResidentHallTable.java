@@ -15,6 +15,7 @@ public class ResidentHallTable extends Table{
 
     public static final String HALL_ID = "hall_id";
     public static final String TABLE_NAME = "RESIDENT_HALL";
+    public static final String HALL_NAME = "name";
 
     @Override
     public String getTableName() {
@@ -25,7 +26,7 @@ public class ResidentHallTable extends Table{
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() +" (" +
                 " " + HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
-                " name VARCHAR(32), " +
+                " " + HALL_NAME + " VARCHAR(32), " +
                 " address VARCHAR(100), " +
                 " manager VARCHAR(32), " +
                 " tel_number VARCHAR(12), " +
