@@ -48,7 +48,7 @@ public class BootStrap {
         database.addTable(new TicketSeverityTable());
         database.addTable(new MaintenanceTicketTable());
 
-        database.addTable(new InvoicePaymentTable());
+//        database.addTable(new InvoicePaymentTable());
         database.addTable(new InvoiceTable());
         database.addView(new InvoiceView());
 
