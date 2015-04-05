@@ -22,7 +22,7 @@ import java.util.Map;
 public class LeaseAction extends UHAction {
 
     private Lease lease;
-    private String leaseNumber;
+    private int leaseNumber;
     private List<Integer> leaseDurations;
     private List<String> paymentOptions;
     private List<String> preferenceTypes;
@@ -111,7 +111,7 @@ public class LeaseAction extends UHAction {
     }
 
     public String getLeaseDetail(){
-        System.out.println(leaseNumber);
+        System.out.println("leaseNumber" + leaseNumber);
         return SUCCESS;
     }
     /*public Lease getLease() throws Exception {
@@ -172,11 +172,11 @@ public class LeaseAction extends UHAction {
         this.leases = leases;
     }
 
-    public String getLeaseNumber() {
+    public int getLeaseNumber() {
         return leaseNumber;
     }
 
-    public void setLeaseNumber(String leaseNumber) {
+    public void setLeaseNumber(int leaseNumber) {
         this.leaseNumber = leaseNumber;
     }
 }
