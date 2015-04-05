@@ -26,10 +26,10 @@
                 <tr>
                     <td width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="maintenanceNavigator" class="big_button top_margin">View Maintenance Tickets</a>
+                            <a href="/<s:property value='appName'/>/viewMaintenanceTicketsToResolve.action" id="viewMaintenanceTicketsNavigator" class="big_button top_margin">View Maintenance Tickets</a>
                         </div>
                     </td>
-                    <td width="50%">
+                    <td width="50%">cc
                         <div style="height:100px;">
                             <a href="/<s:property value='appName'/>/parkingRequests.action" id="parkingNavigator" class="big_button top_margin">View Parking Requests</a>
                         </div>

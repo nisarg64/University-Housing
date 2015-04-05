@@ -21,7 +21,7 @@ public class GuestTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE "+ getTableName() + "(" +
-                " approval_id CHAR(10), " +
+                " approval_id VARCHAR2(20), " +
                 " status VARCHAR(10), " +
                 " PRIMARY KEY (approval_id) " +
                 ")";

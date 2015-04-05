@@ -23,7 +23,7 @@ public class StudentTable extends Table{
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() + " (" +
-                " student_id CHAR(10), " +
+                " student_id VARCHAR2(20), " +
                 " category VARCHAR(10) NOT NULL, " +
                 " status VARCHAR(10), " +
                 " course VARCHAR(32) NOT NULL, " +

@@ -21,7 +21,7 @@ public class StaffTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() + " (" +
-                " staff_num CHAR(10), " +
+                " staff_num VARCHAR2(20), " +
                 " position VARCHAR2(20), " +
                 " location VARCHAR2(20), " +
                 " PRIMARY KEY (staff_num) " +

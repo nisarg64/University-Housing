@@ -22,7 +22,7 @@ public class FamilyTable extends Table {
                 " name VARCHAR2(32), " +
                 " dob DATE, " +
                 " relation VARCHAR(12), " +
-                " student_id CHAR(10), " +
+                " student_id VARCHAR2(20), " +
                 " PRIMARY KEY (name, student_id), " +
                 " FOREIGN KEY (student_id) REFERENCES STUDENT " +
                 " ON DELETE CASCADE " +
