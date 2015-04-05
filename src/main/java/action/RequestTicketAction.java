@@ -73,7 +73,13 @@ public class RequestTicketAction extends UHAction {
         return SUCCESS;
     }
 
-
+    public String inProgress() {
+        System.out.println("ticket no: " + ticket_no);
+        MaintenanceTicketTable prTable = new MaintenanceTicketTable();
+        tickets = prTable.inProgress(conn, ticket_no);
+        message = "Ticket set to In-Progress!";
+        return SUCCESS;
+    }
 
     public void setTickets(List<TicketRequest> tickets) {
         this.tickets = tickets;
