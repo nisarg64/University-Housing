@@ -153,6 +153,23 @@
             <result name="success">/WEB-INF/lease/view_lease.jsp</result>
         </action>
 
+        <!-- Staff Lease Options-->
+        <action name="viewAllLeasesToApprove" class="action.StaffLeaseAction" method="getAllRequests">
+            <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
+        </action>
+
+        <action name="viewAllTerminationLeasesToApprove" class="action.StaffLeaseAction" method="getAllTerminationRequests">
+            <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
+        </action>
+
+        <action name="ajax.approveLeaseRequest" class="action.StaffLeaseAction" method="approveLease">
+            <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
+        </action>
+
+        <action name="ajax.approveTerminationLeaseRequest" class="action.StaffLeaseAction" method="approveTerminationLease">
+            <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
+        </action>
+
         <!-- maintenance -->
         <action name="maintenance" class="action.UHAction">
             <result name="success">/WEB-INF/maintenance/maintenance.jsp</result>
