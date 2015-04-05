@@ -31,12 +31,13 @@ public class LeaseTable extends Table {
     public static final String PAYMMENT_OPTION = "payment_option";
     public static final String SECURITY_DEPOSIT = "security_deposit";
     public static final String CUTOFF_DATE = "cutoff_date";
+    public static final String HAS_PRIVATE_ACCOMMODATION = "has_private_accommodation";
     public static final String PRIMARY_KEY_CONSTRAINT = "PRIMARY KEY";
     public static final String FOREIGN_KEY_CONSTRAINT = "FOREIGN KEY";
     public static final String REFERENCES_STR = "REFERENCES";
 
     public enum LeaseStatus {
-        Pending, Processed, InProgress, Completed, Cancelled;
+        Pending, Processed, InProgress, Completed, Cancelled, WaitList;
     }
 
     public enum PaymentOption {
@@ -86,11 +87,16 @@ public class LeaseTable extends Table {
                 PAYMMENT_OPTION + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + " not null," +
                 SECURITY_DEPOSIT + " " + ColumnTypes.NUMBER_TYPE + " not null," +
                 CUTOFF_DATE + " " + ColumnTypes.DATE_TYPE + "," +
+                HAS_PRIVATE_ACCOMMODATION + " " + ColumnTypes.BOOLEAN_TYPE + " default '0' not null," +
+                RoomTable.PLACE_NUM + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
+                ApartmentTable.APARTMENT_NO + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
                 PRIMARY_KEY_CONSTRAINT + "(" + LEASE_NUMBER + ")," +
-                FOREIGN_KEY_CONSTRAINT + "(" + RES_ID + ") " + REFERENCES_STR + " RESIDENT" +
+                FOREIGN_KEY_CONSTRAINT + "(" + RoomTable.PLACE_NUM + ") " + REFERENCES_STR + " " + RoomTable.TABLE_NAME + "," +
+                FOREIGN_KEY_CONSTRAINT + "(" + ApartmentTable.APARTMENT_NO + ") " + REFERENCES_STR + " " + ApartmentTable.TABLE_NAME +
                 /*"CHECK (" + STATUS + " IN " + statusValues.toString() + ")," +
                 "CHECK (" + DURATION + " IN (1, 2, 3))," +*/
         ")";
+        System.out.println(query);
 
         DBAccessor.executeQuery(conn, query);
     }
@@ -99,9 +105,9 @@ public class LeaseTable extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() + " VALUES(1, 'akagrawa', '" + LeaseStatus.Pending + "'," +
-                "sysdate, 2, null, '" + PaymentOption.Monthly + "', 500, sysdate + 30)";
+                "sysdate, 2, null, '" + PaymentOption.Monthly + "', 500, sysdate + 30, '0', null, null)";
         String query2 = "INSERT INTO " + getTableName() + " VALUES(2, 'abora', '" + LeaseStatus.Processed +"'," +
-                "sysdate, 3, null, '" + PaymentOption.Monthly + "', 1000, sysdate + 90)";
+                "sysdate, 3, null, '" + PaymentOption.Monthly + "', 1000, sysdate + 90, '0', null, null)";
 
         queries.add(query1);
         queries.add(query2);

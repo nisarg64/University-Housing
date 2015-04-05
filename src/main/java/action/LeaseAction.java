@@ -81,7 +81,7 @@ public class LeaseAction extends UHAction {
 
         preferenceTypes = new ArrayList<String>();
         for (LeasePreferenceTable.PreferenceType preferenceType : LeasePreferenceTable.PreferenceType.values()) {
-            preferenceTypes.add(preferenceType.getDisplayName());
+                preferenceTypes.add(preferenceType.getDisplayName());
         }
 
         halls = new HashMap<String, String>();

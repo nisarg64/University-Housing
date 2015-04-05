@@ -162,12 +162,16 @@
             <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
         </action>
 
+        <action name="viewLeaseToApprove" class="action.StaffLeaseAction" method="viewLeaseToApprove">
+            <result name="success">/WEB-INF/lease/staff/view_lease_request.jsp</result>
+        </action>
+
         <action name="viewAllTerminationLeasesToApprove" class="action.StaffLeaseAction" method="getAllTerminationRequests">
             <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
         </action>
 
-        <action name="ajax.approveLeaseRequest" class="action.StaffLeaseAction" method="approveLease">
-            <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
+        <action name="approveLeaseRequest" class="action.StaffLeaseAction" method="approveLeaseRequest">
+            <result name="success">/WEB-INF/lease/staff/view_approved_lease_request.jsp</result>
         </action>
 
         <action name="ajax.approveTerminationLeaseRequest" class="action.StaffLeaseAction" method="approveTerminationLease">

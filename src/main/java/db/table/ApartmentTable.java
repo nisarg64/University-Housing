@@ -13,17 +13,20 @@ import java.util.List;
  */
 public class ApartmentTable extends Table{
 
+    public static final String APARTMENT_NO = "apartment_no";
+    public static final String TABLE_NAME = "APARTMENT";
+
     @Override
     public String getTableName() {
-        return "APARTMENT";
+        return TABLE_NAME;
     }
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = " CREATE TABLE APARTMENT(" +
-                " apartment_no VARCHAR(20), " +
+        String query = " CREATE TABLE " + TABLE_NAME + "(" +
+                " " + APARTMENT_NO + " VARCHAR(20), " +
                 " address VARCHAR(32), " +
-                " PRIMARY KEY (apartment_no) " +
+                " PRIMARY KEY (" + APARTMENT_NO + ") " +
                 ")";
         DBAccessor.executeQuery(conn, query);
     }
@@ -32,12 +35,12 @@ public class ApartmentTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO APARTMENT VALUES('AID1', 'Avent Ferry Road')";
-        String query2 = "INSERT INTO APARTMENT VALUES('AID2', 'Hills Road')";
-        String query3 = "INSERT INTO APARTMENT VALUES('AID3', 'State Road')";
-        String query4 = "INSERT INTO APARTMENT VALUES('AID4', 'MG Road')";
-        String query5 = "INSERT INTO APARTMENT VALUES('AID5', 'Park Avenue')";
-        String query6 = "INSERT INTO APARTMENT VALUES('AID6', 'Cross Road')";
+        String query1 = "INSERT INTO " + TABLE_NAME + " VALUES('AID1', 'Avent Ferry Road')";
+        String query2 = "INSERT INTO " + TABLE_NAME + " VALUES('AID2', 'Hills Road')";
+        String query3 = "INSERT INTO " + TABLE_NAME + " VALUES('AID3', 'State Road')";
+        String query4 = "INSERT INTO " + TABLE_NAME + " VALUES('AID4', 'MG Road')";
+        String query5 = "INSERT INTO " + TABLE_NAME + " VALUES('AID5', 'Park Avenue')";
+        String query6 = "INSERT INTO " + TABLE_NAME + " VALUES('AID6', 'Cross Road')";
 
         queries.add(query1);
         queries.add(query2);
@@ -53,11 +56,11 @@ public class ApartmentTable extends Table{
     public void dropTable(Connection conn){
 
         try {
-            String query = "DROP TABLE APARTMENT";
+            String query = "DROP TABLE " + TABLE_NAME;
             DBAccessor.executeQuery(conn, query);
 
         }catch (SQLException ex){
-            System.err.println( " Table  APARTMENT : " + ex.getMessage());
+            System.err.println( " Table  " + TABLE_NAME + " : " + ex.getMessage());
         }
     }
 }

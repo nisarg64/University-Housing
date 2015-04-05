@@ -12,4 +12,5 @@ public class ColumnTypes {
     public static final String VARCHAR2_SIZE_50_TYPE = "varchar2(50)";
     public static final String VARCHAR2_SIZE_200_TYPE = "varchar2(200)";
     public static final String DATE_TYPE = "date";
+    public static final String BOOLEAN_TYPE = "char(1)";
 }
