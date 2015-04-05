@@ -115,11 +115,11 @@
         <action name="viewLeasesMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/view_leases_menu.jsp</result>
         </action>
-        <action name="viewLease" class="action.LeaseAction" method="viewCurrentLease">
+        <action name="viewCurrentLease" class="action.LeaseAction" method="viewCurrentLease">
             <result name="success">/WEB-INF/lease/view_lease.jsp</result>
             <result name="error">/WEB-INF/login.jsp</result>
         </action>
-        <action name="viewLeases" class="action.LeaseAction" method="viewPreviousLeases">
+        <action name="viewFormerLeases" class="action.LeaseAction" method="viewFormerLeases">
             <result name="success">/WEB-INF/lease/view_leases.jsp</result>
             <result name="error">/WEB-INF/login.jsp</result>
         </action>

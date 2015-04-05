@@ -26,8 +26,14 @@ public class LeaseAction extends UHAction {
     private List<String> paymentOptions;
     private List<String> preferenceTypes;
     private Map<String, String> halls;
+    List<Lease> leases;
 
     public LeaseAction() {}
+
+    public String viewFormerLeases() {
+        leases = new ArrayList<Lease>();
+        return SUCCESS;
+    }
 
     public String viewCurrentLease() {
         LeaseView view = new LeaseView();
