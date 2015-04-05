@@ -18,7 +18,7 @@ public class ParkingPermitTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + getTableName() + " ("+
-                "permit_id varchar(32), " +
+                "permit_id NUMBER, " +
                 "spot_id varchar(32), "+
                 "lot_id varchar(32), "+
                 "permit_start_date timestamp, "+

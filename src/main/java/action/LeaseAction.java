@@ -2,11 +2,18 @@ package action;
 
 import db.table.LeasePreferenceTable;
 import db.table.LeaseTable;
+import db.table.ResidentHallTable;
 import db.view.LeaseView;
 import pojo.Lease;
+import pojo.LeasePreference;
+import util.DBAccessor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: Nikhil
@@ -18,8 +25,15 @@ public class LeaseAction extends UHAction {
     private List<Integer> leaseDurations;
     private List<String> paymentOptions;
     private List<String> preferenceTypes;
+    private Map<String, String> halls;
+    List<Lease> leases;
 
     public LeaseAction() {}
+
+    public String viewFormerLeases() {
+        leases = new ArrayList<Lease>();
+        return SUCCESS;
+    }
 
     public String viewCurrentLease() {
         LeaseView view = new LeaseView();
@@ -47,7 +61,19 @@ public class LeaseAction extends UHAction {
 
         preferenceTypes = new ArrayList<String>();
         for (LeasePreferenceTable.PreferenceType preferenceType : LeasePreferenceTable.PreferenceType.values()) {
-            preferenceTypes.add(preferenceType.name());
+            preferenceTypes.add(preferenceType.getDisplayName());
+        }
+
+        halls = new HashMap<String, String>();
+        String query = "Select " + ResidentHallTable.HALL_ID + ", " + ResidentHallTable.HALL_NAME + " from " +
+                ResidentHallTable.TABLE_NAME;
+
+        try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
+            while (rs.next()) {
+                halls.put(rs.getString(ResidentHallTable.HALL_ID), rs.getString(ResidentHallTable.HALL_NAME));
+            }
+        } catch (SQLException ex){
+            System.err.println("Error Occurred During View Lease " + ex.getMessage());
         }
         return SUCCESS;
     }
@@ -58,9 +84,35 @@ public class LeaseAction extends UHAction {
         lease.setResidentId(username);
         lease.setSecurityDeposit(0);
         lease.setStatus(LeaseTable.LeaseStatus.Pending.name());
-        new LeaseTable().insert(conn, lease);
+        lease.setLeaseNumber(new LeaseTable().insert(conn, lease));
+
+        LeasePreference pref = lease.getPreference1();
+        pref.setLeaseNumber(lease.getLeaseNumber());
+        pref.setSequenceNumber(1);
+        new LeasePreferenceTable().insert(conn, pref);
+
+        pref = lease.getPreference2();
+        pref.setLeaseNumber(lease.getLeaseNumber());
+        pref.setSequenceNumber(2);
+        new LeasePreferenceTable().insert(conn, pref);
+
+        pref = lease.getPreference3();
+        pref.setLeaseNumber(lease.getLeaseNumber());
+        pref.setSequenceNumber(3);
+        new LeasePreferenceTable().insert(conn, pref);
+
         return SUCCESS;
     }
+
+    /*public Lease getLease() throws Exception {
+        *//*System.out.println(lease);
+        String username = (String) sessionMap.get("username");
+        lease.setResidentId(username);
+        lease.setSecurityDeposit(0);
+        lease.setStatus(LeaseTable.LeaseStatus.Pending.name());
+        new LeaseTable().insert(conn, lease);*//*
+        return null;
+    }*/
 
     public Lease getLease() {
         return lease;
@@ -84,5 +136,21 @@ public class LeaseAction extends UHAction {
 
     public void setPaymentOptions(List<String> paymentOptions) {
         this.paymentOptions = paymentOptions;
+    }
+
+    public List<String> getPreferenceTypes() {
+        return preferenceTypes;
+    }
+
+    public void setPreferenceTypes(List<String> preferenceTypes) {
+        this.preferenceTypes = preferenceTypes;
+    }
+
+    public Map<String, String> getHalls() {
+        return halls;
+    }
+
+    public void setHalls(Map<String, String> halls) {
+        this.halls = halls;
     }
 }

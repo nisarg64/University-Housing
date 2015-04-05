@@ -1,15 +1,14 @@
 package pojo;
 
-import db.table.LeasePreferenceTable;
-
 /**
  * User: Nikhil
  * Date: 03-04-15
  */
 public class LeasePreference {
 
+    private int leaseNumber;
     private int sequenceNumber;
-    private LeasePreferenceTable.PreferenceType preferenceType;
+    private String type;
     private String hallId;
     private String hallName;
 
@@ -21,12 +20,12 @@ public class LeasePreference {
         this.sequenceNumber = sequenceNumber;
     }
 
-    public LeasePreferenceTable.PreferenceType getPreferenceType() {
-        return preferenceType;
+    public String getType() {
+        return type;
     }
 
-    public void setPreferenceType(LeasePreferenceTable.PreferenceType preferenceType) {
-        this.preferenceType = preferenceType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getHallId() {
@@ -43,5 +42,13 @@ public class LeasePreference {
 
     public void setHallName(String hallName) {
         this.hallName = hallName;
+    }
+
+    public int getLeaseNumber() {
+        return leaseNumber;
+    }
+
+    public void setLeaseNumber(int leaseNumber) {
+        this.leaseNumber = leaseNumber;
     }
 }

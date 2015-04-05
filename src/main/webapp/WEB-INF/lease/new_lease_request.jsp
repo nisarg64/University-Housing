@@ -30,6 +30,36 @@
             <td><s:select name="lease.duration" headerKey="-1" headerValue="Select Lease Duration"
             list="leaseDurations" value="lease.duration"/></td>
         </tr>
+        <tr>
+            <th>Preference 1:</th>
+            <td><s:select name="lease.preference1.type" headerKey="-1" headerValue="Select Preference 1"
+            list="preferenceTypes"/></td>
+        </tr>
+        <tr>
+            <th>Preferred Hall:</th>
+            <td><s:select name="lease.preference1.hallId" headerKey="-1" headerValue="Select Hall"
+            list="halls" listKey="key" listValue="value"/></td>
+        </tr>
+        <tr>
+            <th>Preference 2:</th>
+            <td><s:select name="lease.preference2.type" headerKey="-1" headerValue="Select Preference 2"
+            list="preferenceTypes"/></td>
+        </tr>
+        <tr>
+            <th>Preferred Hall:</th>
+            <td><s:select name="lease.preference2.hallId" headerKey="-1" headerValue="Select Hall"
+            list="halls" listKey="key" listValue="value"/></td>
+        </tr>
+        <tr>
+            <th>Preference 3:</th>
+            <td><s:select name="lease.preference3.type" headerKey="-1" headerValue="Select Preference 3"
+            list="preferenceTypes"/></td>
+        </tr>
+        <tr>
+            <th>Preferred Hall:</th>
+            <td><s:select name="lease.preference3.hallId" headerKey="-1" headerValue="Select Hall"
+            list="halls" listKey="key" listValue="value"/></td>
+        </tr>
         </tbody>
     </table>
         <s:submit value="submit" cssClass="btn btn-primary btn-large" name="submit" />

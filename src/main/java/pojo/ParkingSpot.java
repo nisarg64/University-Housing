@@ -9,7 +9,7 @@ public class ParkingSpot {
     private String spotId;
     private String lotId;
     private String spotType;
-    private Integer availability;
+    private String availability;
     private Float rentalFee;
     private String permit_id;
 
@@ -45,11 +45,11 @@ public class ParkingSpot {
         this.spotType = spotType;
     }
 
-    public Integer getAvailability() {
+    public String getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Integer availability) {
+    public void setAvailability(String availability) {
         this.availability = availability;
     }
 

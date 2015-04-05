@@ -25,7 +25,8 @@ public class LoginTable extends Table{
         String query = " CREATE TABLE " + getTableName() + " (" +
                 " username VARCHAR(32), " +
                 " password VARCHAR(32), " +
-                " role VARCHAR(10) " +
+                " role VARCHAR(10), " +
+                " PRIMARY KEY (username)"+
                 ")";
         DBAccessor.executeQuery(conn, query);
     }
@@ -45,7 +46,7 @@ public class LoginTable extends Table{
 
         String query7 = "INSERT INTO " + getTableName() + " VALUES('approval1', 'xyz123', 'guest')";
         String query8 = "INSERT INTO " + getTableName() + " VALUES('approval2', 'abc123', 'guest')";
-        String query9 = "INSERT INTO " + getTableName() + " VALUES('approval2', 'abc123', 'guest')";
+        String query9 = "INSERT INTO " + getTableName() + " VALUES('approval3', 'abc123', 'guest')";
 
 
         queries.add(query1);
