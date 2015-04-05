@@ -1,10 +1,8 @@
 package pojo;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import util.Utils;
+
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * User: Nikhil
@@ -59,7 +57,7 @@ public class Lease {
     }
 
     public void setEnterDate(String enterDateStr) {
-        this.enterDate = getDate(enterDateStr);
+        this.enterDate = Utils.getDate(enterDateStr);
     }
 
     public int getDuration() {
@@ -79,7 +77,7 @@ public class Lease {
     }
 
     public void setLeaveDate(String leaveDateStr) {
-        this.leaveDate = getDate(leaveDateStr);
+        this.leaveDate = Utils.getDate(leaveDateStr);
     }
 
     public String getPaymentOption() {
@@ -106,21 +104,6 @@ public class Lease {
         this.cutoffDate = cutoffDate;
     }
 
-    public Date getDate(String dateStr) {
-        if (dateStr == null) {
-            return null;
-        }
-        DateFormat format = new SimpleDateFormat("MM/DD/yy", Locale.ENGLISH);
-        Date date = null;
-        try {
-            date = format.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-
-    }
-
     public LeasePreference getPreference1() {
         return preference1;
     }
@@ -143,11 +126,6 @@ public class Lease {
 
     public void setPreference3(LeasePreference preference3) {
         this.preference3 = preference3;
-    }
-
-    public static void main(String[] args) {
-        Lease lease = new Lease();
-        System.out.println(lease.getDate("10-15-1987"));
     }
 
     @Override

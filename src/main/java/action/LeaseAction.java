@@ -2,10 +2,12 @@ package action;
 
 import db.table.LeasePreferenceTable;
 import db.table.LeaseTable;
+import db.table.LeaseTerminationRequestTable;
 import db.table.ResidentHallTable;
 import db.view.LeaseView;
 import pojo.Lease;
 import pojo.LeasePreference;
+import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
 import java.sql.ResultSet;
@@ -29,7 +31,7 @@ public class LeaseAction extends UHAction {
     private Map<String, String> halls;
     private List<Lease> leases;
     private List<Lease> terminateLeases;
-
+    private LeaseTerminationRequest leaseTerminationRequest;
 
     public LeaseAction() {}
 
@@ -51,6 +53,16 @@ public class LeaseAction extends UHAction {
             return ERROR;
         }
         lease = view.viewCurrentLease(conn, username);
+        return SUCCESS;
+    }
+
+    public String viewLease() {
+
+        System.out.println(".................");
+        System.out.println(leaseNumber);
+        System.out.println(".................");
+        LeaseView view = new LeaseView();
+        lease = view.viewLease(conn, leaseNumber);
         return SUCCESS;
     }
 
@@ -120,6 +132,23 @@ public class LeaseAction extends UHAction {
     public String getAllLeases() {
 
         return "success";
+    }
+
+    public String newLeaseTerminationRequest() {
+        return SUCCESS;
+    }
+
+    public String createLeaseTerminationRequest() throws SQLException {
+        LeaseView view = new LeaseView();
+        String username = (String) sessionMap.get("username");
+        if (username == null) {
+            return ERROR;
+        }
+        Lease lease = view.viewCurrentLease(conn, username);
+        leaseTerminationRequest.setLease(lease);
+        leaseTerminationRequest.setStatus(LeaseTerminationRequestTable.LeaseTerminationRequestStatus.Pending.name());
+        new LeaseTerminationRequestTable().insert(conn, leaseTerminationRequest);
+        return SUCCESS;
     }
 
     /*public Lease getLease() throws Exception {
@@ -194,5 +223,13 @@ public class LeaseAction extends UHAction {
 
     public void setTerminateLeases(List<Lease> terminateLeases) {
         this.terminateLeases = terminateLeases;
+    }
+
+    public LeaseTerminationRequest getLeaseTerminationRequest() {
+        return leaseTerminationRequest;
+    }
+
+    public void setLeaseTerminationRequest(LeaseTerminationRequest leaseTerminationRequest) {
+        this.leaseTerminationRequest = leaseTerminationRequest;
     }
 }
