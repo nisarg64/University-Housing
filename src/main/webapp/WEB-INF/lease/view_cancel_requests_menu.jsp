@@ -12,7 +12,7 @@
                 <tr>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/viewRequest.action" id="viewRequestNavigator" class="big_button top_margin">View Request</a>
+                            <a href="/<s:property value='appName'/>/viewRequest.action" id="viewRequestNavigator" class="big_button top_margin">View Requests</a>
                         </div>
                     </td>
                     <td  width="50%">
