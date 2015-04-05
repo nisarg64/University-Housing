@@ -7,6 +7,8 @@ import util.DBAccessor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: Nikhil
@@ -14,9 +16,11 @@ import java.sql.SQLException;
  */
 public class LeaseView extends View {
 
+    public static final String VIEW_NAME = "LEASE_VIEW";
+
     @Override
     public String getViewName() {
-        return "LEASE_VIEW";
+        return VIEW_NAME;
     }
 
     @Override
@@ -28,13 +32,32 @@ public class LeaseView extends View {
         DBAccessor.executeQuery(conn, query);
     }
 
-    public Lease viewCurrentLease(Connection conn, String residentId) {
-        Lease lease = null;
-        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "'";
+    public List<Lease> viewFormerLeases(Connection conn, String residentId) {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM ").append(getViewName()).append(" ");
+        query.append("where ");
+        query.append(LeaseTable.RES_ID).append(" = '").append(residentId).append("'");
+        query.append(" and ");
+        query.append(LeaseTable.STATUS).append(" = '").append(LeaseTable.LeaseStatus.Completed).append("'");
+        System.out.println(query);
 
+        return getLeases(conn, query.toString());
+    }
+
+    public List<Lease> viewOpenLeaseRequests(Connection conn) {
+        return null;
+    }
+
+    public Lease viewCurrentLease(Connection conn, String residentId) {
+        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "'";
+        return getLeases(conn, query).get(0);
+    }
+
+    private List<Lease> getLeases(Connection conn, String query) {
+        List<Lease> leases = new ArrayList<Lease>();
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
-            if(rs.next()){
-                lease = new Lease();
+            while (rs.next()) {
+                Lease lease = new Lease();
                 lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
                 lease.setResidentId(rs.getString(LeaseTable.RES_ID));
                 lease.setStatus(rs.getString(LeaseTable.STATUS));
@@ -44,13 +67,11 @@ public class LeaseView extends View {
                 lease.setPaymentOption(rs.getString(LeaseTable.PAYMMENT_OPTION));
                 lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
                 lease.setCutoffDate(rs.getDate(LeaseTable.CUTOFF_DATE));
-                System.out.println(lease);
+                leases.add(lease);
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             System.err.println("Error Occurred During View Lease " + ex.getMessage());
         }
-
-        return lease;
+        return leases;
     }
-
 }
