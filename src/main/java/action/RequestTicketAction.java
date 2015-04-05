@@ -2,8 +2,6 @@ package action;
 
 import db.table.MaintenanceTicketTable;
 import pojo.TicketRequest;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,8 @@ public class RequestTicketAction extends UHAction {
     private List<String> ticketType;
     private String message = "";
     private TicketRequest ticketRequest;
+    private List<TicketRequest> tickets;
+    private String ticket_no;
 
     public RequestTicketAction(){
         ticketType = new ArrayList<>();
@@ -48,20 +48,47 @@ public class RequestTicketAction extends UHAction {
         return SUCCESS;
     }
 
-    public String getTickets() {
+    public String getTicketsList() {
+        message = "";
         //Updating DB
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
-        prTable.getTickets(conn, resident_id);
-
-        //Reset create ticket form
-        ticketRequest = new TicketRequest();
-        // todo - get room type and room id , if no room provided, can't create ticket.
-
-        message = "Ticket created!";
-
+        tickets = prTable.getTickets(conn, resident_id);
         return SUCCESS;
+    }
+
+    public String getTicketsToResolve() {
+        message = "";
+        MaintenanceTicketTable prTable = new MaintenanceTicketTable();
+        tickets = prTable.getTicketsToResolve(conn);
+        return SUCCESS;
+    }
+
+    public String resolve() {
+        System.out.println("ticket no: " + ticket_no);
+        MaintenanceTicketTable prTable = new MaintenanceTicketTable();
+        tickets = prTable.resolve(conn, ticket_no);
+        message = "Ticket Resolved!";
+        return SUCCESS;
+    }
+
+
+
+    public void setTickets(List<TicketRequest> tickets) {
+        this.tickets = tickets;
+    }
+
+    public String getTicket_no() {
+        return ticket_no;
+    }
+
+    public void setTicket_no(String ticket_no) {
+        this.ticket_no = ticket_no;
+    }
+
+    public List<TicketRequest> getTickets() {
+        return tickets;
     }
 
     public String display() {

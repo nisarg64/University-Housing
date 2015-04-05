@@ -34,13 +34,14 @@ public class MaintenanceTicketTable extends Table{
                 " ticket_no NUMBER, " +
                 " ticket_type VARCHAR(20), " +
                 " ticket_date timestamp, " +
-                " student_id VARCHAR(10), " +
+                " student_id VARCHAR2(20), " +
                 " location_id VARCHAR(20), " + // room_id or family_apt_id
                 " location_type VARCHAR(20), " + // Room or Apt
                 " status VARCHAR(20), " + // status - InProgress, Resolved
                 " description VARCHAR(1000), " + // status - InProgress, Resolved
                 " PRIMARY KEY (ticket_no), " +
-                " FOREIGN KEY (ticket_type) REFERENCES TICKET_SEVERITY " +
+                " FOREIGN KEY (ticket_type) REFERENCES TICKET_SEVERITY, " +
+                " FOREIGN KEY (student_id) REFERENCES RESIDENT " +
                 ")";
         executeQuery(conn, query);
     }
@@ -77,8 +78,7 @@ public class MaintenanceTicketTable extends Table{
         System.out.println(query);
 
         try {
-            executeQuery(conn,query);
-            System.out.println("Ticket inserted successfully -----");
+            executeQuery(conn, query);
         } catch (SQLException e) {
             System.out.println(e);
             e.printStackTrace();
@@ -88,9 +88,6 @@ public class MaintenanceTicketTable extends Table{
     }
 
     public List<TicketRequest> getTickets(Connection conn, String resident_id) {
-
-        //ticket_type,status,description,ticket_date
-
         List<TicketRequest> tickets = new LinkedList<>();
 
         String query = "SELECT * FROM "
@@ -112,14 +109,75 @@ public class MaintenanceTicketTable extends Table{
                 ticketRequest.setDate(resultSet.getDate("ticket_date"));
 
                 tickets.add(ticketRequest);
-                System.out.println("Ticket -----------------------------------------");
-                System.out.println(ticketRequest);
+//                System.out.println(ticketRequest);
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Login " + ex.getMessage());
+            System.err.println("Error Occurred During get tickets query " + ex.getMessage());
         }
 
         return tickets;
     }
 
+    public List<TicketRequest> getTicketsToResolve(Connection conn) {
+        List<TicketRequest> tickets = new LinkedList<>();
+
+//        SELECT R.FNAME, R.LNAME, M.* FROM MAINTENANCE_TICKET M, RESIDENT R
+//        WHERE STATUS = 'InProgress'
+//        and M.STUDENT_ID = R.RES_ID
+
+//        SELECT R.FNAME, R.LNAME, M.* FROM MAINTENANCE_TICKET MRESIDENT R WHERE STUDENT_ID = 'kogan'AND STATUS = 'InProgress'
+
+        String query = "SELECT R.FNAME as FNAME, R.LNAME as LNAME," +
+                " M.ticket_type as ticket_type, M.ticket_date as ticket_date, M.status as status, M.ticket_no as ticket_no, M.description as description" +
+                " FROM "
+                + getTableName() + " M, "
+                + new ResidentTable().getTableName() + " R"
+                + " WHERE "
+                + "STUDENT_ID = RES_ID"
+                + " AND STATUS = 'InProgress'";
+
+        System.out.println(query);
+
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+                TicketRequest ticketRequest = new TicketRequest();
+
+                ticketRequest.setTicket(resultSet.getString("ticket_type"));
+                ticketRequest.setStatus(resultSet.getString("status"));
+                ticketRequest.setDescription(resultSet.getString("description"));
+                ticketRequest.setDate(resultSet.getDate("ticket_date"));
+
+                ticketRequest.setStudent_id(resultSet.getString("FNAME") + resultSet.getString("LNAME"));
+                ticketRequest.setTicket_no(resultSet.getInt("ticket_no"));
+                ticketRequest.setAddress("todo - set correct address - roomno , apt or hall no.");
+
+                tickets.add(ticketRequest);
+                System.out.println("Ticket -----------------------------------------");
+                System.out.println(ticketRequest);
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During get tickets for resolve query " + ex.getMessage());
+        }
+
+        return tickets;
+    }
+
+    public List<TicketRequest> resolve(Connection conn, String ticket_no) {
+//        UPDATE MAINTENANCE_TICKET
+//        SET STATUS = 'Resolved'
+//        WHERE TICKET_NO = 1001
+        String query = "UPDATE " + getTableName()
+                + " SET STATUS = 'Resolved'"
+                + " WHERE TICKET_NO = " + ticket_no;
+        System.out.println(query);
+
+        try {
+            DBAccessor.executeQuery(conn, query);
+            conn.commit();
+            System.out.println("Ticket Status set to resolved");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getTicketsToResolve(conn);
+    }
 }

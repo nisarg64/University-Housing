@@ -30,7 +30,7 @@ public class ParkingRequestTable extends Table {
 
         String query = "CREATE TABLE " + getTableName() + " ("+
                 "request_id NUMBER, "+
-                "resident_id char(10), "+
+                "resident_id VARCHAR2(20), "+
                 "vehicle_type varchar2(32), "+
                 "isHandicapped varchar2(3), "+
                 "nearby_spot_preference varchar2(3), "+

@@ -11,6 +11,10 @@ public class TicketRequest {
     private String description;
     private String status;
     private Date date;
+    // ---- for staff:
+    private Integer ticket_no;
+    private String student_id;
+        private String address;
 
     public Date getDate() {
         return date;
@@ -44,6 +48,29 @@ public class TicketRequest {
         this.ticket = ticket;
     }
 
+    public Integer getTicket_no() {
+        return ticket_no;
+    }
+
+    public void setTicket_no(Integer ticket_no) {
+        this.ticket_no = ticket_no;
+    }
+
+    public String getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(String student_id) {
+        this.student_id = student_id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     @Override
     public String toString() {
         return "TicketRequest{" +

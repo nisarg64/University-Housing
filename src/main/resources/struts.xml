@@ -160,10 +160,19 @@
             <result name="success">/WEB-INF/maintenance/new_ticket.jsp</result>
         </action>
 
-        <action name="viewTicketStatus" class="action.RequestTicketAction" method="getTickets">
-            <result name="success">/WEB-INF/maintenance/new_ticket.jsp</result>
+        <action name="viewTicketStatus" class="action.RequestTicketAction" method="getTicketsList">
+            <result name="success">/WEB-INF/maintenance/ticket_status.jsp</result>
         </action>
 
+        <action name="viewMaintenanceTicketsToResolve" class="action.RequestTicketAction" method="getTicketsToResolve">
+            <result name="success">/WEB-INF/maintenance/ticket_resolve.jsp</result>
+        </action>
+
+        <action name="ajax.resolveTicket" class="action.RequestTicketAction" method="resolve">
+            <result name="success">/WEB-INF/ajax/ticket_resolve_status.jsp</result>
+        </action>
+
+        <!---->
 
     </package>
 </struts>
