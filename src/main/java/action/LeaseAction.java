@@ -22,11 +22,14 @@ import java.util.Map;
 public class LeaseAction extends UHAction {
 
     private Lease lease;
+    private int leaseNumber;
     private List<Integer> leaseDurations;
     private List<String> paymentOptions;
     private List<String> preferenceTypes;
     private Map<String, String> halls;
-    List<Lease> leases;
+    private List<Lease> leases;
+    private List<Lease> terminateLeases;
+
 
     public LeaseAction() {}
 
@@ -37,6 +40,7 @@ public class LeaseAction extends UHAction {
         }
         LeaseView view = new LeaseView();
         leases = view.viewFormerLeases(conn, username);
+
         return SUCCESS;
     }
 
@@ -108,6 +112,16 @@ public class LeaseAction extends UHAction {
         return SUCCESS;
     }
 
+    public String getLeaseDetail(){
+        System.out.println("leaseNumber" + leaseNumber);
+        return SUCCESS;
+    }
+
+    public String getAllLeases() {
+
+        return "success";
+    }
+
     /*public Lease getLease() throws Exception {
         *//*System.out.println(lease);
         String username = (String) sessionMap.get("username");
@@ -156,5 +170,29 @@ public class LeaseAction extends UHAction {
 
     public void setHalls(Map<String, String> halls) {
         this.halls = halls;
+    }
+
+    public List<Lease> getLeases() {
+        return leases;
+    }
+
+    public void setLeases(List<Lease> leases) {
+        this.leases = leases;
+    }
+
+    public int getLeaseNumber() {
+        return leaseNumber;
+    }
+
+    public void setLeaseNumber(int leaseNumber) {
+        this.leaseNumber = leaseNumber;
+    }
+
+    public List<Lease> getTerminateLeases() {
+        return terminateLeases;
+    }
+
+    public void setTerminateLeases(List<Lease> terminateLeases) {
+        this.terminateLeases = terminateLeases;
     }
 }

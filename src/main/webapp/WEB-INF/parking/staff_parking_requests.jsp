@@ -14,10 +14,8 @@
 
 <div class="container">
 
-    <div class="upper">
-        <span><button type="button" id="backButton" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">Back</span></button></span>
+    <div class="upperText">
         <span class="upper-text" style="margin-left:32%">Parking Requests</span>
-        <span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
     </div>
 
     <label class="statusMessage" style="text-decoration:solid"><s:property value="message" /></label>

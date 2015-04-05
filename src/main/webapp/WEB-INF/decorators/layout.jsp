@@ -21,15 +21,22 @@
 <body>
 <div id="allContainer">
     <!-- Header -->
-        <div id="top-header">
+    <div id="top-header" class="homePage">
             <div class="section-2">
                 <div class="col1">
-                    <a id="logo" rel="home" title="University Housing Home Page" href="/">
+                    <a id="logo" rel="home" title="University Housing Home Page" href="#">
                         <img alt="University Housing Logo" src="http://housing.ncsu.edu/sites/all/themes/theme687/logo.png">
                     </a>
                 </div>
             </div>
         </div>
+    <div>
+        <div class="upper">
+            <span><a id="home" class="btn btn-primary navbar-btn" href="/<s:property value='appName'/>/login.action"> Home</a></span>
+            <span><button type="button" id="backButton" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>Back</button></span>
+            <span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
+        </div>
+    </div>
 
         <div id="columns">
             <decorator:body/>

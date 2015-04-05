@@ -7,7 +7,7 @@
             var value = $(this).attr('rowid');
             var url = "/uhousing/ajax.resolveTicket.action?ticket_no="+value;
             $.post( url, function( data ) {
-                $( ".statusMessage" ).html( data );
+                $( ".container" ).html( data );
             });
 
         });
@@ -19,10 +19,8 @@
 
 <div class="container">
 
-  <div class="upper">
-    <span><button type="button" id="backButton" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true">Back</span></button></span>
+  <div class="upperText">
     <span class="upper-text" style="margin-left:32%">Ticket status</span>
-    <span></span><a id="logout" class="btn btn-primary navbar-btn logout" href="/<s:property value='appName'/>/logout.action"> Log out</a></span>
   </div>
   <label class="statusMessage"><strong><s:property value="message" /></strong></label>
 
@@ -32,6 +30,7 @@
                 <td><b>Ticket number</b></td>
 
                 <td><b>Ticket type</b></td>
+                <td><b>Ticket severity</b></td>
                 <td><b>Status</b></td>
                 <td><b>Description</b></td>
                 <td><b>Date created</b></td>
@@ -44,6 +43,7 @@
                     <td><s:property value="ticket_no" /></td>
 
                     <td><s:property value="ticket" /></td>
+                    <td><s:property value="severity" /></td>
                     <td><s:property value="status" /></td>
                     <td><s:property value="description" /></td>
                     <td><s:property value="date" /></td>

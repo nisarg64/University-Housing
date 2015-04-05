@@ -4,14 +4,13 @@ package db.table;
 
 import pojo.TicketRequest;
 import util.DBAccessor;
-import util.Utils;
 
+import java.security.Timestamp;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -106,7 +105,7 @@ public class MaintenanceTicketTable extends Table{
                 ticketRequest.setTicket(resultSet.getString("ticket_type"));
                 ticketRequest.setStatus(resultSet.getString("status"));
                 ticketRequest.setDescription(resultSet.getString("description"));
-                ticketRequest.setDate(resultSet.getDate("ticket_date"));
+                ticketRequest.setDate(resultSet.getTimestamp("ticket_date"));
 
                 tickets.add(ticketRequest);
 //                System.out.println(ticketRequest);
@@ -119,41 +118,47 @@ public class MaintenanceTicketTable extends Table{
     }
 
     public List<TicketRequest> getTicketsToResolve(Connection conn) {
-        List<TicketRequest> tickets = new LinkedList<>();
-
-//        SELECT R.FNAME, R.LNAME, M.* FROM MAINTENANCE_TICKET M, RESIDENT R
-//        WHERE STATUS = 'InProgress'
-//        and M.STUDENT_ID = R.RES_ID
-
-//        SELECT R.FNAME, R.LNAME, M.* FROM MAINTENANCE_TICKET MRESIDENT R WHERE STUDENT_ID = 'kogan'AND STATUS = 'InProgress'
+        List<TicketRequest> tickets = new ArrayList<>();
 
         String query = "SELECT R.FNAME as FNAME, R.LNAME as LNAME," +
-                " M.ticket_type as ticket_type, M.ticket_date as ticket_date, M.status as status, M.ticket_no as ticket_no, M.description as description" +
+                " M.ticket_type as ticket_type, M.ticket_date as ticket_date, " +
+                "M.status as status, M.ticket_no as ticket_no, M.description as description, " +
+                "TS.SEVERITY as severity" +
                 " FROM "
                 + getTableName() + " M, "
-                + new ResidentTable().getTableName() + " R"
+                + new ResidentTable().getTableName() + " R,"
+                + new TicketSeverityTable().getTableName() + " TS"
                 + " WHERE "
                 + "STUDENT_ID = RES_ID"
-                + " AND STATUS = 'InProgress'";
+                + " AND STATUS = 'InProgress'"
+                + " AND TS.TICKET_TYPE = M.TICKET_TYPE"
+                + " ORDER BY CASE severity"
+                + "  WHEN 'Low' THEN 3"
+                + "  WHEN 'Medium' THEN 2"
+                + "  WHEN 'High' THEN 1"
+                + "  END, ticket_date";
 
         System.out.println(query);
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 TicketRequest ticketRequest = new TicketRequest();
+//                Date ticketDate;
 
                 ticketRequest.setTicket(resultSet.getString("ticket_type"));
                 ticketRequest.setStatus(resultSet.getString("status"));
                 ticketRequest.setDescription(resultSet.getString("description"));
-                ticketRequest.setDate(resultSet.getDate("ticket_date"));
 
-                ticketRequest.setStudent_id(resultSet.getString("FNAME") + resultSet.getString("LNAME"));
+//                ticketDate = resultSet.getDate("ticket_date");
+//                ticketDate.setTime(resultSet.getTime("ticket_date"));
+                ticketRequest.setDate(resultSet.getTimestamp("ticket_date"));
+
+                ticketRequest.setStudent_id(resultSet.getString("FNAME") + " " + resultSet.getString("LNAME"));
                 ticketRequest.setTicket_no(resultSet.getInt("ticket_no"));
+                ticketRequest.setSeverity(resultSet.getString("severity"));
                 ticketRequest.setAddress("todo - set correct address - roomno , apt or hall no.");
 
                 tickets.add(ticketRequest);
-                System.out.println("Ticket -----------------------------------------");
-                System.out.println(ticketRequest);
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During get tickets for resolve query " + ex.getMessage());
@@ -163,9 +168,6 @@ public class MaintenanceTicketTable extends Table{
     }
 
     public List<TicketRequest> resolve(Connection conn, String ticket_no) {
-//        UPDATE MAINTENANCE_TICKET
-//        SET STATUS = 'Resolved'
-//        WHERE TICKET_NO = 1001
         String query = "UPDATE " + getTableName()
                 + " SET STATUS = 'Resolved'"
                 + " WHERE TICKET_NO = " + ticket_no;
@@ -174,7 +176,6 @@ public class MaintenanceTicketTable extends Table{
         try {
             DBAccessor.executeQuery(conn, query);
             conn.commit();
-            System.out.println("Ticket Status set to resolved");
         } catch (SQLException e) {
             e.printStackTrace();
         }

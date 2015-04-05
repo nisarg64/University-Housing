@@ -14,7 +14,8 @@ public class TicketRequest {
     // ---- for staff:
     private Integer ticket_no;
     private String student_id;
-        private String address;
+    private String address;
+    private String severity;
 
     public Date getDate() {
         return date;
@@ -66,6 +67,14 @@ public class TicketRequest {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
     }
 
     public void setAddress(String address) {
