@@ -30,6 +30,7 @@
                 <td><b>Ticket number</b></td>
 
                 <td><b>Ticket type</b></td>
+                <td><b>Ticket severity</b></td>
                 <td><b>Status</b></td>
                 <td><b>Description</b></td>
                 <td><b>Date created</b></td>
@@ -42,6 +43,7 @@
                     <td><s:property value="ticket_no" /></td>
 
                     <td><s:property value="ticket" /></td>
+                    <td><s:property value="severity" /></td>
                     <td><s:property value="status" /></td>
                     <td><s:property value="description" /></td>
                     <td><s:property value="date" /></td>

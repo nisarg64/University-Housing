@@ -20,6 +20,11 @@ public class TicketSeverityTable extends Table{
         return "TICKET_SEVERITY";
     }
 
+//    ORDER BY CASE ticket_priority_id
+//    WHEN 'low' THEN 1
+//    WHEN 'med' THEN 2
+//    WHEN 'high' THEN 3 END
+
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() + " (" +
