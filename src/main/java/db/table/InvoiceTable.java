@@ -24,48 +24,95 @@ public class InvoiceTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + getTableName() + " ( "+
-                        "invoice_id varchar2(32), "+
+                        "invoice_id number, "+
                         "resident_id char(10), "+
-                        "housing_rent INTEGER, "+
-                        "parking_rent INTEGER, "+
-                        "lease_no varchar2(32), "+
+                        "housing_rent INTEGER, "+ // todo - figure this out. Anand: I think not a foreign key.
+                        "parking_rent INTEGER, "+ // todo - same as above.
+                        "lease_no number, "+
                         "pending_charges float(6), "+
                         "late_fees float(6), "+
                         "due_date timestamp, "+
                         "deposit_amount float(6), "+
                         "payment_status varchar2(10), "+
-                        "invoice_payment_id varchar(32), "+
-                        "PRIMARY KEY (invoice_id), "+
-                "FOREIGN KEY (invoice_payment_id) REFERENCES INVOICE_PAYMENT (invoice_payment_id), " +
-                " FOREIGN KEY (resident_id) REFERENCES RESIDENT " +
+
+                        "payment_date timestamp, "+
+                        "amount_paid float(10), "+
+                        "payment_method varchar2(20), "+
+
+                         "PRIMARY KEY (invoice_id), "+
+                " FOREIGN KEY (resident_id) REFERENCES RESIDENT, " +
+                " FOREIGN KEY (lease_no) REFERENCES LEASE " +
                 ")";
         DBAccessor.executeQuery(conn, query);
     }
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-//        List<String> queries = new LinkedList<>();
-//        String query1 = "INSERT INTO " + getTableName()
-//                + " VALUES(" +
-//                INVOICE_SEQUENCE + ".NEXTVAL" +
-//                ", 'abora'," +
-//                " 500," +
-//                " 'abora', 'HID1_O1', 'Room', 'InProgress', 'Water leakage')"; // HID1_O1 from Room table.
-//
-//
-//        queries.add(query1);
-//        // queries.add(query2);
-//        DBAccessor.executeBatchQuery(conn, queries);
+        List<String> queries = new LinkedList<>();
+        String query1 = "INSERT INTO " + getTableName()
+                + " VALUES(" +
+                INVOICE_SEQUENCE + ".NEXTVAL" +
+                ", 'abora'," +
+                " 500," +
+                " 40," +
+                " 1," +
+                " 1," +
+                "1," +
+                " CURRENT_TIMESTAMP + 20," +
+                " 100," +
+                " 'Pending'," +
+                " NULL," +
+                " NULL," +
+                " NULL" +
+                ")";
+
+        String query2 = "INSERT INTO " + getTableName()
+                + " VALUES(" +
+                INVOICE_SEQUENCE + ".NEXTVAL" +
+                ", 'abora'," +
+                " 500," +
+                " 40," +
+                " 1," +
+                " 1," +
+                "1," +
+                " CURRENT_TIMESTAMP - 45," +
+                " 100," +
+                " 'Payed'," +
+                " CURRENT_TIMESTAMP," +
+                " 450," +
+                " 'Cash'" +
+                ")";
+
+        String query3 = "INSERT INTO " + getTableName()
+                + " VALUES(" +
+                INVOICE_SEQUENCE + ".NEXTVAL" +
+                ", 'abora'," +
+                " 900," +
+                " 85," +
+                " 1," +
+                " 1," +
+                "1," +
+                " CURRENT_TIMESTAMP - 5," +
+                " 100," +
+                " 'Payed'," +
+                " CURRENT_TIMESTAMP-2," +
+                " 450," +
+                " 'Check'" +
+                ")";
+
+        queries.add(query1);
+        queries.add(query2);
+        queries.add(query3);
+        DBAccessor.executeBatchQuery(conn, queries);
     }
 
     public Invoice getCurrentInvoiceDetails(Connection conn, String username) {
 
         String query = "SELECT invoice_id, resident_id, housing_rent, parking_rent, " +
-                "lease_no, pending_charges, late_fees, deposit_amount, due_date, payment_status, " +
-                "invoice_payment_id" +
+                "lease_no, pending_charges, late_fees, deposit_amount, due_date, payment_status " +
                 " FROM "+ getTableName()+" where resident_id = '"+username+"' " +
                 "AND invoice_id = (SELECT max(invoice_id) FROM "+getTableName()+" where resident_id ='"+username+"' )";
-
+        System.out.println(query);
         Invoice invoice = null;
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
@@ -80,7 +127,7 @@ public class InvoiceTable extends Table {
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
                 invoice.setDueDate(resultSet.getTimestamp("due_date"));
                 invoice.setPaymentStatus(resultSet.getString("payment_status"));
-                invoice.setInvoicePaymentId(resultSet.getString("invoice_payment_id"));
+//                invoice.setInvoicePaymentId(resultSet.getString("invoice_payment_id"));
 
 
                 System.out.println(invoice);
@@ -94,15 +141,16 @@ public class InvoiceTable extends Table {
 
     public List<String> getFormerInvoices(Connection conn, String resident_id) {
         List<String> formerInvoices = null;
-        String query = "Select invoice_id from '"+getTableName()+
-                "' where resident_id = '"+resident_id+"' AND invoice_id NOT IN "+
+        String query = "Select invoice_id from "+getTableName()+
+                " where resident_id = '"+resident_id+"' AND invoice_id NOT IN "+
                 "(SELECT max(invoice_id) FROM "+getTableName()+" where resident_id ='"+resident_id+"' )";
-
+        System.out.println(query);
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             formerInvoices = new ArrayList<String>();
             while(resultSet.next()){
                 formerInvoices.add(resultSet.getString("invoice_id"));
             }
+            System.out.println(formerInvoices);
         }catch (SQLException ex){
             System.err.println("Error Occurred During view invoice information query  " + ex.getMessage());
         }

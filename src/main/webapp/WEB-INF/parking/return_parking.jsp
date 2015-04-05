@@ -2,7 +2,7 @@
 <div class="container">
 
   <div class="upperText">
-    <span class="upper-text" style="margin-left:32%">Return Parking Page</span>
+    <span class="upper-text">Return Parking Page</span>
   </div>
 
   <label class="statusMessage"><strong><s:property value="message" /></strong></label>

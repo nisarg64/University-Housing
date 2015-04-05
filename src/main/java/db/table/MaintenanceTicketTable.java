@@ -48,8 +48,8 @@ public class MaintenanceTicketTable extends Table{
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water',  CURRENT_TIMESTAMP, 'abora', 'HID1_O1', 'Room', 'InProgress', 'Water leakage')"; // HID1_O1 from Room table.
-        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Electricity', CURRENT_TIMESTAMP - 10, 'akagrawa', 'HID1_O2', 'Room', 'InProgress' , 'Shot circuit')"; // HID1_O1 from Room table.
+        String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water',  CURRENT_TIMESTAMP, 'abora', 'HID1_O1', 'Room', 'New', 'Water leakage')"; // HID1_O1 from Room table.
+        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Electricity', CURRENT_TIMESTAMP - 10, 'akagrawa', 'HID1_O2', 'Room', 'New' , 'Shot circuit')"; // HID1_O1 from Room table.
         String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Appliances', CURRENT_TIMESTAMP - 1, 'abora', 'F1', 'Apt', 'InProgress', 'Oven freezing stuff')"; // F1 from family apt table.
         String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet',  CURRENT_TIMESTAMP - 20, 'abora', 'F2', 'Apt', 'InProgress', 'Internet gets hacked')"; // F2 from family apt table.
 
@@ -70,7 +70,7 @@ public class MaintenanceTicketTable extends Table{
                 + "'" + resident_id + "'" + ", "
                 + "'" + "F2" + "'" + ", "
                 + "'" + "Apt" + "'" + ", " +
-                "'InProgress', "
+                "'New', "
                 + "'" + ticketRequest.getDescription() + "'"
                 + ")";
 
@@ -130,7 +130,7 @@ public class MaintenanceTicketTable extends Table{
                 + new TicketSeverityTable().getTableName() + " TS"
                 + " WHERE "
                 + "STUDENT_ID = RES_ID"
-                + " AND STATUS = 'InProgress'"
+                + " AND (STATUS = 'InProgress' OR STATUS = 'New')"
                 + " AND TS.TICKET_TYPE = M.TICKET_TYPE"
                 + " ORDER BY CASE severity"
                 + "  WHEN 'Low' THEN 3"
@@ -181,4 +181,20 @@ public class MaintenanceTicketTable extends Table{
         }
         return getTicketsToResolve(conn);
     }
+
+    public List<TicketRequest> inProgress (Connection conn, String ticket_no) {
+        String query = "UPDATE " + getTableName()
+                + " SET STATUS = 'InProgress'"
+                + " WHERE TICKET_NO = " + ticket_no;
+        System.out.println(query);
+
+        try {
+            DBAccessor.executeQuery(conn, query);
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return getTicketsToResolve(conn);
+    }
+
 }

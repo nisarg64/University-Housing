@@ -1,8 +1,24 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<script>
+    $( document ).ready(function() {
+
+        $('.approveBtn').click(function(event){
+            event.preventDefault();
+            var value = $(this).attr('rowid');
+            var url = "/uhousing/ajax.approveTerminationLeaseRequest.action?leaseNumber="+value;
+            $.post( url, function( data ) {
+                $( ".container" ).html( data );
+            });
+
+        });
+
+    });
+</script>
+
 <div class="container">
 
     <div class="upperText">
-        <span class="upper-text">View Leases</span>
+        <span class="upper-text">View All Termination Lease Requests</span>
     </div>
 
     <label class="statusMessage" style="text-decoration:solid"><s:property value="message" /></label>
@@ -20,8 +36,9 @@
             <td><b>Security Deposit</b></td>
             <td><b>Cut Off Date</b></td>
             <td><b>Status</b></td>
+            <td><b>Action</b>/td>
         </tr>
-        <s:iterator value="leases" status="stat">
+        <s:iterator value="allLeases" status="stat">
             <tr>
                 <td><a href="/<s:property value='appName'/>/viewLease.action?leaseNumber=<s:property value='leaseNumber' />" ><s:property value="leaseNumber" /></a></td>
                 <td><s:property value="residentId" /></td>
@@ -32,7 +49,7 @@
                 <td><s:property value="securityDeposit" /></td>
                 <td><s:property value="cutoffDate" /></td>
                 <td class="info"><s:property value="status" /></td>
-
+                <td><span><a class="approveBtn btn btn-info" rowid="<s:property value="leaseNumber" />" href="#"> Approve Request</a></span></td>
             </tr>
         </s:iterator>
         </tbody>

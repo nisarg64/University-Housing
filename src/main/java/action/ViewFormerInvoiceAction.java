@@ -16,17 +16,6 @@ public class ViewFormerInvoiceAction extends UHAction {
     private Invoice invoice;
 
     public ViewFormerInvoiceAction(){
-        //String resident_id = (String) sessionMap.get("username");
-        //InvoiceTable invoiceTable = new InvoiceTable();
-        formerInvoices = new ArrayList<String>();
-        //formerInvoices = invoiceTable.getFormerInvoices(conn, resident_id);
-
-        formerInvoices.add("Invoice1");
-        formerInvoices.add("Invoice2");
-        formerInvoices.add("Invoice3");
-        formerInvoices.add("Invoice4");
-        formerInvoices.add("Invoice5");
-        formerInvoices.add("Invoice6");
 
     }
 
@@ -36,11 +25,25 @@ public class ViewFormerInvoiceAction extends UHAction {
         return SUCCESS;
     }
 
+    public String getLeases() {
+        String resident_id = (String) sessionMap.get("username");
+        resident_id = resident_id.trim();
+        System.out.println(resident_id);
+        InvoiceTable invoiceTable = new InvoiceTable();
+        System.out.println("created invoice table!");
+        formerInvoices = new ArrayList<>();
+        System.out.println("now going into invoice table to fetch former invoices --------------------------------");
+        formerInvoices = invoiceTable.getFormerInvoices(conn, resident_id);
+
+        return SUCCESS;
+    }
+
     public String submit() {
 
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();
         InvoiceView invoiceView = new InvoiceView();
+        System.out.println(invoice.getInvoiceId());
         invoice = invoiceView.getFormerInvoiceDetails(conn, resident_id, invoice.getInvoiceId());
 
         return SUCCESS;

@@ -53,6 +53,12 @@ public class LeaseView extends View {
         return getLeases(conn, query).get(0);
     }
 
+    public Lease viewLease(Connection conn, int leaseNumber) {
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber + "";
+        System.out.println(query);
+        return getLeases(conn, query).get(0);
+    }
+
     private List<Lease> getLeases(Connection conn, String query) {
         List<Lease> leases = new ArrayList<Lease>();
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {

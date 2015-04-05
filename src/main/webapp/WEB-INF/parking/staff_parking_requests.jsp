@@ -15,7 +15,7 @@
 <div class="container">
 
     <div class="upperText">
-        <span class="upper-text" style="margin-left:32%">Parking Requests</span>
+        <span class="upper-text">Parking Requests</span>
     </div>
 
     <label class="statusMessage" style="text-decoration:solid"><s:property value="message" /></label>

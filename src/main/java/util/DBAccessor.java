@@ -1,5 +1,7 @@
 package util;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 import java.util.List;
 
@@ -11,9 +13,11 @@ import java.util.List;
 public class DBAccessor {
 
     private static final String jdbcURL = "jdbc:oracle:thin:@ora.csc.ncsu.edu:1521:orcl";
+    final static Logger logger = Logger.getLogger(DBAccessor.class);
 
-    private static final String username = "abora";      //unity id
-    private static final String password = "200045256";      //9 digit student id
+
+    private static final String username = "";      //unity id
+    private static final String password = "";      //9 digit student id
 
     public static Connection getConnection() throws Exception {
         Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -27,6 +31,8 @@ public class DBAccessor {
     }
 
     public static void executeQuery(Connection conn, String query) throws SQLException{
+        logger.info(query + "\n");
+        logger.info("-------------------------------------------------------------------------\n");
         Statement statement = conn.createStatement();
         statement.executeQuery(query);
         statement.close();
@@ -36,6 +42,8 @@ public class DBAccessor {
 
         Statement statement = conn.createStatement();
         for(String query : queries){
+            logger.info(query + "\n");
+            logger.info("-------------------------------------------------------------------------\n");
             statement.addBatch(query);
         }
         statement.executeBatch();
@@ -44,6 +52,8 @@ public class DBAccessor {
 
     public static ResultSet selectQuery(Connection conn, String query) throws SQLException{
         Statement statement = conn.createStatement();
+        logger.info(query + "\n");
+        logger.info("-------------------------------------------------------------------------\n");
         return statement.executeQuery(query);
     }
 }

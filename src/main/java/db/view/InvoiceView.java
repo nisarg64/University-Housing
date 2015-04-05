@@ -23,21 +23,16 @@ public class InvoiceView extends View{
     public void createView(Connection conn) throws SQLException {
 
         String query = "CREATE VIEW " + getViewName() + " as " +
-                " SELECT  " +
-                " invoice_id, resident_id, housing_rent, parking_rent," +
-                " lease_no, pending_charges, late_fees, deposit_amount, due_date, payment_status," +
-                " I.invoice_payment_id, payment_date, amount_paid, payment_method"+
-                " FROM INVOICE I " +
-                " join " +
-                " INVOICE_PAYMENT IP " +
-                " on I.invoice_payment_id = IP.invoice_payment_id ";
+                " SELECT * FROM INVOICE I " ;
+
         DBAccessor.executeQuery(conn, query);
     }
 
     public Invoice getFormerInvoiceDetails(Connection conn, String username, String invoiceId) {
 
         Invoice invoice = null;
-        String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "'";
+        String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "' AND invoice_id = " + invoiceId;
+        System.out.println(query);
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 invoice = new Invoice();
@@ -51,7 +46,6 @@ public class InvoiceView extends View{
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
                 invoice.setDueDate(resultSet.getTimestamp("due_date"));
                 invoice.setPaymentStatus(resultSet.getString("payment_status"));
-                invoice.setInvoicePaymentId(resultSet.getString("invoice_payment_id"));
                 invoice.setPaymentDate(resultSet.getTimestamp("payment_date"));
                 invoice.setAmountPaid(resultSet.getFloat("amount_paid"));
                 invoice.setPaymentMethod(resultSet.getString("payment_method"));
@@ -60,6 +54,7 @@ public class InvoiceView extends View{
             System.err.println("Error Occurred During Former Invoice View " + ex.getMessage());
         }
 
+        System.out.println(invoice);
         return invoice;
     }
 }

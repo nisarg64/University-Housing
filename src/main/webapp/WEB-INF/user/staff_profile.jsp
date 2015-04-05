@@ -2,7 +2,7 @@
 <div class="container">
 
     <div class="upperText">
-        <span class="upper-text" style="margin-left:32%">Profile Page</span>
+        <span class="upper-text">Profile Page</span>
     </div>
         <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
             <tbody>

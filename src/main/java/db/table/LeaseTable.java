@@ -36,7 +36,7 @@ public class LeaseTable extends Table {
     public static final String REFERENCES_STR = "REFERENCES";
 
     public enum LeaseStatus {
-        Pending, Processed, InProgress, Completed;
+        Pending, Processed, InProgress, Completed, Cancelled;
     }
 
     public enum PaymentOption {
