@@ -18,18 +18,12 @@ public class BootStrap {
         Database database = new Database();
         database.addTable(new LoginTable());
         database.addTable(new ResidentTable());
-        database.addTable(new StudentTable());
-        database.addTable(new GuestTable());
         database.addTable(new StaffTable());
         database.addTable(new ParkingLotTable());
 
         database.addTable(new ParkingSpotTable());
         database.addTable(new ParkingPermitTable());
         database.addTable(new ParkingRequestTable());
-
-        database.addView(new StudentView());
-        database.addView(new GuestView());
-        database.addView(new StaffView());
 
         database.addTable(new RoomTable());
         database.addTable(new ResidentHallTable());
@@ -64,12 +58,6 @@ public class BootStrap {
             ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
             System.out.println(parkingRequestTable.selectAll(conn));
 
-            //staffView.createView(conn);
-            /*StudentView studentView = new StudentView();
-            studentView.dropView(conn);
-            studentView.createView(conn);
-            System.out.println(studentView.selectOne(conn, "akagrawa"));
-*/
         }catch (SQLException ex){
             ex.printStackTrace();
         }catch (Exception ex){

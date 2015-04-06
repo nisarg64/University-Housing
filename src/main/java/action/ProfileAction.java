@@ -1,11 +1,9 @@
 package action;
 
-import db.view.GuestView;
-import db.view.StaffView;
-import db.view.StudentView;
-import pojo.Guest;
+import db.table.ResidentTable;
+import db.table.StaffTable;
+import pojo.Resident;
 import pojo.Staff;
-import pojo.Student;
 
 /**
  * Author : abhishek
@@ -13,8 +11,7 @@ import pojo.Student;
  */
 public class ProfileAction extends UHAction {
 
-    private Student student;
-    private Guest guest;
+    private Resident resident;
     private Staff staff;
     private String message;
 
@@ -27,24 +24,16 @@ public class ProfileAction extends UHAction {
         }
         role = role.trim();
 
-        if(role.equalsIgnoreCase("student")){
-            StudentView studentView = new StudentView();
-            student = studentView.selectOne(conn, username);
-            return "student";
-        }
-
-        if(role.equalsIgnoreCase("guest")){
-            GuestView guestView = new GuestView();
-            guest = guestView.selectOne(conn, username);
-            return "guest";
+        if(role.equalsIgnoreCase("student") || role.equalsIgnoreCase("guest")){
+            ResidentTable residentTable = new ResidentTable();
+            resident = residentTable.selectOne(conn, username);
         }
 
         if(role.equalsIgnoreCase("staff")){
-            StaffView staffView = new StaffView();
-            staff = staffView.selectOne(conn, username);
-            return "staff";
+            StaffTable staffTable = new StaffTable();
+            staff = staffTable.selectOne(conn, username);
         }
-        return "student";
+        return role;
     }
 
     public String updateProfile(){
@@ -58,43 +47,26 @@ public class ProfileAction extends UHAction {
         role = role.trim();
 
         message = "Profile Updated Successfully !!";
-        if(role.equalsIgnoreCase("student")){
-            StudentView studentView = new StudentView();
-            student.setStudentId(username);
-            studentView.update(conn, student);
-            return "student";
-        }
-
-        if(role.equalsIgnoreCase("guest")){
-            GuestView guestView = new GuestView();
-            guest.setApprovalId(username);
-            guestView.update(conn, guest);
-            return "guest";
+        if(role.equalsIgnoreCase("student") || role.equalsIgnoreCase("guest")){
+            ResidentTable residentTable = new ResidentTable();
+            resident.setResId(username);
+            residentTable.update(conn, resident);
         }
 
         if(role.equalsIgnoreCase("staff")){
-            StaffView staffView = new StaffView();
+            StaffTable staffTable = new StaffTable();
             staff.setStaffNum(username);
-            return "staff";
         }
 
-        return "student";
+        return role;
     }
 
-    public Student getStudent() {
-        return student;
+    public Resident getResident() {
+        return resident;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
+    public void setResident(Resident resident) {
+        this.resident = resident;
     }
 
     public String getMessage() {
@@ -113,12 +85,5 @@ public class ProfileAction extends UHAction {
         this.staff = staff;
     }
 
-    @Override
-    public String toString() {
-        return "ProfileAction{" +
-                "student=" + student +
-                ", guest=" + guest +
-                ", message='" + message + '\'' +
-                '}';
-    }
+
 }

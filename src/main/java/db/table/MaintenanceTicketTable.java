@@ -33,21 +33,21 @@ public class MaintenanceTicketTable extends Table{
                 " ticket_no NUMBER, " +
                 " ticket_type VARCHAR(20), " +
                 " ticket_date timestamp, " +
-                " student_id char(10), " +
+                " res_id char(10), " +
                 " location_id VARCHAR(20), " + // room_id or family_apt_id
                 " location_type VARCHAR(20), " + // Room or Apt
                 " status VARCHAR(20), " + // status - InProgress, Resolved
                 " description VARCHAR(1000), " + // status - InProgress, Resolved
                 " PRIMARY KEY (ticket_no), " +
                 " FOREIGN KEY (ticket_type) REFERENCES TICKET_SEVERITY  , " +
-                " FOREIGN KEY (student_id) REFERENCES RESIDENT " +
+                " FOREIGN KEY (res_id) REFERENCES RESIDENT(res_id) " +
                 ")";
         executeQuery(conn, query);
     }
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-        List<String> queries = new LinkedList<>();
+        /*List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water',  CURRENT_TIMESTAMP, 'abora', 'HID1_O1', 'Room', 'New', 'Water leakage')"; // HID1_O1 from Room table.
         String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Electricity', CURRENT_TIMESTAMP - 10, 'akagrawa', 'HID1_O2', 'Room', 'New' , 'Shot circuit')"; // HID1_O1 from Room table.
         String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Appliances', CURRENT_TIMESTAMP - 1, 'abora', 'F1', 'Apt', 'InProgress', 'Oven freezing stuff')"; // F1 from family apt table.
@@ -57,7 +57,7 @@ public class MaintenanceTicketTable extends Table{
         queries.add(query2);
         queries.add(query3);
         queries.add(query4);
-        DBAccessor.executeBatchQuery(conn, queries);
+        DBAccessor.executeBatchQuery(conn, queries);*/
     }
 
     public void insertRequest(Connection conn, String resident_id, TicketRequest ticketRequest) {
@@ -92,7 +92,7 @@ public class MaintenanceTicketTable extends Table{
         String query = "SELECT * FROM "
                 + getTableName()
                 + " WHERE "
-                + "STUDENT_ID = '"
+                + "RES_ID = '"
                 + resident_id
                 + "'";
 
@@ -129,7 +129,7 @@ public class MaintenanceTicketTable extends Table{
                 + new ResidentTable().getTableName() + " R,"
                 + new TicketSeverityTable().getTableName() + " TS"
                 + " WHERE "
-                + "STUDENT_ID = RES_ID"
+                + "RES_ID = RES_ID"
                 + " AND (STATUS = 'InProgress' OR STATUS = 'New')"
                 + " AND TS.TICKET_TYPE = M.TICKET_TYPE"
                 + " ORDER BY CASE severity"
@@ -153,7 +153,7 @@ public class MaintenanceTicketTable extends Table{
 //                ticketDate.setTime(resultSet.getTime("ticket_date"));
                 ticketRequest.setDate(resultSet.getTimestamp("ticket_date"));
 
-                ticketRequest.setStudent_id(resultSet.getString("FNAME") + " " + resultSet.getString("LNAME"));
+                ticketRequest.setResidentId(resultSet.getString("FNAME") + " " + resultSet.getString("LNAME"));
                 ticketRequest.setTicket_no(resultSet.getInt("ticket_no"));
                 ticketRequest.setSeverity(resultSet.getString("severity"));
                 ticketRequest.setAddress("todo - set correct address - roomno , apt or hall no.");

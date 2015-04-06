@@ -48,7 +48,7 @@ public class InvoiceTable extends Table {
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-        List<String> queries = new LinkedList<>();
+        /*List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName()
                 + " VALUES(" +
                 INVOICE_SEQUENCE + ".NEXTVAL" +
@@ -103,7 +103,7 @@ public class InvoiceTable extends Table {
         queries.add(query1);
         queries.add(query2);
         queries.add(query3);
-        DBAccessor.executeBatchQuery(conn, queries);
+        DBAccessor.executeBatchQuery(conn, queries);*/
     }
 
     public Invoice getCurrentInvoiceDetails(Connection conn, String username) {

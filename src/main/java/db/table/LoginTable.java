@@ -35,18 +35,23 @@ public class LoginTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('akagrawa', 'abc123', 'student')";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('abora', 'abc123', 'student')";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('tomhanks', 'abc123', 'student')";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('rdravid', 'abc123', 'student')";
-        String query5 = "INSERT INTO " + getTableName() + " VALUES('bpitt', 'abc123', 'student')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('100540001', 'abc123', 'student')";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('100540002', 'abc123', 'student')";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('100540003', 'abc123', 'student')";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('100540004', 'abc123', 'student')";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('100540005', 'abc123', 'student')";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('100540006', 'abc123', 'student')";
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('100540007', 'abc123', 'student')";
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('100540008', 'abc123', 'student')";
 
-        String query6 = "INSERT INTO " + getTableName() + " VALUES('kogan', 'xyz123', 'staff')";
+        String query9 = "INSERT INTO " + getTableName() + " VALUES('200540001', 'abc123', 'guest')";
+        String query10 = "INSERT INTO " + getTableName() + " VALUES('200540002', 'abc123', 'guest')";
 
-
-        String query7 = "INSERT INTO " + getTableName() + " VALUES('approval1', 'xyz123', 'guest')";
-        String query8 = "INSERT INTO " + getTableName() + " VALUES('approval2', 'abc123', 'guest')";
-        String query9 = "INSERT INTO " + getTableName() + " VALUES('approval3', 'abc123', 'guest')";
+        String query11 = "INSERT INTO " + getTableName() + " VALUES('300220001', 'abc123', 'staff')";
+        String query12 = "INSERT INTO " + getTableName() + " VALUES('300220002', 'abc123', 'staff')";
+        String query13 = "INSERT INTO " + getTableName() + " VALUES('300220003', 'abc123', 'staff')";
+        String query14 = "INSERT INTO " + getTableName() + " VALUES('300220004', 'abc123', 'staff')";
+        String query15 = "INSERT INTO " + getTableName() + " VALUES('300220005', 'abc123', 'staff')";
 
 
         queries.add(query1);
@@ -58,6 +63,13 @@ public class LoginTable extends Table{
         queries.add(query7);
         queries.add(query8);
         queries.add(query9);
+        queries.add(query10);
+        queries.add(query11);
+        queries.add(query12);
+        queries.add(query13);
+        queries.add(query14);
+        queries.add(query15);
+
         DBAccessor.executeBatchQuery(conn, queries);
     }
 

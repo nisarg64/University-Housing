@@ -19,8 +19,8 @@
                 <td data-field="position"><input type="text" name="staff.position" value="<s:property value="staff.position"/>" readonly autofocus/></td>
             </tr>
             <tr>
-                <th>Location:</th>
-                <td data-field="location"><input type="text" name="staff.location" value="<s:property value="staff.location"/>" readonly autofocus/></td>
+                <th>Work Location:</th>
+                <td data-field="location"><input type="text" name="staff.workLocation" value="<s:property value="staff.workLocation"/>" readonly autofocus/></td>
             </tr>
             <tr>
                 <th>Date of Birth:</th>
@@ -39,12 +39,13 @@
                 <td data-field="address_city"><input type="text" name="staff.addrCity" value="<s:property value="staff.addrCity"/>" readonly autofocus/></td>
             </tr>
             <tr>
+                <th>Address Country:</th>
+                <td data-field="address_country"><input type="text" name="staff.addrCountry" value="<s:property value="staff.addrCountry"/>" readonly autofocus/></td>
+            </tr>
+
+            <tr>
                 <th>Postal Code:</th>
                 <td data-field="postal"><input type="text" name="staff.postalCode" value="<s:property value="staff.postalCode"/>" readonly autofocus/></td>
-            </tr>
-            <tr>
-                <th>Phone number:</th>
-                <td data-field="p_phone"><input type="text" name="staff.primaryPhone" value="<s:property value="staff.primaryPhone"/>" readonly autofocus/></td>
             </tr>
             </tbody>
         </table>
