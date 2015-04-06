@@ -14,6 +14,10 @@ public class LoginAction extends UHAction {
     private String errorMsg = "Invalid Username or Password";
 
     public String execute(){
+        if(sessionMap.containsKey("username")){
+            sessionMap.remove("username");
+            sessionMap.remove("role");
+        }
 
         System.out.println(username + " ------- " + password);
         // check if the userName is already stored in the session
