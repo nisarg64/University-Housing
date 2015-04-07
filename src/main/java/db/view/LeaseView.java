@@ -29,7 +29,7 @@ public class LeaseView extends View {
     public void createView(Connection conn) throws SQLException {
         String query = "CREATE VIEW " + getViewName() + " as " +
                 " SELECT l.request_number, l.res_id, l.status, l.enter_date, l.duration, " +
-                "l.payment_option, l.security_deposit" +
+                "l.payment_option, l.security_deposit, l.location_number, l.housing_id" +
                 " FROM LEASE l";
         DBAccessor.executeQuery(conn, query);
     }
@@ -85,8 +85,8 @@ public class LeaseView extends View {
 
     public Lease viewLease(Connection conn, int leaseNumber) {
         String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.REQUEST_NUMBER + " = " + leaseNumber + "";
-        System.out.println(query);
-        return getLeases(conn, query).get(0);
+        List<Lease> leases = getLeases(conn, query);
+        return leases.isEmpty() ? null : leases.get(0);
     }
 
     private List<Lease> getLeases(Connection conn, String query) {
@@ -99,10 +99,10 @@ public class LeaseView extends View {
                 lease.setStatus(rs.getString(LeaseTable.STATUS));
                 lease.setEnterDate(rs.getDate(LeaseTable.ENTER_DATE));
                 lease.setDuration(rs.getInt(LeaseTable.DURATION));
-                //lease.setLeaveDate(rs.getDate(LeaseTable.LEAVE_DATE));
                 lease.setPaymentOption(rs.getString(LeaseTable.PAYMENT_OPTION));
                 lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
-                //lease.setCutoffDate(rs.getDate(LeaseTable.CUTOFF_DATE));
+                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
+                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
                 leases.add(lease);
             }
         } catch (SQLException ex) {

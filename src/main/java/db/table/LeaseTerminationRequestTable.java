@@ -56,6 +56,12 @@ public class LeaseTerminationRequestTable extends Table {
         stmt.executeUpdate();
     }
 
+    public void updateStatus(Connection conn, LeaseTerminationRequest request, LeaseTable.RequestStatus status) throws SQLException {
+        String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status +
+                "' where " + REQUEST_NUMBER + " = " + request.getRequestNumber();
+        DBAccessor.executeQuery(conn, sql);
+    }
+
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();

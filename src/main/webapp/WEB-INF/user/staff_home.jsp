@@ -17,7 +17,7 @@
                     </td>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="/<s:property value='appName'/>/viewAllTerminationLeasesToApprove.action" id="leaseNavigator" class="big_button top_margin">View Terminate Lease Requests</a>
+                            <a href="/<s:property value='appName'/>/viewAllLeaseTerminationRequestsToApprove.action" id="leaseNavigator" class="big_button top_margin">View Terminate Lease Requests</a>
                         </div>
                     </td>
                 </tr>

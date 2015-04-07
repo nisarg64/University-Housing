@@ -1,12 +1,15 @@
 package action;
 
 import db.table.LeaseTable;
+import db.table.LeaseTerminationRequestTable;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.Lease;
 import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,6 +23,9 @@ public class StaffLeaseAction extends UHAction{
     private List<LeaseTerminationRequest> allTerminationLeases;
     private int leaseNumber;
     private Lease lease;
+    private int damageFees;
+    private int requestNumber;
+    private LeaseTerminationRequest leaseTerminationRequest;
 
     public String getAllRequests() {
         LeaseView view = new LeaseView();
@@ -27,10 +33,14 @@ public class StaffLeaseAction extends UHAction{
         return "success";
     }
 
-    public String getAllTerminationRequests() {
+    public String getAllLeaseTerminationRequests() {
         LeaseTerminationRequestView view = new LeaseTerminationRequestView();
         allTerminationLeases = view.viewLeaseTerminationRequests(conn);
         return "success";
+    }
+
+    public String editLeaseTerminationRequestToApprove() {
+        return SUCCESS;
     }
 
     public String approveLeaseRequest() throws SQLException {
@@ -42,8 +52,22 @@ public class StaffLeaseAction extends UHAction{
         lease.setLeaseNumber(leaseNumber);
 
         // TODO set based on preferences
-        lease.setApartmentNumber(null);
-        lease.setPlaceNumber(null);
+        lease.setHousingId(null);
+        lease.setLocationNumber(null);
+        return "success";
+    }
+
+    public String approveLeaseTerminationRequest() throws SQLException {
+        String sql = "update " + LeaseTerminationRequestTable.TABLE_NAME +
+                " set " + LeaseTerminationRequestTable.INSPECTION_DATE+ " = ? where "+
+                LeaseTerminationRequestTable.REQUEST_NUMBER + " = " + requestNumber;
+
+        System.out.println(sql);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setDate(1, new Date(leaseTerminationRequest.getInspectionDate().getTime()));
+        stmt.executeUpdate();
+        LeaseTerminationRequestView view = new LeaseTerminationRequestView();
+        allTerminationLeases = view.viewLeaseTerminationRequests(conn);
         return "success";
     }
 
@@ -100,5 +124,27 @@ public class StaffLeaseAction extends UHAction{
         this.lease = lease;
     }
 
+    public int getDamageFees() {
+        return damageFees;
+    }
 
+    public void setDamageFees(int damageFees) {
+        this.damageFees = damageFees;
+    }
+
+    public int getRequestNumber() {
+        return requestNumber;
+    }
+
+    public void setRequestNumber(int requestNumber) {
+        this.requestNumber = requestNumber;
+    }
+
+    public LeaseTerminationRequest getLeaseTerminationRequest() {
+        return leaseTerminationRequest;
+    }
+
+    public void setLeaseTerminationRequest(LeaseTerminationRequest leaseTerminationRequest) {
+        this.leaseTerminationRequest = leaseTerminationRequest;
+    }
 }

@@ -159,7 +159,13 @@
             <result name="success">/WEB-INF/lease/view_all_request.jsp</result>
         </action>
 
-        <action name="cancelRequest" class="action.UHAction">
+        <action name="cancelRequest" class="action.LeaseAction" method="cancelRequest">
+            <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
+        </action>
+
+        <action name="saveCancelRequest" class="action.LeaseAction" method="saveCancelRequest">
+            <result name="cannotupdate">/WEB-INF/lease/cancel_request.jsp</result>
+            <result name="notexists">/WEB-INF/lease/cancel_request.jsp</result>
             <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
         </action>
 
@@ -172,16 +178,20 @@
             <result name="success">/WEB-INF/lease/staff/view_lease_request.jsp</result>
         </action>
 
-        <action name="viewAllTerminationLeasesToApprove" class="action.StaffLeaseAction" method="getAllTerminationRequests">
-            <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
-        </action>
-
         <action name="approveLeaseRequest" class="action.StaffLeaseAction" method="approveLeaseRequest">
             <result name="success">/WEB-INF/lease/staff/view_approved_lease_request.jsp</result>
         </action>
 
-        <action name="ajax.approveTerminationLeaseRequest" class="action.StaffLeaseAction" method="approveTerminationLease">
-            <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
+        <action name="viewAllLeaseTerminationRequestsToApprove" class="action.StaffLeaseAction" method="getAllLeaseTerminationRequests">
+            <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
+        </action>
+
+        <action name="editLeaseTerminationRequestToApprove" class="action.StaffLeaseAction" method="editLeaseTerminationRequestToApprove">
+            <result name="success">/WEB-INF/lease/staff/edit_lease_termination_request.jsp</result>
+        </action>
+
+        <action name="approveLeaseTerminationRequest" class="action.StaffLeaseAction" method="approveLeaseTerminationRequest">
+            <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
         </action>
 
         <!-- maintenance -->

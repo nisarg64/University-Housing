@@ -24,6 +24,8 @@ import java.util.Map;
  */
 public class LeaseAction extends UHAction {
 
+    public static final String NOTEXISTS = "notexists";
+    public static final String CANNOTUPDATE = "cannotupdate";
     private Lease lease;
     private int leaseNumber;
     private List<Integer> leaseDurations;
@@ -31,8 +33,9 @@ public class LeaseAction extends UHAction {
     private List<String> preferenceTypes;
     private Map<String, String> halls;
     private List<Lease> leases;
-    private List<Lease> terminateLeases;
+    private List<LeaseTerminationRequest> terminateLeases;
     private LeaseTerminationRequest leaseTerminationRequest;
+    private int requestNumber;
 
     public LeaseAction() {}
 
@@ -108,7 +111,7 @@ public class LeaseAction extends UHAction {
     public String createLeaseRequest() throws Exception {
         System.out.println(lease);
         String username = (String) sessionMap.get("username");
-        lease.setResidentId(username);
+        lease.setResidentId(username.trim());
         lease.setSecurityDeposit(0);
         lease.setStatus(LeaseTable.RequestStatus.Pending.name());
         lease.setLeaseNumber(new LeaseTable().insert(conn, lease));
@@ -138,6 +141,9 @@ public class LeaseAction extends UHAction {
 
     public String getAllLeases() {
 
+        String username = (String) sessionMap.get("username");
+        leases = (new LeaseView()).viewAllLeaseRequestsForResident(conn, username);
+        terminateLeases = (new LeaseTerminationRequestView()).viewAllLeaseTerminationRequestForResident(conn, username);
         return "success";
     }
 
@@ -162,6 +168,49 @@ public class LeaseAction extends UHAction {
         leaseTerminationRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
         new LeaseTerminationRequestTable().insert(conn, leaseTerminationRequest);
         return SUCCESS;
+    }
+
+    public String cancelRequest() {
+        return SUCCESS;
+    }
+
+    public String saveCancelRequest() throws SQLException {
+        System.out.println(requestNumber);
+        String username = ((String) sessionMap.get("username")).trim();
+
+        Lease lease = new LeaseView().viewLease(conn, requestNumber);
+        if (lease != null) {
+            System.out.println(lease);
+            if (username.equals(lease.getResidentId().trim())) {
+                LeaseTable.RequestStatus status = LeaseTable.RequestStatus.valueOf(lease.getStatus());
+                switch (status) {
+                    case Pending:
+                    case WaitList:
+                        (new LeaseTable()).updateStatus(conn, lease, LeaseTable.RequestStatus.Cancelled);
+                        return SUCCESS;
+                    default:
+                        return CANNOTUPDATE;
+                }
+            } else {
+                return NOTEXISTS;
+            }
+
+        }
+        LeaseTerminationRequest request = new LeaseTerminationRequestView().viewLeaseTerminationRequest(conn, requestNumber);
+        if (request != null) {
+            System.out.println(request);
+            if (username.equals(request.getLease().getResidentId().trim())) {
+                if (LeaseTable.RequestStatus.Pending.name().equals(request.getStatus())) {
+                    (new LeaseTerminationRequestTable()).updateStatus(conn, request, LeaseTable.RequestStatus.Cancelled);
+                    return SUCCESS;
+                } else {
+                    return CANNOTUPDATE;
+                }
+            } else {
+                return NOTEXISTS;
+            }
+        }
+        return NOTEXISTS;
     }
 
     /*public Lease getLease() throws Exception {
@@ -230,11 +279,11 @@ public class LeaseAction extends UHAction {
         this.leaseNumber = leaseNumber;
     }
 
-    public List<Lease> getTerminateLeases() {
+    public List<LeaseTerminationRequest> getTerminateLeases() {
         return terminateLeases;
     }
 
-    public void setTerminateLeases(List<Lease> terminateLeases) {
+    public void setTerminateLeases(List<LeaseTerminationRequest> terminateLeases) {
         this.terminateLeases = terminateLeases;
     }
 
@@ -244,5 +293,13 @@ public class LeaseAction extends UHAction {
 
     public void setLeaseTerminationRequest(LeaseTerminationRequest leaseTerminationRequest) {
         this.leaseTerminationRequest = leaseTerminationRequest;
+    }
+
+    public int getRequestNumber() {
+        return requestNumber;
+    }
+
+    public void setRequestNumber(int requestNumber) {
+        this.requestNumber = requestNumber;
     }
 }
