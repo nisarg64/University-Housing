@@ -22,10 +22,12 @@ public class GeneralAptTable extends Table{
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() +" (" +
                 " gen_apt_id " + ColumnTypes.ID_TYPE + " ," +
-                " num_room number, " +
+                " apt_id " + ColumnTypes.ID_TYPE + " ," +
+                " num_bedroom number, " +
+                " num_bath number, " +
                 " rent_per_bed number, " +
                 " security_deposit number, " +
-                " PRIMARY KEY (gen_apt_id), " +
+                " PRIMARY KEY (gen_apt_id, apt_id), " +
                 " FOREIGN KEY (gen_apt_id) REFERENCES HOUSING " +
                 ")";
 
@@ -38,16 +40,30 @@ public class GeneralAptTable extends Table{
         List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() +" " +
                 "VALUES" +
-                "('3', " +
-                " 5, " +
+                "('3', '101', " +
+                " 3, 3, " +
+                " 350, " +
+                " 400 " +
+                " )";
+        String query2 = "INSERT INTO " + getTableName() +" " +
+                "VALUES" +
+                "('3', '102', " +
+                " 4, 4, " +
                 " 350, " +
                 " 400 " +
                 " )";
 
-        String query2 = "INSERT INTO " + getTableName() +" " +
+        String query3 = "INSERT INTO " + getTableName() +" " +
                 "VALUES" +
-                "('4', " +
-                " 3, " +
+                "('4', '103', " +
+                " 3, 3, " +
+                " 375, " +
+                " 450 " +
+                " )";
+        String query4 = "INSERT INTO " + getTableName() +" " +
+                "VALUES" +
+                "('4', '104', " +
+                " 4, 4, " +
                 " 375, " +
                 " 450 " +
                 " )";
