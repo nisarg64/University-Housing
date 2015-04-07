@@ -47,17 +47,17 @@ public class MaintenanceTicketTable extends Table{
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-        /*List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water',  CURRENT_TIMESTAMP, 'abora', 'HID1_O1', 'Room', 'New', 'Water leakage')"; // HID1_O1 from Room table.
-        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Electricity', CURRENT_TIMESTAMP - 10, 'akagrawa', 'HID1_O2', 'Room', 'New' , 'Shot circuit')"; // HID1_O1 from Room table.
-        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Appliances', CURRENT_TIMESTAMP - 1, 'abora', 'F1', 'Apt', 'InProgress', 'Oven freezing stuff')"; // F1 from family apt table.
-        String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet',  CURRENT_TIMESTAMP - 20, 'abora', 'F2', 'Apt', 'InProgress', 'Internet gets hacked')"; // F2 from family apt table.
+        List<String> queries = new LinkedList<>();
+        String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water', '06-Apr-2015', '100540001', 'HID1_O1', 'Room', 'Pending', 'No Water')"; // HID1_O1 from Room table.
+        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet', '30-Mar-2015', '100540003', 'HID1_O1', 'Room', 'Complete', 'Internet Not Working')"; // HID1_O1 from Room table.
+        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Cleaning', '15-Mar-2015', '100540007', 'HID1_O1', 'Room', 'Complete', 'Cleaning')"; // HID1_O1 from Room table.
+        String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Miscellaneous', '02-Apr-2015', '200540002', 'HID1_O1', 'Room', 'Pending', 'Window broken')"; // HID1_O1 from Room table.
 
         queries.add(query1);
         queries.add(query2);
         queries.add(query3);
         queries.add(query4);
-        DBAccessor.executeBatchQuery(conn, queries);*/
+        DBAccessor.executeBatchQuery(conn, queries);
     }
 
     public void insertRequest(Connection conn, String resident_id, TicketRequest ticketRequest) {
@@ -70,7 +70,7 @@ public class MaintenanceTicketTable extends Table{
                 + "'" + resident_id + "'" + ", "
                 + "'" + "F2" + "'" + ", "
                 + "'" + "Apt" + "'" + ", " +
-                "'New', "
+                "'Pending', "
                 + "'" + ticketRequest.getDescription() + "'"
                 + ")";
 
@@ -108,7 +108,6 @@ public class MaintenanceTicketTable extends Table{
                 ticketRequest.setDate(resultSet.getTimestamp("ticket_date"));
 
                 tickets.add(ticketRequest);
-//                System.out.println(ticketRequest);
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During get tickets query " + ex.getMessage());
@@ -129,35 +128,26 @@ public class MaintenanceTicketTable extends Table{
                 + new ResidentTable().getTableName() + " R,"
                 + new TicketSeverityTable().getTableName() + " TS"
                 + " WHERE "
-                + "RES_ID = RES_ID"
-                + " AND (STATUS = 'InProgress' OR STATUS = 'New')"
+                + "M.RES_ID = R.RES_ID"
+                + " AND M.STATUS = 'Pending'"
                 + " AND TS.TICKET_TYPE = M.TICKET_TYPE"
-                + " ORDER BY CASE severity"
+                + " ORDER BY CASE TS.severity"
                 + "  WHEN 'Low' THEN 3"
                 + "  WHEN 'Medium' THEN 2"
                 + "  WHEN 'High' THEN 1"
-                + "  END, ticket_date";
-
-        System.out.println(query);
+                + "  END, M.ticket_date";
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 TicketRequest ticketRequest = new TicketRequest();
-//                Date ticketDate;
-
                 ticketRequest.setTicket(resultSet.getString("ticket_type"));
                 ticketRequest.setStatus(resultSet.getString("status"));
                 ticketRequest.setDescription(resultSet.getString("description"));
-
-//                ticketDate = resultSet.getDate("ticket_date");
-//                ticketDate.setTime(resultSet.getTime("ticket_date"));
                 ticketRequest.setDate(resultSet.getTimestamp("ticket_date"));
-
                 ticketRequest.setResidentId(resultSet.getString("FNAME") + " " + resultSet.getString("LNAME"));
                 ticketRequest.setTicket_no(resultSet.getInt("ticket_no"));
                 ticketRequest.setSeverity(resultSet.getString("severity"));
                 ticketRequest.setAddress("todo - set correct address - roomno , apt or hall no.");
-
                 tickets.add(ticketRequest);
             }
         }catch (SQLException ex){
@@ -169,7 +159,7 @@ public class MaintenanceTicketTable extends Table{
 
     public List<TicketRequest> resolve(Connection conn, String ticket_no) {
         String query = "UPDATE " + getTableName()
-                + " SET STATUS = 'Resolved'"
+                + " SET STATUS = 'Complete'"
                 + " WHERE TICKET_NO = " + ticket_no;
         System.out.println(query);
 
@@ -181,20 +171,4 @@ public class MaintenanceTicketTable extends Table{
         }
         return getTicketsToResolve(conn);
     }
-
-    public List<TicketRequest> inProgress (Connection conn, String ticket_no) {
-        String query = "UPDATE " + getTableName()
-                + " SET STATUS = 'InProgress'"
-                + " WHERE TICKET_NO = " + ticket_no;
-        System.out.println(query);
-
-        try {
-            DBAccessor.executeQuery(conn, query);
-            conn.commit();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return getTicketsToResolve(conn);
-    }
-
 }

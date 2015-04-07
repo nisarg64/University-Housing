@@ -69,15 +69,7 @@ public class RequestTicketAction extends UHAction {
         System.out.println("ticket no: " + ticket_no);
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
         tickets = prTable.resolve(conn, ticket_no);
-        message = "Ticket Resolved!";
-        return SUCCESS;
-    }
-
-    public String inProgress() {
-        System.out.println("ticket no: " + ticket_no);
-        MaintenanceTicketTable prTable = new MaintenanceTicketTable();
-        tickets = prTable.inProgress(conn, ticket_no);
-        message = "Ticket set to In-Progress!";
+        message = "Ticket Complete!";
         return SUCCESS;
     }
 

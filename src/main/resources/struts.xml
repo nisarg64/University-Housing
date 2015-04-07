@@ -203,10 +203,6 @@
             <result name="success">/WEB-INF/maintenance/ticket_resolve.jsp</result>
         </action>
 
-
-        <action name="ajax.inProgressTicket" class="action.RequestTicketAction" method="inProgress">
-            <result name="success">/WEB-INF/maintenance/ticket_resolve.jsp</result>
-        </action>
         <!---->
 
     </package>
