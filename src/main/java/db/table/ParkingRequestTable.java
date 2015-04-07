@@ -61,7 +61,7 @@ public class ParkingRequestTable extends Table {
         queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '200540001', 'Small' , 'No', 'No', 'approved', pr_sequence.currval )");
         queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '200540002', 'Small' , 'No', 'No', 'pending', null )");
         queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '038', 'Parking Lot 6', '01-Jan-2014','31-Jul-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540008', 'Large' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540008', 'Large' , 'No', 'No', 'approved', pr_sequence.currnval )");
 
 
         System.out.println(queries.get(0));
