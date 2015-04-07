@@ -154,4 +154,8 @@ public class LeaseTable extends Table {
             "' where " + REQUEST_NUMBER + " = " + lease.getLeaseNumber();;
         DBAccessor.executeQuery(conn, sql);
     }
+
+    public Lease getLease(String residentId){
+        return new Lease();
+    }
 }

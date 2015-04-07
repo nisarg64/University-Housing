@@ -1,5 +1,6 @@
 package db.table;
 
+import db.view.LeaseView;
 import pojo.Invoice;
 import pojo.Lease;
 import util.DBAccessor;
@@ -158,8 +159,8 @@ public class InvoiceTable extends Table {
 
     public void insertFormerInvoices(Connection conn, String residentId){
 
-        LeaseTable leaseTable = new LeaseTable();
-        Lease lease = leaseTable.getLease(residentId);
+        LeaseView leaseView = new LeaseView();
+        Lease lease = leaseView.viewCurrentLease(conn, residentId);
         Date enterDate = lease.getEnterDate();
         Date leaveDate = lease.getLeaveDate();
         Date cutoffDate = lease.getCutoffDate();

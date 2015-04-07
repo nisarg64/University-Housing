@@ -42,17 +42,30 @@ public class LeasePreferenceTable extends Table {
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = "CREATE TABLE " + TABLE_NAME + " (" +
+     /*   String query = "CREATE TABLE " + TABLE_NAME + " (" +
                 LeaseTable.REQUEST_NUMBER + " " + ColumnTypes.ID_INT_TYPE + ", " +
                 SEQUENCE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
+<<<<<<< Updated upstream
                 TYPE + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
                 ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
                 LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
                 LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + ") " +
                 LeaseTable.REFERENCES_STR + " " + LeaseTable.TABLE_NAME +
+=======
+                TYPE + " " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + ", " +
+                ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
+                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + ") " +
+                "housing_id" + " " + ColumnTypes.ID_TYPE + ", " +
+                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + "," + SEQUENCE_NUMBER + "), " +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + ") " +
+                LeaseTable.REFERENCES_STR + " " + LeaseTable.TABLE_NAME + ", " +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + "housing_id" + ") " +
+                LeaseTable.REFERENCES_STR + " " + "HOUSING" +
+>>>>>>> Stashed changes
                 ")";
 
-        DBAccessor.executeQuery(conn, query);
+        DBAccessor.executeQuery(conn, query);*/
     }
 
     @Override
