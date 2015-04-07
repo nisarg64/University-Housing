@@ -32,6 +32,8 @@ public class ParkingApprovalAction extends UHAction {
             isApproved = prTable.checkParkingAvailability(conn, requestId);
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         if(isApproved.equals("REJECT"))
             message = "Request Rejected";

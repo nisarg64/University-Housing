@@ -13,12 +13,14 @@ import java.util.Locale;
  */
 public abstract class Utils {
 
-    public static Timestamp getRenewdTimestamp(Timestamp end_date){
+    public static String getRenewdTimestamp(Timestamp end_date){
         Calendar cal = Calendar.getInstance();
         cal.setTime(end_date);
         cal.add(Calendar.DAY_OF_WEEK, 150);
+        cal.set(Calendar.MILLISECOND, 0);
         end_date.setTime(cal.getTime().getTime());
-        return new Timestamp(cal.getTime().getTime());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(end_date);
     }
 
     public static Long getCurrentTS(){
