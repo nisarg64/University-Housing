@@ -27,29 +27,19 @@
     <table class="table table-bordered" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
         <tr>
+            <td><b>Request Number</b></td>
             <td><b>Lease Number</b></td>
-            <td><b>Resident ID</b></td>
-            <td><b>Enter Date</b></td>
-            <td><b>Leave Date</b></td>
-            <td><b>Duration</b></td>
-            <td><b>Payment Option</b></td>
-            <td><b>Security Deposit</b></td>
-            <td><b>Cut Off Date</b></td>
             <td><b>Status</b></td>
-            <td><b>Action</b>/td>
+            <td><b>Leave Date</b></td>
+            <td><b>Inspection Date</b></td>
         </tr>
-        <s:iterator value="allLeases" status="stat">
+        <s:iterator value="allTerminationLeases" status="stat">
             <tr>
-                <td><a href="/<s:property value='appName'/>/viewLease.action?leaseNumber=<s:property value='leaseNumber' />" ><s:property value="leaseNumber" /></a></td>
-                <td><s:property value="residentId" /></td>
-                <td><s:property value="enterDate" /></td>
+                <td><a href="/<s:property value='appName'/>/editLeaseTerminationRequestToApprove.action?requestNumber=<s:property value='requestNumber' />" ><s:property value="requestNumber" /></a></td>
+                <td><s:property value="lease.leaseNumber" /></td>
+                <td><s:property value="status" /></td>
                 <td><s:property value="leaveDate" /></td>
-                <td><s:property value="duration" /></td>
-                <td><s:property value="paymentOption" /></td>
-                <td><s:property value="securityDeposit" /></td>
-                <td><s:property value="cutoffDate" /></td>
-                <td class="info"><s:property value="status" /></td>
-                <td><span><a class="approveBtn btn btn-info" rowid="<s:property value="leaseNumber" />" href="#"> Approve Request</a></span></td>
+                <td><s:date name="inspectionDate" format="MM/dd/yy"/></td>
             </tr>
         </s:iterator>
         </tbody>
