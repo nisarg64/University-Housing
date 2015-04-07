@@ -12,13 +12,12 @@ public class Staff {
     private String status;
     private String addrStreet;
     private String addrCity;
+    private String addrCountry;
     private String postalCode;
     private String gender;
     private String dob;
-    private String primaryPhone;
     private String position;
-    private String location;
-
+    private String workLocation;
 
     public String getFname() {
         return fname;
@@ -84,14 +83,6 @@ public class Staff {
         this.dob = dob;
     }
 
-    public String getPrimaryPhone() {
-        return primaryPhone;
-    }
-
-    public void setPrimaryPhone(String primaryPhone) {
-        this.primaryPhone = primaryPhone;
-    }
-
     public String getStaffNum() {
         return staffNum;
     }
@@ -108,12 +99,20 @@ public class Staff {
         this.position = position;
     }
 
-    public String getLocation() {
-        return location;
+    public String getAddrCountry() {
+        return addrCountry;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAddrCountry(String addrCountry) {
+        this.addrCountry = addrCountry;
+    }
+
+    public String getWorkLocation() {
+        return workLocation;
+    }
+
+    public void setWorkLocation(String workLocation) {
+        this.workLocation = workLocation;
     }
 
     @Override
@@ -125,12 +124,12 @@ public class Staff {
                 ", status='" + status + '\'' +
                 ", addrStreet='" + addrStreet + '\'' +
                 ", addrCity='" + addrCity + '\'' +
+                ", addrCountry='" + addrCountry + '\'' +
                 ", postalCode='" + postalCode + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
-                ", primaryPhone='" + primaryPhone + '\'' +
                 ", position='" + position + '\'' +
-                ", location='" + location + '\'' +
+                ", workLocation='" + workLocation + '\'' +
                 '}';
     }
 }

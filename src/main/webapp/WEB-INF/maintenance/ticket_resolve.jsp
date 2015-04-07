@@ -11,16 +11,6 @@
             });
 
         });
-
-        $('.inProgressTicketBtn').click(function(event){
-            event.preventDefault();
-            var value = $(this).attr('rowid');
-            var url = "/uhousing/ajax.inProgressTicket.action?ticket_no="+value;
-            $.post( url, function( data ) {
-                $( ".container" ).html( data );
-            });
-
-        });
     });
 </script>
 
@@ -44,8 +34,7 @@
 
                 <td><b>Created by</b></td>
                 <td><b>Address</b></td>
-                <td><b>Set In Progress</b></td>
-                <td><b>Set Resolved</b></td>
+                <td><b>Set Complete</b></td>
             </tr>
             <s:iterator value="tickets" status="stat">
                 <tr>
@@ -57,11 +46,9 @@
                     <td><s:property value="description" /></td>
                     <td><s:property value="date" /></td>
 
-                    <td><s:property value="student_id" /></td>
+                    <td><s:property value="residentId" /></td>
                     <td><s:property value="address" /></td>
-
-                    <td><span><a class="inProgressTicketBtn btn btn-info" rowid="<s:property value="ticket_no" />" href="#"> InProgress Ticket</a></span></td>
-                    <td><span><a class="resolveTicketBtn btn btn-info" rowid="<s:property value="ticket_no" />" href="#"> Resolve Ticket</a></span></td>
+                    <td><span><a class="resolveTicketBtn btn btn-info" rowid="<s:property value="ticket_no" />" href="#">Complete Ticket</a></span></td>
                 </tr>
             </s:iterator>
         </table>

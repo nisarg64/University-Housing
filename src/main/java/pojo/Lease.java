@@ -19,10 +19,14 @@ public class Lease {
     private String paymentOption;
     private int securityDeposit;
     private Date cutoffDate;
+    private String placeNumber;
+    private String apartmentNumber;
 
     private LeasePreference preference1;
     private LeasePreference preference2;
     private LeasePreference preference3;
+
+    private boolean canApprove;
 
     public int getLeaseNumber() {
         return leaseNumber;
@@ -126,6 +130,30 @@ public class Lease {
 
     public void setPreference3(LeasePreference preference3) {
         this.preference3 = preference3;
+    }
+
+    public String getPlaceNumber() {
+        return placeNumber;
+    }
+
+    public void setPlaceNumber(String placeNumber) {
+        this.placeNumber = placeNumber;
+    }
+
+    public String getApartmentNumber() {
+        return apartmentNumber;
+    }
+
+    public void setApartmentNumber(String apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
+    }
+
+    public boolean getCanApprove() {
+        return canApprove;
+    }
+
+    public void setCanApprove(boolean canApprove) {
+        this.canApprove = canApprove;
     }
 
     @Override

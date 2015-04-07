@@ -1,7 +1,9 @@
 package db.view;
 
 import db.table.LeaseTable;
+import db.table.LeaseTerminationRequestTable;
 import pojo.Lease;
+import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -45,7 +47,16 @@ public class LeaseView extends View {
     }
 
     public List<Lease> viewOpenLeaseRequests(Connection conn) {
-        return null;
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.STATUS + " = '" + LeaseTable.LeaseStatus.Pending.name() + "'";
+        System.out.println(query);
+        return getLeases(conn, query);
+    }
+
+    public List<LeaseTerminationRequest> viewLeaseTerminationRequests(Connection conn) {
+        String query = "SELECT * FROM " + LeaseTerminationRequestTable.TABLE_NAME + " where "
+                + LeaseTerminationRequestTable.STATUS + " = '" + LeaseTerminationRequestTable.LeaseTerminationRequestStatus.Pending.name() + "'";
+        System.out.println(query);
+        return getLeaseTerminationRequests(conn, query);
     }
 
     public Lease viewCurrentLease(Connection conn, String residentId) {
@@ -79,5 +90,19 @@ public class LeaseView extends View {
             System.err.println("Error Occurred During View Lease " + ex.getMessage());
         }
         return leases;
+    }
+
+    private List<LeaseTerminationRequest> getLeaseTerminationRequests(Connection conn, String query) {
+        List<LeaseTerminationRequest> requests = new ArrayList<LeaseTerminationRequest>();
+        try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
+            while (rs.next()) {
+                LeaseTerminationRequest request = new LeaseTerminationRequest();
+                request.setRequestNumner(rs.getInt(LeaseTerminationRequestTable.REQUEST_NUMBER));
+                requests.add(request);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error Occurred During View Lease " + ex.getMessage());
+        }
+        return requests;
     }
 }

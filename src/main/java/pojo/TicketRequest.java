@@ -13,7 +13,7 @@ public class TicketRequest {
     private Date date;
     // ---- for staff:
     private Integer ticket_no;
-    private String student_id;
+    private String residentId;
     private String address;
     private String severity;
 
@@ -57,12 +57,12 @@ public class TicketRequest {
         this.ticket_no = ticket_no;
     }
 
-    public String getStudent_id() {
-        return student_id;
+    public String getResidentId() {
+        return residentId;
     }
 
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
+    public void setResidentId(String residentId) {
+        this.residentId = residentId;
     }
 
     public String getAddress() {
@@ -80,6 +80,7 @@ public class TicketRequest {
     public void setAddress(String address) {
         this.address = address;
     }
+
     @Override
     public String toString() {
         return "TicketRequest{" +
@@ -87,6 +88,10 @@ public class TicketRequest {
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 ", date=" + date +
+                ", ticket_no=" + ticket_no +
+                ", residentId='" + residentId + '\'' +
+                ", address='" + address + '\'' +
+                ", severity='" + severity + '\'' +
                 '}';
     }
 }

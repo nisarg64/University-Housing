@@ -52,7 +52,7 @@ public class InvoiceTable extends Table {
         String query1 = "INSERT INTO " + getTableName()
                 + " VALUES(" +
                 INVOICE_SEQUENCE + ".NEXTVAL" +
-                ", 'abora'," +
+                ", '100540001'," +
                 " 500," +
                 " 40," +
                 " 1," +
@@ -69,7 +69,7 @@ public class InvoiceTable extends Table {
         String query2 = "INSERT INTO " + getTableName()
                 + " VALUES(" +
                 INVOICE_SEQUENCE + ".NEXTVAL" +
-                ", 'abora'," +
+                ", '100540001'," +
                 " 500," +
                 " 40," +
                 " 1," +
@@ -86,7 +86,7 @@ public class InvoiceTable extends Table {
         String query3 = "INSERT INTO " + getTableName()
                 + " VALUES(" +
                 INVOICE_SEQUENCE + ".NEXTVAL" +
-                ", 'abora'," +
+                ", '200540002 '," +
                 " 900," +
                 " 85," +
                 " 1," +

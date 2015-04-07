@@ -13,18 +13,21 @@ import java.util.List;
  */
 public class RoomTable extends Table {
 
+    public static final String PLACE_NUM = "place_num";
+    public static final String TABLE_NAME = "ROOM";
+
     @Override
     public String getTableName() {
-        return "ROOM";
+        return TABLE_NAME;
     }
 
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() +" (" +
-                " place_num VARCHAR(20), " +
+                " " + PLACE_NUM + " VARCHAR(20), " +
                 " room_num VARCHAR(20), " +
                 " monthly_rent INTEGER, " +
-                " PRIMARY KEY (place_num) " +
+                " PRIMARY KEY (" + PLACE_NUM + ") " +
                 ")";
         DBAccessor.executeQuery(conn, query);
     }
