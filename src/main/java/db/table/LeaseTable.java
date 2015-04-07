@@ -18,7 +18,7 @@ public class LeaseTable extends Table {
 
     // Table Name
     public static final String TABLE_NAME = "LEASE";
-    public static final String REQUEST_SEQUENCE = "request_sequence";
+    public static final String REQUEST_SEQUENCE = "lease_request_sequence";
 
     // Column Names
     public static final String REQUEST_NUMBER = "request_number";
