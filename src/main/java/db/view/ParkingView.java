@@ -22,7 +22,8 @@ public class ParkingView extends View{
     public void createView(Connection conn) throws SQLException {
         String query = "CREATE VIEW " + getViewName() + " as " +
                 " SELECT  " +
-                " PR.resident_id, PP.permit_id, PL.lot_id, PL.lot_type" +
+                " PR.resident_id, PP.permit_id, PP.permit_start_date, " +
+                " PP.permit_end_date, PL.lot_id, PL.lot_type" +
                 " PS.spot_id, PS.spot_type, PS.availability, PS.rental_fee" +
                 " FROM   PARKING_SPOT PS " +
                 " join " +
@@ -49,6 +50,8 @@ public class ParkingView extends View{
                 parkingSpot.setSpotType(resultSet.getString("spot_type"));
                 parkingSpot.setAvailability(resultSet.getString("availability"));
                 parkingSpot.setRentalFee(resultSet.getFloat("rental_fee"));
+                parkingSpot.setPermitStartDate(resultSet.getTimestamp("permit_start_date"));
+                parkingSpot.setPermitEndDate(resultSet.getTimestamp("permit_end_date"));
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During Student Profile View " + ex.getMessage());

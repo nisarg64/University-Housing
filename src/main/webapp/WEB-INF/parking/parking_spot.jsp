@@ -33,6 +33,14 @@
       <th>Rental Fee:</th>
       <td><s:textfield name="parkingSpot.rentalFee" readonly="true"/></td>
     </tr>
+    <tr>
+      <th>Permit Start Date:</th>
+      <td><s:textfield name="parkingSpot.permitStartDate" readonly="true"/></td>
+    </tr>
+    <tr>
+      <th>Permit End Date:</th>
+      <td><s:textfield name="parkingSpot.permitEndDate" readonly="true"/></td>
+    </tr>
     </tbody>
 
   </table>

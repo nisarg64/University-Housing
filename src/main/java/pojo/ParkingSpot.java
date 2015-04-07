@@ -2,6 +2,8 @@ package pojo;
 
 import oracle.sql.NUMBER;
 
+import java.sql.Timestamp;
+
 /**
  * Created by nisarg on 4/3/15.
  */
@@ -12,6 +14,24 @@ public class ParkingSpot {
     private String availability;
     private Float rentalFee;
     private Integer permitId;
+    private Timestamp permitStartDate;
+    private Timestamp permitEndDate;
+
+    public Timestamp getPermitStartDate() {
+        return permitStartDate;
+    }
+
+    public void setPermitStartDate(Timestamp permitStartDate) {
+        this.permitStartDate = permitStartDate;
+    }
+
+    public Timestamp getPermitEndDate() {
+        return permitEndDate;
+    }
+
+    public void setPermitEndDate(Timestamp permitEndDate) {
+        this.permitEndDate = permitEndDate;
+    }
 
     public Integer getPermitId() {
         return permitId;

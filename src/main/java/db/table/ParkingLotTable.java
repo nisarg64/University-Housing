@@ -32,16 +32,14 @@ public class ParkingLotTable extends Table {
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new ArrayList<String>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('CENTENNIAL', 'General Lot')";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('NORTHCAMPUS', 'Campus Lot')";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('MAINCAMPUS', 'Campus Lot')";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('SOUTHCAMPUS', 'Campus Lot')";
 
-
-        queries.add(query1);
-        queries.add(query2);
-        queries.add(query3);
-        queries.add(query4);
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 1', 'Campus Lot')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 2', 'Campus Lot')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 3', 'Campus Lot')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 4', 'Campus Lot')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 5', 'Campus Lot')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 6', 'Campus Lot')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 7', 'General Lot')");
 
         DBAccessor.executeBatchQuery(conn, queries);
     }
