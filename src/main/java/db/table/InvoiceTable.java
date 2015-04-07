@@ -1,14 +1,13 @@
 package db.table;
 
 import pojo.Invoice;
+import pojo.Lease;
 import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Nisarg on 28-Mar-15.
@@ -157,5 +156,73 @@ public class InvoiceTable extends Table {
         return formerInvoices;
     }
 
+    public void insertFormerInvoices(Connection conn, String residentId){
+
+        LeaseTable leaseTable = new LeaseTable();
+        Lease lease = leaseTable.getLease(residentId);
+        Date enterDate = lease.getEnterDate();
+        Date leaveDate = lease.getLeaveDate();
+        Date cutoffDate = lease.getCutoffDate();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(enterDate.getTime());
+
+        List<String> queries = new LinkedList<>();
+        while (calendar.getTime().getTime() < leaveDate.getTime()){
+
+            Date payDate = getPayDate(calendar.getTime());
+            Date dueDate = null;
+            if(lease.getPaymentOption().equalsIgnoreCase("monthly")){
+
+                calendar.add(Calendar.MONTH, 1);
+                calendar.set(Calendar.DAY_OF_MONTH, 5);
+                dueDate = calendar.getTime();
+                calendar.add(Calendar.DAY_OF_MONTH, -5);
+            }else {
+                //Semester Option
+                calendar.add(Calendar.MONTH, 4);
+                calendar.set(Calendar.DAY_OF_MONTH, 5);
+                dueDate = calendar.getTime();
+                calendar.add(Calendar.DAY_OF_MONTH, -5);
+            }
+            String query = generateInsertQuery(lease, payDate, dueDate);
+            queries.add(query);
+
+        }
+
+        try{
+            DBAccessor.executeBatchQuery(conn, queries);
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
+
+    }
+
+    private String generateInsertQuery(Lease lease, Date payDate, Date dueDate) {
+        String query = "INSERT INTO " + getTableName()  + " VALUES ( " + INVOICE_SEQUENCE + ".NEXTVAL , " +
+                "'" + lease.getResidentId() + "', "
+                + lease.getHousingRent() + ", "
+                + lease.getParkingRent() + ", "
+                + lease.getLeaseNumber() + ", "
+                + lease.getPendingCharge() + ", "
+                + dueDate + ", " +
+                + lease.getSecurityDeposit() + ",  "
+                + "PAID" + ", "
+                + payDate + ", " +
+                + (lease.getHousingRent() + lease.getParkingRent() + lease.getLateFees()) + ", "
+                + "' " + lease.getPaymentMode() +"' " +
+                " )";
+        return query;
+    }
+
+    private Date getPayDate(Date currentDate){
+
+        Calendar payCal = Calendar.getInstance();
+        payCal.setTimeInMillis(currentDate.getTime());
+        payCal.add(Calendar.DAY_OF_MONTH, new Random(15).nextInt());
+
+        return payCal.getTime();
+
+    }
 
 }
