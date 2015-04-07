@@ -5,7 +5,6 @@ import util.DBAccessor;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import static util.DBAccessor.executeQuery;
@@ -23,15 +22,15 @@ public class ParkingLotTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query =  "CREATE TABLE " + getTableName() + " ("+
-                "lot_id varchar(32), "+
-                "lot_type varchar(32), "+
+                "lot_id " + ColumnTypes.BIG_ID_TYPE + ", " +
+                "lot_type " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + ", " +
                 "PRIMARY KEY (lot_id)) ";
         executeQuery(conn, query);
     }
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-        List<String> queries = new ArrayList<String>();
+        List<String> queries = new ArrayList<>();
 
         queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 1', 'Campus Lot')");
         queries.add("INSERT INTO " + getTableName() + " VALUES('Parking Lot 2', 'Campus Lot')");

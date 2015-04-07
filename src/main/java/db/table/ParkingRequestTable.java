@@ -26,13 +26,13 @@ public class ParkingRequestTable extends Table {
     public void createTable(Connection conn) throws SQLException {
 
         String query = "CREATE TABLE " + getTableName() + " (" +
-                "request_id NUMBER, " +
-                "resident_id char(10), " +
-                "vehicle_type varchar2(32), " +
-                "isHandicapped varchar2(3), " +
-                "nearby_spot_preference varchar2(3), " +
-                "request_status varchar(32), " +
-                "permit_id NUMBER, " +
+                "request_id " + ColumnTypes.NUMBER_TYPE + " ," +
+                "resident_id " + ColumnTypes.ID_TYPE + " ," +
+                "vehicle_type " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + " ," +
+                "isHandicapped " + ColumnTypes.VARCHAR2_SIZE_10_TYPE + " ," +
+                "nearby_spot_preference " + ColumnTypes.VARCHAR2_SIZE_10_TYPE + " ," +
+                "request_status " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + " ," +
+                "permit_id " + ColumnTypes.NUMBER_TYPE + " ," +
                 "PRIMARY KEY (request_id, resident_id), " +
                 "FOREIGN KEY (resident_id) REFERENCES RESIDENT(res_id), " +
                 "FOREIGN KEY (permit_id) REFERENCES PARKING_PERMIT(permit_id) )";

@@ -1,6 +1,5 @@
 package db.table;
 
-import pojo.ParkingRequest;
 import pojo.ParkingSpot;
 import util.DBAccessor;
 
@@ -25,11 +24,11 @@ public class ParkingSpotTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + getTableName() + " ("+
-                "spot_id varchar(32), "+
-                "lot_id varchar(32), "+
-                "spot_type varchar(32), "+
-                "availability varchar(5), "+
-                "rental_fee float(6), "+
+                "spot_id " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + " ," +
+                "lot_id " + ColumnTypes.BIG_ID_TYPE + " ," +
+                "spot_type " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + " ," +
+                "availability " + ColumnTypes.VARCHAR2_SIZE_10_TYPE + " ," +
+                "rental_fee " + ColumnTypes.FLOAT_TYPE + " ," +
                 "PRIMARY KEY (spot_id), "+
                 "FOREIGN KEY (lot_id) REFERENCES PARKING_LOT(lot_id) )";
         executeQuery(conn, query);
