@@ -24,10 +24,15 @@ public class Lease {
     private boolean usePrivateAccommodation;
     private String housingId;
 
+    private int housingRent;
+    private int parkingRent;
+    private int pendingCharge;
+    private int lateFees;
+    private String paymentMode; //Cheque or Cash
+
     private LeasePreference preference1;
     private LeasePreference preference2;
     private LeasePreference preference3;
-
     private boolean canApprove;
 
     public int getLeaseNumber() {
@@ -176,6 +181,46 @@ public class Lease {
 
     public boolean isCanApprove() {
         return canApprove;
+    }
+
+    public int getHousingRent() {
+        return housingRent;
+    }
+
+    public void setHousingRent(int housingRent) {
+        this.housingRent = housingRent;
+    }
+
+    public int getParkingRent() {
+        return parkingRent;
+    }
+
+    public void setParkingRent(int parkingRent) {
+        this.parkingRent = parkingRent;
+    }
+
+    public int getPendingCharge() {
+        return pendingCharge;
+    }
+
+    public void setPendingCharge(int pendingCharge) {
+        this.pendingCharge = pendingCharge;
+    }
+
+    public int getLateFees() {
+        return lateFees;
+    }
+
+    public void setLateFees(int lateFees) {
+        this.lateFees = lateFees;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
     @Override
