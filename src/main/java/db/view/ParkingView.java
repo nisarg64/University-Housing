@@ -7,6 +7,7 @@ import util.DBAccessor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,9 +60,10 @@ public class ParkingView extends View{
         return parkingSpot;
     }
 
-    public List<ParkingLot> getParkinLots(Connection conn, String username) {
-        List<ParkingLot> parkingLots = null;
-        String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "'";
+    public List<ParkingLot> getParkingLots(Connection conn, String username) {
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "' " +
+                "AND request_status <> 'returned'";
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){

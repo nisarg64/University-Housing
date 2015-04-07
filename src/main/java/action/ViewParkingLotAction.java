@@ -16,7 +16,7 @@ public class ViewParkingLotAction extends UHAction {
     public String execute(){
         String username = (String) sessionMap.get("username");
         ParkingView psView = new ParkingView();
-        allLots = psView.getParkinLots(conn, username);
+        allLots = psView.getParkingLots(conn, username);
         return SUCCESS;
     }
 

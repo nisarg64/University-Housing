@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static util.DBAccessor.executeQuery;
+import static util.DBAccessor.selectQuery;
 
 /**
  * Created by Nisarg on 28-Mar-15.
@@ -43,9 +44,11 @@ public class ParkingPermitTable extends Table {
         List<ParkingSpot> allSpots = new ArrayList<ParkingSpot>();;
 
         String query = "SELECT * from PARKING_PERMIT where permit_id IN " +
-                "(SELECT permit_id from PARKING_REQUEST where resident_id = '"+username+"')";
+                "(SELECT permit_id from PARKING_REQUEST where resident_id = '"+username+"' " +
+                "AND request_status <> 'returned' )";
+        System.out.println(query);
         try {
-            ResultSet resultSet = executeQuery(conn,query);
+            ResultSet resultSet = selectQuery(conn, query);
             while(resultSet.next()){
                 ParkingSpot parkingSpot = new ParkingSpot();
                 parkingSpot.setSpotId(resultSet.getString("spot_id"));
