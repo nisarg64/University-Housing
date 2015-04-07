@@ -27,7 +27,7 @@ public abstract class Table {
             }
       }
 
-      public final String createInsertSql(String tableName, int valuesCount, String... columns) {
+      public final String createInsertPreparedStatement(String tableName, int valuesCount, String... columns) {
             StringBuilder str = new StringBuilder();
             str.append("INSERT INTO ").append(tableName);
             if (columns != null) {
@@ -52,4 +52,19 @@ public abstract class Table {
             str.append(")");
             return str.toString();
       }
+
+      public String createInsertQuery(String tableName, String... values) {
+            StringBuilder str = new StringBuilder("INSERT INTO ").append(tableName);
+            str.append(" VALUES(");
+            for (int i = 1; i <= values.length; ++i) {
+                  str.append(values[i - 1]);
+                  if (i < values.length) {
+                        str.append(", ");
+                  }
+            }
+            str.append(")");
+            return str.toString();
+      }
+
+
 }

@@ -1,9 +1,7 @@
 package db.view;
 
 import db.table.LeaseTable;
-import db.table.LeaseTerminationRequestTable;
 import pojo.Lease;
-import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -20,6 +18,8 @@ public class LeaseView extends View {
 
     public static final String VIEW_NAME = "LEASE_VIEW";
 
+
+
     @Override
     public String getViewName() {
         return VIEW_NAME;
@@ -28,8 +28,8 @@ public class LeaseView extends View {
     @Override
     public void createView(Connection conn) throws SQLException {
         String query = "CREATE VIEW " + getViewName() + " as " +
-                " SELECT l.lease_number, l.res_id, l.status, l.enter_date, l.duration, l.leave_date, " +
-                "l.payment_option, l.security_deposit, l.cutoff_date" +
+                " SELECT l.request_number, l.res_id, l.status, l.enter_date, l.duration, " +
+                "l.payment_option, l.security_deposit" +
                 " FROM LEASE l";
         DBAccessor.executeQuery(conn, query);
     }
@@ -40,32 +40,51 @@ public class LeaseView extends View {
         query.append("where ");
         query.append(LeaseTable.RES_ID).append(" = '").append(residentId).append("'");
         query.append(" and ");
-        query.append(LeaseTable.STATUS).append(" = '").append(LeaseTable.LeaseStatus.Completed).append("'");
-        System.out.println(query);
+        query.append(LeaseTable.STATUS).append(" = '").append(LeaseTable.RequestStatus.Completed).append("'");
+
+        return getLeases(conn, query.toString());
+    }
+
+    public List<Lease> viewAllLeaseRequestsForResident(Connection conn, String residentId) {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM ").append(getViewName()).append(" ");
+        query.append("where ");
+        query.append(LeaseTable.RES_ID).append(" = '").append(residentId).append("'");
 
         return getLeases(conn, query.toString());
     }
 
     public List<Lease> viewOpenLeaseRequests(Connection conn) {
-        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.STATUS + " = '" + LeaseTable.LeaseStatus.Pending.name() + "'";
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.Pending.name() + "'";
         System.out.println(query);
         return getLeases(conn, query);
     }
 
-    public List<LeaseTerminationRequest> viewLeaseTerminationRequests(Connection conn) {
-        String query = "SELECT * FROM " + LeaseTerminationRequestTable.TABLE_NAME + " where "
-                + LeaseTerminationRequestTable.STATUS + " = '" + LeaseTerminationRequestTable.LeaseTerminationRequestStatus.Pending.name() + "'";
-        System.out.println(query);
-        return getLeaseTerminationRequests(conn, query);
+    public Lease viewCurrentLease(Connection conn, String residentId) {
+        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "' and "
+                + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.InProgress + "'";
+        List<Lease> leases = getLeases(conn, query);
+        if (leases.isEmpty()) {
+            return null;
+        } else {
+            return leases.get(0);
+        }
     }
 
-    public Lease viewCurrentLease(Connection conn, String residentId) {
-        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "'";
-        return getLeases(conn, query).get(0);
+    public Lease viewCurrentLeaseRequest(Connection conn, String residentId) {
+        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "' and "
+                + LeaseTable.STATUS + " IN ('" + LeaseTable.RequestStatus.Pending + "','" + LeaseTable.RequestStatus.Processed
+                + "','" + LeaseTable.RequestStatus.WaitList + "','" + LeaseTable.RequestStatus.InProgress + "')";
+        List<Lease> leases = getLeases(conn, query);
+        if (leases.isEmpty()) {
+            return null;
+        } else {
+            return leases.get(0);
+        }
     }
 
     public Lease viewLease(Connection conn, int leaseNumber) {
-        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber + "";
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTable.REQUEST_NUMBER + " = " + leaseNumber + "";
         System.out.println(query);
         return getLeases(conn, query).get(0);
     }
@@ -75,15 +94,15 @@ public class LeaseView extends View {
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
             while (rs.next()) {
                 Lease lease = new Lease();
-                lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
+                lease.setLeaseNumber(rs.getInt(LeaseTable.REQUEST_NUMBER));
                 lease.setResidentId(rs.getString(LeaseTable.RES_ID));
                 lease.setStatus(rs.getString(LeaseTable.STATUS));
                 lease.setEnterDate(rs.getDate(LeaseTable.ENTER_DATE));
                 lease.setDuration(rs.getInt(LeaseTable.DURATION));
-                lease.setLeaveDate(rs.getDate(LeaseTable.LEAVE_DATE));
-                lease.setPaymentOption(rs.getString(LeaseTable.PAYMMENT_OPTION));
+                //lease.setLeaveDate(rs.getDate(LeaseTable.LEAVE_DATE));
+                lease.setPaymentOption(rs.getString(LeaseTable.PAYMENT_OPTION));
                 lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
-                lease.setCutoffDate(rs.getDate(LeaseTable.CUTOFF_DATE));
+                //lease.setCutoffDate(rs.getDate(LeaseTable.CUTOFF_DATE));
                 leases.add(lease);
             }
         } catch (SQLException ex) {
@@ -92,17 +111,5 @@ public class LeaseView extends View {
         return leases;
     }
 
-    private List<LeaseTerminationRequest> getLeaseTerminationRequests(Connection conn, String query) {
-        List<LeaseTerminationRequest> requests = new ArrayList<LeaseTerminationRequest>();
-        try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
-            while (rs.next()) {
-                LeaseTerminationRequest request = new LeaseTerminationRequest();
-                request.setRequestNumner(rs.getInt(LeaseTerminationRequestTable.REQUEST_NUMBER));
-                requests.add(request);
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error Occurred During View Lease " + ex.getMessage());
-        }
-        return requests;
-    }
+
 }

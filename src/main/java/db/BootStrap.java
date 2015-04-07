@@ -37,6 +37,7 @@ public class BootStrap {
         database.addTable(new LeasePreferenceTable());
         database.addTable(new LeaseTerminationRequestTable());
         database.addView(new LeaseView());
+        database.addView(new LeaseTerminationRequestView());
 
         database.addTable(new ParkingResidentHallMapTable());
         database.addTable(new TicketSeverityTable());
