@@ -1,7 +1,12 @@
 package db.table;
 
+import pojo.ParkingSpot;
+
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static util.DBAccessor.executeQuery;
 
@@ -32,5 +37,25 @@ public class ParkingPermitTable extends Table {
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
+    }
+
+    public List<ParkingSpot> getResidentParkingSpots(Connection conn, String username) {
+        List<ParkingSpot> allSpots = new ArrayList<ParkingSpot>();;
+
+        String query = "SELECT * from PARKING_PERMIT where permit_id IN " +
+                "(SELECT permit_id from PARKING_REQUEST where resident_id = '"+username+"')";
+        try {
+            ResultSet resultSet = executeQuery(conn,query);
+            while(resultSet.next()){
+                ParkingSpot parkingSpot = new ParkingSpot();
+                parkingSpot.setSpotId(resultSet.getString("spot_id"));
+                parkingSpot.setLotId(resultSet.getString("lot_id"));
+                parkingSpot.setPermitId(resultSet.getInt("permit_id"));
+                allSpots.add(parkingSpot);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allSpots;
     }
 }

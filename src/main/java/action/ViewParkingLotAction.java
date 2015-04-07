@@ -3,28 +3,29 @@ package action;
 import db.view.ParkingView;
 import pojo.ParkingLot;
 
+import java.util.List;
+
 /**
  * Created by nisarg on 4/3/15.
  */
 public class ViewParkingLotAction extends UHAction {
 
 
-    private ParkingLot parkingLot;
+    private List<ParkingLot> allLots;
 
     public String execute(){
         String username = (String) sessionMap.get("username");
         ParkingView psView = new ParkingView();
-        parkingLot = psView.getParkinLot(conn, username);
+        allLots = psView.getParkinLots(conn, username);
         return SUCCESS;
     }
 
 
-    public ParkingLot getParkingLot() {
-        return parkingLot;
+    public List<ParkingLot> getAllLots() {
+        return allLots;
     }
 
-    public void setParkingLot(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public void setAllLots(List<ParkingLot> allLots) {
+        this.allLots = allLots;
     }
-
 }

@@ -7,6 +7,7 @@ import util.DBAccessor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by nisarg on 4/3/15.
@@ -35,9 +36,9 @@ public class ParkingView extends View{
         DBAccessor.executeQuery(conn, query);
     }
 
-    public ParkingSpot getParkinSpot(Connection conn, String username) {
+    public ParkingSpot getParkinSpot(Connection conn, String username, String spotId) {
         ParkingSpot parkingSpot = null;
-        String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "'";
+        String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "' AND spot_id = '"+ spotId +"'";
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
@@ -58,21 +59,22 @@ public class ParkingView extends View{
         return parkingSpot;
     }
 
-    public ParkingLot getParkinLot(Connection conn, String username) {
-        ParkingLot parkingLot = null;
+    public List<ParkingLot> getParkinLots(Connection conn, String username) {
+        List<ParkingLot> parkingLots = null;
         String query = "SELECT * FROM " + getViewName() + " where resident_id = '" + username + "'";
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
-                parkingLot = new ParkingLot();
+                ParkingLot parkingLot = new ParkingLot();
                 parkingLot.setLotId(resultSet.getString("lot_id"));
                 parkingLot.setPermitId(resultSet.getString("permit_id"));
                 parkingLot.setLotType(resultSet.getString("lot_type"));
+                parkingLots.add(parkingLot);
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During Parking View " + ex.getMessage());
         }
 
-        return parkingLot;
+        return parkingLots;
     }
 }
