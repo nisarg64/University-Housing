@@ -81,11 +81,15 @@
         </action>
 
         <action name="viewParkingSpot" class="action.ViewParkingSpotAction">
+            <result name="success">/WEB-INF/parking/parking_spot_list.jsp</result>
+        </action>
+
+        <action name="viewParkingSpotDetail" class="action.ViewParkingSpotAction" method="getSpotInfo">
             <result name="success">/WEB-INF/parking/parking_spot.jsp</result>
         </action>
 
         <action name="viewParkingLot" class="action.ViewParkingLotAction">
-            <result name="success">/WEB-INF/parking/parking_lot.jsp</result>
+            <result name="success">/WEB-INF/parking/parking_lot_list.jsp</result>
         </action>
 
         <action name="renewParking" class="action.RenewParkingAction">
