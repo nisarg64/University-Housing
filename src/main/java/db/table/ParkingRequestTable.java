@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static util.DBAccessor.executeQuery;
+import static util.DBAccessor.executeUpdateSQL;
 
 /**
  * Created by Nisarg on 28-Mar-15.
@@ -101,7 +102,7 @@ public class ParkingRequestTable extends Table {
         return parkingRequests;
     }
 
-    public String checkParkingAvailability(Connection conn, String requestId) throws SQLException {
+    public String checkParkingAvailability(Connection conn, String requestId) throws Exception {
         String studentRole = null;
         String studentHousing = null;
         String username = null;
@@ -110,7 +111,7 @@ public class ParkingRequestTable extends Table {
         int spotCount = 0;
         String spotId = null;
         String lotId = null;
-        NUMBER permitId = null;
+        Integer permitId = null;
         String requestStatus = null;
 
         String query = "Select * from PARKING_REQUEST where request_id = "+ requestId.trim();
@@ -126,26 +127,25 @@ public class ParkingRequestTable extends Table {
             else if(vehicle.equals("Compact Cars") || vehicle.equals("Standard Cars"))
                 vehicle = "Small";
             requestStatus = resultset.getString("request_status");
+            permitId = resultset.getInt("permit_id");
         }
         System.out.println(username);
         System.out.println(isHandicapped);
         System.out.println(vehicle);
 
 
-        Timestamp permitEndDate = null;
+
         if("renew request".equals(requestStatus)){
-            /*query = "SELECT permit_end_date from PARKING_PERMIT where permit_id = (SELECT permit_id from PARKING_REQUEST where request_id = "+ requestId.trim()+")";
-            System.out.println(query);
-            ResultSet result = DBAccessor.selectQuery(conn, query);
-            while(result.next())
-                permitEndDate = result.getTimestamp("permit_end_date");
 
-            query = "UPDATE PARKING_PERMIT SET permit_end_date = "+Utils.getRenewdTimestamp(permitEndDate)+" WHERE permit_id = " +
-                    "(SELECT permit_id from PARKING_REQUEST WHERE request_id = "+requestId.trim()+")";
+           query = "UPDATE PARKING_PERMIT SET permit_end_date = " +
+                    "(SELECT permit_end_date + 150 from PARKING_PERMIT "+
+                    " where permit_id = " +permitId+")" +
+                    " WHERE permit_id = " + permitId ;
 
             System.out.println(query);
-            executeQuery(conn, query);*/
+            executeQuery(conn, query);
 
+            System.out.println("here");
             query = "UPDATE PARKING_REQUEST SET request_status = 'renewed' where request_id = "+requestId.trim();
             System.out.println(query);
             executeQuery(conn,query);
