@@ -23,17 +23,15 @@ public class ParkingView extends View{
         String query = "CREATE VIEW " + getViewName() + " as " +
                 " SELECT  " +
                 " PR.resident_id, PP.permit_id, PP.permit_start_date, " +
-                " PP.permit_end_date, PL.lot_id, PL.lot_type" +
+                " PP.permit_end_date, PL.lot_id, PL.lot_type," +
                 " PS.spot_id, PS.spot_type, PS.availability, PS.rental_fee" +
-                " FROM   PARKING_SPOT PS " +
-                " join " +
-                " PARKING_LOT PL " +
-                " join "+
-                " PARKING_PERMIT PP "+
-                " join "+
+                " FROM   PARKING_SPOT PS, " +
+                " PARKING_LOT PL, " +
+                " PARKING_PERMIT PP, "+
                 " PARKING_REQUEST PR "+
-                " on (PR.permit_id = PP.permit_id AND PP.lot_id = PL.lot_id " +
+                " WHERE (PR.permit_id = PP.permit_id AND PP.lot_id = PL.lot_id " +
                 "AND PP.spot_id = PS.spot_id AND PS.lot_id = PL.lot_id) ";
+        System.out.println(query);
         DBAccessor.executeQuery(conn, query);
     }
 
@@ -54,7 +52,7 @@ public class ParkingView extends View{
                 parkingSpot.setPermitEndDate(resultSet.getTimestamp("permit_end_date"));
             }
         }catch (SQLException ex){
-            System.err.println("Error Occurred During Student Profile View " + ex.getMessage());
+            System.err.println("Error Occurred During Parking View " + ex.getMessage());
         }
 
         return parkingSpot;
