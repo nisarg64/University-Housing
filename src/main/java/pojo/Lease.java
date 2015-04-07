@@ -22,6 +22,7 @@ public class Lease {
     private String placeNumber;
     private String apartmentNumber;
     private boolean usePrivateAccommodation;
+    private String housingId;
 
     private LeasePreference preference1;
     private LeasePreference preference2;
@@ -163,6 +164,18 @@ public class Lease {
 
     public void setUsePrivateAccommodation(boolean usePrivateAccommodation) {
         this.usePrivateAccommodation = usePrivateAccommodation;
+    }
+
+    public String getHousingId() {
+        return housingId;
+    }
+
+    public void setHousingId(String housingId) {
+        this.housingId = housingId;
+    }
+
+    public boolean isCanApprove() {
+        return canApprove;
     }
 
     @Override

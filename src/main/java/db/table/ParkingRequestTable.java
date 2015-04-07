@@ -1,6 +1,8 @@
 package db.table;
 
+import db.view.LeaseView;
 import oracle.sql.NUMBER;
+import pojo.Lease;
 import pojo.ParkingRequest;
 import util.DBAccessor;
 import util.Utils;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import static util.DBAccessor.executeQuery;
 import static util.DBAccessor.executeUpdateSQL;
+import static util.DBAccessor.selectQuery;
 
 /**
  * Created by Nisarg on 28-Mar-15.
@@ -170,9 +173,23 @@ public class ParkingRequestTable extends Table {
         System.out.println(studentRole);
         System.out.println(studentHousing);
 
-        // studentHousing can be private or campus Housing. Query remaining
+        Lease lease = new Lease();
+        LeaseView leaseView = new LeaseView();
+        lease = leaseView.viewCurrentLease(conn, username);
+        if(lease != null){
+            if(lease.isUsePrivateAccommodation())
+                studentHousing = "private";
+            else
+                studentHousing = "campus";
+        }
 
-        if ("guest".equals(studentRole) || "private".equals(studentHousing)) {
+        query = "SELECT count(*) from PARKING_REQUEST where resident_id = '"+username.trim()+"'";
+        ResultSet resultSet7 = selectQuery(conn,query);
+        int requestCount = 0;
+        while(resultSet7.next()){
+            requestCount = resultSet7.getInt(1);
+        }
+        if ("guest".equals(studentRole) || "private".equals(studentHousing) || requestCount > 1) {
             if (isHandicapped.equals("No"))
                 query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
             else
@@ -223,7 +240,7 @@ public class ParkingRequestTable extends Table {
         } else {
             System.out.println("Campus Student");
             // Query to get student's assigned hall id
-            String housingId = "3";
+            String housingId = lease.getHousingId();
             System.out.println(housingId);
             query = "SELECT LOT_ID from parking_resident_hall_map WHERE HOUSING_ID = '" + housingId + "'";
             ResultSet resultSet = DBAccessor.selectQuery(conn, query);
