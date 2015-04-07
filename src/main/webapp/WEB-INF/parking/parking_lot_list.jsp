@@ -28,14 +28,18 @@
         <tbody>
         <tr>
             <td><b>Lot ID </b></td>
-            <td><b>Permit ID</b></td>
             <td><b>Lot Type</b></td>
+            <td><b>Nearby Housing</b></td>
+            <td><b>Housing Type</b></td>
+            <td><b>Address</b></td>
         </tr>
         <s:iterator value="allLots" status="stat">
             <tr>
                 <td><s:property value="lotId" /></td>
-                <td><s:property value="permitId" /></td>
                 <td><s:property value="lotType" /></td>
+                <td><s:property value="nearbyHousing" /></td>
+                <td><s:property value="housingType" /></td>
+                <td><s:property value="address" /></td>
             </tr>
         </s:iterator>
         </tbody>
