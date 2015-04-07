@@ -51,16 +51,4 @@ public class ApartmentTable extends Table{
 
         DBAccessor.executeBatchQuery(conn, queries);
     }
-
-    @Override
-    public void dropTable(Connection conn){
-
-        try {
-            String query = "DROP TABLE " + TABLE_NAME;
-            DBAccessor.executeQuery(conn, query);
-
-        }catch (SQLException ex){
-            System.err.println( " Table  " + TABLE_NAME + " : " + ex.getMessage());
-        }
-    }
 }

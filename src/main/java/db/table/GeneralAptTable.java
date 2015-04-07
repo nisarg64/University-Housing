@@ -20,11 +20,13 @@ public class GeneralAptTable extends Table{
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-        String query = " CREATE TABLE " + getTableName() + "(" +
-                " g_apartment_no VARCHAR(20), " +
-                " num_of_bedrooms INTEGER, " +
-                " num_of_bathrooms INTEGER, " +
-                " PRIMARY KEY (g_apartment_no) " +
+        String query = " CREATE TABLE " + getTableName() +" (" +
+                " gen_apt_id " + ColumnTypes.ID_TYPE + " ," +
+                " num_room number, " +
+                " rent_per_bed number, " +
+                " security_deposit number, " +
+                " PRIMARY KEY (gen_apt_id), " +
+                " FOREIGN KEY (gen_apt_id) REFERENCES HOUSING " +
                 ")";
 
         DBAccessor.executeQuery(conn, query);
@@ -34,19 +36,24 @@ public class GeneralAptTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('G1', 2, 2)";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('G2', 2, 1)";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('G3', 3, 2)";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('G4', 3, 3)";
-        String query5 = "INSERT INTO " + getTableName() + " VALUES('G5', 4, 4)";
-        String query6 = "INSERT INTO " + getTableName() + " VALUES('G6', 4, 3)";
+        String query1 = "INSERT INTO " + getTableName() +" " +
+                "VALUES" +
+                "('3', " +
+                " 5, " +
+                " 350, " +
+                " 400 " +
+                " )";
+
+        String query2 = "INSERT INTO " + getTableName() +" " +
+                "VALUES" +
+                "('4', " +
+                " 3, " +
+                " 375, " +
+                " 450 " +
+                " )";
 
         queries.add(query1);
         queries.add(query2);
-        queries.add(query3);
-        queries.add(query4);
-        queries.add(query5);
-        queries.add(query6);
 
         DBAccessor.executeBatchQuery(conn, queries);
     }
