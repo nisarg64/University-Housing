@@ -46,12 +46,18 @@ public class LeasePreferenceTable extends Table {
                 LeaseTable.REQUEST_NUMBER + " " + ColumnTypes.ID_INT_TYPE + ", " +
                 SEQUENCE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
                 TYPE + " " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + ", " +
+<<<<<<< Updated upstream
                 ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
                 LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
                 LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + ") " +
+=======
+                "housing_id" + " " + ColumnTypes.ID_TYPE + ", " +
+                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + "," + SEQUENCE_NUMBER + "), " +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + ") " +
+>>>>>>> Stashed changes
                 LeaseTable.REFERENCES_STR + " " + LeaseTable.TABLE_NAME + ", " +
-                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + ResidentHallTable.HALL_ID + ") " +
-                LeaseTable.REFERENCES_STR + " " + ResidentHallTable.TABLE_NAME +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + "housing_id" + ") " +
+                LeaseTable.REFERENCES_STR + " " + "HOUSING" +
                 ")";
 
         DBAccessor.executeQuery(conn, query);
@@ -63,8 +69,13 @@ public class LeasePreferenceTable extends Table {
     }
 
     public void insert(Connection conn, LeasePreference preference) throws SQLException {
+<<<<<<< Updated upstream
         String sql = createInsertPreparedStatement(TABLE_NAME, 0, LeaseTable.REQUEST_NUMBER, SEQUENCE_NUMBER, TYPE,
                 ResidentHallTable.HALL_ID);
+=======
+        String sql = createInsertSql(TABLE_NAME, 0, LeaseTable.LEASE_NUMBER , SEQUENCE_NUMBER, TYPE,
+                "housing_id");
+>>>>>>> Stashed changes
         System.out.println(sql);
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setInt(1, preference.getLeaseNumber());

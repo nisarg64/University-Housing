@@ -74,6 +74,7 @@ public class LeaseTable extends Table {
                 DURATION + " " + ColumnTypes.INTEGER_TYPE + " not null," +
                 PAYMENT_OPTION + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + " not null," +
                 SECURITY_DEPOSIT + " " + ColumnTypes.NUMBER_TYPE + " not null," +
+<<<<<<< Updated upstream
                 USE_PRIVATE_ACCOMMODATION + " " + ColumnTypes.BOOLEAN_TYPE + " default '0' not null," +
                 LOCATION_NUMBER + " " + ColumnTypes.ID_INT_TYPE + "," +
                 LOCATION_TYPE + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
@@ -81,6 +82,15 @@ public class LeaseTable extends Table {
                 FOREIGN_KEY_CONSTRAINT + "(" + RES_ID + ") " + REFERENCES_STR + " " + "RESIDENT" + /* "," +
                 FOREIGN_KEY_CONSTRAINT + "(" + RoomTable.PLACE_NUM + ") " + REFERENCES_STR + " " + RoomTable.TABLE_NAME + /* "," +
                 FOREIGN_KEY_CONSTRAINT + "(" + ApartmentTable.APARTMENT_NO + ") " + REFERENCES_STR + " " + ApartmentTable.TABLE_NAME +
+=======
+                CUTOFF_DATE + " " + ColumnTypes.DATE_TYPE + "," +
+                HAS_PRIVATE_ACCOMMODATION + " " + ColumnTypes.BOOLEAN_TYPE + " default '0' not null," +
+                RoomTable.PLACE_NUM + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
+                ApartmentTable.APARTMENT_NO + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
+                PRIMARY_KEY_CONSTRAINT + "(" + LEASE_NUMBER + ")" +
+//                FOREIGN_KEY_CONSTRAINT + "(" + RoomTable.PLACE_NUM + ") " + REFERENCES_STR + " " + RoomTable.TABLE_NAME + "," +
+//                FOREIGN_KEY_CONSTRAINT + "(" + ApartmentTable.APARTMENT_NO + ") " + REFERENCES_STR + " " + ApartmentTable.TABLE_NAME +
+>>>>>>> Stashed changes
                 /*"CHECK (" + STATUS + " IN " + statusValues.toString() + ")," +
                 "CHECK (" + DURATION + " IN (1, 2, 3))," +*/
         ")";
