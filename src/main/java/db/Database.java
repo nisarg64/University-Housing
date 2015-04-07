@@ -86,6 +86,7 @@ public class Database {
     private void dropSequences(Connection conn) {
         dropSequence(conn, "permit_sequence");
         dropSequence(conn, "pr_sequence");
+        dropSequence(conn, "request_sequence");
         dropSequence(conn, "ticket_sequence");
         dropSequence(conn, LeaseTable.REQUEST_SEQUENCE);
         dropSequence(conn, InvoiceTable.INVOICE_SEQUENCE);
@@ -108,6 +109,7 @@ public class Database {
         
         queries.add("CREATE SEQUENCE permit_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE pr_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
+        queries.add("CREATE SEQUENCE request_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE ticket_sequence START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE " + LeaseTable.REQUEST_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
         queries.add("CREATE SEQUENCE " + InvoiceTable.INVOICE_SEQUENCE + " START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE");
