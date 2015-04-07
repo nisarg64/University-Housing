@@ -31,11 +31,18 @@ public class LeaseTerminationRequestView extends View {
     @Override
     public void createView(Connection conn) throws SQLException {
         String query = "CREATE VIEW " + getViewName() + " as " +
-                " SELECT l.request_number as " + L_REQUEST_NUMBER + ", l.res_id, l.status as " + L_STATUS + ", l.enter_date, l.duration, " +
-                "l.payment_option, l.security_deposit, lt.request_number as request_number, lt.leave_date, lt.status as " + TR_STATUS + ", lt.inspection_date, lt.reason" +
-                " FROM LEASE l inner join " + LeaseTerminationRequestTable.TABLE_NAME + " lt on lt.request_number = l.request_number";
+                " SELECT l.request_number as " + L_REQUEST_NUMBER + ", l.res_id, l.status as " + L_STATUS + ", l.enter_date, " +
+                "l.duration, " + "l.payment_option, l.security_deposit, l.location_number, l.housing_id, " +
+                "lt.request_number as request_number, " + "lt.leave_date, lt.status as " + TR_STATUS + ", lt.inspection_date, lt.reason" +
+                " FROM LEASE l inner join " + LeaseTerminationRequestTable.TABLE_NAME + " lt on lt.lease_request_number = l.request_number";
 
         DBAccessor.executeQuery(conn, query);
+    }
+
+    public LeaseTerminationRequest viewLeaseTerminationRequest(Connection conn, int requestNumber) {
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseTerminationRequestTable.REQUEST_NUMBER + " = " + requestNumber + "";
+        List<LeaseTerminationRequest> requests = getLeaseTerminationRequests(conn, query);
+        return requests.isEmpty() ? null : requests.get(0);
     }
 
     public LeaseTerminationRequest viewOpenLeaseTerminationRequestForResident(Connection conn, String residentId) {
@@ -46,13 +53,13 @@ public class LeaseTerminationRequestView extends View {
     }
 
     public List<LeaseTerminationRequest> viewAllLeaseTerminationRequestForResident(Connection conn, String residentId) {
-        String query = "SELECT * FROM " + LeaseTerminationRequestTable.TABLE_NAME + " where res_id = '" + residentId + "'";
+        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "'";
         return getLeaseTerminationRequests(conn, query);
     }
 
     public List<LeaseTerminationRequest> viewLeaseTerminationRequests(Connection conn) {
-        String query = "SELECT * FROM " + LeaseTerminationRequestTable.TABLE_NAME + " where "
-                + LeaseTerminationRequestTable.STATUS + " = '" + LeaseTable.RequestStatus.Pending.name() + "'";
+        String query = "SELECT * FROM " + getViewName() + " where "
+                + TR_STATUS + " = '" + LeaseTable.RequestStatus.Pending.name() + "'";
         System.out.println(query);
         return getLeaseTerminationRequests(conn, query);
     }
@@ -63,9 +70,9 @@ public class LeaseTerminationRequestView extends View {
             while (rs.next()) {
                 int i = 1;
                 LeaseTerminationRequest request = new LeaseTerminationRequest();
-                request.setRequestNumner(rs.getInt(LeaseTerminationRequestTable.REQUEST_NUMBER));
+                request.setRequestNumber(rs.getInt(LeaseTerminationRequestTable.REQUEST_NUMBER));
                 request.setStatus(rs.getString(TR_STATUS));
-                request.setLeaveDate(rs.getString(LeaseTerminationRequestTable.LEAVE_DATE));
+                request.setLeaveDate(rs.getDate(LeaseTerminationRequestTable.LEAVE_DATE));
                 request.setInspectionDate(rs.getDate(LeaseTerminationRequestTable.INSPECTION_DATE));
                 Lease lease = new Lease();
                 lease.setLeaseNumber(rs.getInt(L_REQUEST_NUMBER));
@@ -75,6 +82,8 @@ public class LeaseTerminationRequestView extends View {
                 lease.setDuration(rs.getInt(LeaseTable.DURATION));
                 lease.setPaymentOption(rs.getString(LeaseTable.PAYMENT_OPTION));
                 lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
+                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
+                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));;
                 request.setLease(lease);
                 requests.add(request);
             }

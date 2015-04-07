@@ -10,19 +10,19 @@ import java.util.Date;
  */
 public class LeaseTerminationRequest {
 
-    private int requestNumner;
+    private int requestNumber;
     private Lease lease;
     private String status;
     private String reason;
     private Date leaveDate;
     private Date inspectionDate;
 
-    public int getRequestNumner() {
-        return requestNumner;
+    public int getRequestNumber() {
+        return requestNumber;
     }
 
-    public void setRequestNumner(int requestNumner) {
-        this.requestNumner = requestNumner;
+    public void setRequestNumber(int requestNumber) {
+        this.requestNumber = requestNumber;
     }
 
     public Lease getLease() {

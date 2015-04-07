@@ -30,7 +30,7 @@ public class LeaseTable extends Table {
     public static final String SECURITY_DEPOSIT = "security_deposit";
     public static final String USE_PRIVATE_ACCOMMODATION = "use_private_accommodation";
     public static final String LOCATION_NUMBER = "location_number";
-    public static final String LOCATION_TYPE = "location_type";
+    public static final String HOUSING_ID = "housing_id";
     public static final String PRIMARY_KEY_CONSTRAINT = "PRIMARY KEY";
     public static final String FOREIGN_KEY_CONSTRAINT = "FOREIGN KEY";
     public static final String REFERENCES_STR = "REFERENCES";
@@ -74,25 +74,12 @@ public class LeaseTable extends Table {
                 DURATION + " " + ColumnTypes.INTEGER_TYPE + " not null," +
                 PAYMENT_OPTION + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + " not null," +
                 SECURITY_DEPOSIT + " " + ColumnTypes.NUMBER_TYPE + " not null," +
-<<<<<<< Updated upstream
                 USE_PRIVATE_ACCOMMODATION + " " + ColumnTypes.BOOLEAN_TYPE + " default '0' not null," +
-                LOCATION_NUMBER + " " + ColumnTypes.ID_INT_TYPE + "," +
-                LOCATION_TYPE + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
+                LOCATION_NUMBER + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
+                HOUSING_ID + " " + ColumnTypes.ID_TYPE + "," +
                 PRIMARY_KEY_CONSTRAINT + "(" + REQUEST_NUMBER + ")," +
-                FOREIGN_KEY_CONSTRAINT + "(" + RES_ID + ") " + REFERENCES_STR + " " + "RESIDENT" + /* "," +
-                FOREIGN_KEY_CONSTRAINT + "(" + RoomTable.PLACE_NUM + ") " + REFERENCES_STR + " " + RoomTable.TABLE_NAME + /* "," +
-                FOREIGN_KEY_CONSTRAINT + "(" + ApartmentTable.APARTMENT_NO + ") " + REFERENCES_STR + " " + ApartmentTable.TABLE_NAME +
-=======
-                CUTOFF_DATE + " " + ColumnTypes.DATE_TYPE + "," +
-                HAS_PRIVATE_ACCOMMODATION + " " + ColumnTypes.BOOLEAN_TYPE + " default '0' not null," +
-                RoomTable.PLACE_NUM + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
-                ApartmentTable.APARTMENT_NO + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
-                PRIMARY_KEY_CONSTRAINT + "(" + LEASE_NUMBER + ")" +
-//                FOREIGN_KEY_CONSTRAINT + "(" + RoomTable.PLACE_NUM + ") " + REFERENCES_STR + " " + RoomTable.TABLE_NAME + "," +
-//                FOREIGN_KEY_CONSTRAINT + "(" + ApartmentTable.APARTMENT_NO + ") " + REFERENCES_STR + " " + ApartmentTable.TABLE_NAME +
->>>>>>> Stashed changes
-                /*"CHECK (" + STATUS + " IN " + statusValues.toString() + ")," +
-                "CHECK (" + DURATION + " IN (1, 2, 3))," +*/
+                FOREIGN_KEY_CONSTRAINT + "(" + RES_ID + ") " + REFERENCES_STR + " " + "RESIDENT" + "," +
+                FOREIGN_KEY_CONSTRAINT + "(" + HOUSING_ID + ") " + REFERENCES_STR + " Housing" +
         ")";
         DBAccessor.executeQuery(conn, query);
     }
@@ -102,10 +89,10 @@ public class LeaseTable extends Table {
         List<String> queries = new LinkedList<>();
 
         // Sequence: REQUEST_NUMBER, RES_ID, STATUS, ENTER_DATE, DURATION, PAYMENT_OPTION,
-        // SECURITY_DEPOSIT, USE_PRIVATE_ACCOMMODATION, LOCATION_NUMBER, LOCATION_TYPE
+        // SECURITY_DEPOSIT, USE_PRIVATE_ACCOMMODATION, LOCATION_NUMBER, HOUSING_ID
 
         queries.add(createInsertQuery(TABLE_NAME, "1", "'100540001'", "'" + RequestStatus.Completed + "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')",
-                "2", "'" + PaymentOption.Semester+ "'", "500", "'0'", "001", "'Gryffindor Hall'"));
+                "2", "'" + PaymentOption.Semester+ "'", "500", "'0'", "001", "'1'"));
 
         DBAccessor.executeBatchQuery(conn, queries);
     }
@@ -160,5 +147,11 @@ public class LeaseTable extends Table {
         ResultSet rs = stmt.executeQuery();
         rs.next();
         return rs.getInt(1);
+    }
+
+    public void updateStatus(Connection conn, Lease lease, LeaseTable.RequestStatus status) throws SQLException {
+        String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status +
+            "' where " + REQUEST_NUMBER + " = " + lease.getLeaseNumber();;
+        DBAccessor.executeQuery(conn, sql);
     }
 }

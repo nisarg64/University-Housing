@@ -19,10 +19,11 @@ public class Lease {
     private String paymentOption;
     private int securityDeposit;
     private Date cutoffDate;
-    private String placeNumber;
-    private String apartmentNumber;
     private boolean usePrivateAccommodation;
     private String housingId;
+    private String locationNumber;
+    private String housingType;
+    private String housingName;
 
     private int housingRent;
     private int parkingRent;
@@ -139,22 +140,6 @@ public class Lease {
         this.preference3 = preference3;
     }
 
-    public String getPlaceNumber() {
-        return placeNumber;
-    }
-
-    public void setPlaceNumber(String placeNumber) {
-        this.placeNumber = placeNumber;
-    }
-
-    public String getApartmentNumber() {
-        return apartmentNumber;
-    }
-
-    public void setApartmentNumber(String apartmentNumber) {
-        this.apartmentNumber = apartmentNumber;
-    }
-
     public boolean getCanApprove() {
         return canApprove;
     }
@@ -223,6 +208,30 @@ public class Lease {
         this.paymentMode = paymentMode;
     }
 
+    public String getLocationNumber() {
+        return locationNumber;
+    }
+
+    public void setLocationNumber(String locationNumber) {
+        this.locationNumber = locationNumber;
+    }
+
+    public String getHousingType() {
+        return housingType;
+    }
+
+    public void setHousingType(String housingType) {
+        this.housingType = housingType;
+    }
+
+    public String getHousingName() {
+        return housingName;
+    }
+
+    public void setHousingName(String housingName) {
+        this.housingName = housingName;
+    }
+
     @Override
     public String toString() {
         return "Lease{" +
@@ -235,6 +244,20 @@ public class Lease {
                 ", paymentOption='" + paymentOption + '\'' +
                 ", securityDeposit=" + securityDeposit +
                 ", cutoffDate=" + cutoffDate +
+                ", usePrivateAccommodation=" + usePrivateAccommodation +
+                ", housingId='" + housingId + '\'' +
+                ", locationNumber='" + locationNumber + '\'' +
+                ", housingType='" + housingType + '\'' +
+                ", housingName='" + housingName + '\'' +
+                ", housingRent=" + housingRent +
+                ", parkingRent=" + parkingRent +
+                ", pendingCharge=" + pendingCharge +
+                ", lateFees=" + lateFees +
+                ", paymentMode='" + paymentMode + '\'' +
+                ", preference1=" + preference1 +
+                ", preference2=" + preference2 +
+                ", preference3=" + preference3 +
+                ", canApprove=" + canApprove +
                 '}';
     }
 }
