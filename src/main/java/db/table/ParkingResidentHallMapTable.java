@@ -24,12 +24,10 @@ public class ParkingResidentHallMapTable extends Table {
         String query = "CREATE TABLE " + getTableName() + " ("+
                 "id varchar2(32), "+
                 "lot_id varchar2(32),"+
-                "housing_name varchar(32), "+
-                "housing_type varchar(32),"+
+                "housing_id "+ColumnTypes.ID_TYPE+", "+
                 "PRIMARY KEY (id),"+
                 "FOREIGN KEY (lot_id) references PARKING_LOT(lot_id),"+
-                "FOREIGN KEY (housing_name) references HOUSING(name),"+
-                "FOREIGN KEY (housing_type) references HOUSING(type))";
+                "FOREIGN KEY (housing_id) references HOUSING(housing_id))";
         executeQuery(conn, query);
     }
 
@@ -38,12 +36,12 @@ public class ParkingResidentHallMapTable extends Table {
 
         List<String> queries = new ArrayList<String>();
 
-        queries.add("INSERT INTO " + getTableName() + " VALUES('1', 'Parking Lot 1', 'Residence Halls', 'Gryffindor Hall')");
-        queries.add("INSERT INTO " + getTableName() + " VALUES('2', 'Parking Lot 2', 'Residence Halls', 'Slytherin Hall')");
-        queries.add("INSERT INTO " + getTableName() + " VALUES('3', 'Parking Lot 3', 'General Student Apartments', 'Ravenclaw Hall')");
-        queries.add("INSERT INTO " + getTableName() + " VALUES('4', 'Parking Lot 4', 'General Student Apartments', Ravenclaw')");
-        queries.add("INSERT INTO " + getTableName() + " VALUES('5', 'Parking Lot 5', 'General Student Apartments', 'Hufflepuff')");
-        queries.add("INSERT INTO " + getTableName() + " VALUES('1', 'Parking Lot 6', 'Family Apartments', 'Hogwarts')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('1', 'Parking Lot 1', '1')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('2', 'Parking Lot 2', '2')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('3', 'Parking Lot 3', '3')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('4', 'Parking Lot 4', '3')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('5', 'Parking Lot 5', '4')");
+        queries.add("INSERT INTO " + getTableName() + " VALUES('6', 'Parking Lot 6', '5')");
 
         DBAccessor.executeBatchQuery(conn, queries);
     }

@@ -21,9 +21,10 @@ public class HousingTable extends Table{
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() + "(" +
+                " housing_id "+ColumnTypes.ID_TYPE+","+
                 " type VARCHAR2(32), " +
                 " name VARCHAR2(32), " +
-                " PRIMARY KEY (name, type) " +
+                " PRIMARY KEY (housing_id) " +
                 ")";
         DBAccessor.executeQuery(conn, query);
     }
@@ -32,11 +33,11 @@ public class HousingTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('Residence Halls', 'Gryffindor Hall')";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('Residence Halls', 'Slytherin Hall')";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('General Student Apartments', 'Ravenclaw')";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('General Student Apartments', 'Hufflepuff')";
-        String query5 = "INSERT INTO " + getTableName() + " VALUES('Family Apartments', 'Hogwarts')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('1', 'Residence Halls', 'Gryffindor Hall')";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('2', 'Residence Halls', 'Slytherin Hall')";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', 'Ravenclaw')";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', 'Hufflepuff')";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('5', 'Family Apartments', 'Hogwarts')";
 
         queries.add(query1);
         queries.add(query2);
