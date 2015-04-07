@@ -1,7 +1,5 @@
 package pojo;
 
-import oracle.sql.NUMBER;
-
 import java.sql.Timestamp;
 
 /**

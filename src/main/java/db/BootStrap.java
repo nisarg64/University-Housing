@@ -46,6 +46,7 @@ public class BootStrap {
 //        database.addTable(new InvoicePaymentTable());
         database.addTable(new InvoiceTable());
         database.addView(new InvoiceView());
+        database.addView(new ParkingView());
 
         database.makeAll();
         System.out.println("Done!");
@@ -57,7 +58,8 @@ public class BootStrap {
             conn = DBAccessor.getConnection();
 
             ParkingRequestTable parkingRequestTable = new ParkingRequestTable();
-            System.out.println(parkingRequestTable.selectAll(conn));
+            System.out.println(parkingRequestTable.checkParkingAvailability(conn, "1002"));
+           // System.out.println(parkingRequestTable.selectAll(conn));
 
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -74,7 +76,7 @@ public class BootStrap {
 
 
     public static void main(String[] args) {
-        //generalQuery();
+      //  generalQuery();
        bootStrap();
     }
 }

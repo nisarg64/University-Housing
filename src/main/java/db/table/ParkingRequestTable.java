@@ -223,12 +223,13 @@ public class ParkingRequestTable extends Table {
         } else {
             System.out.println("Campus Student");
             // Query to get student's assigned hall id
-            String hallId = "HID1";
-            System.out.println(hallId);
-            query = "SELECT LOT_ID from parking_resident_hall_map WHERE HALL_ID = '" + hallId + "'";
+            String housingId = "3";
+            System.out.println(housingId);
+            query = "SELECT LOT_ID from parking_resident_hall_map WHERE HOUSING_ID = '" + housingId + "'";
             ResultSet resultSet = DBAccessor.selectQuery(conn, query);
-            while (resultset.next()) {
+            while (resultSet.next()) {
                 lotId = resultSet.getString("lot_id");
+                System.out.println(lotId);
                 if (isHandicapped.equals("No"))
                     query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = '" + lotId + "'";
                 else
