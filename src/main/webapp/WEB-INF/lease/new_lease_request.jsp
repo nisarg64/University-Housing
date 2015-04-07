@@ -10,24 +10,19 @@
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
         <tr>
+            <th>Lease Duration:</th>
+            <td><s:select name="lease.duration" headerKey="-1" headerValue="Select Lease Duration"
+            list="leaseDurations" value="lease.duration"/></td>
+        </tr>
+        <tr>
             <th>Enter Date:</th>
             <s:date name="lease.enterDate" var="enterDateId" format="MM/dd/yy"/>
             <td><s:textfield name="lease.enterDate" value="%{enterDateId}" placeholder="MM/DD/YY"/></td>
         </tr>
         <tr>
-            <th>Leave Date:</th>
-            <s:date name="lease.leaveDate" var="leaveDateId" format="MM/dd/yy"/>
-            <td><s:textfield name="lease.leaveDate" value="%{leaveDateId}" placeholder="MM/DD/YY" /></td>
-        </tr>
-        <tr>
             <th>Payment Option:</th>
             <td><s:select name="lease.paymentOption" headerKey="-1" headerValue="Select Payment Option"
             list="paymentOptions" value="lease.paymentOption"/></td>
-        </tr>
-        <tr>
-            <th>Lease Duration:</th>
-            <td><s:select name="lease.duration" headerKey="-1" headerValue="Select Lease Duration"
-            list="leaseDurations" value="lease.duration"/></td>
         </tr>
         <tr>
             <th>Preference 1:</th>

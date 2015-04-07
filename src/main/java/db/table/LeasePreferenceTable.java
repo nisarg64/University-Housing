@@ -43,12 +43,12 @@ public class LeasePreferenceTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + TABLE_NAME + " (" +
-                LeaseTable.LEASE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
+                LeaseTable.REQUEST_NUMBER + " " + ColumnTypes.ID_INT_TYPE + ", " +
                 SEQUENCE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
                 TYPE + " " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + ", " +
                 ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
-                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + "," + SEQUENCE_NUMBER + "), " +
-                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + ") " +
+                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + ") " +
                 LeaseTable.REFERENCES_STR + " " + LeaseTable.TABLE_NAME + ", " +
                 LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + ResidentHallTable.HALL_ID + ") " +
                 LeaseTable.REFERENCES_STR + " " + ResidentHallTable.TABLE_NAME +
@@ -63,7 +63,7 @@ public class LeasePreferenceTable extends Table {
     }
 
     public void insert(Connection conn, LeasePreference preference) throws SQLException {
-        String sql = createInsertSql(TABLE_NAME, 0, LeaseTable.LEASE_NUMBER , SEQUENCE_NUMBER, TYPE,
+        String sql = createInsertPreparedStatement(TABLE_NAME, 0, LeaseTable.REQUEST_NUMBER, SEQUENCE_NUMBER, TYPE,
                 ResidentHallTable.HALL_ID);
         System.out.println(sql);
         PreparedStatement stmt = conn.prepareStatement(sql);

@@ -4,6 +4,7 @@ import db.table.LeasePreferenceTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
 import db.table.ResidentHallTable;
+import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.Lease;
 import pojo.LeasePreference;
@@ -67,8 +68,14 @@ public class LeaseAction extends UHAction {
     }
 
     public String newLeaseRequest() {
-        //String username = (String) sessionMap.get("username");
-        //leaseDurations.
+
+        String username = (String) sessionMap.get("username");
+        LeaseView view = new LeaseView();
+        lease = view.viewCurrentLeaseRequest(conn, username);
+        if (lease != null) {
+            return "exists";
+        }
+
         lease = new Lease();
         paymentOptions = new ArrayList<String>();
         for (LeaseTable.PaymentOption option : LeaseTable.PaymentOption.values()) {
@@ -103,7 +110,7 @@ public class LeaseAction extends UHAction {
         String username = (String) sessionMap.get("username");
         lease.setResidentId(username);
         lease.setSecurityDeposit(0);
-        lease.setStatus(LeaseTable.LeaseStatus.Pending.name());
+        lease.setStatus(LeaseTable.RequestStatus.Pending.name());
         lease.setLeaseNumber(new LeaseTable().insert(conn, lease));
 
         LeasePreference pref = lease.getPreference1();
@@ -135,6 +142,12 @@ public class LeaseAction extends UHAction {
     }
 
     public String newLeaseTerminationRequest() {
+        LeaseTerminationRequestView view = new LeaseTerminationRequestView();
+        String username = (String) sessionMap.get("username");
+        leaseTerminationRequest = view.viewOpenLeaseTerminationRequestForResident(conn, username);
+        if (leaseTerminationRequest != null) {
+            return "exists";
+        }
         return SUCCESS;
     }
 
@@ -146,7 +159,7 @@ public class LeaseAction extends UHAction {
         }
         Lease lease = view.viewCurrentLease(conn, username);
         leaseTerminationRequest.setLease(lease);
-        leaseTerminationRequest.setStatus(LeaseTerminationRequestTable.LeaseTerminationRequestStatus.Pending.name());
+        leaseTerminationRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
         new LeaseTerminationRequestTable().insert(conn, leaseTerminationRequest);
         return SUCCESS;
     }

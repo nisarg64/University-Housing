@@ -1,6 +1,7 @@
 package action;
 
 import db.table.LeaseTable;
+import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.Lease;
 import pojo.LeaseTerminationRequest;
@@ -27,14 +28,14 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String getAllTerminationRequests() {
-        LeaseView view = new LeaseView();
+        LeaseTerminationRequestView view = new LeaseTerminationRequestView();
         allTerminationLeases = view.viewLeaseTerminationRequests(conn);
         return "success";
     }
 
     public String approveLeaseRequest() throws SQLException {
-        String query = "update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.LeaseStatus.InProgress.name() + "'" +
-                " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber;
+        String query = "update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.InProgress.name() + "'" +
+                " where " + LeaseTable.REQUEST_NUMBER + " = " + leaseNumber;
         System.out.println(query);
         DBAccessor.executeQuery(conn, query);
         lease = new Lease();
@@ -47,8 +48,8 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String placeLeaseRequestOnWaitingList() throws SQLException {
-        String query = "update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.LeaseStatus.WaitList.name() + "'" +
-                " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber;
+        String query = "update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.WaitList.name() + "'" +
+                " where " + LeaseTable.REQUEST_NUMBER + " = " + leaseNumber;
         DBAccessor.executeQuery(conn, query);
         lease = new Lease();
         lease.setLeaseNumber(leaseNumber);

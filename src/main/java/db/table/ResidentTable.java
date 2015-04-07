@@ -181,4 +181,45 @@ public class ResidentTable extends Table {
         }
     }
 
+    public List<Resident> selectMatch(Connection conn, Resident hostResident) {
+
+        List<Resident> residents = new LinkedList<>();
+        String query = "SELECT * FROM " + getTableName() + " where " +
+                       " smoker = '" + hostResident.getIsSmoker() +  "' AND " +
+                       " sex = '" + hostResident.getGender() + "' AND " +
+                       " res_id <> '" +hostResident.getResId() + "' ";
+
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+
+                Resident resident = new Resident();
+                resident.setResId(resultSet.getString("res_id"));
+                resident.setFname(resultSet.getString("fname"));
+                resident.setLname(resultSet.getString("lname"));
+
+                resident.setAddrStreet(resultSet.getString("address_street"));
+                resident.setAddrCity(resultSet.getString("address_city"));
+                resident.setAddrCountry(resultSet.getString("address_country"));
+                resident.setPostalCode(resultSet.getString("address_postcode"));
+                resident.setNationality(resultSet.getString("nationality"));
+
+                resident.setCategory(resultSet.getString("category"));
+                resident.setStatus(resultSet.getString("status"));
+                resident.setDob(resultSet.getDate("dob").toString());
+                resident.setCourse(resultSet.getString("course"));
+                resident.setGender(resultSet.getString("sex"));
+                resident.setPrimaryPhone(resultSet.getString("primary_phone"));
+                resident.setAlternatePhone(resultSet.getString("alternate_phone"));
+                resident.setSpclNeeds(resultSet.getString("spl_needs"));
+                resident.setComments(resultSet.getString("comments"));
+                resident.setIsSmoker(resultSet.getString("smoker"));
+
+                residents.add(resident);
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During resident Profile View " + ex.getMessage());
+        }
+        return residents;
+
+    }
 }

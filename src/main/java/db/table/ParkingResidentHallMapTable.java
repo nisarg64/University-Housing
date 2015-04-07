@@ -22,9 +22,9 @@ public class ParkingResidentHallMapTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + getTableName() + " ("+
-                "id varchar2(32), "+
-                "lot_id varchar2(32),"+
-                "housing_id "+ColumnTypes.ID_TYPE+", "+
+                "id " + ColumnTypes.ID_TYPE + " ," +
+                "lot_id " + ColumnTypes.BIG_ID_TYPE + " ," +
+                "housing_id "+ ColumnTypes.ID_TYPE+", "+
                 "PRIMARY KEY (id),"+
                 "FOREIGN KEY (lot_id) references PARKING_LOT(lot_id),"+
                 "FOREIGN KEY (housing_id) references HOUSING(housing_id))";
