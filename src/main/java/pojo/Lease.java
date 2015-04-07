@@ -21,6 +21,7 @@ public class Lease {
     private Date cutoffDate;
     private String placeNumber;
     private String apartmentNumber;
+    private boolean usePrivateAccommodation;
 
     private LeasePreference preference1;
     private LeasePreference preference2;
@@ -154,6 +155,14 @@ public class Lease {
 
     public void setCanApprove(boolean canApprove) {
         this.canApprove = canApprove;
+    }
+
+    public boolean isUsePrivateAccommodation() {
+        return usePrivateAccommodation;
+    }
+
+    public void setUsePrivateAccommodation(boolean usePrivateAccommodation) {
+        this.usePrivateAccommodation = usePrivateAccommodation;
     }
 
     @Override
