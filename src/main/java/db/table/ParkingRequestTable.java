@@ -11,9 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.DBAccessor.executeQuery;
-import static util.DBAccessor.executeUpdateSQL;
-import static util.DBAccessor.selectQuery;
+import static util.DBAccessor.*;
 
 /**
  * Created by Nisarg on 28-Mar-15.
@@ -44,7 +42,34 @@ public class ParkingRequestTable extends Table {
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
+        List<String> queries = new ArrayList<>();
 
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '003', 'Parking Lot 1', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540001', 'Small' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '013', 'Parking Lot 3', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540002', 'Small' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '002', 'Parking Lot 1', '01-Jan-2014','31-May-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540003', 'Bike' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540004', 'Small' , 'No', 'No', 'pending', null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '027', 'Parking Lot 5', '01-Jan-2014','31-May-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540005', 'Large' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '025', 'Parking Lot 5', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540006', 'Small' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '007', 'Parking Lot 2', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540007', 'Small' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '045', 'Parking Lot 7', '01-Mar-2014','30-Apr-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '200540001', 'Small' , 'No', 'No', 'approved', pr_sequence.currval )");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '200540002', 'Small' , 'No', 'No', 'pending', null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '038', 'Parking Lot 6', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540008', 'Large' , 'No', 'No', 'approved', pr_sequence.currval )");
+
+
+        System.out.println(queries.get(0));
+        executeBatchQuery(conn, queries);
+
+        String query2 = "Update PARKING_SPOT SET availability = 'No' " +
+                "WHERE spot_id IN (SELECT spot_id from PARKING_PERMIT)";
+        executeQuery(conn,query2);
     }
 
     public void insertRequest(Connection conn, String resident_id, ParkingRequest parkingRequest) throws SQLException {

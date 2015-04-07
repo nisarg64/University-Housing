@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static util.DBAccessor.executeBatchQuery;
 import static util.DBAccessor.executeQuery;
 import static util.DBAccessor.selectQuery;
 
@@ -38,6 +39,8 @@ public class ParkingPermitTable extends Table {
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
 
+
+        //String query = "Update PARKING_PERMIT SET request_status = 'approved' AND permit_id = ;
     }
 
     public List<ParkingSpot> getResidentParkingSpots(Connection conn, String username) {
