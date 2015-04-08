@@ -27,8 +27,6 @@ public class ResidentHallTable extends Table{
         String query = " CREATE TABLE " + getTableName() +" (" +
                 " hall_id " + ColumnTypes.ID_TYPE + " ," +
                 " num_room number, " +
-                " monthly_rent number, " +
-                " security_deposit number, " +
                 " student_type varchar2(20), " +
                 " PRIMARY KEY (hall_id), " +
                 " FOREIGN KEY (hall_id) REFERENCES HOUSING " +
@@ -44,8 +42,6 @@ public class ResidentHallTable extends Table{
                 "VALUES" +
                 "('1', " +
                 " 5, " +
-                " 400, " +
-                " 400, " +
                 " null " +
                 " )";
 
@@ -53,8 +49,6 @@ public class ResidentHallTable extends Table{
                 "VALUES" +
                 "('2', " +
                 " 3, " +
-                " 450, " +
-                " 500, " +
                 " 'Graduate' " +
                 " )";
 

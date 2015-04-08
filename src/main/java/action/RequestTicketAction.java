@@ -68,7 +68,7 @@ public class RequestTicketAction extends UHAction {
     public String resolve() {
         System.out.println("ticket no: " + ticket_no);
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
-        tickets = prTable.resolve(conn, ticket_no);
+        tickets = prTable.resolve(conn, ticket_no, sessionMap);
         message = "Ticket Complete!";
         return SUCCESS;
     }

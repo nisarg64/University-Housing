@@ -16,6 +16,8 @@ public class TicketRequest {
     private String residentId;
     private String address;
     private String severity;
+    private String approved_by;
+    private Date approved_on;
 
     public Date getDate() {
         return date;
@@ -79,6 +81,22 @@ public class TicketRequest {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getApproved_by() {
+        return approved_by;
+    }
+
+    public void setApproved_by(String approved_by) {
+        this.approved_by = approved_by;
+    }
+
+    public Date getApproved_on() {
+        return approved_on;
+    }
+
+    public void setApproved_on(Date approved_on) {
+        this.approved_on = approved_on;
     }
 
     @Override

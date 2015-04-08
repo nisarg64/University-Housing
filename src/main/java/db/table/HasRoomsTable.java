@@ -25,6 +25,8 @@ public class HasRoomsTable extends Table {
                 " type VARCHAR2(32), " +
                 " place_num VARCHAR(20), " +
                 " room_num VARCHAR(20), " +
+                " monthly_rent number, " +
+                " security_deposit number, " +
                 " PRIMARY KEY (parent_id, place_num), " +
                 " FOREIGN KEY (parent_id) REFERENCES HOUSING " +
                 ")";
@@ -35,33 +37,33 @@ public class HasRoomsTable extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '001', '001')";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '002', '002')";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '003', '003')";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '004', '004')";
-        String query5 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '005', '005')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '001', '001', 400, 400)";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '002', '002', 400, 400)";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '003', '003', 400, 400)";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '004', '004', 400, 400)";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '005', '005', 400, 400)";
 
-        String query6 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '006', '001')";
-        String query7 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '007', '002')";
-        String query8 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '008', '003')";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '006', '001', 450, 500)";
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '007', '002', 450, 500)";
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '008', '003', 450, 500)";
 
-        String query12 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '001', '001')";
-        String query13 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '002', '002')";
-        String query14 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '003', '003')";
+        String query12 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '001', '001', 350, 400)";
+        String query13 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '002', '002', 350, 400)";
+        String query14 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '003', '003', 350, 400)";
 
-        String query15 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '004', '001')";
-        String query16 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '005', '002')";
-        String query17 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '006', '003')";
-        String query18 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '007', '004')";
+        String query15 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '004', '001', 350, 400)";
+        String query16 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '005', '002', 350, 400)";
+        String query17 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '006', '003', 350, 400)";
+        String query18 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '007', '004', 350, 400)";
 
-        String query19 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '001', '001')";
-        String query20 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '002', '002')";
-        String query21 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '003', '003')";
+        String query19 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '001', '001', 375, 450)";
+        String query20 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '002', '002', 375, 450)";
+        String query21 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '003', '003', 375, 450)";
 
-        String query22 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '004', '001')";
-        String query23 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '005', '002')";
-        String query24 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '006', '003')";
-        String query25 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '007', '004')";
+        String query22 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '004', '001', 375, 450)";
+        String query23 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '005', '002', 375, 450)";
+        String query24 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '006', '003', 375, 450)";
+        String query25 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '007', '004', 375, 450)";
 
         queries.add(query1);
         queries.add(query2);
