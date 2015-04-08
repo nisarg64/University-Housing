@@ -6,7 +6,7 @@ package pojo;
  */
 public class LeasePreference {
 
-    private int leaseNumber;
+    private int requestNumber;
     private int sequenceNumber;
     private String type;
     private String hallId;
@@ -44,11 +44,11 @@ public class LeasePreference {
         this.hallName = hallName;
     }
 
-    public int getLeaseNumber() {
-        return leaseNumber;
+    public int getRequestNumber() {
+        return requestNumber;
     }
 
-    public void setLeaseNumber(int leaseNumber) {
-        this.leaseNumber = leaseNumber;
+    public void setRequestNumber(int requestNumber) {
+        this.requestNumber = requestNumber;
     }
 }

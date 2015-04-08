@@ -1,11 +1,15 @@
 package action;
 
+import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
+import db.view.LeaseRequestView;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.Lease;
+import pojo.LeaseRequest;
 import pojo.LeaseTerminationRequest;
+import pojo.ProposedHousing;
 import util.DBAccessor;
 
 import java.sql.Date;
@@ -19,17 +23,17 @@ import java.util.List;
  */
 public class StaffLeaseAction extends UHAction{
 
-    private List<Lease> allLeases;
+    private List<LeaseRequest> allLeaseRequests;
     private List<LeaseTerminationRequest> allTerminationLeases;
     private int leaseNumber;
     private Lease lease;
+    private LeaseRequest leaseRequest;
     private int damageFees;
     private int requestNumber;
     private LeaseTerminationRequest leaseTerminationRequest;
 
     public String getAllRequests() {
-        LeaseView view = new LeaseView();
-        allLeases = view.viewOpenLeaseRequests(conn);
+        allLeaseRequests = (new LeaseRequestView()).viewOpenLeaseRequests(conn);
         return "success";
     }
 
@@ -44,10 +48,13 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String approveLeaseRequest() throws SQLException {
-        String query = "update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.InProgress.name() + "'" +
-                " where " + LeaseTable.REQUEST_NUMBER + " = " + leaseNumber;
-        System.out.println(query);
-        DBAccessor.executeQuery(conn, query);
+        /*String query = null; *//*"update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.InProgress.name() + "'" +
+                " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber;*/
+        Lease lease = new Lease();
+        lease.setLeaseRequest(leaseRequest);
+        LeaseTable table = new LeaseTable();
+        table.insert(conn, lease);
+        //DBAccessor.executeQuery(conn, query);
         lease = new Lease();
         lease.setLeaseNumber(leaseNumber);
 
@@ -60,7 +67,7 @@ public class StaffLeaseAction extends UHAction{
     public String approveLeaseTerminationRequest() throws SQLException {
         String sql = "update " + LeaseTerminationRequestTable.TABLE_NAME +
                 " set " + LeaseTerminationRequestTable.INSPECTION_DATE+ " = ? where "+
-                LeaseTerminationRequestTable.REQUEST_NUMBER + " = " + requestNumber;
+                LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber;
 
         System.out.println(sql);
         PreparedStatement stmt = conn.prepareStatement(sql);
@@ -72,8 +79,9 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String placeLeaseRequestOnWaitingList() throws SQLException {
-        String query = "update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.WaitList.name() + "'" +
-                " where " + LeaseTable.REQUEST_NUMBER + " = " + leaseNumber;
+        // TODO
+        String query = "update " + LeaseRequestTable.TABLE_NAME + " set " + LeaseRequestTable.STATUS + " = '" + LeaseTable.RequestStatus.WaitList.name() + "'" +
+                " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber;
         DBAccessor.executeQuery(conn, query);
         lease = new Lease();
         lease.setLeaseNumber(leaseNumber);
@@ -83,21 +91,27 @@ public class StaffLeaseAction extends UHAction{
 
     public String viewLeaseToApprove() {
         LeaseView view = new LeaseView();
-        lease = view.viewLease(conn, leaseNumber);
-        lease.setCanApprove(true);
-        return SUCCESS;
+        ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, lease);
+        if (proposedHousing == null) {
+            leaseRequest.setCanApprove(false);
+            return "waiting";
+        } else {
+            leaseRequest.setCanApprove(true);
+            leaseRequest.setProposedHousing(proposedHousing);
+            return SUCCESS;
+        }
     }
 
     public String approveTerminationLease(){
         return "success";
     }
 
-    public List<Lease> getAllLeases() {
-        return allLeases;
+    public List<LeaseRequest> getAllLeaseRequests() {
+        return allLeaseRequests;
     }
 
-    public void setAllLeases(List<Lease> allLeases) {
-        this.allLeases = allLeases;
+    public void setAllLeaseRequests(List<LeaseRequest> allLeaseRequests) {
+        this.allLeaseRequests = allLeaseRequests;
     }
 
     public List<LeaseTerminationRequest> getAllTerminationLeases() {

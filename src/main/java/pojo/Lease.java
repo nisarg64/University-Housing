@@ -13,7 +13,8 @@ public class Lease {
     private int leaseNumber;
     private String residentId;
     private String status;
-    private Date enterDate;
+    private Date startDate;
+    private Date endDate;
     private int duration;
     private Date leaveDate;
     private String paymentOption;
@@ -21,20 +22,16 @@ public class Lease {
     private Date cutoffDate;
     private boolean usePrivateAccommodation;
     private String housingId;
-    private String locationNumber;
     private String housingType;
     private String housingName;
+    private String locationNumber;
+    private LeaseRequest leaseRequest;
     private int housingRent;
     private int parkingRent;
     private int pendingCharge;
     private int lateFees;
     private String paymentMode; //Cheque or Cash
     private String earlyTerminationFees;
-    private LeasePreference preference1;
-    private LeasePreference preference2;
-    private LeasePreference preference3;
-    private boolean canApprove;
-
 
     public String getEarlyTerminationFees() {
         return earlyTerminationFees;
@@ -68,16 +65,24 @@ public class Lease {
         this.status = status;
     }
 
-    public Date getEnterDate() {
-        return enterDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setEnterDate(Date enterDate) {
-        this.enterDate = enterDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public void setEnterDate(String enterDateStr) {
-        this.enterDate = Utils.getDate(enterDateStr);
+        this.startDate = Utils.getDate(enterDateStr);
     }
 
     public int getDuration() {
@@ -124,38 +129,6 @@ public class Lease {
         this.cutoffDate = cutoffDate;
     }
 
-    public LeasePreference getPreference1() {
-        return preference1;
-    }
-
-    public void setPreference1(LeasePreference preference1) {
-        this.preference1 = preference1;
-    }
-
-    public LeasePreference getPreference2() {
-        return preference2;
-    }
-
-    public void setPreference2(LeasePreference preference2) {
-        this.preference2 = preference2;
-    }
-
-    public LeasePreference getPreference3() {
-        return preference3;
-    }
-
-    public void setPreference3(LeasePreference preference3) {
-        this.preference3 = preference3;
-    }
-
-    public boolean getCanApprove() {
-        return canApprove;
-    }
-
-    public void setCanApprove(boolean canApprove) {
-        this.canApprove = canApprove;
-    }
-
     public boolean isUsePrivateAccommodation() {
         return usePrivateAccommodation;
     }
@@ -170,10 +143,6 @@ public class Lease {
 
     public void setHousingId(String housingId) {
         this.housingId = housingId;
-    }
-
-    public boolean isCanApprove() {
-        return canApprove;
     }
 
     public int getHousingRent() {
@@ -240,13 +209,21 @@ public class Lease {
         this.housingName = housingName;
     }
 
+    public LeaseRequest getLeaseRequest() {
+        return leaseRequest;
+    }
+
+    public void setLeaseRequest(LeaseRequest leaseRequest) {
+        this.leaseRequest = leaseRequest;
+    }
+
     @Override
     public String toString() {
         return "Lease{" +
                 "leaseNumber=" + leaseNumber +
                 ", residentId='" + residentId + '\'' +
                 ", status='" + status + '\'' +
-                ", enterDate=" + enterDate +
+                ", startDate=" + startDate +
                 ", duration=" + duration +
                 ", leaveDate=" + leaveDate +
                 ", paymentOption='" + paymentOption + '\'' +
@@ -254,18 +231,14 @@ public class Lease {
                 ", cutoffDate=" + cutoffDate +
                 ", usePrivateAccommodation=" + usePrivateAccommodation +
                 ", housingId='" + housingId + '\'' +
-                ", locationNumber='" + locationNumber + '\'' +
                 ", housingType='" + housingType + '\'' +
                 ", housingName='" + housingName + '\'' +
+                ", locationNumber='" + locationNumber + '\'' +
                 ", housingRent=" + housingRent +
                 ", parkingRent=" + parkingRent +
                 ", pendingCharge=" + pendingCharge +
                 ", lateFees=" + lateFees +
                 ", paymentMode='" + paymentMode + '\'' +
-                ", preference1=" + preference1 +
-                ", preference2=" + preference2 +
-                ", preference3=" + preference3 +
-                ", canApprove=" + canApprove +
                 '}';
     }
 }

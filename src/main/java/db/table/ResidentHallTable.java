@@ -15,7 +15,6 @@ public class ResidentHallTable extends Table{
 
     public static final String HALL_ID = "hall_id";
     public static final String TABLE_NAME = "RESIDENT_HALL";
-    public static final String HALL_NAME = "name";
 
     @Override
     public String getTableName() {

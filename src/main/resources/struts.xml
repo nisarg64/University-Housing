@@ -133,6 +133,7 @@
             <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
+        <!-- Lease New/Termination Requests -->
         <action name="newRequestsMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/new_requests_menu.jsp</result>
         </action>
@@ -175,6 +176,7 @@
         </action>
 
         <action name="viewLeaseToApprove" class="action.StaffLeaseAction" method="viewLeaseToApprove">
+            <result name="waiting">/WEB-INF/lease/staff/waitlist_view_lease_request.jsp</result>
             <result name="success">/WEB-INF/lease/staff/view_lease_request.jsp</result>
         </action>
 

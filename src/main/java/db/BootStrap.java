@@ -33,6 +33,7 @@ public class BootStrap {
         database.addTable(new HasRoomsTable());
 
         database.addTable(new PrivateAccoTable());
+        database.addTable(new LeaseRequestTable());
         database.addTable(new LeaseTable());
         database.addTable(new LeasePreferenceTable());
         database.addTable(new LeaseTerminationRequestTable());

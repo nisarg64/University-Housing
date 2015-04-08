@@ -1,13 +1,12 @@
 package action;
 
-import db.table.LeasePreferenceTable;
-import db.table.LeaseTable;
-import db.table.LeaseTerminationRequestTable;
-import db.table.ResidentHallTable;
+import db.table.*;
+import db.view.LeaseRequestView;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.Lease;
 import pojo.LeasePreference;
+import pojo.LeaseRequest;
 import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
@@ -24,6 +23,7 @@ import java.util.Map;
  */
 public class LeaseAction extends UHAction {
 
+    private LeaseRequest leaseRequest;
     public static final String NOTEXISTS = "notexists";
     public static final String CANNOTUPDATE = "cannotupdate";
     private Lease lease;
@@ -73,13 +73,12 @@ public class LeaseAction extends UHAction {
     public String newLeaseRequest() {
 
         String username = (String) sessionMap.get("username");
-        LeaseView view = new LeaseView();
-        lease = view.viewCurrentLeaseRequest(conn, username);
-        if (lease != null) {
+
+        leaseRequest = (new LeaseRequestView()).viewCurrentLeaseRequest(conn, username);
+        if (leaseRequest != null) {
             return "exists";
         }
 
-        lease = new Lease();
         paymentOptions = new ArrayList<String>();
         for (LeaseTable.PaymentOption option : LeaseTable.PaymentOption.values()) {
             paymentOptions.add(option.name());
@@ -95,39 +94,40 @@ public class LeaseAction extends UHAction {
         }
 
         halls = new HashMap<String, String>();
-        String query = "Select " + ResidentHallTable.HALL_ID + ", " + ResidentHallTable.HALL_NAME + " from " +
-                ResidentHallTable.TABLE_NAME;
+        // TODO add graduate check
+        String query = "Select hall." + ResidentHallTable.HALL_ID + ", h.name from " +
+                ResidentHallTable.TABLE_NAME + " hall inner join housing h on h.housing_id = hall." + ResidentHallTable.HALL_ID;
 
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
             while (rs.next()) {
-                halls.put(rs.getString(ResidentHallTable.HALL_ID), rs.getString(ResidentHallTable.HALL_NAME));
+                halls.put(rs.getString(ResidentHallTable.HALL_ID), rs.getString("name"));
             }
         } catch (SQLException ex){
-            System.err.println("Error Occurred During View Lease " + ex.getMessage());
+            System.err.println("Error Occurred During View Halls " + ex.getMessage());
         }
         return SUCCESS;
     }
 
     public String createLeaseRequest() throws Exception {
-        System.out.println(lease);
+        System.out.println(leaseRequest);
         String username = (String) sessionMap.get("username");
-        lease.setResidentId(username.trim());
-        lease.setSecurityDeposit(0);
-        lease.setStatus(LeaseTable.RequestStatus.Pending.name());
-        lease.setLeaseNumber(new LeaseTable().insert(conn, lease));
+        leaseRequest.setResidentId(username.trim());
+        leaseRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
+        //lease.setLeaseNumber();
+        leaseRequest.setRequestNumber(new LeaseRequestTable().insert(conn, leaseRequest));
 
-        LeasePreference pref = lease.getPreference1();
-        pref.setLeaseNumber(lease.getLeaseNumber());
+        LeasePreference pref = leaseRequest.getPreference1();
+        pref.setRequestNumber(leaseRequest.getRequestNumber());
         pref.setSequenceNumber(1);
         new LeasePreferenceTable().insert(conn, pref);
 
-        pref = lease.getPreference2();
-        pref.setLeaseNumber(lease.getLeaseNumber());
+        pref = leaseRequest.getPreference2();
+        pref.setRequestNumber(leaseRequest.getRequestNumber());
         pref.setSequenceNumber(2);
         new LeasePreferenceTable().insert(conn, pref);
 
-        pref = lease.getPreference3();
-        pref.setLeaseNumber(lease.getLeaseNumber());
+        pref = leaseRequest.getPreference3();
+        pref.setRequestNumber(leaseRequest.getRequestNumber());
         pref.setSequenceNumber(3);
         new LeasePreferenceTable().insert(conn, pref);
 
@@ -186,7 +186,7 @@ public class LeaseAction extends UHAction {
                 switch (status) {
                     case Pending:
                     case WaitList:
-                        (new LeaseTable()).updateStatus(conn, lease, LeaseTable.RequestStatus.Cancelled);
+                        (new LeaseRequestTable()).updateStatus(conn, lease.getLeaseRequest().getRequestNumber(), LeaseTable.RequestStatus.Cancelled);
                         return SUCCESS;
                     default:
                         return CANNOTUPDATE;
@@ -301,5 +301,13 @@ public class LeaseAction extends UHAction {
 
     public void setRequestNumber(int requestNumber) {
         this.requestNumber = requestNumber;
+    }
+
+    public LeaseRequest getLeaseRequest() {
+        return leaseRequest;
+    }
+
+    public void setLeaseRequest(LeaseRequest leaseRequest) {
+        this.leaseRequest = leaseRequest;
     }
 }

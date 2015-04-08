@@ -1,6 +1,5 @@
 package db.view;
 
-import db.table.LeaseTable;
 import pojo.Invoice;
 import pojo.Lease;
 import util.DBAccessor;
@@ -75,7 +74,7 @@ public class InvoiceView extends View{
         location_no = lease.getLocationNumber();
         invoice.setResidentId(residentId);
         invoice.setLeaseNo(lease.getLeaseNumber());
-        invoice.setEnterDate(lease.getEnterDate());
+        invoice.setEnterDate(lease.getStartDate());
         invoice.setLeaveDate(lease.getLeaveDate());
         invoice.setPaymentOption(lease.getPaymentOption());
 

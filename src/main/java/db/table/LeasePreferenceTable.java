@@ -15,7 +15,7 @@ public class LeasePreferenceTable extends Table {
 
     public static final String TABLE_NAME = "LEASE_PREFERENCE";
 
-    public static final String SEQUENCE_NUMBER = "sequence_number";
+    public static final String SEQUENCE_NUMBER = "preference_number";
     public static final String TYPE = "type";
 
     public enum PreferenceType {
@@ -42,30 +42,17 @@ public class LeasePreferenceTable extends Table {
 
     @Override
     public void createTable(Connection conn) throws SQLException {
-     /*   String query = "CREATE TABLE " + TABLE_NAME + " (" +
-                LeaseTable.REQUEST_NUMBER + " " + ColumnTypes.ID_INT_TYPE + ", " +
+        String query = "CREATE TABLE " + TABLE_NAME + " (" +
+                LeaseRequestTable.REQUEST_NUMBER + " " + ColumnTypes.ID_INT_TYPE + ", " +
                 SEQUENCE_NUMBER + " " + ColumnTypes.INTEGER_TYPE + ", " +
-<<<<<<< Updated upstream
-                TYPE + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
+                TYPE + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "not null, " +
                 ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
-                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
-                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + ") " +
-                LeaseTable.REFERENCES_STR + " " + LeaseTable.TABLE_NAME +
-=======
-                TYPE + " " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + ", " +
-                ResidentHallTable.HALL_ID + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + ", " +
-                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
-                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.REQUEST_NUMBER + ") " +
-                "housing_id" + " " + ColumnTypes.ID_TYPE + ", " +
-                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + "," + SEQUENCE_NUMBER + "), " +
-                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseTable.LEASE_NUMBER + ") " +
-                LeaseTable.REFERENCES_STR + " " + LeaseTable.TABLE_NAME + ", " +
-                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + "housing_id" + ") " +
-                LeaseTable.REFERENCES_STR + " " + "HOUSING" +
->>>>>>> Stashed changes
+                LeaseTable.PRIMARY_KEY_CONSTRAINT + "(" + LeaseRequestTable.REQUEST_NUMBER + "," + SEQUENCE_NUMBER + "), " +
+                LeaseTable.FOREIGN_KEY_CONSTRAINT + "(" + LeaseRequestTable.REQUEST_NUMBER + ") " +
+                LeaseTable.REFERENCES_STR + " " + LeaseRequestTable.TABLE_NAME +
                 ")";
 
-        DBAccessor.executeQuery(conn, query);*/
+        DBAccessor.executeQuery(conn, query);
     }
 
     @Override
@@ -74,11 +61,11 @@ public class LeasePreferenceTable extends Table {
     }
 
     public void insert(Connection conn, LeasePreference preference) throws SQLException {
-        String sql = createInsertPreparedStatement(TABLE_NAME, 0, LeaseTable.REQUEST_NUMBER, SEQUENCE_NUMBER, TYPE,
+        String sql = createInsertPreparedStatement(TABLE_NAME, 0, LeaseRequestTable.REQUEST_NUMBER, SEQUENCE_NUMBER, TYPE,
                 ResidentHallTable.HALL_ID);
         System.out.println(sql);
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, preference.getLeaseNumber());
+        stmt.setInt(1, preference.getRequestNumber());
         stmt.setInt(2, preference.getSequenceNumber());
         stmt.setString(3, preference.getType());
         if (preference.getType().equalsIgnoreCase(PreferenceType.Hall.name())) {
