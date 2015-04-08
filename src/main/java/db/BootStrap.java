@@ -46,6 +46,7 @@ public class BootStrap {
         database.addTable(new InvoiceTable());
         database.addView(new InvoiceView());
         database.addView(new ParkingView());
+        database.addView(new StaffNameView());
 
         database.makeAll();
         System.out.println("Done!");
