@@ -26,29 +26,28 @@ public class InvoiceTable extends Table {
         String query = "CREATE TABLE " + getTableName() + " ( "+
                         "invoice_id number, "+
                         "resident_id char(10), "+
-                        "housing_rent INTEGER, "+ // todo - figure this out. Anand: I think not a foreign key.
-                        "parking_rent INTEGER, "+ // todo - same as above.
+                        "housing_rent INTEGER, "+
+                        "parking_rent INTEGER, "+
                         "lease_no number, "+
-                        "pending_charges float(6), "+
+                        "other_charges float(6), "+
                         "late_fees float(6), "+
                         "due_date timestamp, "+
                         "deposit_amount float(6), "+
                         "payment_status varchar2(10), "+
-
+                        "early_termination_fees float(6), "+
+                        "total_amount Float(6), "+
                         "payment_date timestamp, "+
                         "amount_paid float(10), "+
                         "payment_method varchar2(20), "+
-
-                         "PRIMARY KEY (invoice_id), "+
-                " FOREIGN KEY (resident_id) REFERENCES RESIDENT, " +
-                " FOREIGN KEY (lease_no) REFERENCES LEASE " +
-                ")";
+                        "PRIMARY KEY (invoice_id), "+
+                        " FOREIGN KEY (resident_id) REFERENCES RESIDENT, " +
+                        " FOREIGN KEY (lease_no) REFERENCES LEASE )";
         DBAccessor.executeQuery(conn, query);
     }
 
     @Override
     public void insertIntoTable(Connection conn) throws SQLException {
-        List<String> queries = new LinkedList<>();
+      /*  List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName()
                 + " VALUES(" +
                 INVOICE_SEQUENCE + ".NEXTVAL" +
@@ -103,7 +102,7 @@ public class InvoiceTable extends Table {
         queries.add(query1);
         queries.add(query2);
         queries.add(query3);
-        DBAccessor.executeBatchQuery(conn, queries);
+        DBAccessor.executeBatchQuery(conn, queries);*/
     }
 
     public Invoice getCurrentInvoiceDetails(Connection conn, String username) {
@@ -122,7 +121,7 @@ public class InvoiceTable extends Table {
                 invoice.setHousingRent(resultSet.getInt("housing_rent"));
                 invoice.setParkingRent(resultSet.getInt("parking_rent"));
                 invoice.setLeaseNo(resultSet.getString("lease_no"));
-                invoice.setPendingCharges(resultSet.getFloat("pending_charges"));
+                invoice.setOtherCharges(resultSet.getFloat("other_charges"));
                 invoice.setLateFees(resultSet.getFloat("late_fees"));
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
                 invoice.setDueDate(resultSet.getTimestamp("due_date"));
@@ -139,16 +138,20 @@ public class InvoiceTable extends Table {
         return invoice;
     }
 
-    public List<String> getFormerInvoices(Connection conn, String resident_id) {
-        List<String> formerInvoices = null;
-        String query = "Select invoice_id from "+getTableName()+
+    public List<Invoice> getFormerInvoices(Connection conn, String resident_id) {
+        List<Invoice> formerInvoices = null;
+        String query = "Select * from "+getTableName()+
                 " where resident_id = '"+resident_id+"' AND invoice_id NOT IN "+
                 "(SELECT max(invoice_id) FROM "+getTableName()+" where resident_id ='"+resident_id+"' )";
         System.out.println(query);
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
-            formerInvoices = new ArrayList<String>();
+            formerInvoices = new ArrayList<>();
             while(resultSet.next()){
-                formerInvoices.add(resultSet.getString("invoice_id"));
+                Invoice invoice = new Invoice();
+                invoice.setInvoiceId(resultSet.getString("invoice_id"));
+                invoice.setTotalAmount(resultSet.getFloat("total_amount"));
+                invoice.setDueDate(resultSet.getTimestamp("due_date"));
+                formerInvoices.add(invoice);
             }
             System.out.println(formerInvoices);
         }catch (SQLException ex){

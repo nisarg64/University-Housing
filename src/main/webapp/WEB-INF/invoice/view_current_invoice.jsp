@@ -30,8 +30,8 @@
       <td><s:textfield name="invoice.leaseNo" readonly="true"/></td>
     </tr>
     <tr>
-      <th>Pending Charges:</th>
-      <td><s:textfield name="invoice.pendingCharges" readonly="true"/></td>
+      <th>Other Charges:</th>
+      <td><s:textfield name="invoice.otherCharges" readonly="true"/></td>
     </tr>
     <tr>
       <th>Late Fees:</th>
@@ -44,6 +44,10 @@
     <tr>
       <th>Payment Status:</th>
       <td><s:textfield name="invoice.paymentStatus" readonly="true"/></td>
+    </tr>
+    <tr>
+      <th>Total Amount:</th>
+      <td><s:textfield name="invoice.totalAmount" readonly="true"/></td>
     </tr>
     </tbody>
 

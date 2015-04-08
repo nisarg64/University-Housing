@@ -41,11 +41,12 @@ public class InvoiceView extends View{
                 invoice.setHousingRent(resultSet.getInt("housing_rent"));
                 invoice.setParkingRent(resultSet.getInt("parking_rent"));
                 invoice.setLeaseNo(resultSet.getString("lease_no"));
-                invoice.setPendingCharges(resultSet.getFloat("pending_charges"));
+                invoice.setOtherCharges(resultSet.getFloat("pending_charges"));
                 invoice.setLateFees(resultSet.getFloat("late_fees"));
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
                 invoice.setDueDate(resultSet.getTimestamp("due_date"));
                 invoice.setPaymentStatus(resultSet.getString("payment_status"));
+                invoice.setTotalAmount(resultSet.getFloat("total_amount"));
                 invoice.setPaymentDate(resultSet.getTimestamp("payment_date"));
                 invoice.setAmountPaid(resultSet.getFloat("amount_paid"));
                 invoice.setPaymentMethod(resultSet.getString("payment_method"));

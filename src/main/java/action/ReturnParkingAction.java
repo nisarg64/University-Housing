@@ -4,16 +4,21 @@ import db.table.ParkingSpotTable;
 import pojo.ParkingSpot;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by nisarg on 4/3/15.
  */
 public class ReturnParkingAction extends UHAction {
     private String message = "";
-
+    List<String> parkingSpots;
     ParkingSpot parkingSpot;
+    String spotId;
 
     public String execute() {
+        String resident_id = (String) sessionMap.get("username");
+        ParkingSpotTable PSTable = new ParkingSpotTable();
+        parkingSpots = PSTable.getParkingSpots(conn,resident_id );
         message = "";
         return SUCCESS;
     }
@@ -23,7 +28,7 @@ public class ReturnParkingAction extends UHAction {
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();
         ParkingSpotTable parkingSpotTable = new ParkingSpotTable();
-        String renewStatus = parkingSpotTable.returnSpotRequest(conn, resident_id, parkingSpot);
+        String renewStatus = parkingSpotTable.returnSpotRequest(conn, resident_id, spotId);
 
         //Reset parking request form
         parkingSpot = new ParkingSpot();
@@ -31,6 +36,7 @@ public class ReturnParkingAction extends UHAction {
             message = "Request Submitted Successfully..";
         else
             message = "Invalid Parking Spot ID";
+        parkingSpots = parkingSpotTable.getParkingSpots(conn,resident_id );
         return SUCCESS;
     }
 
@@ -52,5 +58,19 @@ public class ReturnParkingAction extends UHAction {
         return parkingSpot;
     }
 
+    public List<String> getParkingSpots() {
+        return parkingSpots;
+    }
 
+    public void setParkingSpots(List<String> parkingSpots) {
+        this.parkingSpots = parkingSpots;
+    }
+
+    public String getSpotId() {
+        return spotId;
+    }
+
+    public void setSpotId(String spotId) {
+        this.spotId = spotId;
+    }
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static util.DBAccessor.executeQuery;
+import static util.DBAccessor.selectQuery;
 
 /**
  * Created by Nisarg on 28-Mar-15.
@@ -95,9 +96,9 @@ public class ParkingSpotTable extends Table {
         DBAccessor.executeBatchQuery(conn, queries);
     }
 
-    public String renewSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot)  {
+    public String renewSpotRequest(Connection conn, String resident_id, String spotId)  {
         String query = "SELECT count(*) FROM PARKING_PERMIT " +
-                "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"' AND PERMIT_ID IN " +
+                "WHERE SPOT_ID = '"+spotId+"' AND PERMIT_ID IN " +
                 "(SELECT permit_id FROM PARKING_REQUEST " +
                 "WHERE resident_id ='"+resident_id+"')";
 
@@ -113,7 +114,7 @@ public class ParkingSpotTable extends Table {
         query = "UPDATE PARKING_REQUEST SET request_status = 'renew request' " +
                 "WHERE resident_id = '"+resident_id+"' AND permit_id = " +
                 "(SELECT permit_id from PARKING_PERMIT " +
-                "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"')";
+                "WHERE SPOT_ID = '"+spotId+"')";
 
         System.out.println(query);
         try {
@@ -121,13 +122,13 @@ public class ParkingSpotTable extends Table {
         } catch (SQLException e) {
             System.err.println("Error Occurred During Parking Spot Renew Request Update " + e.getMessage());
         }
-
+        System.out.println("SUCCESS");
         return "SUCCESS";
     }
 
-    public String returnSpotRequest(Connection conn, String resident_id, ParkingSpot parkingSpot) {
+    public String returnSpotRequest(Connection conn, String resident_id, String spotId) {
         String query = "SELECT count(*) FROM PARKING_PERMIT " +
-                "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"' AND PERMIT_ID IN " +
+                "WHERE SPOT_ID = '"+spotId+"' AND PERMIT_ID IN " +
                 "(SELECT permit_id FROM PARKING_REQUEST " +
                 "WHERE resident_id ='"+resident_id+"')";
 
@@ -143,7 +144,7 @@ public class ParkingSpotTable extends Table {
         query = "UPDATE PARKING_REQUEST SET request_status = 'return request' " +
                 "WHERE resident_id = '"+resident_id+"' AND permit_id = " +
                 "(SELECT permit_id from PARKING_PERMIT " +
-                "WHERE SPOT_ID = '"+parkingSpot.getSpotId()+"')";
+                "WHERE SPOT_ID = '"+spotId+"')";
 
         try {
             executeQuery(conn,query);
@@ -154,4 +155,20 @@ public class ParkingSpotTable extends Table {
         return "SUCCESS";
     }
 
+    public List<String> getParkingSpots(Connection conn, String resident_id) {
+        List<String> parkingSpots = new ArrayList<>();
+        String query = "SELECT spot_id FROM PARKING_PERMIT WHERE permit_id IN " +
+                "(SELECT permit_id FROM PARKING_REQUEST WHERE resident_id = "+resident_id+" AND" +
+                " request_status = 'approved' OR request_status = 'renewed')";
+        System.out.println(query);
+        try {
+            ResultSet resultSet = selectQuery(conn,query);
+            while(resultSet.next()){
+                parkingSpots.add(resultSet.getString("spot_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return parkingSpots;
+    }
 }

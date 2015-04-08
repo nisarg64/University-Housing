@@ -11,9 +11,10 @@
 
       <tbody>
       <tr>
-        <th>Enter Parking Spot ID:</th>
-        <td><s:textfield name="parkingSpot.spotId" /></td>
+        <th>Vehicle Type:</th>
+        <td><s:select name="spotId" headerKey="-1" headerValue="Select Parking Spot" list="parkingSpots" value="selectedParkingSpot"/></td>
       </tr>
+      <tr>
 
     </table>
     <s:submit cssClass="btn btn-primary btn-large" value="submit" name="submit" />

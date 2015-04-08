@@ -24,7 +24,6 @@ public class Lease {
     private String locationNumber;
     private String housingType;
     private String housingName;
-
     private int housingRent;
     private int parkingRent;
     private int pendingCharge;

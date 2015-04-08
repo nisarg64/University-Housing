@@ -12,12 +12,9 @@ import java.util.List;
  * Created by nisarg on 4/3/15.
  */
 public class ViewFormerInvoiceAction extends UHAction {
-    private List<String> formerInvoices;
+    private List<Invoice> formerInvoices;
     private Invoice invoice;
-
-    public ViewFormerInvoiceAction(){
-
-    }
+    private String invoiceId;
 
 
     public String execute() {
@@ -44,16 +41,16 @@ public class ViewFormerInvoiceAction extends UHAction {
         resident_id = resident_id.trim();
         InvoiceView invoiceView = new InvoiceView();
         System.out.println(invoice.getInvoiceId());
-        invoice = invoiceView.getFormerInvoiceDetails(conn, resident_id, invoice.getInvoiceId());
+        invoice = invoiceView.getFormerInvoiceDetails(conn, resident_id, invoiceId);
 
         return SUCCESS;
     }
 
-    public List<String> getFormerInvoices() {
+    public List<Invoice> getFormerInvoices() {
         return formerInvoices;
     }
 
-    public void setFormerInvoices(List<String> formerInvoices) {
+    public void setFormerInvoices(List<Invoice> formerInvoices) {
         this.formerInvoices = formerInvoices;
     }
 
@@ -65,5 +62,11 @@ public class ViewFormerInvoiceAction extends UHAction {
         this.invoice = invoice;
     }
 
+    public String getInvoiceId() {
+        return invoiceId;
+    }
 
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
+    }
 }

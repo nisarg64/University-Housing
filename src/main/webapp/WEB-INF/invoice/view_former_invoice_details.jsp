@@ -46,6 +46,10 @@
       <td><s:textfield name="invoice.paymentStatus" readonly="true"/></td>
     </tr>
     <tr>
+      <th>Total Billed Amount:</th>
+      <td><s:textfield name="invoice.totalAmount" readonly="true"/></td>
+    </tr>
+    <tr>
       <th>Payment Date:</th>
       <td><s:textfield name="invoice.paymentDate" readonly="true"/></td>
     </tr>

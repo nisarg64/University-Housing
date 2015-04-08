@@ -11,7 +11,7 @@ public class Invoice {
     private int housingRent;
     private int parkingRent;
     private String leaseNo;
-    private Float pendingCharges;
+    private Float otherCharges;
     private Float lateFees;
     private Timestamp dueDate;
     private Float depositAmount;
@@ -20,6 +20,8 @@ public class Invoice {
     private Timestamp paymentDate;
     private Float amountPaid;
     private String paymentMethod;
+    private Float earlyTerminationFees;
+    private Float totalAmount;
 
     public String getInvoiceId() {
         return invoiceId;
@@ -61,12 +63,12 @@ public class Invoice {
         this.leaseNo = leaseNo;
     }
 
-    public Float getPendingCharges() {
-        return pendingCharges;
+    public Float getOtherCharges() {
+        return otherCharges;
     }
 
-    public void setPendingCharges(Float pendingCharges) {
-        this.pendingCharges = pendingCharges;
+    public void setOtherCharges(Float pendingCharges) {
+        this.otherCharges = pendingCharges;
     }
 
     public Float getLateFees() {
@@ -131,5 +133,21 @@ public class Invoice {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public Float getEarlyTerminationFees() {
+        return earlyTerminationFees;
+    }
+
+    public void setEarlyTerminationFees(Float earlyTerminationFees) {
+        this.earlyTerminationFees = earlyTerminationFees;
+    }
+
+    public Float getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Float totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }
