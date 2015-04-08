@@ -29,6 +29,17 @@ public class LeaseTable extends Table {
     public static final String FOREIGN_KEY_CONSTRAINT = "FOREIGN KEY";
     public static final String REFERENCES_STR = "REFERENCES";
 
+    // Constants for pre populated data
+    public static final String LEASE_ID_1 = "1";
+    public static final String LEASE_ID_2 = "2";
+    public static final String LEASE_ID_3 = "3";
+    public static final String LEASE_ID_4 = "4";
+    public static final String LEASE_ID_5 = "5";
+    public static final String LEASE_ID_6 = "6";
+    public static final String LEASE_ID_7 = "7";
+    public static final String LEASE_ID_8 = "8";
+    public static final String LEASE_ID_9 = "9";
+
     public enum RequestStatus {
         Pending, Processed, InProgress, Completed, Cancelled, WaitList;
     }
@@ -78,14 +89,29 @@ public class LeaseTable extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();
 
-        // Sequence: LEASE_NUMBER, RES_ID, STATUS, START_DATE, DURATION, PAYMENT_OPTION,
-        // SECURITY_DEPOSIT, USE_PRIVATE_ACCOMMODATION, LOCATION_NUMBER, HOUSING_ID
+        // Sequence: LEASE_NUMBER, REQUEST_NUMBER, START_DATE, END_DATE, HOUSING_ID, LOCATION_NUMBER
 
-        //queries.add(createInsertQuery(TABLE_NAME, "1", "'100540001'", "'" + RequestStatus.InProgress + "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')",
+        /*queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
+                "to_date('01-AUG-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
+
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_2, LeaseRequestTable.LEASE_REQUEST_ID_2,
+                "to_date('01-AUG-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
+
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
+
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
+
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
+
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));*/
         /*queries.add(createInsertQuery(TABLE_NAME, "1", "'100540001'", "'" + RequestStatus.Completed + "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')",
-                "2", "'" + PaymentOption.Semester+ "'", "500", "'0'", "001", "'1'"));
+        "2", "'" + PaymentOption.Semester+ "'", "500", "'0'", "001", "'1'"));*/
 
-        DBAccessor.executeBatchQuery(conn, queries);*/
+        DBAccessor.executeBatchQuery(conn, queries);
     }
 
     public StringBuilder startInsertQuery(String tableName) {

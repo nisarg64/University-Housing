@@ -36,7 +36,7 @@
         </tr>
         <s:iterator value="allLeaseRequests" status="stat">
             <tr>
-                <td><a href="/<s:property value='appName'/>/viewLeaseToApprove.action?leaseRequestNumber=<s:property value='leaseRequestNumber' />" ><s:property value="leaseRequestNumber" /></a></td>
+                <td><a href="/<s:property value='appName'/>/viewLeaseToApprove.action?requestNumber=<s:property value='requestNumber' />" ><s:property value="requestNumber" /></a></td>
                 <td><s:property value="residentId" /></td>
                 <td><s:property value="enterDate" /></td>
                 <td><s:property value="duration" /></td>

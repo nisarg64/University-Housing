@@ -4,6 +4,7 @@ import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import pojo.Lease;
 import pojo.LeasePreference;
+import pojo.LeaseRequest;
 import pojo.ProposedHousing;
 import util.DBAccessor;
 
@@ -94,7 +95,7 @@ public class LeaseView extends View {
         return leases.isEmpty() ? null : leases.get(0);
     }
 
-    public ProposedHousing getProposedHousingForLease(Connection conn, Lease lease) {
+    public ProposedHousing getProposedHousingForLease(Connection conn, LeaseRequest leaseRequest) {
         ProposedHousing proposedHousing = new ProposedHousing();
         proposedHousing.setProposedHousingId("1");
         proposedHousing.setProposedHousingName("Gryffindor Hall");

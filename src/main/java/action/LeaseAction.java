@@ -113,10 +113,9 @@ public class LeaseAction extends UHAction {
         String username = (String) sessionMap.get("username");
         leaseRequest.setResidentId(username.trim());
         leaseRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
-        //lease.setLeaseNumber();
         leaseRequest.setRequestNumber(new LeaseRequestTable().insert(conn, leaseRequest));
 
-        LeasePreference pref = leaseRequest.getPreference1();
+         LeasePreference pref = leaseRequest.getPreference1();
         pref.setRequestNumber(leaseRequest.getRequestNumber());
         pref.setSequenceNumber(1);
         new LeasePreferenceTable().insert(conn, pref);

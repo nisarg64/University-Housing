@@ -91,7 +91,7 @@ public class StaffLeaseAction extends UHAction{
 
     public String viewLeaseToApprove() {
         LeaseView view = new LeaseView();
-        ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, lease);
+        ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, leaseRequest);
         if (proposedHousing == null) {
             leaseRequest.setCanApprove(false);
             return "waiting";
