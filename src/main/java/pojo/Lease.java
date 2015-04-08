@@ -29,11 +29,20 @@ public class Lease {
     private int pendingCharge;
     private int lateFees;
     private String paymentMode; //Cheque or Cash
-
+    private String earlyTerminationFees;
     private LeasePreference preference1;
     private LeasePreference preference2;
     private LeasePreference preference3;
     private boolean canApprove;
+
+
+    public String getEarlyTerminationFees() {
+        return earlyTerminationFees;
+    }
+
+    public void setEarlyTerminationFees(String earlyTerminationFees) {
+        this.earlyTerminationFees = earlyTerminationFees;
+    }
 
     public int getLeaseNumber() {
         return leaseNumber;

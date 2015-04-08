@@ -1,6 +1,7 @@
 package pojo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by nisarg on 4/3/15.
@@ -12,24 +13,25 @@ public class ParkingSpot {
     private String availability;
     private Float rentalFee;
     private Integer permitId;
-    private Timestamp permitStartDate;
-    private Timestamp permitEndDate;
+    private Date permitStartDate;
+    private Date permitEndDate;
 
-    public Timestamp getPermitStartDate() {
+    public Date getPermitStartDate() {
         return permitStartDate;
     }
 
-    public void setPermitStartDate(Timestamp permitStartDate) {
+    public void setPermitStartDate(Date permitStartDate) {
         this.permitStartDate = permitStartDate;
     }
 
-    public Timestamp getPermitEndDate() {
+    public Date getPermitEndDate() {
         return permitEndDate;
     }
 
-    public void setPermitEndDate(Timestamp permitEndDate) {
+    public void setPermitEndDate(Date permitEndDate) {
         this.permitEndDate = permitEndDate;
     }
+
 
     public Integer getPermitId() {
         return permitId;

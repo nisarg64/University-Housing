@@ -1,6 +1,8 @@
 package db.view;
 
+import db.table.LeaseTable;
 import pojo.Invoice;
+import pojo.Lease;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -56,6 +58,56 @@ public class InvoiceView extends View{
         }
 
         System.out.println(invoice);
+        return invoice;
+    }
+
+    public Invoice getInvoiceDetails(Connection conn, String residentId) {
+        Invoice invoice = null;
+        String housingId = null;
+        String housingType = null;
+
+        String query = "SELECT HOUSING_ID, TYPE FROM HOUSING WHERE HOUSING_ID = " +
+                "(SELECT HOUSING_ID FROM LEASE WHERE res_id = "+residentId.trim()
+                +" AND STATUS = '"+ LeaseTable.RequestStatus.InProgress+"')";
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while (resultSet.next()) {
+                housingId = resultSet.getString("HOUSING_ID");
+                housingType = resultSet.getString("TYPE");
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During Invoice View " + ex.getMessage());
+        }
+        if("Residence Halls".equals(housingType)){
+            query = "SELECT MONTHLY_RENT as RENT, SECURITY_DEPOSIT as DEPOSIT FROM RESIDENT_HALL WHERE HALL_ID = '"+housingId.trim()+"'";
+        }else if("General Student Apartments".equals(housingType)){
+            query = "SELECT RENT_PER_BED as RENT, SECURITY_DEPOSIT as DEPOSIT FROM GENERAL_APT WHERE GEN_APT_ID = '"+housingId+"'";
+        }else if("Family Apartments".equals(housingType)){
+            query = "SELECT RENT as RENT,SECURITY_DEPOSIT as DEPOSIT FROM FAMILY_APT WHERE F_APT_ID = '"+housingId+"'";
+        }
+
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+                invoice = new Invoice();
+                invoice.setResidentId(residentId);
+                invoice.setHousingRent(resultSet.getInt("RENT"));
+                invoice.setDepositAmount(resultSet.getFloat("DEPOSIT"));
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During Former Invoice View " + ex.getMessage());
+        }
+
+        query = "SELECT RENTAL_FEE FROM PARKING_SPOT WHERE SPOT_ID = " +
+                "(SELECT SPOT_ID FROM PARKING_PERMIT WHERE PERMIT_ID = " +
+                "(SELECT PERMIT_ID FROM PARKING_REQUEST WHERE RESIDENT_ID = "+residentId.trim()+"))";
+
+        try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+            while(resultSet.next()){
+                invoice.setParkingRent(resultSet.getInt("RENTAL_FEE"));
+            }
+        }catch (SQLException ex){
+            System.err.println("Error Occurred During Former Invoice View " + ex.getMessage());
+        }
+
         return invoice;
     }
 }

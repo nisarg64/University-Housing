@@ -91,7 +91,7 @@ public class LeaseTable extends Table {
         // Sequence: REQUEST_NUMBER, RES_ID, STATUS, ENTER_DATE, DURATION, PAYMENT_OPTION,
         // SECURITY_DEPOSIT, USE_PRIVATE_ACCOMMODATION, LOCATION_NUMBER, HOUSING_ID
 
-        queries.add(createInsertQuery(TABLE_NAME, "1", "'100540001'", "'" + RequestStatus.Completed + "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')",
+        queries.add(createInsertQuery(TABLE_NAME, "1", "'100540001'", "'" + RequestStatus.InProgress + "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')",
                 "2", "'" + PaymentOption.Semester+ "'", "500", "'0'", "001", "'1'"));
 
         DBAccessor.executeBatchQuery(conn, queries);

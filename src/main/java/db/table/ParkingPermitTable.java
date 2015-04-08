@@ -28,8 +28,8 @@ public class ParkingPermitTable extends Table {
                 "permit_id " + ColumnTypes.NUMBER_TYPE + " ," +
                 "spot_id " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + " ," +
                 "lot_id " + ColumnTypes.BIG_ID_TYPE + " ," +
-                "permit_start_date " + ColumnTypes.TIMESTAMP + " ," +
-                "permit_end_date " + ColumnTypes.TIMESTAMP + " ," +
+                "permit_start_date " + ColumnTypes.DATE_TYPE + " ," +
+                "permit_end_date " + ColumnTypes.DATE_TYPE + " ," +
                 "PRIMARY KEY (permit_id), "+
                 "FOREIGN KEY (lot_id) REFERENCES PARKING_LOT(lot_id), "+
                 "FOREIGN KEY (spot_id) REFERENCES PARKING_SPOT(spot_id))";

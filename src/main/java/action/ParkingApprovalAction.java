@@ -24,12 +24,12 @@ public class ParkingApprovalAction extends UHAction {
     }
 
     public String approve(){
-
+        String username = (String) sessionMap.get("username");
         System.out.println(requestId);
         ParkingRequestTable prTable = new ParkingRequestTable();
         String isApproved = null;
         try {
-            isApproved = prTable.checkParkingAvailability(conn, requestId);
+            isApproved = prTable.checkParkingAvailability(conn, requestId, username);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {

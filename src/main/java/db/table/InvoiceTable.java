@@ -1,5 +1,6 @@
 package db.table;
 
+import db.view.InvoiceView;
 import db.view.LeaseView;
 import pojo.Invoice;
 import pojo.Lease;
@@ -8,6 +9,7 @@ import util.DBAccessor;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -31,12 +33,12 @@ public class InvoiceTable extends Table {
                         "lease_no number, "+
                         "other_charges float(6), "+
                         "late_fees float(6), "+
-                        "due_date timestamp, "+
+                        "due_date "+ColumnTypes.DATE_TYPE+", "+
                         "deposit_amount float(6), "+
                         "payment_status varchar2(10), "+
                         "early_termination_fees float(6), "+
                         "total_amount Float(6), "+
-                        "payment_date timestamp, "+
+                        "payment_date "+ColumnTypes.DATE_TYPE+" , "+
                         "amount_paid float(10), "+
                         "payment_method varchar2(20), "+
                         "PRIMARY KEY (invoice_id), "+
@@ -126,8 +128,6 @@ public class InvoiceTable extends Table {
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
                 invoice.setDueDate(resultSet.getTimestamp("due_date"));
                 invoice.setPaymentStatus(resultSet.getString("payment_status"));
-//                invoice.setInvoicePaymentId(resultSet.getString("invoice_payment_id"));
-
 
                 System.out.println(invoice);
 
@@ -164,9 +164,15 @@ public class InvoiceTable extends Table {
 
         LeaseView leaseView = new LeaseView();
         Lease lease = leaseView.viewCurrentLease(conn, residentId);
+        InvoiceView invoiceView = new InvoiceView();
+        Invoice invoice = invoiceView.getInvoiceDetails(conn, residentId);
         Date enterDate = lease.getEnterDate();
-        Date leaveDate = lease.getLeaveDate();
-        Date cutoffDate = lease.getCutoffDate();
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(enterDate.getTime());
+        cal.add(Calendar.MONTH, 6);
+        Date leaveDate = cal.getTime();
+        //Date leaveDate = lease.getLeaveDate();
+        //Date cutoffDate = lease.getCutoffDate();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(enterDate.getTime());
@@ -189,32 +195,36 @@ public class InvoiceTable extends Table {
                 dueDate = calendar.getTime();
                 calendar.add(Calendar.DAY_OF_MONTH, -5);
             }
-            String query = generateInsertQuery(lease, payDate, dueDate);
+            String query = generateInsertQuery(lease, invoice, payDate, dueDate);
+            System.out.println(query);
             queries.add(query);
 
         }
 
-        try{
-            DBAccessor.executeBatchQuery(conn, queries);
+       /* try{
+           // DBAccessor.executeBatchQuery(conn, queries);
         }catch (SQLException ex){
             ex.printStackTrace();
-        }
+        } */
 
     }
 
-    private String generateInsertQuery(Lease lease, Date payDate, Date dueDate) {
-        String query = "INSERT INTO " + getTableName()  + " VALUES ( " + INVOICE_SEQUENCE + ".NEXTVAL , " +
-                "'" + lease.getResidentId() + "', "
-                + lease.getHousingRent() + ", "
-                + lease.getParkingRent() + ", "
+    private String generateInsertQuery(Lease lease, Invoice invoice, Date payDate, Date dueDate) {
+        String query = "INSERT INTO " + getTableName()  + " VALUES ( INVOICE_SEQUENCE.NEXTVAL , " +
+                "'" + invoice.getResidentId() + "', "
+                + invoice.getHousingRent() + ", "
+                + invoice.getParkingRent() + ", "
                 + lease.getLeaseNumber() + ", "
-                + lease.getPendingCharge() + ", "
+                + Float.valueOf(0)+", "
+                + Float.valueOf(0) +", "
                 + dueDate + ", " +
-                + lease.getSecurityDeposit() + ",  "
+                + invoice.getDepositAmount() + ",  "
                 + "PAID" + ", "
+                + Float.valueOf(0)+", "
+                + (invoice.getHousingRent() + invoice.getParkingRent() ) + ", "
                 + payDate + ", " +
-                + (lease.getHousingRent() + lease.getParkingRent() + lease.getLateFees()) + ", "
-                + "' " + lease.getPaymentMode() +"' " +
+                + (invoice.getHousingRent() + invoice.getParkingRent() ) + ", "
+                + "' " + invoice.getPaymentMethod() +"' " +
                 " )";
         return query;
     }

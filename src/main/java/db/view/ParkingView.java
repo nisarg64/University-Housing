@@ -50,8 +50,8 @@ public class ParkingView extends View{
                 parkingSpot.setSpotType(resultSet.getString("spot_type"));
                 parkingSpot.setAvailability(resultSet.getString("availability"));
                 parkingSpot.setRentalFee(resultSet.getFloat("rental_fee"));
-                parkingSpot.setPermitStartDate(resultSet.getTimestamp("permit_start_date"));
-                parkingSpot.setPermitEndDate(resultSet.getTimestamp("permit_end_date"));
+                parkingSpot.setPermitStartDate(resultSet.getDate("permit_start_date"));
+                parkingSpot.setPermitEndDate(resultSet.getDate("permit_end_date"));
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During Parking View " + ex.getMessage());
