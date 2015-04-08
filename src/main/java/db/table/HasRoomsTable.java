@@ -20,13 +20,13 @@ public class HasRoomsTable extends Table {
     @Override
     public void createTable(Connection conn) throws SQLException {
         String query = " CREATE TABLE " + getTableName() + " (" +
-                " hall_id "+ColumnTypes.ID_TYPE+","+
-              //  " apt_id "+ColumnTypes.ID_TYPE+","+
+                " parent_id "+ColumnTypes.ID_TYPE+","+
+                " apt_id "+ColumnTypes.ID_TYPE+","+
                 " type VARCHAR2(32), " +
                 " place_num VARCHAR(20), " +
                 " room_num VARCHAR(20), " +
-                " PRIMARY KEY (hall_id, place_num) " +
-               // " FOREIGN KEY (hall_id) REFERENCES HOUSING " +
+                " PRIMARY KEY (parent_id, place_num), " +
+                " FOREIGN KEY (parent_id) REFERENCES HOUSING " +
                 ")";
         DBAccessor.executeQuery(conn, query);
     }
@@ -35,33 +35,33 @@ public class HasRoomsTable extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
 
         List<String> queries = new LinkedList<>();
-        String query1 = "INSERT INTO " + getTableName() + " VALUES('1', 'Residence Halls', '001', '001')";
-        String query2 = "INSERT INTO " + getTableName() + " VALUES('1', 'Residence Halls', '002', '002')";
-        String query3 = "INSERT INTO " + getTableName() + " VALUES('1', 'Residence Halls', '003', '003')";
-        String query4 = "INSERT INTO " + getTableName() + " VALUES('1', 'Residence Halls', '004', '004')";
-        String query5 = "INSERT INTO " + getTableName() + " VALUES('1', 'Residence Halls', '005', '005')";
+        String query1 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '001', '001')";
+        String query2 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '002', '002')";
+        String query3 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '003', '003')";
+        String query4 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '004', '004')";
+        String query5 = "INSERT INTO " + getTableName() + " VALUES('1', null, 'Residence Halls', '005', '005')";
 
-        String query6 = "INSERT INTO " + getTableName() + " VALUES('2', 'Residence Halls', '006', '001')";
-        String query7 = "INSERT INTO " + getTableName() + " VALUES('2', 'Residence Halls', '007', '002')";
-        String query8 = "INSERT INTO " + getTableName() + " VALUES('2', 'Residence Halls', '008', '003')";
+        String query6 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '006', '001')";
+        String query7 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '007', '002')";
+        String query8 = "INSERT INTO " + getTableName() + " VALUES('2', null, 'Residence Halls', '008', '003')";
 
-        String query12 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '001', '001')";
-        String query13 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '002', '002')";
-        String query14 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '003', '003')";
+        String query12 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '001', '001')";
+        String query13 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '002', '002')";
+        String query14 = "INSERT INTO " + getTableName() + " VALUES('3', '101', 'General Student Apartments', '003', '003')";
 
-        String query15 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '004', '001')";
-        String query16 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '005', '002')";
-        String query17 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '006', '003')";
-        String query18 = "INSERT INTO " + getTableName() + " VALUES('3', 'General Student Apartments', '007', '004')";
+        String query15 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '004', '001')";
+        String query16 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '005', '002')";
+        String query17 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '006', '003')";
+        String query18 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '007', '004')";
 
-        String query19 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '001', '001')";
-        String query20 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '002', '002')";
-        String query21 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '003', '003')";
+        String query19 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '001', '001')";
+        String query20 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '002', '002')";
+        String query21 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '003', '003')";
 
-        String query22 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '004', '001')";
-        String query23 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '005', '002')";
-        String query24 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '006', '003')";
-        String query25 = "INSERT INTO " + getTableName() + " VALUES('4', 'General Student Apartments', '007', '004')";
+        String query22 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '004', '001')";
+        String query23 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '005', '002')";
+        String query24 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '006', '003')";
+        String query25 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '007', '004')";
 
         queries.add(query1);
         queries.add(query2);
@@ -71,9 +71,6 @@ public class HasRoomsTable extends Table {
         queries.add(query6);
         queries.add(query7);
         queries.add(query8);
-//        queries.add(query9);
-//        queries.add(query10);
-//        queries.add(query11);
         queries.add(query12);
         queries.add(query13);
         queries.add(query14);

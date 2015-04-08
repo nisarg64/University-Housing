@@ -24,11 +24,13 @@ public class BootStrap {
         database.addTable(new ParkingSpotTable());
         database.addTable(new ParkingPermitTable());
         database.addTable(new ParkingRequestTable());
+
         database.addTable(new HousingTable());
-        database.addTable(new RoomTable());
-        database.addTable(new ResidentHallTable());
         database.addTable(new ApartmentTable());
         database.addTable(new GeneralAptTable());
+        database.addTable(new HasFamilyAptTable());
+        database.addTable(new HasRoomsTable());
+
         database.addTable(new PrivateAccoTable());
         database.addTable(new LeaseTable());
         database.addTable(new LeasePreferenceTable());

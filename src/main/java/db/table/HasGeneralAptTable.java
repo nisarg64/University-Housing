@@ -11,6 +11,8 @@ import java.util.List;
  * Author : anand
  * Created on 3/27/15.
  */
+
+// Anand: Not using this. Putting the relation in genapt table itself.
 public class HasGeneralAptTable extends Table{
 
     @Override
