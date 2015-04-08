@@ -122,7 +122,7 @@ public class InvoiceTable extends Table {
                 invoice.setResidentId(resultSet.getString("resident_id"));
                 invoice.setHousingRent(resultSet.getInt("housing_rent"));
                 invoice.setParkingRent(resultSet.getInt("parking_rent"));
-                invoice.setLeaseNo(resultSet.getString("lease_no"));
+                invoice.setLeaseNo(resultSet.getInt("lease_no"));
                 invoice.setOtherCharges(resultSet.getFloat("other_charges"));
                 invoice.setLateFees(resultSet.getFloat("late_fees"));
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
@@ -162,17 +162,12 @@ public class InvoiceTable extends Table {
 
     public void insertFormerInvoices(Connection conn, String residentId){
 
-        LeaseView leaseView = new LeaseView();
-        Lease lease = leaseView.viewCurrentLease(conn, residentId);
         InvoiceView invoiceView = new InvoiceView();
         Invoice invoice = invoiceView.getInvoiceDetails(conn, residentId);
-        Date enterDate = lease.getEnterDate();
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(enterDate.getTime());
-        cal.add(Calendar.MONTH, 6);
-        Date leaveDate = cal.getTime();
-        //Date leaveDate = lease.getLeaveDate();
-        //Date cutoffDate = lease.getCutoffDate();
+        if(invoice == null)
+            return;
+        Date enterDate = invoice.getEnterDate();
+        Date leaveDate = invoice.getLeaveDate();
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(enterDate.getTime());
@@ -181,21 +176,32 @@ public class InvoiceTable extends Table {
         while (calendar.getTime().getTime() < leaveDate.getTime()){
 
             Date payDate = getPayDate(calendar.getTime());
+            invoice.setPaymentDate(payDate);
+            invoice.setPaymentStatus("PAID");
             Date dueDate = null;
-            if(lease.getPaymentOption().equalsIgnoreCase("monthly")){
+            if(invoice.getPaymentOption().equalsIgnoreCase("monthly")){
 
                 calendar.add(Calendar.MONTH, 1);
                 calendar.set(Calendar.DAY_OF_MONTH, 5);
                 dueDate = calendar.getTime();
+                invoice.setDueDate(dueDate);
                 calendar.add(Calendar.DAY_OF_MONTH, -5);
             }else {
                 //Semester Option
                 calendar.add(Calendar.MONTH, 4);
                 calendar.set(Calendar.DAY_OF_MONTH, 5);
                 dueDate = calendar.getTime();
+                invoice.setDueDate(dueDate);
                 calendar.add(Calendar.DAY_OF_MONTH, -5);
             }
-            String query = generateInsertQuery(lease, invoice, payDate, dueDate);
+            if(payDate.compareTo(dueDate) > 0)
+                invoice.setLateFees(Float.valueOf(50));
+            else
+                invoice.setLateFees(Float.valueOf(0));
+
+            invoice.setOtherCharges(Float.valueOf(0));
+            invoice.setEarlyTerminationFees(Float.valueOf(0));
+            String query = generateInsertQuery(invoice);
             System.out.println(query);
             queries.add(query);
 
@@ -209,21 +215,21 @@ public class InvoiceTable extends Table {
 
     }
 
-    private String generateInsertQuery(Lease lease, Invoice invoice, Date payDate, Date dueDate) {
+    private String generateInsertQuery(Invoice invoice) {
         String query = "INSERT INTO " + getTableName()  + " VALUES ( INVOICE_SEQUENCE.NEXTVAL , " +
                 "'" + invoice.getResidentId() + "', "
                 + invoice.getHousingRent() + ", "
                 + invoice.getParkingRent() + ", "
-                + lease.getLeaseNumber() + ", "
-                + Float.valueOf(0)+", "
-                + Float.valueOf(0) +", "
-                + dueDate + ", " +
+                + invoice.getLeaseNo() + ", "
+                + invoice.getLateFees()+", "
+                + invoice.getOtherCharges() +",to_date('"
+                + invoice.getDueDate() + "'), " +
                 + invoice.getDepositAmount() + ",  "
-                + "PAID" + ", "
-                + Float.valueOf(0)+", "
-                + (invoice.getHousingRent() + invoice.getParkingRent() ) + ", "
-                + payDate + ", " +
-                + (invoice.getHousingRent() + invoice.getParkingRent() ) + ", "
+                + invoice.getPaymentStatus()+ ", "
+                + invoice.getEarlyTerminationFees()+", "
+                + (invoice.getHousingRent() + invoice.getParkingRent() +invoice.getLateFees() + invoice.getOtherCharges() ) + ", to_date('"
+                + invoice.getPaymentDate() + "'), " +
+                + (invoice.getHousingRent() + invoice.getParkingRent() + invoice.getLateFees() + invoice.getOtherCharges() ) + ", "
                 + "' " + invoice.getPaymentMethod() +"' " +
                 " )";
         return query;

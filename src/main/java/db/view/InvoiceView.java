@@ -42,7 +42,7 @@ public class InvoiceView extends View{
                 invoice.setResidentId(resultSet.getString("resident_id"));
                 invoice.setHousingRent(resultSet.getInt("housing_rent"));
                 invoice.setParkingRent(resultSet.getInt("parking_rent"));
-                invoice.setLeaseNo(resultSet.getString("lease_no"));
+                invoice.setLeaseNo(resultSet.getInt("lease_no"));
                 invoice.setOtherCharges(resultSet.getFloat("pending_charges"));
                 invoice.setLateFees(resultSet.getFloat("late_fees"));
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
@@ -62,33 +62,40 @@ public class InvoiceView extends View{
     }
 
     public Invoice getInvoiceDetails(Connection conn, String residentId) {
-        Invoice invoice = null;
+        Invoice invoice = new Invoice();
         String housingId = null;
+        String location_no = null;
         String housingType = null;
 
-        String query = "SELECT HOUSING_ID, TYPE FROM HOUSING WHERE HOUSING_ID = " +
-                "(SELECT HOUSING_ID FROM LEASE WHERE res_id = "+residentId.trim()
-                +" AND STATUS = '"+ LeaseTable.RequestStatus.InProgress+"')";
+        LeaseView leaseView = new LeaseView();
+        Lease lease = leaseView.viewCurrentLease(conn, residentId);
+        if(lease == null)
+            return null;
+        housingId = lease.getHousingId();
+        location_no = lease.getLocationNumber();
+        invoice.setResidentId(residentId);
+        invoice.setLeaseNo(lease.getLeaseNumber());
+        invoice.setEnterDate(lease.getEnterDate());
+        invoice.setLeaveDate(lease.getLeaveDate());
+        invoice.setPaymentOption(lease.getPaymentOption());
+
+        String query = "SELECT TYPE FROM HOUSING WHERE HOUSING_ID = '" +housingId+"'";
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while (resultSet.next()) {
-                housingId = resultSet.getString("HOUSING_ID");
                 housingType = resultSet.getString("TYPE");
             }
         }catch (SQLException ex){
             System.err.println("Error Occurred During Invoice View " + ex.getMessage());
         }
-        if("Residence Halls".equals(housingType)){
-            query = "SELECT MONTHLY_RENT as RENT, SECURITY_DEPOSIT as DEPOSIT FROM RESIDENT_HALL WHERE HALL_ID = '"+housingId.trim()+"'";
-        }else if("General Student Apartments".equals(housingType)){
-            query = "SELECT RENT_PER_BED as RENT, SECURITY_DEPOSIT as DEPOSIT FROM GENERAL_APT WHERE GEN_APT_ID = '"+housingId+"'";
+        if("Residence Halls".equals(housingType) || "General Student Apartments".equals(housingType)){
+            query = "SELECT MONTHLY_RENT as RENT, SECURITY_DEPOSIT as DEPOSIT FROM ROOMS WHERE PARENT_ID = '"+housingId.trim()+"' AND PLACE_NUM = '"+location_no+"'";
         }else if("Family Apartments".equals(housingType)){
-            query = "SELECT RENT as RENT,SECURITY_DEPOSIT as DEPOSIT FROM FAMILY_APT WHERE F_APT_ID = '"+housingId+"'";
+            query = "SELECT RENT as RENT,SECURITY_DEPOSIT as DEPOSIT FROM FAMILY_APT WHERE F_APT_ID = '"+housingId+"' AND APT_ID = '"+location_no+"'";
         }
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 invoice = new Invoice();
-                invoice.setResidentId(residentId);
                 invoice.setHousingRent(resultSet.getInt("RENT"));
                 invoice.setDepositAmount(resultSet.getFloat("DEPOSIT"));
             }

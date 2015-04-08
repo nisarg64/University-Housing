@@ -1,6 +1,7 @@
 package pojo;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by nisarg on 4/3/15.
@@ -8,20 +9,47 @@ import java.sql.Timestamp;
 public class Invoice {
     private String invoiceId;
     private String residentId;
+    private Date enterDate;
+    private Date leaveDate;
     private int housingRent;
     private int parkingRent;
-    private String leaseNo;
+    private int leaseNo;
+    private String paymentOption;
     private Float otherCharges;
     private Float lateFees;
-    private Timestamp dueDate;
+    private Date dueDate;
     private Float depositAmount;
     private String paymentStatus;
-    private String invoicePaymentId;
-    private Timestamp paymentDate;
+    private Date paymentDate;
     private Float amountPaid;
     private String paymentMethod;
     private Float earlyTerminationFees;
     private Float totalAmount;
+
+
+    public String getPaymentOption() {
+        return paymentOption;
+    }
+
+    public void setPaymentOption(String paymentOption) {
+        this.paymentOption = paymentOption;
+    }
+
+    public Date getEnterDate() {
+        return enterDate;
+    }
+
+    public void setEnterDate(Date enterDate) {
+        this.enterDate = enterDate;
+    }
+
+    public Date getLeaveDate() {
+        return leaveDate;
+    }
+
+    public void setLeaveDate(Date leaveDate) {
+        this.leaveDate = leaveDate;
+    }
 
     public String getInvoiceId() {
         return invoiceId;
@@ -55,11 +83,11 @@ public class Invoice {
         this.parkingRent = parkingRent;
     }
 
-    public String getLeaseNo() {
+    public int getLeaseNo() {
         return leaseNo;
     }
 
-    public void setLeaseNo(String leaseNo) {
+    public void setLeaseNo(int leaseNo) {
         this.leaseNo = leaseNo;
     }
 
@@ -79,13 +107,6 @@ public class Invoice {
         this.lateFees = lateFees;
     }
 
-    public Timestamp getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Timestamp dueDate) {
-        this.dueDate = dueDate;
-    }
 
     public Float getDepositAmount() {
         return depositAmount;
@@ -103,19 +124,19 @@ public class Invoice {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getInvoicePaymentId() {
-        return invoicePaymentId;
+    public Date getDueDate() {
+        return dueDate;
     }
 
-    public void setInvoicePaymentId(String invoicePaymentId) {
-        this.invoicePaymentId = invoicePaymentId;
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public Timestamp getPaymentDate() {
+    public Date getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Timestamp paymentDate) {
+    public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
 
