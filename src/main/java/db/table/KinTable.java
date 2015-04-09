@@ -71,6 +71,12 @@ public class KinTable extends Table {
         String query10 = "INSERT INTO " + getTableName() + " VALUES('Petunia Dursley', 'Wife', '32 A, Dursley Road', 'Raleigh','27606','USA'," +
                 " '94363654752','100540008' )";
 
+//------
+        String query11 = "INSERT INTO " + getTableName() + " VALUES('Augusta Longbottom', 'Grandmother', '321, First Street', 'Raleigh','27606','USA'," +
+                " '94363659982','100540015' )";
+
+        String query12 = "INSERT INTO " + getTableName() + " VALUES('Nymphadora Tonks', 'Wife', '12, Grimmauld Place', 'London','27605','England'," +
+                " '9363555752','200540012' )";
 
         queries.add(query1);
         queries.add(query2);
@@ -82,6 +88,8 @@ public class KinTable extends Table {
         queries.add(query8);
         queries.add(query9);
         queries.add(query10);
+        queries.add(query11);
+        queries.add(query12);
 
         DBAccessor.executeBatchQuery(conn, queries);
     }

@@ -11,10 +11,10 @@ import java.util.List;
 
 public class RequestTicketAction extends UHAction {
 
-    private List<String> ticketType;
+    private ArrayList<String> ticketType;
     private String message = "";
     private TicketRequest ticketRequest;
-    private List<TicketRequest> tickets;
+    private ArrayList<TicketRequest> tickets;
     private String ticket_no;
 
     public RequestTicketAction(){
@@ -67,13 +67,27 @@ public class RequestTicketAction extends UHAction {
 
     public String resolve() {
         System.out.println("ticket no: " + ticket_no);
+        String current_ticket_status = "";
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
-        tickets = prTable.resolve(conn, ticket_no, sessionMap);
-        message = "Ticket Complete!";
+
+        ArrayList<TicketRequest> ticketsList = prTable.getTicketsToResolve(conn);
+        System.out.println("tickets list ---> " + ticketsList);
+
+        for (TicketRequest ticket : ticketsList) {
+            System.out.println(ticket.getTicket_no().equals(ticket_no));
+            System.out.println(ticket.getTicket_no() + "---" + ticket_no);
+            if (Integer.toString(ticket.getTicket_no()).equals(ticket_no)) {
+                current_ticket_status = ticket.getStatus();
+                System.out.println("ticket status: " + current_ticket_status);
+                break;
+            }
+        }
+        tickets = prTable.resolve(conn, ticket_no, sessionMap, current_ticket_status);
+        message = "Status Changed!";
         return SUCCESS;
     }
 
-    public void setTickets(List<TicketRequest> tickets) {
+    public void setTickets(ArrayList<TicketRequest> tickets) {
         this.tickets = tickets;
     }
 
@@ -85,7 +99,7 @@ public class RequestTicketAction extends UHAction {
         this.ticket_no = ticket_no;
     }
 
-    public List<TicketRequest> getTickets() {
+    public ArrayList<TicketRequest> getTickets() {
         return tickets;
     }
 
@@ -109,11 +123,11 @@ public class RequestTicketAction extends UHAction {
         this.ticketRequest = ticketRequest;
     }
 
-    public List<String> getTicketType() {
+    public ArrayList<String> getTicketType() {
         return ticketType;
     }
 
-    public void setTicketType(List<String> ticketType) {
+    public void setTicketType(ArrayList<String> ticketType) {
         this.ticketType = ticketType;
     }
 
