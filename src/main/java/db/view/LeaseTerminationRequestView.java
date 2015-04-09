@@ -20,7 +20,7 @@ import java.util.List;
 public class LeaseTerminationRequestView extends View {
 
     public static final String VIEW_NAME= "LT_REQUEST_VIEW";
-    public static final String TR_STATUS = "tr_status";
+    public static final String TR_STATUS = "lt_status";
     public static final String L_STATUS = "l_status";
     public static final String L_REQUEST_NUMBER = "l_request_number";
 

@@ -68,6 +68,16 @@ public class LeaseAction extends UHAction {
         return SUCCESS;
     }
 
+    public String viewLeaseRequest() {
+
+        System.out.println(".................");
+        System.out.println(requestNumber);
+        System.out.println(".................");
+        LeaseRequestView view = new LeaseRequestView();
+        leaseRequest = view.viewLeaseRequest(conn, requestNumber);
+        return SUCCESS;
+    }
+
     public String newLeaseRequest() {
 
         String username = (String) sessionMap.get("username");
@@ -154,7 +164,9 @@ public class LeaseAction extends UHAction {
 
         String username = (String) sessionMap.get("username");
         leaseRequests = (new LeaseRequestView()).viewAllLeaseRequestsForResident(conn, username);
+        System.out.println(leaseRequests.size());
         terminateLeases = (new LeaseTerminationRequestView()).viewAllLeaseTerminationRequestForResident(conn, username.trim());
+        System.out.println(terminateLeases);
         return "success";
     }
 
@@ -189,15 +201,15 @@ public class LeaseAction extends UHAction {
         System.out.println(requestNumber);
         String username = ((String) sessionMap.get("username")).trim();
 
-        Lease lease = new LeaseView().viewLease(conn, requestNumber);
-        if (lease != null) {
-            System.out.println(lease);
-            if (username.equals(lease.getResidentId().trim())) {
-                LeaseTable.RequestStatus status = LeaseTable.RequestStatus.valueOf(lease.getStatus());
+        LeaseRequest leaseRequest = new LeaseRequestView().viewLeaseRequest(conn, requestNumber);
+        if (leaseRequest != null) {
+            System.out.println(leaseRequest);
+            if (username.equals(leaseRequest.getResidentId().trim())) {
+                LeaseTable.RequestStatus status = LeaseTable.RequestStatus.valueOf(leaseRequest.getStatus());
                 switch (status) {
                     case Pending:
                     case WaitList:
-                        (new LeaseRequestTable()).updateStatus(conn, lease.getLeaseRequest().getRequestNumber(), LeaseTable.RequestStatus.Cancelled);
+                        (new LeaseRequestTable()).updateStatus(conn, requestNumber, LeaseTable.RequestStatus.Cancelled);
                         return SUCCESS;
                     default:
                         return CANNOTUPDATE;
@@ -320,5 +332,13 @@ public class LeaseAction extends UHAction {
 
     public void setLeaseRequest(LeaseRequest leaseRequest) {
         this.leaseRequest = leaseRequest;
+    }
+
+    public List<LeaseRequest> getLeaseRequests() {
+        return leaseRequests;
+    }
+
+    public void setLeaseRequests(List<LeaseRequest> leaseRequests) {
+        this.leaseRequests = leaseRequests;
     }
 }
