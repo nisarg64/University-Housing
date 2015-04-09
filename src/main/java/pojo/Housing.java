@@ -10,6 +10,7 @@ public class Housing {
     String name;
     String type;
     String locationNumber;
+    String aptId;
 
     public String getHousingId() {
         return housingId;
@@ -41,5 +42,13 @@ public class Housing {
 
     public void setLocationNumber(String locationNumber) {
         this.locationNumber = locationNumber;
+    }
+
+    public String getAptId() {
+        return aptId;
+    }
+
+    public void setAptId(String aptId) {
+        this.aptId = aptId;
     }
 }
