@@ -5,6 +5,7 @@ import db.table.LeaseTable;
 import db.table.LeaseUtils;
 import pojo.*;
 import util.DBAccessor;
+import util.RoommateFinder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -176,4 +177,35 @@ public class LeaseView extends View {
     }
 
 
+    public List<PotentialRoommate> getPotentialRoommates(Connection conn, int requestNumber) {
+        List<PotentialRoommate> potentialRoommates = null;
+
+        String query = "SELECT res_id from LEASE_REQUEST WHERE REQUEST_NUMBER = "+requestNumber;
+        String residentId = "";
+        try {
+            ResultSet resultSet = DBAccessor.selectQuery(conn,query);
+            while(resultSet.next()){
+                residentId = resultSet.getString("res_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        RoommateFinder roommateFinder = new RoommateFinder();
+        List<Resident> residents = roommateFinder.findAllMatchRoommates(conn,residentId);
+        if(residents == null)
+            return null;
+        potentialRoommates = new ArrayList<>();
+        for (Resident resident : residents){
+            PotentialRoommate potentialRoommate = new PotentialRoommate();
+            potentialRoommate.setResidentId(resident.getResId());
+            potentialRoommate.setFname(resident.getFname());
+            potentialRoommate.setLname(resident.getLname());
+            potentialRoommate.setCategory(resident.getCategory());
+            potentialRoommate.setGender(resident.getGender());
+            potentialRoommate.setSmoker(resident.getIsSmoker());
+            potentialRoommates.add(potentialRoommate);
+        }
+        return potentialRoommates;
+    }
 }
