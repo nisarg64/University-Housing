@@ -110,6 +110,9 @@ public class InvoiceTable extends Table {
             dueDate = calendar.getTime();
             invoice.setDueDate(sdf.format(dueDate));
             calendar.add(Calendar.DAY_OF_MONTH, -5);
+            invoice.setHousingRent(invoice.getHousingRent() * 4);
+            invoice.setParkingRent(invoice.getParkingRent() * 4);
+
         }
         invoice.setLateFees(Float.valueOf(0));
 
@@ -118,11 +121,11 @@ public class InvoiceTable extends Table {
         String query = generateInsertQuery(invoice);
         System.out.println(query);
 
-        try{
+        /*try{
             DBAccessor.executeQuery(conn, query);
         }catch (SQLException ex){
             ex.printStackTrace();
-        }
+        }*/
     return invoice;
 
 }
