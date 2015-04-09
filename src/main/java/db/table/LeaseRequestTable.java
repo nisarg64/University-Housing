@@ -76,11 +76,11 @@ public class LeaseRequestTable extends Table {
         // Sequence: REQUEST_NUMBER, RES_ID, STATUS, ENTER_DATE, DURATION, PAYMENT_OPTION,
         // USE_PRIVATE_ACCOMMODATION, UPDATED_BY, UPDATED_ON
 
-        /*queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_1, "'100540001'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-AUG-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_1, "'100540001'", "'" + LeaseTable.RequestStatus.InProgress +
+                "'", "to_date('01-AUG-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Monthly +
                 "'", "'0'", "300220001", "to_date('30-JUL-2014', 'dd-MON-yyyy')"));
 
-        queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_2, "'100540002'", "'" + LeaseTable.RequestStatus.InProgress +
+/*        queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_2, "'100540002'", "'" + LeaseTable.RequestStatus.InProgress +
                 "'", "to_date('01-AUG-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
                 "'", "'0'", "300220001", "to_date('30-JUL-2014', 'dd-MON-yyyy')"));
 

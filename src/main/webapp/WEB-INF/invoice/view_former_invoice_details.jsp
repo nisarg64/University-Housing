@@ -31,7 +31,7 @@
     </tr>
     <tr>
       <th>Pending Charges:</th>
-      <td><s:textfield name="invoice.pendingCharges" readonly="true"/></td>
+      <td><s:textfield name="invoice.otherCharges" readonly="true"/></td>
     </tr>
     <tr>
       <th>Late Fees:</th>

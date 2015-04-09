@@ -17,15 +17,38 @@ public class Invoice {
     private String paymentOption;
     private Float otherCharges;
     private Float lateFees;
-    private Date dueDate;
+    private String dueDate;
     private Float depositAmount;
     private String paymentStatus;
-    private Date paymentDate;
+    private String paymentDate;
     private Float amountPaid;
     private String paymentMethod;
     private Float earlyTerminationFees;
     private Float totalAmount;
 
+    @Override
+    public String toString() {
+        return "Invoice{" +
+                "invoiceId='" + invoiceId + '\'' +
+                ", residentId='" + residentId + '\'' +
+                ", enterDate=" + enterDate +
+                ", leaveDate=" + leaveDate +
+                ", housingRent=" + housingRent +
+                ", parkingRent=" + parkingRent +
+                ", leaseNo=" + leaseNo +
+                ", paymentOption='" + paymentOption + '\'' +
+                ", otherCharges=" + otherCharges +
+                ", lateFees=" + lateFees +
+                ", dueDate=" + dueDate +
+                ", depositAmount=" + depositAmount +
+                ", paymentStatus='" + paymentStatus + '\'' +
+                ", paymentDate=" + paymentDate +
+                ", amountPaid=" + amountPaid +
+                ", paymentMethod='" + paymentMethod + '\'' +
+                ", earlyTerminationFees=" + earlyTerminationFees +
+                ", totalAmount=" + totalAmount +
+                '}';
+    }
 
     public String getPaymentOption() {
         return paymentOption;
@@ -124,19 +147,19 @@ public class Invoice {
         this.paymentStatus = paymentStatus;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
-    public Date getPaymentDate() {
+    public String getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
     }
 

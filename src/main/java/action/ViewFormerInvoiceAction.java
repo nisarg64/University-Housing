@@ -40,7 +40,6 @@ public class ViewFormerInvoiceAction extends UHAction {
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();
         InvoiceView invoiceView = new InvoiceView();
-        System.out.println(invoice.getInvoiceId());
         invoice = invoiceView.getFormerInvoiceDetails(conn, resident_id, invoiceId);
 
         return SUCCESS;

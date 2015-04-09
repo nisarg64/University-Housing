@@ -8,6 +8,7 @@ import db.view.View;
 import util.DBAccessor;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,6 +71,8 @@ public class Database {
                 make(view, conn);
             }
             conn.commit();
+            populateAllInvoices(conn);
+
 
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -81,6 +84,24 @@ public class Database {
             }catch (SQLException ex){
                 ex.printStackTrace();
             }
+        }
+
+    }
+
+    private void populateAllInvoices(Connection conn) {
+        InvoiceTable invoiceTable = new InvoiceTable();
+        String query = "SELECT * from RESIDENT";
+        try {
+            ResultSet resultSet = DBAccessor.selectQuery(conn, query);
+
+            while(resultSet.next()){
+                System.out.println(resultSet.getString("res_id"));
+                invoiceTable.insertFormerInvoices(conn, resultSet.getString("res_id"));
+            }
+            System.out.println("INVOICE GENERATED SUCCESSFULLY ");
+            System.out.println("-------------------------------------------------------------");
+        } catch (SQLException e) {
+            System.err.println("INVOICE NOT GENERATED " + e.getMessage());
         }
     }
 

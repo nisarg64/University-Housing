@@ -51,8 +51,11 @@ public class BootStrap {
         database.addView(new StaffNameView());
 
         database.makeAll();
+
         System.out.println("Done!");
     }
+
+
 
     public static void generalQuery(){
         Connection conn = null;

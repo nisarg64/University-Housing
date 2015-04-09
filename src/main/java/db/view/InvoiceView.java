@@ -42,13 +42,13 @@ public class InvoiceView extends View{
                 invoice.setHousingRent(resultSet.getInt("housing_rent"));
                 invoice.setParkingRent(resultSet.getInt("parking_rent"));
                 invoice.setLeaseNo(resultSet.getInt("lease_no"));
-                invoice.setOtherCharges(resultSet.getFloat("pending_charges"));
+                invoice.setOtherCharges(resultSet.getFloat("other_charges"));
                 invoice.setLateFees(resultSet.getFloat("late_fees"));
                 invoice.setDepositAmount(resultSet.getFloat("deposit_amount"));
-                invoice.setDueDate(resultSet.getTimestamp("due_date"));
+                invoice.setDueDate(resultSet.getString("due_date"));
                 invoice.setPaymentStatus(resultSet.getString("payment_status"));
                 invoice.setTotalAmount(resultSet.getFloat("total_amount"));
-                invoice.setPaymentDate(resultSet.getTimestamp("payment_date"));
+                invoice.setPaymentDate(resultSet.getString("payment_date"));
                 invoice.setAmountPaid(resultSet.getFloat("amount_paid"));
                 invoice.setPaymentMethod(resultSet.getString("payment_method"));
             }
@@ -75,6 +75,7 @@ public class InvoiceView extends View{
         invoice.setResidentId(residentId);
         invoice.setLeaseNo(lease.getLeaseNumber());
         invoice.setEnterDate(lease.getStartDate());
+        System.out.println(invoice.getEnterDate());
         invoice.setLeaveDate(lease.getLeaveDate());
         invoice.setPaymentOption(lease.getPaymentOption());
 
@@ -94,7 +95,6 @@ public class InvoiceView extends View{
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
-                invoice = new Invoice();
                 invoice.setHousingRent(resultSet.getInt("RENT"));
                 invoice.setDepositAmount(resultSet.getFloat("DEPOSIT"));
             }

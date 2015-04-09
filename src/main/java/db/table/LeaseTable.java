@@ -91,10 +91,10 @@ public class LeaseTable extends Table {
 
         // Sequence: LEASE_NUMBER, REQUEST_NUMBER, START_DATE, END_DATE, HOUSING_ID, LOCATION_NUMBER
 
-        /*queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
+        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
                 "to_date('01-AUG-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
 
-        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_2, LeaseRequestTable.LEASE_REQUEST_ID_2,
+/*        queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_2, LeaseRequestTable.LEASE_REQUEST_ID_2,
                 "to_date('01-AUG-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
