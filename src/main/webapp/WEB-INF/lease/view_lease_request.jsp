@@ -29,27 +29,27 @@
             </tr>
             <tr>
                 <th>Preference 1:</th>
-                <td><s:text name="leaseRequest.preference1.type"/></td>
+                <td><s:text name="leasePreference1.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference1.hallName"/></td>
+                <td><s:text name="leasePreference1.hallName"/></td>
             </tr>
             <tr>
                 <th>Preference 2:</th>
-                <td><s:text name="leaseRequest.preference2.type"/></td>
+                <td><s:text name="leasePreference2.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference2.hallName"/></td>
+                <td><s:text name="leasePreference2.hallName"/></td>
             </tr>
             <tr>
                 <th>Preference 3:</th>
-                <td><s:text name="leaseRequest.preference3.type"/></td>
+                <td><s:text name="leasePreference3.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference3.hallName"/></td>
+                <td><s:text name="leasePreference3.hallName"/></td>
             </tr>
         </tbody>
         </table>

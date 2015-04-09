@@ -21,11 +21,11 @@
             </tr>
             <tr>
                 <th>Start Date</th>
-                <td><s:date name="lease.enterDate" format="MM/dd/yy"/></td>
+                <td><s:date name="lease.startDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
                 <th>End Date</th>
-                <td><s:date name="lease.leaveDate" format="MM/dd/yy"/></td>
+                <td><s:date name="lease.endDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
                 <th>Payment Option:</th>
