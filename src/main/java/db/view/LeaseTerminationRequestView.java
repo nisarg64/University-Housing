@@ -81,7 +81,7 @@ public class LeaseTerminationRequestView extends View {
             while (rs.next()) {
                 int i = 1;
                 LeaseTerminationRequest request = new LeaseTerminationRequest();
-                request.setRequestNumber(rs.getInt(LeaseRequestTable.REQUEST_NUMBER));
+                request.setRequestNumber(rs.getInt("lt_request"));
                 request.setStatus(rs.getString(TR_STATUS));
                 request.setLeaveDate(rs.getDate(LeaseTerminationRequestTable.LEAVE_DATE));
                 request.setInspectionDate(rs.getDate(LeaseTerminationRequestTable.INSPECTION_DATE));

@@ -81,48 +81,48 @@ public class LeaseRequestTable extends Table {
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_1,
                 "'100540001'",
                 "'" + LeaseTable.RequestStatus.InProgress + "'",
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')",
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')",
                 "2",
                 "'" + LeaseTable.PaymentOption.Semester + "'",
                 "'0'",
                 "300220001",
-                "to_date('31-JUL-2014', 'dd-MON-yyyy')"));
+                "to_date('31-JUL-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_2, "'100540002'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
-                "'", "'0'", "300220001", "to_date('31-JUL-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
+                "'", "'0'", "300220001", "to_date('31-JUL-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_3, "'100540003'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
-                "'", "'0'", "300220001", "to_date('31-MAY-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "'0'", "300220001", "to_date('31-MAY-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_4, "'100540004'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Monthly +
-                "'", "'0'", "300220001", "to_date('31-JUL-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "'0'", "300220001", "to_date('31-JUL-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_5, "'100540005'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
-                "'", "'0'", "300220001", "to_date('31-MAY-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "'0'", "300220001", "to_date('31-MAY-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_6, "'100540006'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
-                "'", "'0'", "300220001", "to_date('31-JUL-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
+                "'", "'0'", "300220001", "to_date('31-JUL-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_7, "'100540007'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
-                "'", "'0'", "300220001", "to_date('31-JUL-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Semester +
+                "'", "'0'", "300220001", "to_date('31-JUL-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_8, "'200540001'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-MAR-2014', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Monthly +
-                "'", "'0'", "300220001", "to_date('30-APR-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-MAR-2015', 'dd-MON-yyyy')", "3", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "'0'", "300220001", "to_date('30-APR-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_9, "'200540002'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-APR-2014', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
-                "'", "'0'", "300220001", "to_date('30-APR-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-APR-2015', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "'0'", "300220001", "to_date('30-APR-2015', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_10, "'100540008'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-JAN-2014', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
-                "'", "'0'", "300220001", "to_date('31-JUL-2014', 'dd-MON-yyyy')"));
+                "'", "to_date('01-JAN-2015', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "'0'", "300220001", "to_date('31-JUL-2015', 'dd-MON-yyyy')"));
 
         DBAccessor.executeBatchQuery(conn, queries);
     }

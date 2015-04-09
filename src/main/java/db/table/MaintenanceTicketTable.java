@@ -109,7 +109,7 @@ public class MaintenanceTicketTable extends Table{
         public ArrayList<TicketRequest> getTicketsToResolve(Connection conn) {
             ArrayList<TicketRequest> tickets = new ArrayList<>();
 
-            String query = "SELECT R.FNAME as FNAME, R.LNAME as LNAME," +
+            String query = "SELECT R.FNAME as FNAME, R.LNAME as LNAME, M.res_id as res_id, " +
                     " M.ticket_type as ticket_type, M.ticket_date as ticket_date, " +
                     "M.status as status, M.ticket_no as ticket_no, M.description as description, " +
                     " M.approved_by as approved_by, M.approved_on as approved_on, " +
@@ -131,6 +131,10 @@ public class MaintenanceTicketTable extends Table{
             try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
                 while(resultSet.next()){
                     TicketRequest ticketRequest = new TicketRequest();
+
+                    ticketRequest.setResidentId(resultSet.getString("res_id"));
+                    String address = getAddress(conn, ticketRequest.getResidentId());
+                    
                     ticketRequest.setTicket(resultSet.getString("ticket_type"));
                     ticketRequest.setStatus(resultSet.getString("status"));
                     ticketRequest.setDescription(resultSet.getString("description"));
@@ -138,7 +142,7 @@ public class MaintenanceTicketTable extends Table{
                     ticketRequest.setResidentId(resultSet.getString("FNAME") + " " + resultSet.getString("LNAME"));
                     ticketRequest.setTicket_no(resultSet.getInt("ticket_no"));
                     ticketRequest.setSeverity(resultSet.getString("severity"));
-                    ticketRequest.setAddress("todo - set correct address - roomno , apt or hall no.");
+                    ticketRequest.setAddress(address);
                     tickets.add(ticketRequest);
                 }
             }catch (SQLException ex){
@@ -147,6 +151,56 @@ public class MaintenanceTicketTable extends Table{
 
             return tickets;
         }
+
+    private String getAddress(Connection conn, String residentId) {
+        String address = "";
+
+        String query1 = "SELECT * from LEASE_REQUEST where RES_ID = '" + residentId + "' AND STATUS = 'InProgress'";
+        Integer requestNumber = 0;
+        ResultSet resultSet = null;
+        try {
+            resultSet = DBAccessor.selectQuery(conn, query1);
+            while (resultSet.next()) {
+                requestNumber = resultSet.getInt("request_number");
+                System.out.println("Request number = " + requestNumber);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        query1 = "SELECT * from LEASE where request_number = '" + Integer.toString(requestNumber) + "'";
+        resultSet = null;
+        String HousingId = "", LocationNo = "";
+        try {
+            resultSet = DBAccessor.selectQuery(conn, query1);
+            while (resultSet.next()) {
+                HousingId = resultSet.getString("housing_id");
+                LocationNo = resultSet.getString("location_no");
+                System.out.println(HousingId);
+                System.out.println(LocationNo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        query1 = "SELECT * from HOUSING where housing_id = '" + HousingId + "'";
+        resultSet = null;
+        String HallAptName="", type="", RoomAptNo="";
+        try {
+            resultSet = DBAccessor.selectQuery(conn, query1);
+            while (resultSet.next()) {
+                HallAptName = resultSet.getString("name");
+                type = resultSet.getString("type");
+                System.out.println(HousingId);
+                System.out.println(LocationNo);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        address = HallAptName + "-" + LocationNo;
+        return address;
+    }
 
     public ArrayList<TicketRequest> getTickets(Connection conn, String resident_id) {
         ArrayList<TicketRequest> tickets = new ArrayList<>();
