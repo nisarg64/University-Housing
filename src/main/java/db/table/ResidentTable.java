@@ -169,7 +169,7 @@ public class ResidentTable extends Table {
                 "NATIONALITY = '" + resident.getNationality() + "', " +
                 "SMOKER = '" + resident.getIsSmoker() + "', " +
                 "COMMENTS = '" + resident.getComments() + "', " +
-                "STATUS = '" + resident.getStatus() + "', " +
+                "STATUS = '" + resident.getStatus() + "' " +
 
                 "WHERE RES_ID = '" + resident.getResId() + "'";
 

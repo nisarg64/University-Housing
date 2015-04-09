@@ -76,7 +76,18 @@ public class ParkingRequestTable extends Table {
         executeQuery(conn,query2);
     }
 
-    public void insertRequest(Connection conn, String resident_id, ParkingRequest parkingRequest) throws SQLException {
+    public String insertRequest(Connection conn, String resident_id, ParkingRequest parkingRequest, String role) throws SQLException {
+
+        if(!role.equals("guest")) {
+            String query1 = "SELECT count(*) from LEASE_REQUEST where RES_ID = '" + resident_id + "' AND STATUS = 'InProgress'";
+
+            ResultSet resultSet = DBAccessor.selectQuery(conn, query1);
+            while (resultSet.next()) {
+                if (resultSet.getInt(1) <= 0) {
+                    return "Cannot Request Parking Spot. No valid lease in progress";
+                }
+            }
+        }
 
         String query = "INSERT INTO " + getTableName() + "(request_id,resident_id, vehicle_type, isHandicapped, " +
                 "nearby_spot_preference, " + "request_status, permit_id) values(pr_sequence.NEXTVAL,'" +
@@ -84,6 +95,7 @@ public class ParkingRequestTable extends Table {
                 parkingRequest.getHandicapped() + "','" + parkingRequest.getNearSpot() +
                 "','pending',NULL)";
         executeQuery(conn, query);
+        return "SUCCESS";
     }
 
     public ParkingRequest getParkingRequest(Connection conn, String username) {

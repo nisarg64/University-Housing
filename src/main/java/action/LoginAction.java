@@ -11,7 +11,7 @@ public class LoginAction extends UHAction {
     private String username;
     private String password;
     private String role;
-    private String errorMsg = "Invalid Username or Password";
+    private String errorMsg = "Login Incorrect";
 
     public String execute(){
         System.out.println(username + " ------- " + password);

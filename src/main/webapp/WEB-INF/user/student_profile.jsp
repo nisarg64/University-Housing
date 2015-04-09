@@ -11,7 +11,7 @@
         <tbody>
         <tr>
             <th>Student Id:</th>
-            <td data-field="srudent_id"><input type="text" name="resident.resId" value="<s:property value="resident.resId"/>" readonly/></td>
+            <td data-field="student_id"><input type="text" name="resident.resId" value="<s:property value="resident.resId"/>" readonly/></td>
         </tr>
         <tr>
             <th>First Name:</th>
