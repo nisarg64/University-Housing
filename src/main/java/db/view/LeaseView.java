@@ -2,10 +2,8 @@ package db.view;
 
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
-import pojo.Lease;
-import pojo.LeasePreference;
-import pojo.LeaseRequest;
-import pojo.ProposedHousing;
+import db.table.LeaseUtils;
+import pojo.*;
 import util.DBAccessor;
 
 import java.sql.Connection;
@@ -97,21 +95,45 @@ public class LeaseView extends View {
 
     public ProposedHousing getProposedHousingForLease(Connection conn, LeaseRequest leaseRequest) {
         ProposedHousing proposedHousing = new ProposedHousing();
-        proposedHousing.setProposedHousingId("1");
-        proposedHousing.setProposedHousingName("Gryffindor Hall");
-        proposedHousing.setProposedHousingType("Residence Halls");
-        proposedHousing.setProposedLocationNumber("001");
-        /*if (lease.isUsePrivateAccommodation()) {
+
+        if(leaseRequest.isUsePrivateAccommodation()){
+
             // TODO add freshman check
             proposedHousing.setUsePrivateAccommodation(true);
+            return proposedHousing;
+        }
 
-        } *//*else if (!lease.isHasPreference()) {
+        LeasePreference preference1 = leaseRequest.getPreference1();
+        Housing preferredHouse = LeaseUtils.getHousingDetail(conn,preference1);
+        if(preferredHouse != null){
+            proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
+            proposedHousing.setProposedHousingName(preferredHouse.getName());
+            proposedHousing.setProposedHousingType(preferredHouse.getType());
+            proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
+            return proposedHousing;
+        }
 
-        } *//*else {
-            List<LeasePreference> preferences = new ArrayList<LeasePreference>();
-        }*/
+        LeasePreference preference2 = leaseRequest.getPreference2();
+        preferredHouse = LeaseUtils.getHousingDetail(conn,preference2);
+        if(preferredHouse != null){
+            proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
+            proposedHousing.setProposedHousingName(preferredHouse.getName());
+            proposedHousing.setProposedHousingType(preferredHouse.getType());
+            proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
+            return proposedHousing;
+        }
 
-        return proposedHousing;
+        LeasePreference preference3 = leaseRequest.getPreference3();
+        preferredHouse = LeaseUtils.getHousingDetail(conn,preference3);
+        if(preferredHouse != null){
+            proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
+            proposedHousing.setProposedHousingName(preferredHouse.getName());
+            proposedHousing.setProposedHousingType(preferredHouse.getType());
+            proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
+            return proposedHousing;
+        }
+
+        return null;
     }
 
     public ProposedHousing getProposedHousingForPreference(Connection conn, LeasePreference preference) {

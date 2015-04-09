@@ -10,7 +10,7 @@
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
         <tr>
-            <th>Lease Duration:</th>
+            <th>Lease Duration (In Semester):</th>
             <td><s:select name="leaseRequest.duration" headerKey="-1" headerValue="Select Lease Duration"
             list="leaseDurations" value="leaseRequest.duration"/></td>
         </tr>
