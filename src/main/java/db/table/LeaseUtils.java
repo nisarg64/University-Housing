@@ -19,6 +19,7 @@ public class LeaseUtils {
 
     public static Housing getHousingDetail(Connection conn, LeasePreference preference) {
 
+        if(preference == null) return null;
         Housing housing = null;
         String residenceType  = preference.getType().trim();
         String hallName = (preference.getHallName() == null) ? "" : preference.getHallName().trim();

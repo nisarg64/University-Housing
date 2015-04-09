@@ -179,7 +179,7 @@ public class LeaseAction extends UHAction {
 
             leasePreference2.setRequestNumber(leaseRequest.getRequestNumber());
             leasePreference2.setSequenceNumber(2);
-            new LeasePreferenceTable().insert(conn, leasePreference1);
+            new LeasePreferenceTable().insert(conn, leasePreference2);
 
             leasePreference3.setRequestNumber(leaseRequest.getRequestNumber());
             leasePreference3.setSequenceNumber(3);
