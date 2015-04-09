@@ -42,6 +42,7 @@ public class LeaseAction extends UHAction {
     private String message = "";
 
 
+
     public LeaseAction() {}
 
     public String viewFormerLeases() {
@@ -88,6 +89,7 @@ public class LeaseAction extends UHAction {
     public String newLeaseRequest() {
 
         String username = (String) sessionMap.get("username");
+        System.out.println(leaseRequest);
 
         leaseRequest = (new LeaseRequestView()).viewCurrentLeaseRequest(conn, username);
         if (leaseRequest != null) {
@@ -162,30 +164,28 @@ public class LeaseAction extends UHAction {
     }
 
     public String createLeaseRequest() throws Exception {
-        System.out.println(leaseRequest);
+
+
         String username = (String) sessionMap.get("username");
         leaseRequest.setResidentId(username.trim());
         leaseRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
         leaseRequest.setRequestNumber(new LeaseRequestTable().insert(conn, leaseRequest));
+        System.out.println(leaseRequest);
 
-         LeasePreference pref1 = leaseRequest.getPreference1();
-        pref1.setRequestNumber(leaseRequest.getRequestNumber());
-        pref1.setSequenceNumber(1);
-        new LeasePreferenceTable().insert(conn, pref1);
-        leasePreference1 = pref1;
+        if(!leaseRequest.isUsePrivateAccommodation()){
+            leasePreference1.setRequestNumber(leaseRequest.getRequestNumber());
+            leasePreference1.setSequenceNumber(1);
+            new LeasePreferenceTable().insert(conn, leasePreference1);
 
-        LeasePreference pref2 = leaseRequest.getPreference2();
-        pref2.setRequestNumber(leaseRequest.getRequestNumber());
-        pref2.setSequenceNumber(2);
-        new LeasePreferenceTable().insert(conn, pref2);
-        leasePreference2 = pref2;
+            leasePreference2.setRequestNumber(leaseRequest.getRequestNumber());
+            leasePreference2.setSequenceNumber(2);
+            new LeasePreferenceTable().insert(conn, leasePreference1);
 
-        LeasePreference pref3 = leaseRequest.getPreference3();
-        pref3.setRequestNumber(leaseRequest.getRequestNumber());
-        pref3.setSequenceNumber(3);
-        new LeasePreferenceTable().insert(conn, pref3);
-        leasePreference3 = pref3;
-
+            leasePreference3.setRequestNumber(leaseRequest.getRequestNumber());
+            leasePreference3.setSequenceNumber(3);
+            new LeasePreferenceTable().insert(conn, leasePreference3);
+        }
+        System.out.println(leaseRequest);
         return SUCCESS;
     }
 

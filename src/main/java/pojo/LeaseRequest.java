@@ -146,6 +146,8 @@ public class LeaseRequest {
         this.proposedHousing = proposedHousing;
     }
 
+
+
     @Override
     public String toString() {
         return "LeaseRequest{" +

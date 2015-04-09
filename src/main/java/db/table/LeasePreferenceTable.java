@@ -61,6 +61,9 @@ public class LeasePreferenceTable extends Table {
     }
 
     public void insert(Connection conn, LeasePreference preference) throws SQLException {
+        if(preference == null){
+            return;
+        }
         String sql = createInsertPreparedStatement(TABLE_NAME, 0, LeaseRequestTable.REQUEST_NUMBER, SEQUENCE_NUMBER, TYPE,
                 ResidentHallTable.HALL_ID);
         System.out.println(sql);
