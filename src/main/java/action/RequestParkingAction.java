@@ -46,10 +46,16 @@ public class RequestParkingAction extends UHAction {
         System.out.println("Resident Id" + resident_id);
         resident_id = resident_id.trim();
         ParkingRequestTable prTable = new ParkingRequestTable();
+        String status = "";
         try {
-            String status = prTable.insertRequest(conn, resident_id, parkingRequest,role);
+            status = prTable.insertRequest(conn, resident_id, parkingRequest,role);
         } catch (SQLException e) {
             System.err.println("Error Occurred During Parking Spot Request Insert " + e.getMessage());
+        }
+        if(!"SUCCESS".equals(status)){
+            parkingRequest = new ParkingRequest();
+            message = status;
+            return SUCCESS;
         }
 
         //Reset parking request form

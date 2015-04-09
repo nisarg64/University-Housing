@@ -43,9 +43,11 @@ public class LoginTable extends Table{
         String query6 = "INSERT INTO " + getTableName() + " VALUES('100540006', 'abc123', 'student')";
         String query7 = "INSERT INTO " + getTableName() + " VALUES('100540007', 'abc123', 'student')";
         String query8 = "INSERT INTO " + getTableName() + " VALUES('100540008', 'abc123', 'student')";
+        String query16 = "INSERT INTO " + getTableName() + " VALUES('100540015', 'abc123', 'student')";
 
         String query9 = "INSERT INTO " + getTableName() + " VALUES('200540001', 'abc123', 'guest')";
         String query10 = "INSERT INTO " + getTableName() + " VALUES('200540002', 'abc123', 'guest')";
+        String query17 = "INSERT INTO " + getTableName() + " VALUES('200540012', 'abc123', 'guest')";
 
         String query11 = "INSERT INTO " + getTableName() + " VALUES('300220001', 'abc123', 'staff')";
         String query12 = "INSERT INTO " + getTableName() + " VALUES('300220002', 'abc123', 'staff')";
@@ -69,6 +71,8 @@ public class LoginTable extends Table{
         queries.add(query13);
         queries.add(query14);
         queries.add(query15);
+        queries.add(query16);
+        queries.add(query17);
 
         DBAccessor.executeBatchQuery(conn, queries);
     }

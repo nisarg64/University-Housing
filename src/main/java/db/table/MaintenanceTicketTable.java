@@ -63,7 +63,22 @@ public class MaintenanceTicketTable extends Table{
         DBAccessor.executeBatchQuery(conn, queries);
     }
 
-    public void insertRequest(Connection conn, String resident_id, TicketRequest ticketRequest) {
+    public String insertRequest(Connection conn, String resident_id, TicketRequest ticketRequest) {
+
+        String query1 = "SELECT count(*) from LEASE_REQUEST where RES_ID = '" + resident_id + "' AND STATUS = 'InProgress'";
+
+        ResultSet resultSet = null;
+        try {
+            resultSet = DBAccessor.selectQuery(conn, query1);
+            while (resultSet.next()) {
+                if (resultSet.getInt(1) <= 0) {
+                    return "Cannot Request Maintenance Ticket. No valid lease in progress";
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
         String query = "INSERT INTO "
                 + getTableName()
@@ -88,6 +103,7 @@ public class MaintenanceTicketTable extends Table{
         }
 
         getTickets(conn, resident_id);
+        return "SUCCESS";
     }
 
     public List<TicketRequest> getTickets(Connection conn, String resident_id) {

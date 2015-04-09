@@ -37,7 +37,14 @@ public class RequestTicketAction extends UHAction {
         String resident_id = (String) sessionMap.get("username");
         resident_id = resident_id.trim();
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
-        prTable.insertRequest(conn, resident_id, ticketRequest);
+        String status = prTable.insertRequest(conn, resident_id, ticketRequest);
+
+        if(!"SUCCESS".equals(status)){
+            ticketRequest = new TicketRequest();
+            // todo - get room type and room id , if no room provided, can't create ticket.
+            message = status;
+            return SUCCESS;
+        }
 
         //Reset create ticket form
         ticketRequest = new TicketRequest();
