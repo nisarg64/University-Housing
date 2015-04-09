@@ -3,7 +3,7 @@
     <div class="container">
 
     <div class="upperText">
-        <span class="upper-text">Terminate Lease Request Submitted Successfully</span>
+        <span class="upper-text">Terminate Lease Request</span>
     </div>
 
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
