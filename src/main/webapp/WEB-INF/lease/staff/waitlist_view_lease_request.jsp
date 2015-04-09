@@ -2,7 +2,7 @@
 <div class="container">
 
     <div class="upperText">
-        <span class="upper-text">View Lease Request</span>
+        <span class="upper-text">No Available Housing option. You can put the request on waitlist.</span>
     </div>
     <label class="statusMessage"><strong><s:property value="message" /></strong></label>
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
@@ -14,10 +14,6 @@
             <tr>
                 <th>Enter Date</th>
                 <td><s:date name="leaseRequest.enterDate" format="MM/dd/yy"/></td>
-            </tr>
-            <tr>
-                <th>Leave Date</th>
-                <td><s:date name="leaseRequest.leaveDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
                 <th>Payment Option:</th>
@@ -52,24 +48,8 @@
                 <td><s:text name="leaseRequest.preference3.hallName"/></td>
             </tr>
             <tr>
-                <th>Housing Type:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedHousingType"/></td>
-            </tr>
-            <tr>
-                <th>Name:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedHousingName"/></td>
-            </tr>
-            <tr>
-                <th>Housing Id:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedHousingId"/></td>
-            </tr>
-            <tr>
-                <th>Location Number:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedLocationNumber"/></td>
-            </tr>
-            <tr>
-                <th>Click to Approve:</th>
-                <td><a href="/<s:property value='appName'/>/approveLeaseRequest.action?requestNumber=<s:property value='requestNumber' />"/>Approve</a></td>
+                <th>Click to put on waitlist:</th>
+                <td><a href="/<s:property value='appName'/>/waitlistLeaseRequest.action?requestNumber=<s:property value='requestNumber' />"/>Put on Waitlist</a></td>
             </tr>
         </tbody>
 

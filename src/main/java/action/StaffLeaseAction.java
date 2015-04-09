@@ -63,6 +63,13 @@ public class StaffLeaseAction extends UHAction{
         return "success";
     }
 
+    public String waitlistLeaseRequest() throws SQLException {
+        LeaseRequestTable table = new LeaseRequestTable();
+        String username = (String) sessionMap.get("username");
+        table.updateStatusByStaff(conn, requestNumber, LeaseTable.RequestStatus.WaitList, username.trim());
+        return "success";
+    }
+
     public String approveLeaseTerminationRequest() throws SQLException {
         String sql = "update " + LeaseTerminationRequestTable.TABLE_NAME +
                 " set " + LeaseTerminationRequestTable.INSPECTION_DATE+ " = ? where "+
@@ -89,7 +96,7 @@ public class StaffLeaseAction extends UHAction{
 
 
     public String viewLeaseToApprove() {
-        LeaseRequest leaseRequest = (new LeaseRequestView()).viewLeaseRequest(conn, leaseNumber);
+        leaseRequest = (new LeaseRequestView()).viewLeaseRequest(conn, requestNumber);
         LeaseView view = new LeaseView();
         ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, leaseRequest);
         if (proposedHousing == null) {
@@ -160,5 +167,13 @@ public class StaffLeaseAction extends UHAction{
 
     public void setLeaseTerminationRequest(LeaseTerminationRequest leaseTerminationRequest) {
         this.leaseTerminationRequest = leaseTerminationRequest;
+    }
+
+    public LeaseRequest getLeaseRequest() {
+        return leaseRequest;
+    }
+
+    public void setLeaseRequest(LeaseRequest leaseRequest) {
+        this.leaseRequest = leaseRequest;
     }
 }

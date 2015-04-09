@@ -184,8 +184,8 @@ public class LeaseRequestTable extends Table {
     }
 
     public void updateStatusByStaff(Connection conn, int requestNumber, LeaseTable.RequestStatus status, String staffId) throws SQLException {
-        String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status +
-                "' where " + REQUEST_NUMBER + " = " + requestNumber  + ", updated_by = " + staffId + ", updated_on = sysdate" ;
+        String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status + "', updated_by = " + staffId + ", updated_on = sysdate" +
+                " where " + REQUEST_NUMBER + " = " + requestNumber;
         DBAccessor.executeQuery(conn, sql);
     }
 }

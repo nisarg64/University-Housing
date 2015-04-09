@@ -21,7 +21,7 @@ public class LeaseUtils {
 
         Housing housing = null;
         String residenceType  = preference.getType().trim();
-        String hallName = preference.getHallName().trim();
+        String hallName = (preference.getHallName() == null) ? "" : preference.getHallName().trim();
         String query = "";
 
         switch (residenceType){
