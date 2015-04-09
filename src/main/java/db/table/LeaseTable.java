@@ -94,34 +94,34 @@ public class LeaseTable extends Table {
         // Sequence: LEASE_NUMBER, REQUEST_NUMBER, START_DATE, END_DATE, HOUSING_ID, LOCATION_NUMBER
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_1, LeaseRequestTable.LEASE_REQUEST_ID_1,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2014', 'dd-MON-yyyy')", "'1'", "'001'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'001'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_2, LeaseRequestTable.LEASE_REQUEST_ID_2,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2014', 'dd-MON-yyyy')", "'3'", "'001'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'3'", "'001'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_3, LeaseRequestTable.LEASE_REQUEST_ID_3,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-MAY-2014', 'dd-MON-yyyy')", "'1'", "'002'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-MAY-2015', 'dd-MON-yyyy')", "'1'", "'002'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_4, LeaseRequestTable.LEASE_REQUEST_ID_4,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2014', 'dd-MON-yyyy')", "'1'", "'003'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'1'", "'003'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_5, LeaseRequestTable.LEASE_REQUEST_ID_5,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-MAY-2014', 'dd-MON-yyyy')", "'4'", "'008'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-MAY-2015', 'dd-MON-yyyy')", "'4'", "'008'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_6, LeaseRequestTable.LEASE_REQUEST_ID_6,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2014', 'dd-MON-yyyy')", "'4'", "'009'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'4'", "'009'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_7, LeaseRequestTable.LEASE_REQUEST_ID_7,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2014', 'dd-MON-yyyy')", "'2'", "'006'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'2'", "'006'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_8, LeaseRequestTable.LEASE_REQUEST_ID_8,
-                "to_date('01-MAR-2014', 'dd-MON-yyyy')", "to_date('30-APR-2014', 'dd-MON-yyyy')", "'3'", "'004'"));
+                "to_date('01-MAR-2015', 'dd-MON-yyyy')", "to_date('30-APR-2015', 'dd-MON-yyyy')", "'3'", "'004'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_9, LeaseRequestTable.LEASE_REQUEST_ID_9,
-                "to_date('01-APR-2014', 'dd-MON-yyyy')", "to_date('30-APR-2014', 'dd-MON-yyyy')", "'3'", "'005'"));
+                "to_date('01-APR-2015', 'dd-MON-yyyy')", "to_date('30-APR-2015', 'dd-MON-yyyy')", "'3'", "'005'"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_ID_10, LeaseRequestTable.LEASE_REQUEST_ID_10,
-                "to_date('01-JAN-2014', 'dd-MON-yyyy')", "to_date('31-JUL-2014', 'dd-MON-yyyy')", "'5'", "'107'"));
+                "to_date('01-JAN-2015', 'dd-MON-yyyy')", "to_date('31-JUL-2015', 'dd-MON-yyyy')", "'5'", "'107'"));
 
         DBAccessor.executeBatchQuery(conn, queries);
     }
