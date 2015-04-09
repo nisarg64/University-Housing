@@ -56,14 +56,14 @@ public class HasRoomsTable extends Table {
         String query17 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '006', '003', 350, 400)";
         String query18 = "INSERT INTO " + getTableName() + " VALUES('3', '102', 'General Student Apartments', '007', '004', 350, 400)";
 
-        String query19 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '001', '001', 375, 450)";
-        String query20 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '002', '002', 375, 450)";
-        String query21 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '003', '003', 375, 450)";
+        String query19 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '008', '001', 375, 450)";
+        String query20 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '009', '002', 375, 450)";
+        String query21 = "INSERT INTO " + getTableName() + " VALUES('4', '103', 'General Student Apartments', '010', '003', 375, 450)";
 
-        String query22 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '004', '001', 375, 450)";
-        String query23 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '005', '002', 375, 450)";
-        String query24 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '006', '003', 375, 450)";
-        String query25 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '007', '004', 375, 450)";
+        String query22 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '011', '001', 375, 450)";
+        String query23 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '012', '002', 375, 450)";
+        String query24 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '013', '003', 375, 450)";
+        String query25 = "INSERT INTO " + getTableName() + " VALUES('4', '104', 'General Student Apartments', '014', '004', 375, 450)";
 
         queries.add(query1);
         queries.add(query2);

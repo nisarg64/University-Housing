@@ -43,6 +43,8 @@ public class HasFamilyAptTable extends Table{
         String query3 = "INSERT INTO " + getTableName() + " VALUES('107', '5', 3, 700, 800)";
 
         queries.add(query1);
+        queries.add(query2);
+        queries.add(query3);
 
         DBAccessor.executeBatchQuery(conn, queries);
     }

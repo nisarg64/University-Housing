@@ -1,7 +1,10 @@
 package db.view;
 
+import db.table.LeasePreferenceTable;
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
+import db.table.ResidentHallTable;
+import pojo.LeasePreference;
 import pojo.LeaseRequest;
 import util.DBAccessor;
 
@@ -53,7 +56,9 @@ public class LeaseRequestView extends View {
         if (requests.isEmpty()) {
             return null;
         } else {
-            return requests.get(0);
+            LeaseRequest request = requests.get(0);
+            populatePreferences(conn, request);
+            return request;
         }
     }
 
@@ -83,9 +88,36 @@ public class LeaseRequestView extends View {
                 leaseRequests.add(leaseRequest);
             }
         } catch (SQLException ex) {
-            System.err.println("Error Occurred During View Lease " + ex.getMessage());
+            System.err.println("Error Occurred During Get Lease Requests" + ex.getMessage());
             ex.printStackTrace();
         }
         return leaseRequests;
+    }
+
+    public void populatePreferences(Connection conn, LeaseRequest leaseRequest) {
+        String query = "select p.*, h.name from " + LeasePreferenceTable.TABLE_NAME +
+                " p left outer join housing h on h.housing_id = p.hall_id where "
+                + LeaseRequestTable.REQUEST_NUMBER + " = " + leaseRequest.getRequestNumber();
+
+        try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
+            while (rs.next()) {
+                LeasePreference leasePreference = new LeasePreference();
+                leasePreference.setSequenceNumber(rs.getInt(LeasePreferenceTable.SEQUENCE_NUMBER));
+                leasePreference.setType(rs.getString(LeasePreferenceTable.TYPE));
+                leasePreference.setHallId(rs.getString(ResidentHallTable.HALL_ID));
+                leasePreference.setRequestNumber(leaseRequest.getRequestNumber());
+                leasePreference.setHallName(rs.getString("name"));
+                if (leasePreference.getSequenceNumber() == 3) {
+                    leaseRequest.setPreference3(leasePreference);
+                } else if (leasePreference.getSequenceNumber() == 2) {
+                    leaseRequest.setPreference2(leasePreference);
+                } else {
+                    leaseRequest.setPreference1(leasePreference);
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error Occurred During Populate Preferences " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 }

@@ -189,6 +189,10 @@
             <result name="success">/WEB-INF/lease/staff/view_approved_lease_request.jsp</result>
         </action>
 
+        <action name="waitlistLeaseRequest" class="action.StaffLeaseAction" method="waitlistLeaseRequest">
+            <result name="success">/WEB-INF/lease/staff/view_all_request.jsp</result>
+        </action>
+
         <action name="viewAllLeaseTerminationRequestsToApprove" class="action.StaffLeaseAction" method="getAllLeaseTerminationRequests">
             <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
         </action>
