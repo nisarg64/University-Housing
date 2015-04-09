@@ -51,4 +51,15 @@ public class Housing {
     public void setAptId(String aptId) {
         this.aptId = aptId;
     }
+
+    @Override
+    public String toString() {
+        return "Housing{" +
+                "housingId='" + housingId + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", locationNumber='" + locationNumber + '\'' +
+                ", aptId='" + aptId + '\'' +
+                '}';
+    }
 }
