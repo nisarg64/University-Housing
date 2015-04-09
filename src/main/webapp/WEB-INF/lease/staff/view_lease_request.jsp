@@ -29,43 +29,43 @@
             </tr>
             <tr>
                 <th>Preference 1:</th>
-                <td><s:text name="leaseRequest.preference1.type"/></td>
+                <td><s:text name="preference1.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference1.hallName"/></td>
+                <td><s:text name="preference1.hallName"/></td>
             </tr>
             <tr>
                 <th>Preference 2:</th>
-                <td><s:text name="leaseRequest.preference2.type"/></td>
+                <td><s:text name="preference2.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference2.hallName"/></td>
+                <td><s:text name="preference2.hallName"/></td>
             </tr>
             <tr>
                 <th>Preference 3:</th>
-                <td><s:text name="leaseRequest.preference3.type"/></td>
+                <td><s:text name="preference3.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference3.hallName"/></td>
+                <td><s:text name="preference3.hallName"/></td>
             </tr>
             <tr>
                 <th>Housing Type:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedHousingType"/></td>
+                <td><s:text name="proposedHousing.proposedHousingType"/></td>
             </tr>
             <tr>
                 <th>Name:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedHousingName"/></td>
+                <td><s:text name="proposedHousing.proposedHousingName"/></td>
             </tr>
             <tr>
                 <th>Housing Id:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedHousingId"/></td>
+                <td><s:text name="proposedHousing.proposedHousingId"/></td>
             </tr>
             <tr>
                 <th>Location Number:</th>
-                <td><s:text name="leaseRequest.proposedHousing.proposedLocationNumber"/></td>
+                <td><s:text name="proposedHousing.proposedLocationNumber"/></td>
             </tr>
             <tr>
                 <th>Click to Approve:</th>

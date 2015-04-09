@@ -3,13 +3,11 @@ package action;
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
+import db.table.LeaseUtils;
 import db.view.LeaseRequestView;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
-import pojo.Lease;
-import pojo.LeaseRequest;
-import pojo.LeaseTerminationRequest;
-import pojo.ProposedHousing;
+import pojo.*;
 import util.DBAccessor;
 
 import java.sql.Date;
@@ -31,6 +29,11 @@ public class StaffLeaseAction extends UHAction{
     private int damageFees;
     private int requestNumber;
     private LeaseTerminationRequest leaseTerminationRequest;
+    private LeasePreference preference1;
+    private LeasePreference preference2;
+    private LeasePreference preference3;
+    private ProposedHousing proposedHousing;
+
 
     public String getAllRequests() {
         allLeaseRequests = (new LeaseRequestView()).viewOpenLeaseRequests(conn);
@@ -56,6 +59,8 @@ public class StaffLeaseAction extends UHAction{
             lease.setHousingId(leaseRequest.getProposedHousing().getProposedHousingId());
             lease.setLocationNumber(leaseRequest.getProposedHousing().getProposedLocationNumber());
             lease.setLeaseNumber(table.insert(conn, lease));
+
+            this.lease = lease;
         }
         LeaseRequestTable table = new LeaseRequestTable();
         String username = (String) sessionMap.get("username");
@@ -75,7 +80,6 @@ public class StaffLeaseAction extends UHAction{
                 " set " + LeaseTerminationRequestTable.INSPECTION_DATE+ " = ? where "+
                 LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber;
 
-        System.out.println(sql);
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setDate(1, new Date(leaseTerminationRequest.getInspectionDate().getTime()));
         stmt.executeUpdate();
@@ -104,7 +108,36 @@ public class StaffLeaseAction extends UHAction{
             return "waiting";
         } else {
             leaseRequest.setCanApprove(true);
+
+            if(leaseRequest.getPreference1() == null || leaseRequest.getPreference1().getType().equalsIgnoreCase("-1")){
+                this.preference1 = new LeasePreference();
+                this.preference1.setType("No Preferences Specified");
+                this.preference1.setHallName("No Preferences Specified");
+            }else{
+                this.preference1 = leaseRequest.getPreference1();
+            }
+            if(leaseRequest.getPreference2() == null || leaseRequest.getPreference2().getType().equalsIgnoreCase("-1")){
+                this.preference2 = new LeasePreference();
+                this.preference2.setType("No Preferences Specified");
+                this.preference2.setHallName("No Preferences Specified");
+            }else{
+                this.preference2 = leaseRequest.getPreference2();
+            }
+            if(leaseRequest.getPreference3() == null || leaseRequest.getPreference3().getType().equalsIgnoreCase("-1")){
+                this.preference3 = new LeasePreference();
+                this.preference3.setType("No Preferences Specified");
+                this.preference3.setHallName("No Preferences Specified");
+            }else{
+                this.preference3 = leaseRequest.getPreference3();
+            }
+
             leaseRequest.setProposedHousing(proposedHousing);
+            this.proposedHousing = proposedHousing;
+
+            System.out.println("Check " + this.preference1);
+            System.out.println("Check " + this.preference2);
+            System.out.println("Check " + this.preference3);
+            System.out.println("Check " + this.proposedHousing);
             return SUCCESS;
         }
     }
@@ -175,5 +208,37 @@ public class StaffLeaseAction extends UHAction{
 
     public void setLeaseRequest(LeaseRequest leaseRequest) {
         this.leaseRequest = leaseRequest;
+    }
+
+    public LeasePreference getPreference1() {
+        return preference1;
+    }
+
+    public void setPreference1(LeasePreference preference1) {
+        this.preference1 = preference1;
+    }
+
+    public LeasePreference getPreference2() {
+        return preference2;
+    }
+
+    public void setPreference2(LeasePreference preference2) {
+        this.preference2 = preference2;
+    }
+
+    public LeasePreference getPreference3() {
+        return preference3;
+    }
+
+    public void setPreference3(LeasePreference preference3) {
+        this.preference3 = preference3;
+    }
+
+    public ProposedHousing getProposedHousing() {
+        return proposedHousing;
+    }
+
+    public void setProposedHousing(ProposedHousing proposedHousing) {
+        this.proposedHousing = proposedHousing;
     }
 }

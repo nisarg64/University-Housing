@@ -88,7 +88,7 @@ public class LeaseView extends View {
 
     public ProposedHousing getProposedHousingForLease(Connection conn, LeaseRequest leaseRequest) {
         ProposedHousing proposedHousing = new ProposedHousing();
-
+        System.out.println("Lease Request For Testing " + leaseRequest);
         if(leaseRequest.isUsePrivateAccommodation()){
 
             // TODO add freshman check

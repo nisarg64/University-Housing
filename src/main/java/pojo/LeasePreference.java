@@ -51,4 +51,15 @@ public class LeasePreference {
     public void setRequestNumber(int requestNumber) {
         this.requestNumber = requestNumber;
     }
+
+    @Override
+    public String toString() {
+        return "LeasePreference{" +
+                "requestNumber=" + requestNumber +
+                ", sequenceNumber=" + sequenceNumber +
+                ", type='" + type + '\'' +
+                ", hallId='" + hallId + '\'' +
+                ", hallName='" + hallName + '\'' +
+                '}';
+    }
 }
