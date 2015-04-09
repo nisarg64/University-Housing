@@ -34,7 +34,7 @@
 
                 <td><b>Created by</b></td>
                 <td><b>Address</b></td>
-                <td><b>Set Complete</b></td>
+                <td><b>Set Progress/Complete</b></td>
             </tr>
             <s:iterator value="tickets" status="stat">
                 <tr>
@@ -48,7 +48,7 @@
 
                     <td><s:property value="residentId" /></td>
                     <td><s:property value="address" /></td>
-                    <td><span><a class="resolveTicketBtn btn btn-info" rowid="<s:property value="ticket_no" />" href="#">Complete Ticket</a></span></td>
+                    <td><span><a class="resolveTicketBtn btn btn-info" rowid="<s:property value="ticket_no" />" href="#">Progress/Complete Ticket</a></span></td>
                 </tr>
             </s:iterator>
         </table>
