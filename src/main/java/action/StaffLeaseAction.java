@@ -48,19 +48,18 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String approveLeaseRequest() throws SQLException {
-        /*String query = null; *//*"update " + LeaseTable.TABLE_NAME + " set " + LeaseTable.STATUS + " = '" + LeaseTable.RequestStatus.InProgress.name() + "'" +
-                " where " + LeaseTable.LEASE_NUMBER + " = " + leaseNumber;*/
-        Lease lease = new Lease();
-        lease.setLeaseRequest(leaseRequest);
-        LeaseTable table = new LeaseTable();
-        table.insert(conn, lease);
-        //DBAccessor.executeQuery(conn, query);
-        lease = new Lease();
-        lease.setLeaseNumber(leaseNumber);
-
-        // TODO set based on preferences
-        lease.setHousingId(null);
-        lease.setLocationNumber(null);
+        LeaseRequest leaseRequest = (new LeaseRequestView().viewLeaseRequest(conn, requestNumber));
+        if (!leaseRequest.isUsePrivateAccommodation()) {
+            Lease lease = new Lease();
+            lease.setLeaseRequest(leaseRequest);
+            LeaseTable table = new LeaseTable();
+            lease.setHousingId(leaseRequest.getProposedHousing().getProposedHousingId());
+            lease.setLocationNumber(leaseRequest.getProposedHousing().getProposedLocationNumber());
+            lease.setLeaseNumber(table.insert(conn, lease));
+        }
+        LeaseRequestTable table = new LeaseRequestTable();
+        String username = (String) sessionMap.get("username");
+        table.updateStatusByStaff(conn, requestNumber, LeaseTable.RequestStatus.InProgress, username.trim());
         return "success";
     }
 
@@ -90,6 +89,7 @@ public class StaffLeaseAction extends UHAction{
 
 
     public String viewLeaseToApprove() {
+        LeaseRequest leaseRequest = (new LeaseRequestView()).viewLeaseRequest(conn, leaseNumber);
         LeaseView view = new LeaseView();
         ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, leaseRequest);
         if (proposedHousing == null) {

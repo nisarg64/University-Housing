@@ -8,8 +8,8 @@
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
             <tr>
-                <th>leaseRequest Number:</th>
-                <td><s:text name="leaseRequest.leaseRequestNumber"/></td>
+                <th>Lease Request Number:</th>
+                <td><s:text name="leaseRequest.requestNumber"/></td>
             </tr>
             <tr>
                 <th>Enter Date</th>
@@ -24,7 +24,7 @@
                 <td><s:text name="leaseRequest.paymentOption"/></td>
             </tr>
             <tr>
-                <th>leaseRequest Duration:</th>
+                <th>Lease Duration:</th>
                 <td><s:text name="leaseRequest.duration"/></td>
             </tr>
             <tr>
@@ -69,7 +69,7 @@
             </tr>
             <tr>
                 <th>Click to Approve:</th>
-                <td><a href="/<s:property value='appName'/>/approveleaseRequest.action?leaseRequestNumber=<s:property value='leaseRequestNumber' />"/>Approve</a></td>
+                <td><a href="/<s:property value='appName'/>/approveleaseRequest.action?requestNumber=<s:property value='requestNumber' />"/>Approve</a></td>
             </tr>
         </tbody>
 

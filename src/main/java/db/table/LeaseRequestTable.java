@@ -93,7 +93,7 @@ public class LeaseRequestTable extends Table {
                 "'", "'0'", "300220001", "to_date('30-JUL-2014', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_5, "'100540005'", "'" + LeaseTable.RequestStatus.InProgress +
-                "'", "to_date('01-AUG-2014', 'dd-MON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
+                "'", "to_date('01-AUG-2014', 'dd-MnON-yyyy')", "2", "'" + LeaseTable.PaymentOption.Monthly +
                 "'", "'0'", "300220001", "to_date('30-JUL-2014', 'dd-MON-yyyy')"));
 
         queries.add(createInsertQuery(TABLE_NAME, LEASE_REQUEST_ID_6, "'100540006'", "'" + LeaseTable.RequestStatus.InProgress +
@@ -154,7 +154,7 @@ public class LeaseRequestTable extends Table {
                 DURATION, PAYMENT_OPTION, USE_PRIVATE_ACCOMMODATION);
         stmt = conn.prepareStatement(sql);
         stmt.setInt(1, requestNumber);
-        stmt.setString(2, leaseRequest.getResidentId());
+        stmt.setString(2, leaseRequest.getResidentId().substring(0, 9).trim());
         stmt.setString(3, LeaseTable.RequestStatus.Pending.name());
         stmt.setDate(4, new java.sql.Date(leaseRequest.getEnterDate().getTime()));
         stmt.setInt(5, leaseRequest.getDuration());
@@ -168,6 +168,12 @@ public class LeaseRequestTable extends Table {
     public void updateStatus(Connection conn, int requestNumber, LeaseTable.RequestStatus status) throws SQLException {
         String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status +
                 "' where " + REQUEST_NUMBER + " = " + requestNumber;
+        DBAccessor.executeQuery(conn, sql);
+    }
+
+    public void updateStatusByStaff(Connection conn, int requestNumber, LeaseTable.RequestStatus status, String staffId) throws SQLException {
+        String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status +
+                "' where " + REQUEST_NUMBER + " = " + requestNumber  + ", updated_by = " + staffId + ", updated_on = sysdate" ;
         DBAccessor.executeQuery(conn, sql);
     }
 }

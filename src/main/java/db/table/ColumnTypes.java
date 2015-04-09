@@ -7,7 +7,7 @@ package db.table;
 public class ColumnTypes {
     public static final String INTEGER_TYPE = "integer";
     public static final String NUMBER_TYPE = "number";
-    public static final String ID_TYPE = "char(10)";
+    public static final String ID_TYPE = "varchar2(10)";
     public static final String BIG_ID_TYPE = "varchar2(50)";
     public static final String VARCHAR2_SIZE_10_TYPE = "varchar2(10)";
     public static final String ID_INT_TYPE = "integer";

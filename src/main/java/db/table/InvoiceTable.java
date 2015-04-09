@@ -1,15 +1,12 @@
 package db.table;
 
 import db.view.InvoiceView;
-import db.view.LeaseView;
 import pojo.Invoice;
-import pojo.Lease;
 import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,7 +25,7 @@ public class InvoiceTable extends Table {
     public void createTable(Connection conn) throws SQLException {
         String query = "CREATE TABLE " + getTableName() + " ( " +
                 "invoice_id number, " +
-                "resident_id char(10), " +
+                "resident_id varchar2(10), " +
                 "housing_rent INTEGER, " +
                 "parking_rent INTEGER, " +
                 "lease_no number, " +

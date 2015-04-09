@@ -12,10 +12,7 @@ import util.DBAccessor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * User: Nikhil
@@ -33,6 +30,7 @@ public class LeaseAction extends UHAction {
     private List<String> preferenceTypes;
     private Map<String, String> halls;
     private List<Lease> leases;
+    private List<LeaseRequest> leaseRequests;
     private List<LeaseTerminationRequest> terminateLeases;
     private LeaseTerminationRequest leaseTerminationRequest;
     private int requestNumber;
@@ -83,10 +81,8 @@ public class LeaseAction extends UHAction {
         for (LeaseTable.PaymentOption option : LeaseTable.PaymentOption.values()) {
             paymentOptions.add(option.name());
         }
-        leaseDurations = new ArrayList<Integer>();
-        for (LeaseTable.LeaseDuration duration : LeaseTable.LeaseDuration.values()) {
-            leaseDurations.add(duration.getNumberOfSemesters());
-        }
+
+        populateLeaseDurations();
 
         preferenceTypes = new ArrayList<String>();
         for (LeasePreferenceTable.PreferenceType preferenceType : LeasePreferenceTable.PreferenceType.values()) {
@@ -94,9 +90,9 @@ public class LeaseAction extends UHAction {
         }
 
         halls = new HashMap<String, String>();
-        // TODO add graduate check
         String query = "Select hall." + ResidentHallTable.HALL_ID + ", h.name from " +
-                ResidentHallTable.TABLE_NAME + " hall inner join housing h on h.housing_id = hall." + ResidentHallTable.HALL_ID;
+                ResidentHallTable.TABLE_NAME + " hall inner join housing h on h.housing_id = hall." + ResidentHallTable.HALL_ID +
+                ", resident r where (r.res_id = " + username.trim() + ") and (hall.student_type is null or hall.student_type = r.category)";
 
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
             while (rs.next()) {
@@ -106,6 +102,22 @@ public class LeaseAction extends UHAction {
             System.err.println("Error Occurred During View Halls " + ex.getMessage());
         }
         return SUCCESS;
+    }
+
+    private void populateLeaseDurations() {
+        leaseDurations = new ArrayList<Integer>();
+        Calendar calendar = Calendar.getInstance();
+        int currMonth = calendar.get(Calendar.MONTH);
+        if (currMonth <= 4) {
+            leaseDurations.add(2);
+            leaseDurations.add(3);
+        } else if (currMonth <= 6) {
+            leaseDurations.add(3);
+        } else {
+            leaseDurations.add(1);
+            leaseDurations.add(2);
+            leaseDurations.add(3);
+        }
     }
 
     public String createLeaseRequest() throws Exception {
@@ -141,8 +153,8 @@ public class LeaseAction extends UHAction {
     public String getAllLeases() {
 
         String username = (String) sessionMap.get("username");
-        leases = (new LeaseView()).viewAllLeaseRequestsForResident(conn, username);
-        terminateLeases = (new LeaseTerminationRequestView()).viewAllLeaseTerminationRequestForResident(conn, username);
+        leaseRequests = (new LeaseRequestView()).viewAllLeaseRequestsForResident(conn, username);
+        terminateLeases = (new LeaseTerminationRequestView()).viewAllLeaseTerminationRequestForResident(conn, username.trim());
         return "success";
     }
 
