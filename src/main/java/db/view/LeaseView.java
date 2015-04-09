@@ -93,6 +93,11 @@ public class LeaseView extends View {
 
             // TODO add freshman check
             proposedHousing.setUsePrivateAccommodation(true);
+            Housing housing= LeaseUtils.getHousingDetail(conn, null);
+            proposedHousing.setProposedHousingId(housing.getHousingId());
+            proposedHousing.setProposedHousingName(housing.getName());
+            proposedHousing.setProposedLocationNumber(housing.getLocationNumber());
+            proposedHousing.setProposedHousingType(housing.getType());
             return proposedHousing;
         }
 

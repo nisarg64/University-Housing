@@ -19,8 +19,13 @@ public class LeaseUtils {
 
     public static Housing getHousingDetail(Connection conn, LeasePreference preference) {
 
-        if(preference == null) return null;
         Housing housing = null;
+        if(preference == null) {
+            housing = LeaseUtils.getAllVacancies(conn).get(0);
+            System.out.println(" Pointer is here " + housing);
+            return housing;
+        }
+
         String residenceType  = preference.getType().trim();
         String hallName = (preference.getHallName() == null) ? "" : preference.getHallName().trim();
         String query = "";
@@ -71,7 +76,7 @@ public class LeaseUtils {
         return housing;
     }
 
-    public List<Housing> getAllVacancies(Connection conn) {
+    public static List<Housing> getAllVacancies(Connection conn) {
 
         List<Housing> vacancies = new LinkedList<>();
         String query = " SELECT R.PARENT_ID AS H_ID, R.APT_ID AS APT_ID, R.TYPE AS TYPE, " +
@@ -81,7 +86,7 @@ public class LeaseUtils {
                        " AND R.PLACE_NUM NOT IN (SELECT LOCATION_NO FROM LEASE) ";
 
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
-            if(rs.next()){
+            while(rs.next()){
                 Housing housing = new Housing();
                 housing.setHousingId(rs.getString("H_ID"));
                 housing.setLocationNumber(rs.getString("PLACE_NUM"));
@@ -114,6 +119,5 @@ public class LeaseUtils {
         return vacancies;
 
     }
-
 
 }

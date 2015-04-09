@@ -55,9 +55,10 @@ public class StaffLeaseAction extends UHAction{
         if (!leaseRequest.isUsePrivateAccommodation()) {
             Lease lease = new Lease();
             lease.setLeaseRequest(leaseRequest);
+            lease.setHousingId(proposedHousing.getProposedHousingId());
+            lease.setLocationNumber(proposedHousing.getProposedLocationNumber());
+            lease.setHousingName(proposedHousing.getProposedHousingName());
             LeaseTable table = new LeaseTable();
-            lease.setHousingId(leaseRequest.getProposedHousing().getProposedHousingId());
-            lease.setLocationNumber(leaseRequest.getProposedHousing().getProposedLocationNumber());
             lease.setLeaseNumber(table.insert(conn, lease));
 
             this.lease = lease;

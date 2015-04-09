@@ -133,6 +133,11 @@
             <result name="error">/WEB-INF/login.jsp</result>
         </action>
 
+        <action name="viewAllVacancies" class="action.LeaseAction" method="fetchAllVacancies">
+            <result name="success">/WEB-INF/lease/all_vacancies.jsp</result>
+        </action>
+
+
         <!-- Lease New/Termination Requests -->
         <action name="newRequestsMenu" class="action.UHAction">
             <result name="success">/WEB-INF/lease/new_requests_menu.jsp</result>
