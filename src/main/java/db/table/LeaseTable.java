@@ -5,9 +5,9 @@ import util.DBAccessor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: Nikhil
@@ -142,24 +142,39 @@ public class LeaseTable extends Table {
         return str;
     }
 
-    public void insert(Connection conn, Lease lease) throws SQLException {
+    public int insert(Connection conn, Lease lease) throws SQLException {
+        String query = "Select " + LEASE_SEQUENCE + ".NEXTVAL FROM DUAL";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        int leaseNumber = rs.getInt(1);
+
         String sql = createInsertPreparedStatement(TABLE_NAME, 0, LEASE_NUMBER, LeaseRequestTable.REQUEST_NUMBER, START_DATE, END_DATE,
                 HOUSING_ID, LOCATION_NUMBER);
-        sql = sql.replaceFirst("\\?", LEASE_SEQUENCE + ".nextval");
         System.out.println(sql);
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setInt(1, lease.getLeaseRequest().getRequestNumber());
-        stmt.setString(2, lease.getStatus());
+        stmt = conn.prepareStatement(sql);
+        stmt.setInt(1, leaseNumber);
+        stmt.setInt(2, lease.getLeaseRequest().getRequestNumber());
+        stmt.setDate(3, new java.sql.Date(lease.getLeaseRequest().getEnterDate().getTime()));
         // TODO set dates based on duration
-        stmt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
-        stmt.setDate(4, new java.sql.Date(System.currentTimeMillis() + 9999999));
+        stmt.setDate(4, new java.sql.Date(getEndDate(lease.getLeaseRequest().getDuration()).getTime()));
         stmt.setString(5, lease.getLeaseRequest().getProposedHousing().getProposedHousingId());
         stmt.setString(6, lease.getLeaseRequest().getProposedHousing().getProposedLocationNumber());
         System.out.println(stmt);
         stmt.executeUpdate();
+        return leaseNumber;
         // TODO set updated by and updated on for request
         //sql = "UPDATE " + LeaseRequestTable.TABLE_NAME + " set " + LeaseRequestTable.STATUS + " = '" + RequestStatus.InProgress + "'";
         //DBAccessor.executeQuery(conn, sql);
+    }
+
+    private Date getEndDate(int duration) {
+        /*Calendar calendar = Calendar.getInstance();
+        if (duration == 1) {
+            calendar.set(Calendar.MONTH, 12);
+            calendar.set(Calendar.DATE, )
+        }*/
+        return new Date(System.currentTimeMillis() + 90000000);
     }
 
     public Lease getLease(String residentId){

@@ -11,7 +11,7 @@
     <table class="table table-bordered" data-toggle="table"  data-cache="false" data-height="299">
         <tbody>
         <tr>
-            <td><b>Lease Number</b></td>
+            <td><b>Lease Request Number</b></td>
             <td><b>Resident ID</b></td>
             <td><b>Enter Date</b></td>
             <td><b>Leave Date</b></td>
@@ -21,9 +21,9 @@
             <td><b>Cut Off Date</b></td>
             <td><b>Status</b></td>
         </tr>
-        <s:iterator value="leases" status="stat">
+        <s:iterator value="leaseRequests" status="stat">
             <tr>
-                <td><a href="/<s:property value='appName'/>/viewCurrentLease.action?leaseNumber=<s:property value='leaseNumber' />" ><s:property value="leaseNumber" /></a></td>
+                <td><a href="/<s:property value='appName'/>/viewCurrentLeaseRequest.action?requestNumber=<s:property value='requestNumber' />" ><s:property value="requestNumber" /></a></td>
                 <td><s:property value="residentId" /></td>
                 <td><s:property value="enterDate" /></td>
                 <td><s:property value="leaveDate" /></td>

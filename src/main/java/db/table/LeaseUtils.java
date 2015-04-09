@@ -1,7 +1,6 @@
 package db.table;
 
 import pojo.Housing;
-import pojo.Lease;
 import pojo.LeasePreference;
 import util.DBAccessor;
 

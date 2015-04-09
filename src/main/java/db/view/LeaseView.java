@@ -65,14 +65,7 @@ public class LeaseView extends View {
         return getLeases(conn, query.toString());
     }
 
-    public List<Lease> viewAllLeaseRequestsForResident(Connection conn, String residentId) {
-        StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM ").append(getViewName()).append(" ");
-        query.append("where ");
-        //query.append(LeaseTable.RES_ID).append(" = '").append(residentId).append("'");
 
-        return getLeases(conn, query.toString());
-    }
 
     public Lease viewCurrentLease(Connection conn, String residentId) {
         String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "' and "
@@ -163,6 +156,7 @@ public class LeaseView extends View {
                 //lease.setResidentId(rs.getString(LeaseTable.RES_ID));
                 lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
                 lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
+                lease.setEndDate(rs.getDate(LeaseTable.END_DATE));
                 lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
                 lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
                 //lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));

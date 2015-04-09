@@ -6,11 +6,13 @@ import db.view.StaffNameView;
 import pojo.TicketRequest;
 import util.DBAccessor;
 
-import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import static util.DBAccessor.executeQuery;
 
@@ -31,7 +33,7 @@ public class MaintenanceTicketTable extends Table{
                 " ticket_no NUMBER, " +
                 " ticket_type VARCHAR(20), " +
                 " ticket_date timestamp, " +
-                " res_id char(10), " +
+                " res_id varchar2(10), " +
                 " location_id VARCHAR(20), " + // room_id or family_apt_id
                 " location_type VARCHAR(20), " + // Room or Apt
                 " status VARCHAR(20), " + // status - InProgress, Resolved

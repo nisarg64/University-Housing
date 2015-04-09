@@ -20,7 +20,7 @@ import java.util.List;
 public class LeaseTerminationRequestView extends View {
 
     public static final String VIEW_NAME= "LT_REQUEST_VIEW";
-    public static final String TR_STATUS = "tr_status";
+    public static final String TR_STATUS = "lt_status";
     public static final String L_STATUS = "l_status";
     public static final String L_REQUEST_NUMBER = "l_request_number";
 
@@ -86,15 +86,15 @@ public class LeaseTerminationRequestView extends View {
                 request.setLeaveDate(rs.getDate(LeaseTerminationRequestTable.LEAVE_DATE));
                 request.setInspectionDate(rs.getDate(LeaseTerminationRequestTable.INSPECTION_DATE));
                 Lease lease = new Lease();
-                lease.setLeaseNumber(rs.getInt(L_REQUEST_NUMBER));
-                // lease.setResidentId(rs.getString(LeaseTable.RES_ID));
-                lease.setStatus(rs.getString(L_STATUS));
+                lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
+                lease.setResidentId(rs.getString(LeaseRequestTable.RES_ID));
+                lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
                 lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
-                // lease.setDuration(rs.getInt(LeaseTable.DURATION));
-                // lease.setPaymentOption(rs.getString(LeaseTable.PAYMENT_OPTION));
-                // lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
+                lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
+                lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
                 lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
-                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));;
+                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
+                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
                 request.setLease(lease);
                 requests.add(request);
             }

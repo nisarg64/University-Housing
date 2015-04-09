@@ -5,6 +5,7 @@
     <div class="upperText">
         <span class="upper-text">Cancel Request</span>
     </div>
+     <label class="statusMessage"><strong><s:property value="message" /></strong></label>
     <s:form action="saveCancelRequest" namespace="/" >
 
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">

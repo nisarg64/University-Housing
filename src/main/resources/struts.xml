@@ -160,6 +160,11 @@
             <result name="success">/WEB-INF/lease/view_all_request.jsp</result>
         </action>
 
+        <action name="viewCurrentLeaseRequest" class="action.LeaseAction" method="viewLeaseRequest">
+            <result name="success">/WEB-INF/lease/view_lease_request.jsp</result>
+        </action>
+
+
         <action name="cancelRequest" class="action.LeaseAction" method="cancelRequest">
             <result name="success">/WEB-INF/lease/cancel_request.jsp</result>
         </action>

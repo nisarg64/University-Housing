@@ -46,6 +46,26 @@ public class LeaseRequestView extends View {
         return getLeaseRequests(conn, query);
     }
 
+    public LeaseRequest viewLeaseRequest(Connection conn, int requestNumber) {
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber;
+        System.out.println(query);
+        List<LeaseRequest> requests = getLeaseRequests(conn, query);
+        if (requests.isEmpty()) {
+            return null;
+        } else {
+            return requests.get(0);
+        }
+    }
+
+    public List<LeaseRequest> viewAllLeaseRequestsForResident(Connection conn, String residentId) {
+        StringBuilder query = new StringBuilder();
+        query.append("SELECT * FROM ").append(getViewName()).append(" ");
+        query.append("where ");
+        query.append(LeaseRequestTable.RES_ID).append(" = '").append(residentId).append("'");
+
+        return getLeaseRequests(conn, query.toString());
+    }
+
     private List<LeaseRequest> getLeaseRequests(Connection conn, String query) {
         List<LeaseRequest> leaseRequests = new ArrayList<LeaseRequest>();
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
@@ -64,6 +84,7 @@ public class LeaseRequestView extends View {
             }
         } catch (SQLException ex) {
             System.err.println("Error Occurred During View Lease " + ex.getMessage());
+            ex.printStackTrace();
         }
         return leaseRequests;
     }
