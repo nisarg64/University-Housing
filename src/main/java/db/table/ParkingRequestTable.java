@@ -36,7 +36,7 @@ public class ParkingRequestTable extends Table {
                 "permit_id " + ColumnTypes.NUMBER_TYPE + " ," +
                 "updated_by "+ColumnTypes.ID_TYPE+ " DEFAULT NULL, "+
                 "updated_on "+ColumnTypes.DATE_TYPE +" DEFAULT NULL, "+
-                "PRIMARY KEY (request_id, resident_id), " +
+                "PRIMARY KEY (request_id), " +
                 "FOREIGN KEY (resident_id) REFERENCES RESIDENT(res_id), " +
                 "FOREIGN KEY (updated_by) REFERENCES STAFF(STAFF_NUM), " +
                 "FOREIGN KEY (permit_id) REFERENCES PARKING_PERMIT(permit_id) )";
@@ -47,24 +47,24 @@ public class ParkingRequestTable extends Table {
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new ArrayList<>();
 
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '003', 'Parking Lot 1', '01-Jan-2014','31-Jul-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540001', 'Small' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '013', 'Parking Lot 3', '01-Jan-2014','31-Jul-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540002', 'Small' , 'No', 'No', 'approved', pr_sequence.currval , null, null)");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '002', 'Parking Lot 1', '01-Jan-2014','31-May-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540003', 'Bike' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540004', 'Small' , 'No', 'No', 'pending', null, null, null )");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '027', 'Parking Lot 5', '01-Jan-2014','31-May-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540005', 'Large' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '025', 'Parking Lot 5', '01-Jan-2014','31-Jul-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540006', 'Small' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '007', 'Parking Lot 2', '01-Jan-2014','31-Jul-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540007', 'Small' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '045', 'Parking Lot 7', '01-Mar-2014','30-Apr-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '200540001', 'Small' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '200540002', 'Small' , 'No', 'No', 'pending', null, null, null )");
-        queries.add("INSERT into PARKING_PERMIT VALUES(pr_sequence.nextval, '038', 'Parking Lot 6', '01-Jan-2014','31-Jul-2014')");
-        queries.add("INSERT into "+getTableName()+" VALUES(request_sequence.nextval, '100540008', 'Large' , 'No', 'No', 'approved', pr_sequence.currval, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '003', 'Parking Lot 1', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540001', 'Small' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '013', 'Parking Lot 3', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540002', 'Small' , 'No', 'No', 'approved', permit_sequence.currval , null, null)");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '002', 'Parking Lot 1', '01-Jan-2014','31-May-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540003', 'Bike' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540004', 'Small' , 'No', 'No', 'pending', null, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '027', 'Parking Lot 5', '01-Jan-2014','31-May-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540005', 'Large' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '025', 'Parking Lot 5', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540006', 'Small' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '007', 'Parking Lot 2', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540007', 'Small' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '045', 'Parking Lot 7', '01-Mar-2014','30-Apr-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '200540001', 'Small' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '200540002', 'Small' , 'No', 'No', 'pending', null, null, null )");
+        queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '038', 'Parking Lot 6', '01-Jan-2014','31-Jul-2014')");
+        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540008', 'Large' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
 
 
 
@@ -178,7 +178,7 @@ public class ParkingRequestTable extends Table {
             executeQuery(conn, query);
 
             System.out.println("here");
-            query = "UPDATE PARKING_REQUEST SET request_status = 'renewed', updated_by = "+operator+", updated_on = SYSDATE  where request_id = "+requestId.trim();
+            query = "UPDATE PARKING_REQUEST SET request_status = 'renewed', updated_by = "+operator+", updated_on = SYSDATE  where request_id = "+requestId.trim()+" AND resident_id = '"+username.trim()+"'";
             System.out.println(query);
             executeQuery(conn,query);
             return "APPROVE";
@@ -193,7 +193,7 @@ public class ParkingRequestTable extends Table {
                     "(SELECT spot_id from PARKING_PERMIT where permit_id = " +
                     "(SELECT permit_id from PARKING_REQUEST where request_id = "+requestId.trim()+"))" ;
             executeQuery(conn,query);
-            query = "UPDATE PARKING_REQUEST SET request_status = 'returned', updated_by = "+operator+", updated_on = SYSDATE  where request_id = "+requestId.trim();
+            query = "UPDATE PARKING_REQUEST SET request_status = 'returned', updated_by = "+operator+", updated_on = SYSDATE  where request_id = "+requestId.trim()+" AND resident_id = '"+username.trim()+"'";
             executeQuery(conn,query);
             return "APPROVE";
         }
@@ -239,7 +239,7 @@ public class ParkingRequestTable extends Table {
             System.out.println(spotCount);
 
             if (spotCount <= 0) {
-                query = "UPDATE " + getTableName() + " SET request_status = 'rejected', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId;
+                query = "UPDATE " + getTableName() + " SET request_status = 'rejected', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId+" AND resident_id = '"+username.trim()+"'";
                 System.out.println(query);
                 executeQuery(conn, query);
                 return "REJECT";
@@ -266,7 +266,7 @@ public class ParkingRequestTable extends Table {
                 System.out.println(query);
                 executeQuery(conn, query);
 
-                query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL, request_status = 'approved', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId;
+                query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL, request_status = 'approved', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId+" AND resident_id = '"+username.trim()+"'";
                 System.out.println(query);
                 executeQuery(conn, query);
 
@@ -324,7 +324,7 @@ public class ParkingRequestTable extends Table {
                 System.out.println(spotCount);
 
                 if (spotCount <= 0) {
-                    query = "UPDATE " + getTableName() + " SET request_status = 'rejected', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId;
+                    query = "UPDATE " + getTableName() + " SET request_status = 'rejected', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId+" AND resident_id = '"+username.trim()+"'";
                     System.out.println(query);
                     executeQuery(conn, query);
                     return "REJECT";
@@ -353,7 +353,7 @@ public class ParkingRequestTable extends Table {
             System.out.println(query);
             executeQuery(conn, query);
 
-            query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL, request_status = 'approved', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId;
+            query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL, request_status = 'approved', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId+" AND resident_id = '"+username.trim()+"'";
             System.out.println(query);
             executeQuery(conn, query);
 
