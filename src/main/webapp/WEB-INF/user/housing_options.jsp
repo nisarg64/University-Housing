@@ -36,7 +36,7 @@
                 <tr>
                     <td  width="50%">
                         <div style="height:100px;">
-                            <a href="#" id="vacancyNavigator" class="big_button top_margin">View vacancy</a>
+                            <a href="/<s:property value='appName'/>/viewAllVacancies.action" id="vacancyNavigator" class="big_button top_margin">View vacancy</a>
                         </div>
                     </td>
                 </tr>

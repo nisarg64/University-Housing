@@ -16,10 +16,6 @@
                 <td><s:date name="leaseRequest.enterDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
-                <th>Leave Date</th>
-                <td><s:date name="leaseRequest.leaveDate" format="MM/dd/yy"/></td>
-            </tr>
-            <tr>
                 <th>Payment Option:</th>
                 <td><s:text name="leaseRequest.paymentOption"/></td>
             </tr>
@@ -51,27 +47,36 @@
                 <th>Hall Name:</th>
                 <td><s:text name="preference3.hallName"/></td>
             </tr>
-            <tr>
-                <th>Housing Type:</th>
-                <td><s:text name="proposedHousing.proposedHousingType"/></td>
-            </tr>
-            <tr>
-                <th>Name:</th>
-                <td><s:text name="proposedHousing.proposedHousingName"/></td>
-            </tr>
-            <tr>
-                <th>Housing Id:</th>
-                <td><s:text name="proposedHousing.proposedHousingId"/></td>
-            </tr>
-            <tr>
-                <th>Location Number:</th>
-                <td><s:text name="proposedHousing.proposedLocationNumber"/></td>
-            </tr>
-            <tr>
-                <th>Click to Approve:</th>
-                <td><a href="/<s:property value='appName'/>/approveLeaseRequest.action?requestNumber=<s:property value='requestNumber' />"/>Approve</a></td>
-            </tr>
         </tbody>
 
+        </table>
+
+    <div class="upperText">
+        <span class="upper-text">Proposed Housing </span>
+    </div>
+
+    <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
+        <tbody>
+        <tr>
+            <th>Housing Type:</th>
+            <td><s:text name="proposedHousing.proposedHousingType"/></td>
+        </tr>
+        <tr>
+            <th>Name:</th>
+            <td><s:text name="proposedHousing.proposedHousingName"/></td>
+        </tr>
+        <tr>
+            <th>Housing Id:</th>
+            <td><s:text name="proposedHousing.proposedHousingId"/></td>
+        </tr>
+        <tr>
+            <th>Location Number:</th>
+            <td><s:text name="proposedHousing.proposedLocationNumber"/></td>
+        </tr>
+        <tr>
+            <th>Click to Approve:</th>
+            <td><a href="/<s:property value='appName'/>/approveLeaseRequest.action?requestNumber=<s:property value='requestNumber' />"/>Approve</a></td>
+        </tr>
+        </tbody>
         </table>
 </div>

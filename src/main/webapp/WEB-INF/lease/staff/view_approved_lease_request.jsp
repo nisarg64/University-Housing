@@ -12,12 +12,12 @@
                 <td><s:text name="lease.leaseNumber"/></td>
             </tr>
             <tr>
-                <th>Place Number:</th>
-                <td><s:text name="lease.placeNumber"/></td>
+                <th>Hall or Apartment Name:</th>
+                <td><s:text name="lease.housingName"/></td>
             </tr>
             <tr>
-                <th>Apartment Number:</th>
-                <td><s:text name="lease.apartmentNumber"/></td>
+                <th>Place Number:</th>
+                <td><s:text name="lease.locationNumber"/></td>
             </tr>
         </tbody>
         </table>

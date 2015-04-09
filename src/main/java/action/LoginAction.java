@@ -14,25 +14,27 @@ public class LoginAction extends UHAction {
     private String errorMsg = "Login Incorrect";
 
     public String execute(){
-        System.out.println(username + " ------- " + password);
+        System.out.println(username + " ------- " + password );
         // check if the userName is already stored in the session
         if (sessionMap.containsKey("username")) {
             return (String) sessionMap.get("role");
         }
+        System.out.println(sessionMap);
+            if (username != null && role != null){
+                login.setUsername(username);
+                login.setPassword(password);
+                login.setRole(role);
 
-        if (username != null && role != null){
-            login.setUsername(username);
-            login.setPassword(password);
-            login.setRole(role);
+                LoginTable loginTable = new LoginTable();
+                boolean valid = loginTable.checkLogin(conn, login);
+                System.out.println(" VALID ------- " + valid);
 
-            LoginTable loginTable = new LoginTable();
-            boolean valid = loginTable.checkLogin(conn, login);
-            if(valid){
-                sessionMap.put("username", login.getUsername());
-                sessionMap.put("role", login.getRole());
-                return login.getRole();
+                if(valid){
+                    sessionMap.put("username", login.getUsername());
+                    sessionMap.put("role", login.getRole());
+                    return login.getRole();
+                }
             }
-        }
         return ERROR;
     }
 

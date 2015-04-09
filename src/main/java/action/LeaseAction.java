@@ -4,10 +4,7 @@ import db.table.*;
 import db.view.LeaseRequestView;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
-import pojo.Lease;
-import pojo.LeasePreference;
-import pojo.LeaseRequest;
-import pojo.LeaseTerminationRequest;
+import pojo.*;
 import util.DBAccessor;
 
 import java.sql.ResultSet;
@@ -40,8 +37,7 @@ public class LeaseAction extends UHAction {
     private LeaseTerminationRequest leaseTerminationRequest;
     private int requestNumber;
     private String message = "";
-
-
+    private List<Housing> allVacancies;
 
     public LeaseAction() {}
 
@@ -287,6 +283,12 @@ public class LeaseAction extends UHAction {
         return null;
     }*/
 
+    public String fetchAllVacancies(){
+
+        allVacancies = LeaseUtils.getAllVacancies(conn);
+        return "success";
+    }
+
     public Lease getLease() {
         return lease;
     }
@@ -413,5 +415,13 @@ public class LeaseAction extends UHAction {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setAllVacancies(List<Housing> allVacancies) {
+        this.allVacancies = allVacancies;
+    }
+
+    public List<Housing> getAllVacancies() {
+        return allVacancies;
     }
 }
