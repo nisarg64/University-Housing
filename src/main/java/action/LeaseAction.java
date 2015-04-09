@@ -21,6 +21,11 @@ import java.util.*;
 public class LeaseAction extends UHAction {
 
     private LeaseRequest leaseRequest;
+
+    private LeasePreference leasePreference1;
+    private LeasePreference leasePreference2;
+    private LeasePreference leasePreference3;
+
     public static final String NOTEXISTS = "notexists";
     public static final String CANNOTUPDATE = "cannotupdate";
     private Lease lease;
@@ -34,6 +39,8 @@ public class LeaseAction extends UHAction {
     private List<LeaseTerminationRequest> terminateLeases;
     private LeaseTerminationRequest leaseTerminationRequest;
     private int requestNumber;
+    private String message = "";
+
 
     public LeaseAction() {}
 
@@ -84,6 +91,30 @@ public class LeaseAction extends UHAction {
 
         leaseRequest = (new LeaseRequestView()).viewCurrentLeaseRequest(conn, username);
         if (leaseRequest != null) {
+            if(leaseRequest.getPreference1() == null){
+                leasePreference1 = new LeasePreference();
+                leasePreference1.setType("No Preference Specified");
+                leasePreference1.setHallName("No Preference Specified");
+            }else {
+                leasePreference1 = leaseRequest.getPreference1();
+            }
+
+            if(leaseRequest.getPreference2() == null){
+                leasePreference2 = new LeasePreference();
+                leasePreference2.setType("No Preference Specified");
+                leasePreference2.setHallName("No Preference Specified");
+            }else {
+                leasePreference2 = leaseRequest.getPreference2();
+            }
+
+            if(leaseRequest.getPreference3() == null){
+                leasePreference3 = new LeasePreference();
+                leasePreference3.setType("No Preference Specified");
+                leasePreference3.setHallName("No Preference Specified");
+            }else {
+                leasePreference3 = leaseRequest.getPreference3();
+            }
+
             return "exists";
         }
 
@@ -137,20 +168,23 @@ public class LeaseAction extends UHAction {
         leaseRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
         leaseRequest.setRequestNumber(new LeaseRequestTable().insert(conn, leaseRequest));
 
-         LeasePreference pref = leaseRequest.getPreference1();
-        pref.setRequestNumber(leaseRequest.getRequestNumber());
-        pref.setSequenceNumber(1);
-        new LeasePreferenceTable().insert(conn, pref);
+         LeasePreference pref1 = leaseRequest.getPreference1();
+        pref1.setRequestNumber(leaseRequest.getRequestNumber());
+        pref1.setSequenceNumber(1);
+        new LeasePreferenceTable().insert(conn, pref1);
+        leasePreference1 = pref1;
 
-        pref = leaseRequest.getPreference2();
-        pref.setRequestNumber(leaseRequest.getRequestNumber());
-        pref.setSequenceNumber(2);
-        new LeasePreferenceTable().insert(conn, pref);
+        LeasePreference pref2 = leaseRequest.getPreference2();
+        pref2.setRequestNumber(leaseRequest.getRequestNumber());
+        pref2.setSequenceNumber(2);
+        new LeasePreferenceTable().insert(conn, pref2);
+        leasePreference2 = pref2;
 
-        pref = leaseRequest.getPreference3();
-        pref.setRequestNumber(leaseRequest.getRequestNumber());
-        pref.setSequenceNumber(3);
-        new LeasePreferenceTable().insert(conn, pref);
+        LeasePreference pref3 = leaseRequest.getPreference3();
+        pref3.setRequestNumber(leaseRequest.getRequestNumber());
+        pref3.setSequenceNumber(3);
+        new LeasePreferenceTable().insert(conn, pref3);
+        leasePreference3 = pref3;
 
         return SUCCESS;
     }
@@ -210,11 +244,14 @@ public class LeaseAction extends UHAction {
                     case Pending:
                     case WaitList:
                         (new LeaseRequestTable()).updateStatus(conn, requestNumber, LeaseTable.RequestStatus.Cancelled);
+                        message = "Lease Cancel Request Submitted Successfully";
                         return SUCCESS;
                     default:
+                        message = " Status: Cannot Update";
                         return CANNOTUPDATE;
                 }
             } else {
+                message = "Some Error Occurred : Request Id doesn't Exist";
                 return NOTEXISTS;
             }
 
@@ -225,14 +262,18 @@ public class LeaseAction extends UHAction {
             if (username.equals(request.getLease().getResidentId().trim())) {
                 if (LeaseTable.RequestStatus.Pending.name().equals(request.getStatus())) {
                     (new LeaseTerminationRequestTable()).updateStatus(conn, request, LeaseTable.RequestStatus.Cancelled);
+                    message = "Lease Cancel Request Submitted Successfully";
                     return SUCCESS;
                 } else {
+                    message = " Status: Cannot Update";
                     return CANNOTUPDATE;
                 }
             } else {
+                message = "Some Error Occurred : Request Id doesn't Exist";
                 return NOTEXISTS;
             }
         }
+        message = "Some Error Occurred : Request Id doesn't Exist";
         return NOTEXISTS;
     }
 
@@ -334,11 +375,43 @@ public class LeaseAction extends UHAction {
         this.leaseRequest = leaseRequest;
     }
 
+    public LeasePreference getLeasePreference1() {
+        return leasePreference1;
+    }
+
+    public void setLeasePreference1(LeasePreference leasePreference1) {
+        this.leasePreference1 = leasePreference1;
+    }
+
+    public LeasePreference getLeasePreference2() {
+        return leasePreference2;
+    }
+
+    public void setLeasePreference2(LeasePreference leasePreference2) {
+        this.leasePreference2 = leasePreference2;
+    }
+
+    public LeasePreference getLeasePreference3() {
+        return leasePreference3;
+    }
+
+    public void setLeasePreference3(LeasePreference leasePreference3) {
+        this.leasePreference3 = leasePreference3;
+    }
+
     public List<LeaseRequest> getLeaseRequests() {
         return leaseRequests;
     }
 
     public void setLeaseRequests(List<LeaseRequest> leaseRequests) {
         this.leaseRequests = leaseRequests;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

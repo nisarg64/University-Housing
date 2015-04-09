@@ -156,6 +156,7 @@ public class LeaseView extends View {
                 //lease.setResidentId(rs.getString(LeaseTable.RES_ID));
                 lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
                 lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
+                lease.setEndDate(rs.getDate(LeaseTable.END_DATE));
                 lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
                 lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
                 //lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
