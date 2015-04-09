@@ -252,6 +252,7 @@ public class InvoiceTable extends Table {
             invoice.setOtherCharges(Float.valueOf(0));
             invoice.setEarlyTerminationFees(Float.valueOf(0));
             invoice.setPaymentMethod(null);
+            System.out.println(invoice);
             String query = generateInsertQuery(invoice);
             System.out.println(query);
             queries.add(query);

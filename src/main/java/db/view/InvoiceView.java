@@ -65,6 +65,10 @@ public class InvoiceView extends View{
         String housingId = null;
         String location_no = null;
         String housingType = null;
+        invoice.setHousingRent(Integer.valueOf(0));
+        invoice.setParkingRent(Integer.valueOf(0));
+        invoice.setOtherCharges(Float.valueOf(0));
+        invoice.setLateFees(Float.valueOf(0));
 
         LeaseView leaseView = new LeaseView();
         Lease lease = leaseView.viewCurrentLease(conn, residentId);
