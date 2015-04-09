@@ -52,4 +52,15 @@ public class ProposedHousing {
     public void setUsePrivateAccommodation(boolean usePrivateAccommodation) {
         this.usePrivateAccommodation = usePrivateAccommodation;
     }
+
+    @Override
+    public String toString() {
+        return "ProposedHousing{" +
+                "proposedHousingId='" + proposedHousingId + '\'' +
+                ", proposedHousingName='" + proposedHousingName + '\'' +
+                ", proposedHousingType='" + proposedHousingType + '\'' +
+                ", proposedLocationNumber='" + proposedLocationNumber + '\'' +
+                ", usePrivateAccommodation=" + usePrivateAccommodation +
+                '}';
+    }
 }

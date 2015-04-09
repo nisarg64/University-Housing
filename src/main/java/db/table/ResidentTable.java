@@ -86,6 +86,12 @@ public class ResidentTable extends Table {
         String query10 = "INSERT INTO " + getTableName() + " VALUES('200540002', 'Olympe', 'Maxime', 'Female', '19-May-1970','32 A, Maxime Road'," +
                 "'Paris','2331', 'France', 'French','9197773567','N/A','YES','','None' , 'Visitor', 'Placed','Guest Lecturer - Triwizard Cup','NO')";
 
+// ----
+        String query11 = "INSERT INTO " + getTableName() + " VALUES('100540015', 'Neville', 'Longbottom', 'Male', '29-Nov-1985','321, First Street, - , '," +
+                "'Raleigh','27606', 'USA', 'American','9197773567','N/A','NO','','None' , 'Freshman', 'N/A','Herbology','NO')";
+
+        String query12 = "INSERT INTO " + getTableName() + " VALUES('200540012', 'Remus', 'Lupin', 'Male', '29-Nov-1972','12, Grimmauld Place'," +
+                "'London','27605', 'England', 'British','919877767','N/A','NO','','None' , 'Visitor', 'N/A','Defense Against Dark Arts','NO')";
 
         queries.add(query1);
         queries.add(query2);
@@ -97,6 +103,8 @@ public class ResidentTable extends Table {
         queries.add(query8);
         queries.add(query9);
         queries.add(query10);
+        queries.add(query11);
+        queries.add(query12);
 
         DBAccessor.executeBatchQuery(conn, queries);
     }
