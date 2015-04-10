@@ -32,6 +32,7 @@
             <td><b>Nearby Housing</b></td>
             <td><b>Housing Type</b></td>
             <td><b>Address</b></td>
+            <td><b>Vacant Spots</b></td>
         </tr>
         <s:iterator value="allLots" status="stat">
             <tr>
@@ -40,6 +41,7 @@
                 <td><s:property value="nearbyHousing" /></td>
                 <td><s:property value="housingType" /></td>
                 <td><s:property value="address" /></td>
+                <td><s:property value="vacancies" /></td>
             </tr>
         </s:iterator>
         </tbody>

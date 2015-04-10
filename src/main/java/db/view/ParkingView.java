@@ -62,21 +62,26 @@ public class ParkingView extends View{
 
     public List<ParkingLot> getParkingLots(Connection conn, String username) {
         List<ParkingLot> parkingLots = new ArrayList<>();
-        String query = "SELECT PL.LOT_ID, PL.LOT_TYPE, TYPE, NAME, ADDRESS " +
-                "FROM PARKING_LOT PL LEFT OUTER JOIN " +
-                "(SELECT LOT_ID as Lot, NAME, TYPE, ADDRESS " +
-                "from PARKING_RESIDENT_HALL_MAP PRHM, HOUSING H " +
-                "WHERE PRHM.housing_id = H.housing_id) " +
-                "ON PL.LOT_ID = Lot";
+        String query = "SELECT count(*) as vacancy, PLot,PLot_type,PType,PName, PAddress" +
+                "  FROM PARKING_SPOT PS," +
+                " (SELECT PL.LOT_ID as PLot, PL.LOT_TYPE as PLot_type, TYPE as PType, NAME as PName, ADDRESS as PAddress" +
+                " FROM PARKING_LOT PL LEFT OUTER JOIN" +
+                " (SELECT LOT_ID as Lot, NAME, TYPE, ADDRESS" +
+                " from PARKING_RESIDENT_HALL_MAP PRHM, HOUSING H" +
+                " WHERE PRHM.housing_id = H.housing_id)" +
+                " ON PL.LOT_ID = Lot) T1 WHERE PS.LOT_ID = T1.PLot AND PS.AVAILABILITY='Yes'" +
+                " GROUP BY PLot,PLot_type,PType,PName, PAddress";
+
 
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while(resultSet.next()){
                 ParkingLot parkingLot = new ParkingLot();
-                parkingLot.setLotId(resultSet.getString("lot_id"));
-                parkingLot.setLotType(resultSet.getString("lot_type"));
-                parkingLot.setNearbyHousing(resultSet.getString("name"));
-                parkingLot.setAddress(resultSet.getString("address"));
-                parkingLot.setHousingType(resultSet.getString("type"));
+                parkingLot.setLotId(resultSet.getString("PLot"));
+                parkingLot.setLotType(resultSet.getString("PLot_type"));
+                parkingLot.setNearbyHousing(resultSet.getString("PName"));
+                parkingLot.setAddress(resultSet.getString("PAddress"));
+                parkingLot.setHousingType(resultSet.getString("PType"));
+                parkingLot.setVacancies(resultSet.getInt("vacancy"));
                 parkingLots.add(parkingLot);
             }
         }catch (SQLException ex){

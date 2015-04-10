@@ -53,7 +53,6 @@ public class ParkingRequestTable extends Table {
         queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540002', 'Small' , 'No', 'No', 'approved', permit_sequence.currval , null, null)");
         queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '002', 'Parking Lot 1', '01-Jan-2014','31-May-2014')");
         queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540003', 'Bike' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
-        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540004', 'Small' , 'No', 'No', 'pending', null, null, null )");
         queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '027', 'Parking Lot 5', '01-Jan-2014','31-May-2014')");
         queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540005', 'Large' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
         queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '025', 'Parking Lot 5', '01-Jan-2014','31-Jul-2014')");
@@ -62,7 +61,6 @@ public class ParkingRequestTable extends Table {
         queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540007', 'Small' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
         queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '045', 'Parking Lot 7', '01-Mar-2014','30-Apr-2014')");
         queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '200540001', 'Small' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
-        queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '200540002', 'Small' , 'No', 'No', 'pending', null, null, null )");
         queries.add("INSERT into PARKING_PERMIT VALUES(permit_sequence.nextval, '038', 'Parking Lot 6', '01-Jan-2014','31-Jul-2014')");
         queries.add("INSERT into "+getTableName()+" VALUES(pr_sequence.nextval, '100540008', 'Large' , 'No', 'No', 'approved', permit_sequence.currval, null, null )");
 
@@ -86,6 +84,18 @@ public class ParkingRequestTable extends Table {
                 if (resultSet.getInt(1) <= 0) {
                     return "Cannot Request Parking Spot. No valid lease in progress";
                 }
+            }
+        }
+
+        String query2 = "SELECT COUNT(*) FROM PARKING_REQUEST" +
+                " WHERE resident_id = '"+resident_id+"' AND " +
+                " (request_status = 'approved' OR request_status = 'renewed'" +
+                "  OR request_status = 'renew request' OR request_status = 'return request')";
+
+        ResultSet resultSet = DBAccessor.selectQuery(conn, query2);
+        while(resultSet.next()){
+            if(resultSet.getInt(1) > 0){
+                return "Cannot Request Parking Spot. One Parking Spot already alloted..";
             }
         }
 
@@ -126,8 +136,10 @@ public class ParkingRequestTable extends Table {
     public List<ParkingRequest> selectAll(Connection conn) {
 
         List<ParkingRequest> parkingRequests = new ArrayList<>();
-        String query = "SELECT * from " + getTableName() +" where request_status = 'pending' " +
-                "OR request_status = 'renew request' OR request_status = 'return request'  ";
+        String query = "SELECT * from " + getTableName() +
+                " WHERE request_status <> 'approved' " +
+                "AND request_status <> 'renewed' " +
+                "AND request_status <> 'returned'";
         try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
             while (resultSet.next()) {
                 ParkingRequest parkingRequest = new ParkingRequest();
@@ -152,6 +164,7 @@ public class ParkingRequestTable extends Table {
         String username = null;
         String isHandicapped = "No";
         String vehicle = null;
+        String nearbyHousing = "No";
         int spotCount = 0;
         String spotId = null;
         String lotId = null;
@@ -165,6 +178,7 @@ public class ParkingRequestTable extends Table {
         while(resultset.next()) {
             username = resultset.getString("resident_id");
             isHandicapped = resultset.getString("isHandicapped");
+            nearbyHousing = resultset.getString("nearby_spot_preference");
             vehicle = resultset.getString("vehicle_type");
             if(vehicle.equals("Large Cars"))
                 vehicle = "Large";
@@ -176,7 +190,7 @@ public class ParkingRequestTable extends Table {
         System.out.println(username);
         System.out.println(isHandicapped);
         System.out.println(vehicle);
-
+        System.out.println(nearbyHousing);
 
 
         if("renew request".equals(requestStatus)){
@@ -236,7 +250,7 @@ public class ParkingRequestTable extends Table {
         while(resultSet7.next()){
             requestCount = resultSet7.getInt(1);
         }
-        if ("guest".equals(studentRole) || "private".equals(studentHousing) || requestCount > 1) {
+        if ("guest".equals(studentRole) || "private".equals(studentHousing)) {
             if (isHandicapped.equals("No"))
                 query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = (SELECT LOT_ID from PARKING_LOT where lot_type = 'General Lot')";
             else
@@ -289,39 +303,62 @@ public class ParkingRequestTable extends Table {
             // Query to get student's assigned hall id
             String housingId = lease.getHousingId();
             System.out.println(housingId);
-            query = "SELECT LOT_ID from parking_resident_hall_map WHERE HOUSING_ID = '" + housingId + "'";
-            ResultSet resultSet = DBAccessor.selectQuery(conn, query);
-            while (resultSet.next()) {
-                lotId = resultSet.getString("lot_id");
-                System.out.println(lotId);
-                if (isHandicapped.equals("No"))
-                    query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = '" + lotId + "'";
-                else
-                    query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'Handicap' AND LOT_ID = '" + lotId + "'";
-
-                ResultSet resultset2 = DBAccessor.selectQuery(conn, query);
-                while (resultset2.next()) {
-                    spotCount = resultset2.getInt(1);
-                }
-                System.out.println(spotCount);
-                if (spotCount > 0) {
-                    if (isHandicapped.equals("No"))
-                        query = "SELECT spot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = '" + lotId + "'";
-                    else
-                        query = "SELECT spot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'Handicap' AND LOT_ID = '" + lotId + "'";
-
-                    ResultSet resultset3 = DBAccessor.selectQuery(conn, query);
-                    while (resultset3.next()) {
-                        spotId = resultset3.getString("spot_id");
-                    }
-                    System.out.println(spotId);
+            if(nearbyHousing.equals("Yes")) {
+                boolean gotNearBy = false;
+                query = "SELECT LOT_ID from parking_resident_hall_map WHERE HOUSING_ID = '" + housingId + "'";
+                ResultSet resultSet = DBAccessor.selectQuery(conn, query);
+                while (resultSet.next()) {
+                    lotId = resultSet.getString("lot_id");
                     System.out.println(lotId);
-                    break;
-                }
+                    if (isHandicapped.equals("No"))
+                        query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = '" + lotId + "'";
+                    else
+                        query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'Handicap' AND LOT_ID = '" + lotId + "'";
 
+                    ResultSet resultset2 = DBAccessor.selectQuery(conn, query);
+                    while (resultset2.next()) {
+                        spotCount = resultset2.getInt(1);
+                    }
+                    System.out.println(spotCount);
+                    if (spotCount > 0) {
+                        if (isHandicapped.equals("No"))
+                            query = "SELECT spot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "' AND LOT_ID = '" + lotId + "'";
+                        else
+                            query = "SELECT spot_id from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = 'Handicap' AND LOT_ID = '" + lotId + "'";
+
+                        ResultSet resultset3 = DBAccessor.selectQuery(conn, query);
+                        while (resultset3.next()) {
+                            spotId = resultset3.getString("spot_id");
+                        }
+                        System.out.println(spotId);
+                        System.out.println(lotId);
+                        gotNearBy = true;
+                        break;
+                    }
+
+                }
+                if(gotNearBy == false) {
+                    query = "UPDATE " + getTableName() + " SET request_status = 'rejected', updated_by = " + operator + ", updated_on = SYSDATE  where request_id = " + requestId + " AND resident_id = '" + username.trim() + "'";
+                    System.out.println(query);
+                    executeQuery(conn, query);
+                    return "REJECT";
+                }else{
+                    query = "UPDATE PARKING_SPOT SET availability = 'No' where spot_id = '" + spotId + "' AND lot_id = '" + lotId + "'";
+                    executeQuery(conn, query);
+
+                    query = "INSERT into PARKING_PERMIT VALUES(permit_sequence.NEXTVAL, '" + spotId + "', '" + lotId + "', SYSDATE, SYSDATE + 150)";
+                    System.out.println(query);
+                    executeQuery(conn, query);
+
+                    query = "UPDATE " + getTableName() + " SET permit_id = permit_sequence.CURRVAL, request_status = 'approved', updated_by = "+operator+", updated_on = SYSDATE  where request_id = " + requestId+" AND resident_id = '"+username.trim()+"'";
+                    System.out.println(query);
+                    executeQuery(conn, query);
+
+                    return "APPROVE";
+                }
             }
 
-            if (spotCount <= 0) {
+            if (spotCount <= 0 || nearbyHousing.equals("No")) {
                 System.out.println("Not available nearby");
                 if (isHandicapped.equals("No"))
                     query = "SELECT count(*) from PARKING_SPOT WHERE availability = 'Yes' AND SPOT_TYPE = '" + vehicle + "'";
@@ -348,8 +385,11 @@ public class ParkingRequestTable extends Table {
 
                     ResultSet resultset3 = DBAccessor.selectQuery(conn, query);
                     while (resultset3.next()) {
-                        spotId = resultset3.getString("spot_id");
-                        lotId = resultset3.getString("lot_id");
+                        if(resultset3.getString("spot_id") != null) {
+                            spotId = resultset3.getString("spot_id");
+                            lotId = resultset3.getString("lot_id");
+                            break;
+                        }
                     }
                 }
 

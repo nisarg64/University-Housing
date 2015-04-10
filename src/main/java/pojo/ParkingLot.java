@@ -8,8 +8,17 @@ public class ParkingLot {
     private String lotId;
     private String lotType;
     private String nearbyHousing;
+    private int vacancies;
     private String address;
     private String housingType;
+
+    public int getVacancies() {
+        return vacancies;
+    }
+
+    public void setVacancies(int vacancies) {
+        this.vacancies = vacancies;
+    }
 
     public String getLotId() {
         return lotId;
