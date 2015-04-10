@@ -26,7 +26,7 @@ public class FamilyTable extends Table {
                 " name " + ColumnTypes.VARCHAR2_SIZE_50_TYPE + " ," +
                 " dob " + ColumnTypes.DATE_TYPE + " ," +
                 " res_id " + ColumnTypes.ID_TYPE + " ," +
-                " PRIMARY KEY (name, student_id), " +
+                " PRIMARY KEY (name, res_id), " +
                 " FOREIGN KEY (res_id) REFERENCES RESIDENT " +
                 " ON DELETE CASCADE " +
                 ")";

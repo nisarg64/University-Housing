@@ -19,6 +19,10 @@ public class BootStrap {
         database.addTable(new LoginTable());
         database.addTable(new ResidentTable());
         database.addTable(new StaffTable());
+        database.addTable(new KinTable());
+        database.addTable(new FamilyTable());
+
+
         database.addTable(new ParkingLotTable());
 
         database.addTable(new ParkingSpotTable());
