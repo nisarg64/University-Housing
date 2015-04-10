@@ -1,8 +1,10 @@
 package action;
 
+import db.table.InvoiceTable;
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
+import db.view.InvoiceView;
 import db.view.LeaseRequestView;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
@@ -12,6 +14,7 @@ import util.DBAccessor;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -86,6 +89,7 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String approveLeaseTerminationRequest() throws SQLException {
+
         String sql = "update " + LeaseTerminationRequestTable.TABLE_NAME +
                 " set " + LeaseTerminationRequestTable.INSPECTION_DATE+ " = ? where "+
                 LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber;
@@ -94,6 +98,28 @@ public class StaffLeaseAction extends UHAction{
         stmt.setDate(1, new Date(leaseTerminationRequest.getInspectionDate().getTime()));
         stmt.executeUpdate();
         LeaseTerminationRequestView view = new LeaseTerminationRequestView();
+        LeaseTerminationRequest updatedRequest = view.viewLeaseTerminationRequest(conn, requestNumber);
+        String residentId = updatedRequest.getLease().getLeaseRequest().getResidentId();
+        System.out.println("Damage Fees: " + damageFees);
+
+        InvoiceView invoiceView = new InvoiceView();
+        Invoice invoice = invoiceView.getInvoiceDetails(conn, residentId);
+        // TODO add invoice changes
+        invoice.setResidentId(residentId);
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        invoice.setPaymentDate(sdf.format(updatedRequest.getLeaveDate()));
+        invoice.setPaymentStatus("BILLED");
+        invoice.setDueDate(sdf.format(updatedRequest.getLeaveDate()));
+        invoice.setLateFees(Float.valueOf(0));
+        InvoiceTable invoiceTable = new InvoiceTable();
+        invoice.setOtherCharges(Float.valueOf(damageFees));
+        invoice.setEarlyTerminationFees(Float.valueOf(0));
+        invoice.setPaymentMethod("Cheque");
+        sql = invoiceTable.generateInsertQuery(invoice);
+        System.out.println(sql);
+        DBAccessor.executeQuery(conn, sql);
+
+
         allTerminationLeases = view.viewLeaseTerminationRequests(conn);
         return "success";
     }
@@ -108,6 +134,9 @@ public class StaffLeaseAction extends UHAction{
                 LeaseTable.RequestStatus.Completed, username);
         LeaseTerminationRequestTable terminationRequestTable = new LeaseTerminationRequestTable();
         terminationRequestTable.updateStatusByStaff(conn, requestNumber, LeaseTable.RequestStatus.Completed, username);
+        String residentId = terminationRequest.getLease().getLeaseRequest().getResidentId();
+        String sql = "update invoice set payment_status = 'BILLED' where resident_id = " + residentId;
+        DBAccessor.executeQuery(conn, sql);
         allTerminationLeases = view.viewLeaseTerminationRequests(conn);
         return "success";
     }

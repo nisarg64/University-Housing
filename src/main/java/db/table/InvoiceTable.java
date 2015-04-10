@@ -269,7 +269,7 @@ public class InvoiceTable extends Table {
 
     }
 
-    private String generateInsertQuery(Invoice invoice) {
+    public String generateInsertQuery(Invoice invoice) {
         String query = "INSERT INTO " + getTableName() + " VALUES ( INVOICE_SEQUENCE.NEXTVAL , " +
                 "'" + invoice.getResidentId() + "', "
                 + invoice.getHousingRent() + ", "
