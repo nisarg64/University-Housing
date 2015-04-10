@@ -42,13 +42,6 @@ public class LeaseRequestView extends View {
         }
     }
 
-    public List<LeaseRequest> viewOpenLeaseRequests(Connection conn) {
-        String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.STATUS + " IN ('"
-                + LeaseTable.RequestStatus.Pending.name() + "', '" + LeaseTable.RequestStatus.WaitList.name() +"')";
-        System.out.println(query);
-        return getLeaseRequests(conn, query);
-    }
-
     public LeaseRequest viewLeaseRequest(Connection conn, int requestNumber) {
         String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber;
         System.out.println(query);
@@ -75,23 +68,27 @@ public class LeaseRequestView extends View {
         List<LeaseRequest> leaseRequests = new ArrayList<LeaseRequest>();
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
             while (rs.next()) {
-                LeaseRequest leaseRequest = new LeaseRequest();
-                leaseRequest.setRequestNumber(rs.getInt(LeaseRequestTable.REQUEST_NUMBER));
-                leaseRequest.setResidentId(rs.getString(LeaseRequestTable.RES_ID));
-                leaseRequest.setStatus(rs.getString(LeaseRequestTable.STATUS));
-                leaseRequest.setEnterDate(rs.getDate(LeaseRequestTable.ENTER_DATE));
-                leaseRequest.setDuration(rs.getInt(LeaseRequestTable.DURATION));
-                leaseRequest.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
-                leaseRequest.setUsePrivateAccommodation(rs.getBoolean(LeaseRequestTable.USE_PRIVATE_ACCOMMODATION));
-                leaseRequest.setUpdatedBy(rs.getString(LeaseRequestTable.UPDATED_BY));
-                leaseRequest.setUpdatedOn(rs.getDate(LeaseRequestTable.UPDATED_ON));
-                leaseRequests.add(leaseRequest);
+                leaseRequests.add(getLeaseRequest(rs));
             }
         } catch (SQLException ex) {
             System.err.println("Error Occurred During Get Lease Requests" + ex.getMessage());
             ex.printStackTrace();
         }
         return leaseRequests;
+    }
+
+    public static LeaseRequest getLeaseRequest(ResultSet rs) throws SQLException {
+        LeaseRequest leaseRequest = new LeaseRequest();
+        leaseRequest.setRequestNumber(rs.getInt(LeaseRequestTable.REQUEST_NUMBER));
+        leaseRequest.setResidentId(rs.getString(LeaseRequestTable.RES_ID));
+        leaseRequest.setStatus(rs.getString(LeaseRequestTable.STATUS));
+        leaseRequest.setEnterDate(rs.getDate(LeaseRequestTable.ENTER_DATE));
+        leaseRequest.setDuration(rs.getInt(LeaseRequestTable.DURATION));
+        leaseRequest.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
+        leaseRequest.setUsePrivateAccommodation(rs.getBoolean(LeaseRequestTable.USE_PRIVATE_ACCOMMODATION));
+        leaseRequest.setUpdatedBy(rs.getString(LeaseRequestTable.UPDATED_BY));
+        leaseRequest.setUpdatedOn(rs.getDate(LeaseRequestTable.UPDATED_ON));
+        return leaseRequest;
     }
 
     public void populatePreferences(Connection conn, LeaseRequest leaseRequest) {

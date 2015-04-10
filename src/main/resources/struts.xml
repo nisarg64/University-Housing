@@ -143,7 +143,6 @@
             <result name="success">/WEB-INF/lease/new_requests_menu.jsp</result>
         </action>
         <action name="newLeaseRequest" class="action.LeaseAction" method="newLeaseRequest">
-            <result name="exists">/WEB-INF/lease/view_lease_request.jsp</result>
             <result name="success">/WEB-INF/lease/new_lease_request.jsp</result>
         </action>
         <action name="createLeaseRequest" class="action.LeaseAction" method="createLeaseRequest">

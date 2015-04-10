@@ -2,7 +2,7 @@
 <div class="container">
 
     <div class="upperText">
-        <span class="upper-text">View Lease Requests</span>
+        <span class="upper-text">View Lease Request</span>
     </div>
     <label class="statusMessage"><strong><s:property value="message" /></strong></label>
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
@@ -16,11 +16,15 @@
                 <td><s:text name="leaseRequest.status"/></td>
             </tr>
             <tr>
-                <th>Lease Request Duration:</th>
-                <td><s:text name="leaseRequest.duration"/></td>
+                <th>Start Date</th>
+                <td><s:date name="lease.startDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
-                <th>Start Date</th>
+                <th>End Date</th>
+                <td><s:date name="lease.endDate" format="MM/dd/yy"/></td>
+            </tr>
+            <tr>
+                <th>Enter Date</th>
                 <td><s:date name="leaseRequest.enterDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>

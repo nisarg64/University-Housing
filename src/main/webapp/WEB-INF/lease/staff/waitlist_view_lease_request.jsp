@@ -12,6 +12,14 @@
                 <td><s:text name="leaseRequest.requestNumber"/></td>
             </tr>
             <tr>
+                <th>Start Date</th>
+                <td><s:date name="lease.startDate" format="MM/dd/yy"/></td>
+            </tr>
+            <tr>
+                <th>End Date</th>
+                <td><s:date name="lease.endDate" format="MM/dd/yy"/></td>
+            </tr>
+            <tr>
                 <th>Enter Date</th>
                 <td><s:date name="leaseRequest.enterDate" format="MM/dd/yy"/></td>
             </tr>
@@ -25,27 +33,27 @@
             </tr>
             <tr>
                 <th>Preference 1:</th>
-                <td><s:text name="leaseRequest.preference1.type"/></td>
+                <td><s:text name="preference1.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference1.hallName"/></td>
+                <td><s:text name="preference1.hallName"/></td>
             </tr>
             <tr>
                 <th>Preference 2:</th>
-                <td><s:text name="leaseRequest.preference2.type"/></td>
+                <td><s:text name="preference2.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference2.hallName"/></td>
+                <td><s:text name="preference2.hallName"/></td>
             </tr>
             <tr>
                 <th>Preference 3:</th>
-                <td><s:text name="leaseRequest.preference3.type"/></td>
+                <td><s:text name="preference3.type"/></td>
             </tr>
             <tr>
                 <th>Hall Name:</th>
-                <td><s:text name="leaseRequest.preference3.hallName"/></td>
+                <td><s:text name="preference3.hallName"/></td>
             </tr>
             <tr>
                 <th>Click to put on waitlist:</th>

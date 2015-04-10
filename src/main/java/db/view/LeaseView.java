@@ -87,6 +87,17 @@ public class LeaseView extends View {
         return leases.isEmpty() ? null : leases.get(0);
     }
 
+    public Lease viewLeaseFromLeaseRequest(Connection conn, int requestNumber) {
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber + "";
+        List<Lease> leases = getLeases(conn, query);
+        return leases.isEmpty() ? null : leases.get(0);
+    }
+
+    public List<Lease> viewAllLeaseRequestsForResident(Connection conn, String residentId) {
+        String query = "SELECT * FROM " + getViewName() + " where res_id = '" + residentId + "'";
+        return getLeases(conn, query);
+    }
+
     public ProposedHousing getProposedHousingForLease(Connection conn, LeaseRequest leaseRequest) {
         ProposedHousing proposedHousing = new ProposedHousing();
         System.out.println("Lease Request For Testing " + leaseRequest);
@@ -102,37 +113,30 @@ public class LeaseView extends View {
             return proposedHousing;
         }
 
-        LeasePreference preference1 = leaseRequest.getPreference1();
-        Housing preferredHouse = LeaseUtils.getHousingDetail(conn,preference1);
+        Housing preferredHouse = LeaseUtils.getHousingDetail(conn, leaseRequest.getPreference1());
         if(preferredHouse != null){
-            proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
-            proposedHousing.setProposedHousingName(preferredHouse.getName());
-            proposedHousing.setProposedHousingType(preferredHouse.getType());
-            proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
-            return proposedHousing;
+            return getProposedHousing(proposedHousing, preferredHouse);
         }
 
-        LeasePreference preference2 = leaseRequest.getPreference2();
-        preferredHouse = LeaseUtils.getHousingDetail(conn,preference2);
+        preferredHouse = LeaseUtils.getHousingDetail(conn, leaseRequest.getPreference2());
         if(preferredHouse != null){
-            proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
-            proposedHousing.setProposedHousingName(preferredHouse.getName());
-            proposedHousing.setProposedHousingType(preferredHouse.getType());
-            proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
-            return proposedHousing;
+            return getProposedHousing(proposedHousing, preferredHouse);
         }
 
-        LeasePreference preference3 = leaseRequest.getPreference3();
-        preferredHouse = LeaseUtils.getHousingDetail(conn,preference3);
+        preferredHouse = LeaseUtils.getHousingDetail(conn, leaseRequest.getPreference3());
         if(preferredHouse != null){
-            proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
-            proposedHousing.setProposedHousingName(preferredHouse.getName());
-            proposedHousing.setProposedHousingType(preferredHouse.getType());
-            proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
-            return proposedHousing;
+            return getProposedHousing(proposedHousing, preferredHouse);
         }
 
         return null;
+    }
+
+    private ProposedHousing getProposedHousing(ProposedHousing proposedHousing, Housing preferredHouse) {
+        proposedHousing.setProposedHousingId(preferredHouse.getHousingId());
+        proposedHousing.setProposedHousingName(preferredHouse.getName());
+        proposedHousing.setProposedHousingType(preferredHouse.getType());
+        proposedHousing.setProposedLocationNumber(preferredHouse.getLocationNumber());
+        return proposedHousing;
     }
 
     public ProposedHousing getProposedHousingForPreference(Connection conn, LeasePreference preference) {
@@ -157,18 +161,7 @@ public class LeaseView extends View {
         List<Lease> leases = new ArrayList<Lease>();
         try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
             while (rs.next()) {
-                Lease lease = new Lease();
-                lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
-                //lease.setResidentId(rs.getString(LeaseTable.RES_ID));
-                lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
-                lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
-                lease.setEndDate(rs.getDate(LeaseTable.END_DATE));
-                lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
-                lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
-                //lease.setSecurityDeposit(rs.getInt(LeaseTable.SECURITY_DEPOSIT));
-                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
-                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
-                leases.add(lease);
+                leases.add(getLease(rs));
             }
         } catch (SQLException ex) {
             System.err.println("Error Occurred During View Lease " + ex.getMessage());
@@ -176,6 +169,26 @@ public class LeaseView extends View {
         return leases;
     }
 
+    public static Lease getLease(ResultSet rs) throws SQLException {
+        Lease lease = new Lease();
+        lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
+        lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
+        lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
+        lease.setEndDate(rs.getDate(LeaseTable.END_DATE));
+        lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
+        lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
+        lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
+        lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
+        lease.setLeaseRequest(LeaseRequestView.getLeaseRequest(rs));
+        return lease;
+    }
+
+    public List<Lease> viewOpenLeaseRequests(Connection conn) {
+        String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.STATUS + " IN ('"
+                + LeaseTable.RequestStatus.Pending.name() + "', '" + LeaseTable.RequestStatus.WaitList.name() +"')";
+        System.out.println(query);
+        return getLeases(conn, query);
+    }
 
     public List<PotentialRoommate> getPotentialRoommates(Connection conn, int requestNumber) {
         List<PotentialRoommate> potentialRoommates = null;

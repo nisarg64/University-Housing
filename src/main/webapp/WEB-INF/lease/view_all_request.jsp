@@ -12,27 +12,22 @@
         <tbody>
         <tr>
             <td><b>Lease Request Number</b></td>
-            <td><b>Resident ID</b></td>
-            <td><b>Enter Date</b></td>
+            <td><b>Start Date</b></td>
             <td><b>Leave Date</b></td>
-            <td><b>Duration</b></td>
+            <td><b>Enter Date</b></td>
             <td><b>Payment Option</b></td>
             <td><b>Security Deposit</b></td>
-            <td><b>Cut Off Date</b></td>
             <td><b>Status</b></td>
         </tr>
-        <s:iterator value="leaseRequests" status="stat">
+        <s:iterator value="leases" status="stat">
             <tr>
-                <td><a href="/<s:property value='appName'/>/viewCurrentLeaseRequest.action?requestNumber=<s:property value='requestNumber' />" ><s:property value="requestNumber" /></a></td>
-                <td><s:property value="residentId" /></td>
-                <td><s:property value="enterDate" /></td>
-                <td><s:property value="leaveDate" /></td>
-                <td><s:property value="duration" /></td>
-                <td><s:property value="paymentOption" /></td>
+                <td><a href="/<s:property value='appName'/>/viewCurrentLeaseRequest.action?requestNumber=<s:property value='leaseRequest.requestNumber' />" ><s:property value="leaseRequest.requestNumber" /></a></td>
+                <td><s:property value="startDate" /></td>
+                <td><s:property value="endDate" /></td>
+                <td><s:property value="leaseRequest.enterDate" /></td>
+                <td><s:property value="leaseRequest.paymentOption" /></td>
                 <td><s:property value="securityDeposit" /></td>
-                <td><s:property value="cutoffDate" /></td>
-                <td class="info"><s:property value="status" /></td>
-
+                <td class="info"><s:property value="leaseRequest.status" /></td>
             </tr>
         </s:iterator>
         </tbody>
@@ -44,27 +39,22 @@
         <tbody>
         <tr>
             <td><b>Lease Number</b></td>
-            <td><b>Resident ID</b></td>
-            <td><b>Enter Date</b></td>
+            <td><b>Termination Request Number</b></td>
             <td><b>Leave Date</b></td>
-            <td><b>Duration</b></td>
+            <td><b>Termination Date</b></td>
             <td><b>Payment Option</b></td>
             <td><b>Security Deposit</b></td>
-            <td><b>Cut Off Date</b></td>
             <td><b>Status</b></td>
         </tr>
         <s:iterator value="terminateLeases" status="stat">
             <tr>
                 <td><a href="/<s:property value='appName'/>/viewCurrentLease.action?leaseNumber=<s:property value='leaseNumber' />" ><s:property value="leaseNumber" /></a></td>
-                <td><s:property value="residentId" /></td>
-                <td><s:property value="enterDate" /></td>
+                <td><s:property value="requestNumber" /></td>
                 <td><s:property value="leaveDate" /></td>
-                <td><s:property value="duration" /></td>
-                <td><s:property value="paymentOption" /></td>
+                <td><s:property value="terminationDate" /></td>
+                <td><s:property value="lease.leaseRequest.paymentOption" /></td>
                 <td><s:property value="securityDeposit" /></td>
-                <td><s:property value="cutoffDate" /></td>
                 <td class="info"><s:property value="status" /></td>
-
             </tr>
         </s:iterator>
         </tbody>

@@ -16,16 +16,16 @@
                 <td><s:text name="lease.status"/></td>
             </tr>
             <tr>
-                <th>Lease Duration:</th>
-                <td><s:text name="lease.duration"/></td>
-            </tr>
-            <tr>
                 <th>Start Date</th>
                 <td><s:date name="lease.startDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
                 <th>End Date</th>
                 <td><s:date name="lease.endDate" format="MM/dd/yy"/></td>
+            </tr>
+            <tr>
+                <th>Enter Date</th>
+                <td><s:date name="lease.leaseRequest.startDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
                 <th>Payment Option:</th>

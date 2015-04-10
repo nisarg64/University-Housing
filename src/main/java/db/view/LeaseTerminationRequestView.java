@@ -3,7 +3,6 @@ package db.view;
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
-import pojo.Lease;
 import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
@@ -85,17 +84,7 @@ public class LeaseTerminationRequestView extends View {
                 request.setStatus(rs.getString(TR_STATUS));
                 request.setLeaveDate(rs.getDate(LeaseTerminationRequestTable.LEAVE_DATE));
                 request.setInspectionDate(rs.getDate(LeaseTerminationRequestTable.INSPECTION_DATE));
-                Lease lease = new Lease();
-                lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
-                lease.setResidentId(rs.getString(LeaseRequestTable.RES_ID));
-                lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
-                lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
-                lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
-                lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
-                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
-                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
-                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
-                request.setLease(lease);
+                request.setLease(LeaseView.getLease(rs));
                 requests.add(request);
             }
         } catch (SQLException ex) {

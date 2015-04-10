@@ -19,9 +19,9 @@ public class LeasePreferenceTable extends Table {
     public static final String TYPE = "type";
 
     public enum PreferenceType {
-        Hall("Hall"),
-        StudentApartment("Student Apartment"),
-        FamilyApartment("Family Apartment");
+        Hall("Residence Halls"),
+        StudentApartment("General Student Apartments"),
+        FamilyApartment("Family Apartments");
 
         // String used to display this type on UI
         private String displayName;
