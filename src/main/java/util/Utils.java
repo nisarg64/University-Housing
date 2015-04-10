@@ -36,7 +36,7 @@ public abstract class Utils {
         if (dateStr == null) {
             return null;
         }
-        DateFormat format = new SimpleDateFormat("MM/DD/yy", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("MM/dd/yy", Locale.ENGLISH);
         java.util.Date date = null;
         try {
             date = format.parse(dateStr);
