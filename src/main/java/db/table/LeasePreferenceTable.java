@@ -71,7 +71,7 @@ public class LeasePreferenceTable extends Table {
         stmt.setInt(1, preference.getRequestNumber());
         stmt.setInt(2, preference.getSequenceNumber());
         stmt.setString(3, preference.getType());
-        if (preference.getType().equalsIgnoreCase(PreferenceType.Hall.name())) {
+        if (PreferenceType.Hall.getDisplayName().equalsIgnoreCase(preference.getType())) {
             stmt.setString(4, preference.getHallId());
         } else {
             stmt.setString(4, null);

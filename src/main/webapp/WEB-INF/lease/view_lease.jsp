@@ -2,7 +2,7 @@
 <div class="container">
 
     <div class="upperText">
-        <span class="upper-text">View Leases</span>
+        <span class="upper-text">View Lease</span>
     </div>
     <label class="statusMessage"><strong><s:property value="message" /></strong></label>
     <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
@@ -25,11 +25,27 @@
             </tr>
             <tr>
                 <th>Enter Date</th>
-                <td><s:date name="lease.leaseRequest.startDate" format="MM/dd/yy"/></td>
+                <td><s:date name="lease.leaseRequest.enterDate" format="MM/dd/yy"/></td>
             </tr>
             <tr>
                 <th>Payment Option:</th>
                 <td><s:text name="lease.paymentOption"/></td>
+            </tr>
+            <tr>
+                <th>Housing Type:</th>
+                <td><s:text name="lease.housingType"/></td>
+            </tr>
+            <tr>
+                <th>Housing Name:</th>
+                <td><s:text name="lease.housingName"/></td>
+            </tr>
+            <tr>
+                <th>Housing Id:</th>
+                <td><s:text name="lease.housingId"/></td>
+            </tr>
+            <tr>
+                <th title="(Place Number for Residence Halls or General Student Apartments)/(Apartment Number for Family Apartments)">Location Number:</th>
+                <td><s:text name="lease.locationNumber"/></td>
             </tr>
         </tbody>
         </table>

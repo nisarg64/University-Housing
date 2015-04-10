@@ -48,6 +48,14 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String editLeaseTerminationRequestToApprove() {
+        LeaseTerminationRequestView view= new LeaseTerminationRequestView();
+        System.out.println(requestNumber);
+        LeaseTerminationRequest request = view.viewLeaseTerminationRequest(conn, requestNumber);
+        System.out.println(request);
+        if (request != null && request.getInspectionDate() != null) {
+            return "exists";
+        }
+
         return SUCCESS;
     }
 
@@ -86,6 +94,20 @@ public class StaffLeaseAction extends UHAction{
         stmt.setDate(1, new Date(leaseTerminationRequest.getInspectionDate().getTime()));
         stmt.executeUpdate();
         LeaseTerminationRequestView view = new LeaseTerminationRequestView();
+        allTerminationLeases = view.viewLeaseTerminationRequests(conn);
+        return "success";
+    }
+
+    public String terminateLease() throws SQLException {
+        LeaseTerminationRequestView view = new LeaseTerminationRequestView();
+        LeaseTerminationRequest terminationRequest = view.viewLeaseTerminationRequest(conn, requestNumber);
+        LeaseRequestTable requestTable = new LeaseRequestTable();
+        String username = (String) sessionMap.get("username");
+        username = username.trim();
+        requestTable.updateStatusByStaff(conn, terminationRequest.getLease().getLeaseRequest().getRequestNumber(),
+                LeaseTable.RequestStatus.Completed, username);
+        LeaseTerminationRequestTable terminationRequestTable = new LeaseTerminationRequestTable();
+        terminationRequestTable.updateStatusByStaff(conn, requestNumber, LeaseTable.RequestStatus.Completed, username);
         allTerminationLeases = view.viewLeaseTerminationRequests(conn);
         return "success";
     }

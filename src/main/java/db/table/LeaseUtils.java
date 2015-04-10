@@ -30,7 +30,7 @@ public class LeaseUtils {
         String residenceType  = preference.getType();
         String hallId = (preference.getHallId() == null) ? null : preference.getHallId();
         String query = "";
-        String prefType = LeasePreferenceTable.PreferenceType.valueOf(residenceType).getDisplayName();
+        String prefType = residenceType;
 
         switch (prefType){
             case "Residence Halls":

@@ -22,6 +22,7 @@ public class LeaseTerminationRequestView extends View {
     public static final String TR_STATUS = "lt_status";
     public static final String L_STATUS = "l_status";
     public static final String L_REQUEST_NUMBER = "l_request_number";
+    public static final String LT_REQUEST = "lt_request";
 
     @Override
     public String getViewName() {
@@ -40,9 +41,10 @@ public class LeaseTerminationRequestView extends View {
                 LeaseRequestTable.UPDATED_ON + " " + ColumnTypes.DATE_TYPE + " ," +*/
 
         String query = "CREATE VIEW " + getViewName() + " as " +
-                " SELECT lt." + LeaseRequestTable.REQUEST_NUMBER + " as  lt_request, lt." + LeaseTerminationRequestTable.LEAVE_DATE
+                " SELECT lt." + LeaseRequestTable.REQUEST_NUMBER + " as  " + LT_REQUEST + ", lt." + LeaseTerminationRequestTable.LEAVE_DATE
                 + ", lt." + LeaseTerminationRequestTable.STATUS + " as  lt_status, lt." + LeaseTerminationRequestTable.INSPECTION_DATE
-                + ", lt." + LeaseRequestTable.UPDATED_BY + " as  lt_updated_by, lt." + LeaseRequestTable.UPDATED_ON + " as  lt_updated_on, l.* "
+                + ", lt." + LeaseTerminationRequestTable.REASON + ", lt." + LeaseRequestTable.UPDATED_BY
+                + " as  lt_updated_by, lt." + LeaseRequestTable.UPDATED_ON + " as  lt_updated_on, l.* "
                 + " FROM " + LeaseTerminationRequestTable.TABLE_NAME + " lt" + " inner join " + LeaseView.VIEW_NAME
                 + " l on l." + LeaseTable.LEASE_NUMBER + " = lt." + LeaseTable.LEASE_NUMBER;
 
@@ -50,7 +52,7 @@ public class LeaseTerminationRequestView extends View {
     }
 
     public LeaseTerminationRequest viewLeaseTerminationRequest(Connection conn, int requestNumber) {
-        String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber + "";
+        String query = "SELECT * FROM " + getViewName() + " where " + LT_REQUEST + " = " + requestNumber + "";
         List<LeaseTerminationRequest> requests = getLeaseTerminationRequests(conn, query);
         return requests.isEmpty() ? null : requests.get(0);
     }
@@ -80,10 +82,11 @@ public class LeaseTerminationRequestView extends View {
             while (rs.next()) {
                 int i = 1;
                 LeaseTerminationRequest request = new LeaseTerminationRequest();
-                request.setRequestNumber(rs.getInt("lt_request"));
+                request.setRequestNumber(rs.getInt(LT_REQUEST));
                 request.setStatus(rs.getString(TR_STATUS));
                 request.setLeaveDate(rs.getDate(LeaseTerminationRequestTable.LEAVE_DATE));
                 request.setInspectionDate(rs.getDate(LeaseTerminationRequestTable.INSPECTION_DATE));
+                request.setReason(rs.getString("reason"));
                 request.setLease(LeaseView.getLease(rs));
                 requests.add(request);
             }

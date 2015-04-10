@@ -85,7 +85,7 @@ public class LeaseAction extends UHAction {
         System.out.println(requestNumber);
         System.out.println(".................");
         LeaseRequestView view = new LeaseRequestView();
-        lease = (new LeaseView()).viewLease(conn, requestNumber);
+        lease = (new LeaseView()).viewLeaseFromLeaseRequest(conn, requestNumber);
         leaseRequest = lease.getLeaseRequest();
         populatePreferences(leaseRequest);
 

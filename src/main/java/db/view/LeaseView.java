@@ -20,6 +20,8 @@ import java.util.List;
 public class LeaseView extends View {
 
     public static final String VIEW_NAME = "LEASE_VIEW";
+    public static final String HOUSING_NAME = "housing_name";
+    public static final String HOUSING_TYPE = "housing_type";
 
     @Override
     public String getViewName() {
@@ -50,8 +52,10 @@ public class LeaseView extends View {
                 + ", lr." + LeaseRequestTable.RES_ID + ", lr." + LeaseRequestTable.STATUS + ", lr." + LeaseRequestTable.ENTER_DATE
                 + ", lr." + LeaseRequestTable.DURATION + ", lr." + LeaseRequestTable.PAYMENT_OPTION + ", lr." + LeaseRequestTable.USE_PRIVATE_ACCOMMODATION
                 + ", lr." + LeaseRequestTable.UPDATED_BY + ", lr." + LeaseRequestTable.UPDATED_ON +
+                ", h.name as " + HOUSING_NAME + ", h.type as " + HOUSING_TYPE +
                 " FROM " + LeaseTable.TABLE_NAME + " l inner join " + LeaseRequestTable.TABLE_NAME
-                + " lr on l." + LeaseRequestTable.REQUEST_NUMBER + " = lr." + LeaseRequestTable.REQUEST_NUMBER;
+                + " lr on l." + LeaseRequestTable.REQUEST_NUMBER + " = lr." + LeaseRequestTable.REQUEST_NUMBER
+                + " left outer join housing h on h.housing_id = l.housing_id";
         DBAccessor.executeQuery(conn, query);
     }
 
@@ -179,6 +183,9 @@ public class LeaseView extends View {
         lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
         lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
         lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
+        lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
+        lease.setHousingName(rs.getString(HOUSING_NAME));
+        lease.setHousingType(rs.getString(HOUSING_TYPE));
         lease.setLeaseRequest(LeaseRequestView.getLeaseRequest(rs));
         return lease;
     }
