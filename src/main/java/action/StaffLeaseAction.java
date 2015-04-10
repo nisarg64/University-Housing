@@ -102,22 +102,26 @@ public class StaffLeaseAction extends UHAction{
         String residentId = updatedRequest.getLease().getLeaseRequest().getResidentId();
         System.out.println("Damage Fees: " + damageFees);
 
-        InvoiceView invoiceView = new InvoiceView();
-        Invoice invoice = invoiceView.getInvoiceDetails(conn, residentId);
-        // TODO add invoice changes
-        invoice.setResidentId(residentId);
-        SimpleDateFormat sdf = new SimpleDateFormat();
-        invoice.setPaymentDate(sdf.format(updatedRequest.getLeaveDate()));
-        invoice.setPaymentStatus("BILLED");
-        invoice.setDueDate(sdf.format(updatedRequest.getLeaveDate()));
-        invoice.setLateFees(Float.valueOf(0));
-        InvoiceTable invoiceTable = new InvoiceTable();
-        invoice.setOtherCharges(Float.valueOf(damageFees));
-        invoice.setEarlyTerminationFees(Float.valueOf(0));
-        invoice.setPaymentMethod("Cheque");
-        sql = invoiceTable.generateInsertQuery(invoice);
-        System.out.println(sql);
-        DBAccessor.executeQuery(conn, sql);
+        try {
+            InvoiceView invoiceView = new InvoiceView();
+            Invoice invoice = invoiceView.getInvoiceDetails(conn, residentId);
+            // TODO add invoice changes
+            invoice.setResidentId(residentId);
+            SimpleDateFormat sdf = new SimpleDateFormat();
+            invoice.setPaymentDate(sdf.format(updatedRequest.getLeaveDate()));
+            invoice.setPaymentStatus("BILLED");
+            invoice.setDueDate(sdf.format(updatedRequest.getLeaveDate()));
+            invoice.setLateFees(Float.valueOf(0));
+            InvoiceTable invoiceTable = new InvoiceTable();
+            invoice.setOtherCharges(Float.valueOf(damageFees));
+            invoice.setEarlyTerminationFees(Float.valueOf(0));
+            invoice.setPaymentMethod("Cheque");
+            sql = invoiceTable.generateInsertQuery(invoice);
+            System.out.println(sql);
+            DBAccessor.executeQuery(conn, sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
 
         allTerminationLeases = view.viewLeaseTerminationRequests(conn);
