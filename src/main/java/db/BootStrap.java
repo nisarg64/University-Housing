@@ -47,9 +47,8 @@ public class BootStrap {
         database.addTable(new ParkingResidentHallMapTable());
         database.addTable(new TicketSeverityTable());
         database.addTable(new MaintenanceTicketTable());
-        database.addTable(new FamilyTable());
 
-//        database.addTable(new InvoicePaymentTable());
+//      database.addTable(new InvoicePaymentTable());
         database.addTable(new InvoiceTable());
         database.addView(new InvoiceView());
         database.addView(new ParkingView());
