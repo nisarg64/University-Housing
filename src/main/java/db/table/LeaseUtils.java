@@ -38,7 +38,9 @@ public class LeaseUtils {
                         " WHERE TYPE = '" +  prefType + "'  AND " +
                         " PARENT_ID IN  " +
                         " (SELECT HOUSING_ID FROM HOUSING WHERE " + hallId + " is null or " + "HOUSING_ID = '"+ hallId + "' ) AND " +
-                        " (select count(*) from lease l where l.LOCATION_NO = PLACE_NUM) = 0";
+                        " (select count(*) from lease l, LEASE_REQUEST lr" +
+                        " where lr.REQUEST_NUMBER = l.REQUEST_NUMBER and lr.status <> 'InProgress' and l.LOCATION_NO = PLACE_NUM) = 0" +
+                        " order by PARENT_ID, PLACE_NUM";
 
                 try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
                     if(rs.next()){
@@ -55,7 +57,9 @@ public class LeaseUtils {
             case "General Student Apartments" :
                 query = "SELECT * FROM ROOMS " +
                                " WHERE TYPE = '" + prefType + "'  AND " +
-                        " (select count(*) from lease l where l.LOCATION_NO = PLACE_NUM) = 0";
+                        " (select count(*) from lease l, LEASE_REQUEST lr" +
+                        " where lr.REQUEST_NUMBER = l.REQUEST_NUMBER and lr.status <> 'InProgress' and l.LOCATION_NO = PLACE_NUM) = 0" +
+                        " order by PARENT_ID, PLACE_NUM";
 
                 try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
                     if(rs.next()){
@@ -74,7 +78,9 @@ public class LeaseUtils {
                 query = " SELECT F.APT_ID AS APT_ID, H.HOUSING_ID AS H_ID, H.NAME AS NAME " +
                         " FROM FAMILY_APT F, HOUSING H " +
                         " WHERE H.HOUSING_ID = F.F_APT_ID AND " +
-                        "(select count(*) from lease l where l.LOCATION_NO = APT_ID) = 0";
+                        " (select count(*) from lease l, LEASE_REQUEST lr" +
+                        " where lr.REQUEST_NUMBER = l.REQUEST_NUMBER and lr.status <> 'InProgress' and l.LOCATION_NO = APT_ID) = 0" +
+                        " order by H_ID, APT_ID";
 
                 try (ResultSet rs = DBAccessor.selectQuery(conn, query)) {
                     if(rs.next()){
