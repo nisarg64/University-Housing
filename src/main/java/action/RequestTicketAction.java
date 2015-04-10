@@ -68,7 +68,7 @@ public class RequestTicketAction extends UHAction {
     public String getTicketsToResolve() {
         message = "";
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
-        tickets = prTable.getTicketsToResolve(conn);
+        tickets = prTable.getTicketsToResolve(conn, (String) sessionMap.get("username"));
         return SUCCESS;
     }
 
@@ -77,7 +77,7 @@ public class RequestTicketAction extends UHAction {
         String current_ticket_status = "";
         MaintenanceTicketTable prTable = new MaintenanceTicketTable();
 
-        ArrayList<TicketRequest> ticketsList = prTable.getTicketsToResolve(conn);
+        ArrayList<TicketRequest> ticketsList = prTable.getTicketsToResolve(conn, (String) sessionMap.get("username"));
         System.out.println("tickets list ---> " + ticketsList);
 
         for (TicketRequest ticket : ticketsList) {
