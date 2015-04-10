@@ -107,7 +107,7 @@ public class StaffLeaseAction extends UHAction{
             Invoice invoice = invoiceView.getInvoiceDetails(conn, residentId);
             // TODO add invoice changes
             invoice.setResidentId(residentId);
-            SimpleDateFormat sdf = new SimpleDateFormat();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
             invoice.setPaymentDate(sdf.format(updatedRequest.getLeaveDate()));
             invoice.setPaymentStatus("BILLED");
             invoice.setDueDate(sdf.format(updatedRequest.getLeaveDate()));
@@ -119,7 +119,7 @@ public class StaffLeaseAction extends UHAction{
             sql = invoiceTable.generateInsertQuery(invoice);
             System.out.println(sql);
             DBAccessor.executeQuery(conn, sql);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
