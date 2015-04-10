@@ -52,8 +52,8 @@ public class MaintenanceTicketTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water', '06-Apr-2015', '100540001', 'HID1_O1', 'Room', 'Pending', 'No Water', null, null)"; // HID1_O1 from Room table.
-        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet', '30-Mar-2015', '100540003', 'HID1_O1', 'Room', 'Complete', 'Internet Not Working', '300220005', '1-Apr-2015')"; // HID1_O1 from Room table.
-        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Cleaning', '15-Mar-2015', '100540007', 'HID1_O1', 'Room', 'Complete', 'Cleaning', '300220005', '5-Mar-2015')"; // HID1_O1 from Room table.
+        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet', '30-Mar-2015', '100540003', 'HID1_O1', 'Room', 'Complete', 'Internet Not Working', '300220001', '1-Apr-2015')"; // HID1_O1 from Room table.
+        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Cleaning', '15-Mar-2015', '100540007', 'HID1_O1', 'Room', 'Complete', 'Cleaning', '300220002', '5-Mar-2015')"; // HID1_O1 from Room table.
         String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Miscellaneous', '02-Apr-2015', '200540002', 'HID1_O1', 'Room', 'Pending', 'Window broken', null, null)"; // HID1_O1 from Room table.
 
         queries.add(query1);
