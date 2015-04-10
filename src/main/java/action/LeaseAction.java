@@ -59,6 +59,13 @@ public class LeaseAction extends UHAction {
             return ERROR;
         }
         lease = view.viewCurrentLease(conn, username);
+        if(lease == null){
+             lease = new Lease();
+              lease.setStatus("");
+             lease.setLocationNumber("");
+             lease.setPaymentOption("");
+             message = "No Current Lease Found";
+        }
         return SUCCESS;
     }
 

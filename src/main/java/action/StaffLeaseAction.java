@@ -9,10 +9,12 @@ import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.*;
 import util.DBAccessor;
+import util.RoommateFinder;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +35,7 @@ public class StaffLeaseAction extends UHAction{
     private LeasePreference preference2;
     private LeasePreference preference3;
     private ProposedHousing proposedHousing;
+    private List<PotentialRoommate> potentialRoommates;
 
 
     public String getAllRequests() {
@@ -104,6 +107,8 @@ public class StaffLeaseAction extends UHAction{
         leaseRequest = (new LeaseRequestView()).viewLeaseRequest(conn, requestNumber);
         LeaseView view = new LeaseView();
         ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, leaseRequest);
+        potentialRoommates = view.getPotentialRoommates(conn, requestNumber);
+
         if (proposedHousing == null) {
             leaseRequest.setCanApprove(false);
             return "waiting";
@@ -141,6 +146,14 @@ public class StaffLeaseAction extends UHAction{
             System.out.println("Check " + this.proposedHousing);
             return SUCCESS;
         }
+    }
+
+    public List<PotentialRoommate> getPotentialRoommates() {
+        return potentialRoommates;
+    }
+
+    public void setPotentialRoommates(List<PotentialRoommate> potentialRoommates) {
+        this.potentialRoommates = potentialRoommates;
     }
 
     public String approveTerminationLease(){

@@ -79,4 +79,30 @@
         </tr>
         </tbody>
         </table>
+    <div class="upperText">
+        <span class="upper-text">Potential Roommates</span>
+    </div>
+
+    <table class="table table-bordered" data-toggle="table"  data-cache="false" data-height="299">
+        <tbody>
+        <tr>
+            <td><b>Resident ID </b></td>
+            <td><b>First Name</b></td>
+            <td><b>Last Name</b></td>
+            <td><b>Category</b></td>
+            <td><b>Gender</b></td>
+            <td><b>Smoker</b></td>
+        </tr>
+        <s:iterator value="potentialRoommates" status="stat">
+            <tr>
+                <td><s:property value="residentId" /></td>
+                <td><s:property value="fname" /></td>
+                <td><s:property value="lname" /></td>
+                <td><s:property value="category" /></td>
+                <td><s:property value="gender" /></td>
+                <td><s:property value="smoker" /></td>
+            </tr>
+        </s:iterator>
+        </tbody>
+    </table>
 </div>

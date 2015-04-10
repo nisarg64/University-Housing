@@ -4,6 +4,7 @@ import db.table.ResidentTable;
 import pojo.Resident;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ListIterator;
@@ -42,6 +43,9 @@ public class RoommateFinder {
                     hostResident.getCategory().equalsIgnoreCase("visitor")){
                 residentItr.remove();
             }
+
+            //String query = "SELECT count(*) from LEASE_REQUEST where RES_ID = '"+potentialRoommate.getResId()+"' AND STATUS = 'InProgress'";
+            //ResultSet resultSet =
         }
     }
 
