@@ -143,7 +143,6 @@
             <result name="success">/WEB-INF/lease/new_requests_menu.jsp</result>
         </action>
         <action name="newLeaseRequest" class="action.LeaseAction" method="newLeaseRequest">
-            <result name="exists">/WEB-INF/lease/view_lease_request.jsp</result>
             <result name="success">/WEB-INF/lease/new_lease_request.jsp</result>
         </action>
         <action name="createLeaseRequest" class="action.LeaseAction" method="createLeaseRequest">
@@ -203,10 +202,14 @@
         </action>
 
         <action name="editLeaseTerminationRequestToApprove" class="action.StaffLeaseAction" method="editLeaseTerminationRequestToApprove">
+            <result name="exists">/WEB-INF/lease/staff/approve_termination_requests.jsp</result>
             <result name="success">/WEB-INF/lease/staff/edit_lease_termination_request.jsp</result>
         </action>
 
         <action name="approveLeaseTerminationRequest" class="action.StaffLeaseAction" method="approveLeaseTerminationRequest">
+            <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
+        </action>
+        <action name="terminateLease" class="action.StaffLeaseAction" method="terminateLease">
             <result name="success">/WEB-INF/lease/staff/view_termination_requests.jsp</result>
         </action>
 

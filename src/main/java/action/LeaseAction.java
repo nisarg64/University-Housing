@@ -85,17 +85,19 @@ public class LeaseAction extends UHAction {
         System.out.println(requestNumber);
         System.out.println(".................");
         LeaseRequestView view = new LeaseRequestView();
-        leaseRequest = view.viewLeaseRequest(conn, requestNumber);
+        lease = (new LeaseView()).viewLeaseFromLeaseRequest(conn, requestNumber);
+        leaseRequest = lease.getLeaseRequest();
+        populatePreferences(leaseRequest);
+
         return SUCCESS;
     }
 
     public String newLeaseRequest() {
 
         String username = (String) sessionMap.get("username");
-        System.out.println(leaseRequest);
 
-        leaseRequest = (new LeaseRequestView()).viewCurrentLeaseRequest(conn, username);
-        if (leaseRequest != null) {
+        //leaseRequest = (new LeaseRequestView()).viewCurrentLeaseRequest(conn, username);
+        /*if (leaseRequest != null) {
             if(leaseRequest.getPreference1() == null){
                 leasePreference1 = new LeasePreference();
                 leasePreference1.setType("No Preference Specified");
@@ -121,14 +123,14 @@ public class LeaseAction extends UHAction {
             }
 
             return "exists";
-        }
+        }*/
 
         paymentOptions = new ArrayList<String>();
         for (LeaseTable.PaymentOption option : LeaseTable.PaymentOption.values()) {
             paymentOptions.add(option.name());
         }
 
-        populateLeaseDurations();
+        //populateLeaseDurations();
 
         preferenceTypes = new ArrayList<String>();
         for (LeasePreferenceTable.PreferenceType preferenceType : LeasePreferenceTable.PreferenceType.values()) {
@@ -168,28 +170,66 @@ public class LeaseAction extends UHAction {
 
     public String createLeaseRequest() throws Exception {
 
-
         String username = (String) sessionMap.get("username");
         leaseRequest.setResidentId(username.trim());
         leaseRequest.setStatus(LeaseTable.RequestStatus.Pending.name());
+        leaseRequest.setDuration(1);
         leaseRequest.setRequestNumber(new LeaseRequestTable().insert(conn, leaseRequest));
         System.out.println(leaseRequest);
 
+        lease.setLeaseRequest(leaseRequest);
+        lease.setLeaseNumber(new LeaseTable().insert(conn, lease));
+
         if(!leaseRequest.isUsePrivateAccommodation()){
-            leasePreference1.setRequestNumber(leaseRequest.getRequestNumber());
-            leasePreference1.setSequenceNumber(1);
-            new LeasePreferenceTable().insert(conn, leasePreference1);
-
-            leasePreference2.setRequestNumber(leaseRequest.getRequestNumber());
-            leasePreference2.setSequenceNumber(2);
-            new LeasePreferenceTable().insert(conn, leasePreference2);
-
-            leasePreference3.setRequestNumber(leaseRequest.getRequestNumber());
-            leasePreference3.setSequenceNumber(3);
-            new LeasePreferenceTable().insert(conn, leasePreference3);
+            System.out.println(leasePreference1);
+            int sequenceNumber = 1;
+            sequenceNumber = insertPreference(sequenceNumber, leasePreference1, leaseRequest);
+            sequenceNumber = insertPreference(sequenceNumber, leasePreference2, leaseRequest);
+            sequenceNumber = insertPreference(sequenceNumber, leasePreference3, leaseRequest);
+            System.out.println(sequenceNumber);
         }
+        populatePreferences(leaseRequest);
         System.out.println(leaseRequest);
         return SUCCESS;
+    }
+
+    private void populatePreferences(LeaseRequest leaseRequest) {
+        LeaseRequestView view = new LeaseRequestView();
+        view.populatePreferences(conn, leaseRequest);
+        leasePreference1 = getPreferenceDisplay(leaseRequest.getPreference1());
+        leasePreference2 = getPreferenceDisplay(leaseRequest.getPreference2());
+        leasePreference3 = getPreferenceDisplay(leaseRequest.getPreference3());
+    }
+
+    public static LeasePreference getPreferenceDisplay(LeasePreference prefFromDB) {
+        if (prefFromDB == null) {
+            LeasePreference preference = new LeasePreference();
+            preference.setType("");
+            preference.setHallId("");
+            preference.setHallName("");
+            return preference;
+        } else if (prefFromDB.getHallId() == null) {
+            prefFromDB.setHallId("");
+            prefFromDB.setHallName("");
+        }
+        return prefFromDB;
+    }
+
+    private int insertPreference(int sequenceNumber, LeasePreference pref, LeaseRequest leaseRequest) {
+        System.out.println(pref);
+        if (pref != null && !pref.getType().equals("-1")) {
+            try {
+                pref.setSequenceNumber(sequenceNumber++);
+                pref.setRequestNumber(leaseRequest.getRequestNumber());
+                if (pref.getHallId().equals("-1")) {
+                    pref.setHallId(null);
+                }
+                new LeasePreferenceTable().insert(conn, pref);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return sequenceNumber;
     }
 
     public String getLeaseDetail(){
@@ -200,8 +240,8 @@ public class LeaseAction extends UHAction {
     public String getAllLeases() {
 
         String username = (String) sessionMap.get("username");
-        leaseRequests = (new LeaseRequestView()).viewAllLeaseRequestsForResident(conn, username);
-        System.out.println(leaseRequests.size());
+        leases = (new LeaseView()).viewAllLeaseRequestsForResident(conn, username);
+        System.out.println(leases.size());
         terminateLeases = (new LeaseTerminationRequestView()).viewAllLeaseTerminationRequestForResident(conn, username.trim());
         System.out.println(terminateLeases);
         return "success";

@@ -3,7 +3,6 @@ package db.view;
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
-import pojo.Lease;
 import pojo.LeaseTerminationRequest;
 import util.DBAccessor;
 
@@ -23,6 +22,7 @@ public class LeaseTerminationRequestView extends View {
     public static final String TR_STATUS = "lt_status";
     public static final String L_STATUS = "l_status";
     public static final String L_REQUEST_NUMBER = "l_request_number";
+    public static final String LT_REQUEST = "lt_request";
 
     @Override
     public String getViewName() {
@@ -41,9 +41,10 @@ public class LeaseTerminationRequestView extends View {
                 LeaseRequestTable.UPDATED_ON + " " + ColumnTypes.DATE_TYPE + " ," +*/
 
         String query = "CREATE VIEW " + getViewName() + " as " +
-                " SELECT lt." + LeaseRequestTable.REQUEST_NUMBER + " as  lt_request, lt." + LeaseTerminationRequestTable.LEAVE_DATE
+                " SELECT lt." + LeaseRequestTable.REQUEST_NUMBER + " as  " + LT_REQUEST + ", lt." + LeaseTerminationRequestTable.LEAVE_DATE
                 + ", lt." + LeaseTerminationRequestTable.STATUS + " as  lt_status, lt." + LeaseTerminationRequestTable.INSPECTION_DATE
-                + ", lt." + LeaseRequestTable.UPDATED_BY + " as  lt_updated_by, lt." + LeaseRequestTable.UPDATED_ON + " as  lt_updated_on, l.* "
+                + ", lt." + LeaseTerminationRequestTable.REASON + ", lt." + LeaseRequestTable.UPDATED_BY
+                + " as  lt_updated_by, lt." + LeaseRequestTable.UPDATED_ON + " as  lt_updated_on, l.* "
                 + " FROM " + LeaseTerminationRequestTable.TABLE_NAME + " lt" + " inner join " + LeaseView.VIEW_NAME
                 + " l on l." + LeaseTable.LEASE_NUMBER + " = lt." + LeaseTable.LEASE_NUMBER;
 
@@ -51,7 +52,7 @@ public class LeaseTerminationRequestView extends View {
     }
 
     public LeaseTerminationRequest viewLeaseTerminationRequest(Connection conn, int requestNumber) {
-        String query = "SELECT * FROM " + getViewName() + " where " + LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber + "";
+        String query = "SELECT * FROM " + getViewName() + " where " + LT_REQUEST + " = " + requestNumber + "";
         List<LeaseTerminationRequest> requests = getLeaseTerminationRequests(conn, query);
         return requests.isEmpty() ? null : requests.get(0);
     }
@@ -81,21 +82,12 @@ public class LeaseTerminationRequestView extends View {
             while (rs.next()) {
                 int i = 1;
                 LeaseTerminationRequest request = new LeaseTerminationRequest();
-                request.setRequestNumber(rs.getInt("lt_request"));
+                request.setRequestNumber(rs.getInt(LT_REQUEST));
                 request.setStatus(rs.getString(TR_STATUS));
                 request.setLeaveDate(rs.getDate(LeaseTerminationRequestTable.LEAVE_DATE));
                 request.setInspectionDate(rs.getDate(LeaseTerminationRequestTable.INSPECTION_DATE));
-                Lease lease = new Lease();
-                lease.setLeaseNumber(rs.getInt(LeaseTable.LEASE_NUMBER));
-                lease.setResidentId(rs.getString(LeaseRequestTable.RES_ID));
-                lease.setStatus(rs.getString(LeaseRequestTable.STATUS));
-                lease.setStartDate(rs.getDate(LeaseTable.START_DATE));
-                lease.setDuration(rs.getInt(LeaseRequestTable.DURATION));
-                lease.setPaymentOption(rs.getString(LeaseRequestTable.PAYMENT_OPTION));
-                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
-                lease.setHousingId(rs.getString(LeaseTable.HOUSING_ID));
-                lease.setLocationNumber(rs.getString(LeaseTable.LOCATION_NUMBER));
-                request.setLease(lease);
+                request.setReason(rs.getString("reason"));
+                request.setLease(LeaseView.getLease(rs));
                 requests.add(request);
             }
         } catch (SQLException ex) {

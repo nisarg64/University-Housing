@@ -3,18 +3,15 @@ package action;
 import db.table.LeaseRequestTable;
 import db.table.LeaseTable;
 import db.table.LeaseTerminationRequestTable;
-import db.table.LeaseUtils;
 import db.view.LeaseRequestView;
 import db.view.LeaseTerminationRequestView;
 import db.view.LeaseView;
 import pojo.*;
 import util.DBAccessor;
-import util.RoommateFinder;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +20,7 @@ import java.util.List;
  */
 public class StaffLeaseAction extends UHAction{
 
+    public static final String NO_PREFERENCES_SPECIFIED = "No Preferences Specified";
     private List<LeaseRequest> allLeaseRequests;
     private List<LeaseTerminationRequest> allTerminationLeases;
     private int leaseNumber;
@@ -36,10 +34,10 @@ public class StaffLeaseAction extends UHAction{
     private LeasePreference preference3;
     private ProposedHousing proposedHousing;
     private List<PotentialRoommate> potentialRoommates;
-
+    private List<Lease> allLeases;
 
     public String getAllRequests() {
-        allLeaseRequests = (new LeaseRequestView()).viewOpenLeaseRequests(conn);
+        allLeases = (new LeaseView()).viewOpenLeaseRequests(conn);
         return "success";
     }
 
@@ -50,21 +48,29 @@ public class StaffLeaseAction extends UHAction{
     }
 
     public String editLeaseTerminationRequestToApprove() {
+        LeaseTerminationRequestView view= new LeaseTerminationRequestView();
+        System.out.println(requestNumber);
+        LeaseTerminationRequest request = view.viewLeaseTerminationRequest(conn, requestNumber);
+        System.out.println(request);
+        if (request != null && request.getInspectionDate() != null) {
+            return "exists";
+        }
+
         return SUCCESS;
     }
 
     public String approveLeaseRequest() throws SQLException {
         LeaseRequest leaseRequest = (new LeaseRequestView().viewLeaseRequest(conn, requestNumber));
         if (!leaseRequest.isUsePrivateAccommodation()) {
-            Lease lease = new Lease();
-            lease.setLeaseRequest(leaseRequest);
+            LeaseView leaseView = new LeaseView();
+            ProposedHousing proposedHousing = leaseView.getProposedHousingForLease(conn, leaseRequest);
+            lease = leaseView.viewLeaseFromLeaseRequest(conn, requestNumber);
+            proposedHousing.getProposedHousingId();
             lease.setHousingId(proposedHousing.getProposedHousingId());
             lease.setLocationNumber(proposedHousing.getProposedLocationNumber());
             lease.setHousingName(proposedHousing.getProposedHousingName());
             LeaseTable table = new LeaseTable();
-            lease.setLeaseNumber(table.insert(conn, lease));
-
-            this.lease = lease;
+            table.approveLease(conn, lease);
         }
         LeaseRequestTable table = new LeaseRequestTable();
         String username = (String) sessionMap.get("username");
@@ -92,6 +98,20 @@ public class StaffLeaseAction extends UHAction{
         return "success";
     }
 
+    public String terminateLease() throws SQLException {
+        LeaseTerminationRequestView view = new LeaseTerminationRequestView();
+        LeaseTerminationRequest terminationRequest = view.viewLeaseTerminationRequest(conn, requestNumber);
+        LeaseRequestTable requestTable = new LeaseRequestTable();
+        String username = (String) sessionMap.get("username");
+        username = username.trim();
+        requestTable.updateStatusByStaff(conn, terminationRequest.getLease().getLeaseRequest().getRequestNumber(),
+                LeaseTable.RequestStatus.Completed, username);
+        LeaseTerminationRequestTable terminationRequestTable = new LeaseTerminationRequestTable();
+        terminationRequestTable.updateStatusByStaff(conn, requestNumber, LeaseTable.RequestStatus.Completed, username);
+        allTerminationLeases = view.viewLeaseTerminationRequests(conn);
+        return "success";
+    }
+
     public String placeLeaseRequestOnWaitingList() throws SQLException {
         // TODO
         String query = "update " + LeaseRequestTable.TABLE_NAME + " set " + LeaseRequestTable.STATUS + " = '" + LeaseTable.RequestStatus.WaitList.name() + "'" +
@@ -104,45 +124,23 @@ public class StaffLeaseAction extends UHAction{
 
 
     public String viewLeaseToApprove() {
-        leaseRequest = (new LeaseRequestView()).viewLeaseRequest(conn, requestNumber);
-        LeaseView view = new LeaseView();
-        ProposedHousing proposedHousing = view.getProposedHousingForLease(conn, leaseRequest);
-        potentialRoommates = view.getPotentialRoommates(conn, requestNumber);
+        LeaseRequestView view = new LeaseRequestView();
+        LeaseView leaseView = new LeaseView();
+        lease = leaseView.viewLeaseFromLeaseRequest(conn, requestNumber);
+        leaseRequest = lease.getLeaseRequest();
+        view.populatePreferences(conn, leaseRequest);
 
+        ProposedHousing proposedHousing = leaseView.getProposedHousingForLease(conn, leaseRequest);
+        potentialRoommates = leaseView.getPotentialRoommates(conn, requestNumber);
         if (proposedHousing == null) {
             leaseRequest.setCanApprove(false);
+            populatePreferences(leaseRequest);
             return "waiting";
         } else {
             leaseRequest.setCanApprove(true);
-
-            if(leaseRequest.getPreference1() == null || leaseRequest.getPreference1().getType().equalsIgnoreCase("-1")){
-                this.preference1 = new LeasePreference();
-                this.preference1.setType("No Preferences Specified");
-                this.preference1.setHallName("No Preferences Specified");
-            }else{
-                this.preference1 = leaseRequest.getPreference1();
-            }
-            if(leaseRequest.getPreference2() == null || leaseRequest.getPreference2().getType().equalsIgnoreCase("-1")){
-                this.preference2 = new LeasePreference();
-                this.preference2.setType("No Preferences Specified");
-                this.preference2.setHallName("No Preferences Specified");
-            }else{
-                this.preference2 = leaseRequest.getPreference2();
-            }
-            if(leaseRequest.getPreference3() == null || leaseRequest.getPreference3().getType().equalsIgnoreCase("-1")){
-                this.preference3 = new LeasePreference();
-                this.preference3.setType("No Preferences Specified");
-                this.preference3.setHallName("No Preferences Specified");
-            }else{
-                this.preference3 = leaseRequest.getPreference3();
-            }
-
             leaseRequest.setProposedHousing(proposedHousing);
             this.proposedHousing = proposedHousing;
-
-            System.out.println("Check " + this.preference1);
-            System.out.println("Check " + this.preference2);
-            System.out.println("Check " + this.preference3);
+            populatePreferences(leaseRequest);
             System.out.println("Check " + this.proposedHousing);
             return SUCCESS;
         }
@@ -154,6 +152,13 @@ public class StaffLeaseAction extends UHAction{
 
     public void setPotentialRoommates(List<PotentialRoommate> potentialRoommates) {
         this.potentialRoommates = potentialRoommates;
+    }
+    private void populatePreferences(LeaseRequest leaseRequest) {
+        LeaseRequestView view = new LeaseRequestView();
+        view.populatePreferences(conn, leaseRequest);
+        preference1= LeaseAction.getPreferenceDisplay(leaseRequest.getPreference1());
+        preference2 = LeaseAction.getPreferenceDisplay(leaseRequest.getPreference2());
+        preference3 = LeaseAction.getPreferenceDisplay(leaseRequest.getPreference3());
     }
 
     public String approveTerminationLease(){
@@ -254,5 +259,13 @@ public class StaffLeaseAction extends UHAction{
 
     public void setProposedHousing(ProposedHousing proposedHousing) {
         this.proposedHousing = proposedHousing;
+    }
+
+    public List<Lease> getAllLeases() {
+        return allLeases;
+    }
+
+    public void setAllLeases(List<Lease> allLeases) {
+        this.allLeases = allLeases;
     }
 }

@@ -68,4 +68,10 @@ public class LeaseTerminationRequestTable extends Table {
         /*queries.add(createInsertQuery(TABLE_NAME, "3", "'1'", "to_date('31-Jul-2014', 'dd-MON-yyyy')", "'" + LeaseTable.RequestStatus.Completed.name() + "'", "to_date('30-Jul-2014', 'dd-MON-yyyy')", "'Leaving College'"));
         DBAccessor.executeBatchQuery(conn, queries);*/
     }
+
+    public void updateStatusByStaff(Connection conn, int requestNumber, LeaseTable.RequestStatus status, String staffId) throws SQLException {
+        String sql = "update " + TABLE_NAME + " set " + STATUS + " = '" + status + "', updated_by = " + staffId + ", updated_on = sysdate" +
+                " where " + LeaseRequestTable.REQUEST_NUMBER + " = " + requestNumber;
+        DBAccessor.executeQuery(conn, sql);
+    }
 }

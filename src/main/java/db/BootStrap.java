@@ -20,6 +20,7 @@ public class BootStrap {
         database.addTable(new ResidentTable());
         database.addTable(new StaffTable());
         database.addTable(new KinTable());
+        database.addTable(new FamilyTable());
         database.addTable(new ParkingLotTable());
 
         database.addTable(new ParkingSpotTable());
@@ -45,7 +46,7 @@ public class BootStrap {
         database.addTable(new TicketSeverityTable());
         database.addTable(new MaintenanceTicketTable());
 
-//        database.addTable(new InvoicePaymentTable());
+//      database.addTable(new InvoicePaymentTable());
         database.addTable(new InvoiceTable());
         database.addView(new InvoiceView());
         database.addView(new ParkingView());

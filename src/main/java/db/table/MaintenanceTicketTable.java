@@ -52,8 +52,8 @@ public class MaintenanceTicketTable extends Table{
     public void insertIntoTable(Connection conn) throws SQLException {
         List<String> queries = new LinkedList<>();
         String query1 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Water', '06-Apr-2015', '100540001', 'HID1_O1', 'Room', 'Pending', 'No Water', null, null)"; // HID1_O1 from Room table.
-        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet', '30-Mar-2015', '100540003', 'HID1_O1', 'Room', 'Complete', 'Internet Not Working', '300220005', '1-Apr-2015')"; // HID1_O1 from Room table.
-        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Cleaning', '15-Mar-2015', '100540007', 'HID1_O1', 'Room', 'Complete', 'Cleaning', '300220005', '5-Mar-2015')"; // HID1_O1 from Room table.
+        String query2 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Internet', '30-Mar-2015', '100540003', 'HID1_O1', 'Room', 'Complete', 'Internet Not Working', '300220001', '1-Apr-2015')"; // HID1_O1 from Room table.
+        String query3 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Cleaning', '15-Mar-2015', '100540007', 'HID1_O1', 'Room', 'Complete', 'Cleaning', '300220002', '5-Mar-2015')"; // HID1_O1 from Room table.
         String query4 = "INSERT INTO " + getTableName() + " VALUES(ticket_sequence.NEXTVAL, 'Miscellaneous', '02-Apr-2015', '200540002', 'HID1_O1', 'Room', 'Pending', 'Window broken', null, null)"; // HID1_O1 from Room table.
 
         queries.add(query1);
@@ -106,10 +106,21 @@ public class MaintenanceTicketTable extends Table{
         return "SUCCESS";
     }
 
-        public ArrayList<TicketRequest> getTicketsToResolve(Connection conn) {
+        public ArrayList<TicketRequest> getTicketsToResolve(Connection conn, String staffId) {
             ArrayList<TicketRequest> tickets = new ArrayList<>();
 
-            String query = "SELECT R.FNAME as FNAME, R.LNAME as LNAME, M.res_id as res_id, " +
+            String hallName = "";
+            String query = "SELECT work_location from STAFF where staff_num = " + "'" + staffId + "'";
+
+            try (ResultSet resultSet = DBAccessor.selectQuery(conn, query)) {
+                while(resultSet.next()){
+                    hallName = resultSet.getString("work_location");
+                }
+            }catch (SQLException ex){
+                System.err.println("Error Occurred During get hall name of staff " + ex.getMessage());
+            }
+
+            query = "SELECT R.FNAME as FNAME, R.LNAME as LNAME, M.res_id as res_id, " +
                     " M.ticket_type as ticket_type, M.ticket_date as ticket_date, " +
                     "M.status as status, M.ticket_no as ticket_no, M.description as description, " +
                     " M.approved_by as approved_by, M.approved_on as approved_on, " +
@@ -143,7 +154,9 @@ public class MaintenanceTicketTable extends Table{
                     ticketRequest.setTicket_no(resultSet.getInt("ticket_no"));
                     ticketRequest.setSeverity(resultSet.getString("severity"));
                     ticketRequest.setAddress(address);
-                    tickets.add(ticketRequest);
+                    if (ticketRequest.getAddress().contains(hallName)) {
+                        tickets.add(ticketRequest);
+                    }
                 }
             }catch (SQLException ex){
                 System.err.println("Error Occurred During get tickets for resolve query " + ex.getMessage());
@@ -272,6 +285,6 @@ public class MaintenanceTicketTable extends Table{
             }
         }
 
-        return getTicketsToResolve(conn);
+        return getTicketsToResolve(conn, (String) sessionMap.get("username"));
     }
 }

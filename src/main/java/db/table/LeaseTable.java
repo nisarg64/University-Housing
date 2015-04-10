@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * User: Nikhil
@@ -78,8 +80,8 @@ public class LeaseTable extends Table {
                 LeaseRequestTable.REQUEST_NUMBER + " " + ColumnTypes.ID_INT_TYPE + " not null," +
                 START_DATE + " " + ColumnTypes.DATE_TYPE + " not null," +
                 END_DATE + " " + ColumnTypes.DATE_TYPE + " not null," +
-                HOUSING_ID + " " + ColumnTypes.ID_TYPE + " not null," +
-                LOCATION_NUMBER + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + " not null," +
+                HOUSING_ID + " " + ColumnTypes.ID_TYPE + "," +
+                LOCATION_NUMBER + " " + ColumnTypes.VARCHAR2_SIZE_20_TYPE + "," +
                 PRIMARY_KEY_CONSTRAINT + "(" + LEASE_NUMBER + ")," +
                 FOREIGN_KEY_CONSTRAINT + "(" + LeaseRequestTable.REQUEST_NUMBER + ") " + REFERENCES_STR + " " + LeaseRequestTable.TABLE_NAME + "," +
                 FOREIGN_KEY_CONSTRAINT + "(" + HOUSING_ID + ") " + REFERENCES_STR + " Housing" +
@@ -167,11 +169,13 @@ public class LeaseTable extends Table {
         stmt = conn.prepareStatement(sql);
         stmt.setInt(1, leaseNumber);
         stmt.setInt(2, lease.getLeaseRequest().getRequestNumber());
-        stmt.setDate(3, new java.sql.Date(lease.getLeaseRequest().getEnterDate().getTime()));
+        stmt.setDate(3, new java.sql.Date(lease.getStartDate().getTime()));
         // TODO set dates based on duration
-        stmt.setDate(4, new java.sql.Date(getEndDate(lease.getLeaseRequest().getDuration()).getTime()));
-        stmt.setString(5, lease.getLeaseRequest().getProposedHousing().getProposedHousingId());
-        stmt.setString(6, lease.getLeaseRequest().getProposedHousing().getProposedLocationNumber());
+        stmt.setDate(4, new java.sql.Date(lease.getEndDate().getTime()));
+        stmt.setString(5, lease.getLeaseRequest().getProposedHousing() == null
+                ? null : lease.getLeaseRequest().getProposedHousing().getProposedHousingId());
+        stmt.setString(6, lease.getLeaseRequest().getProposedHousing() == null
+                ? null : lease.getLeaseRequest().getProposedHousing().getProposedLocationNumber());
         System.out.println(stmt);
         stmt.executeUpdate();
         return leaseNumber;
@@ -191,5 +195,12 @@ public class LeaseTable extends Table {
 
     public Lease getLease(String residentId){
         return new Lease();
+    }
+
+    public void approveLease(Connection conn, Lease lease) throws SQLException {
+        String sql = "update " + TABLE_NAME + " set " + HOUSING_ID + " = '" + lease.getHousingId()  + "', "
+                + LOCATION_NUMBER + " = " + ((lease.getLocationNumber() == null) ? "null" : "'" + lease.getLocationNumber() + "'") +
+                " where " + LEASE_NUMBER + " = " + lease.getLeaseNumber();
+        DBAccessor.executeQuery(conn, sql);
     }
 }

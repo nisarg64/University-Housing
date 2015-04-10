@@ -29,9 +29,19 @@
         <table class="table table-hover" data-toggle="table"  data-cache="false" data-height="299">
             <tbody>
             <tr>
-                <th>Lease Duration (For Semester):</th>
-                <td><s:select name="leaseRequest.duration" headerKey="-1" headerValue="Select Lease Duration"
-                              list="leaseDurations" value="leaseRequest.duration"/></td>
+                <th>Start Date</th>
+                <s:date name="lease.startDate" var="startDateId" format="MM/dd/yy"/>
+                <td><s:textfield name="lease.startDate" value="%{startDateId}" placeholder="MM/DD/YY" /></td>
+            </tr>
+            <tr>
+                <th>End Date</th>
+                <s:date name="lease.endtDate" var="endDateId" format="MM/dd/yy"/>
+                <td><s:textfield name="lease.endDate" value="%{endDateId}" placeholder="MM/DD/YY" /></td>
+            </tr>
+            <tr>
+                <th>Enter Date</th>
+                <s:date name="leaseRequest.enterDate" var="enterDateId" format="MM/dd/yy"/>
+                <td><s:textfield name="leaseRequest.enterDate" value="%{enterDateId}" placeholder="MM/DD/YY" /></td>
             </tr>
             <tr>
                 <th>Payment Option:</th>
@@ -41,11 +51,6 @@
             <tr>
                 <th>Private Accommodation:</th>
                 <td><s:radio label="private_acco" cssClass="radio-inline" name="leaseRequest.usePrivateAccommodation" list="#{ true:'Yes', false:'No'}" value="2" required="true"/></td>
-            </tr>
-            <tr>
-                <th>Enter Date</th>
-                <s:date name="leaseRequest.enterDate" var="leaveDateId" format="MM/dd/yy"/>
-                <td><s:textfield name="leaseRequest.enterDate" value="%{leaveDateId}" placeholder="MM/DD/YY" /></td>
             </tr>
             <tr class="preference">
                 <th>Preference 1:</th>

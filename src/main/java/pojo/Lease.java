@@ -73,12 +73,20 @@ public class Lease {
         this.startDate = startDate;
     }
 
+    public void setStartDate(String startDate) {
+        this.startDate = Utils.getDate(startDate);
+    }
+
     public Date getEndDate() {
         return endDate;
     }
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = Utils.getDate(endDate);
     }
 
     public void setEnterDate(String enterDateStr) {
